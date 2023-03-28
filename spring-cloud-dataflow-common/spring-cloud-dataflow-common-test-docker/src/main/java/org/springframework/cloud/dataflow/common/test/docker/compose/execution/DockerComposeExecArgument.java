@@ -20,7 +20,7 @@ import java.util.List;
 
 public class DockerComposeExecArgument {
 
-	private List<String> arguments;
+	private final List<String> arguments;
 
 	public DockerComposeExecArgument(List<String> arguments) {
 		this.arguments = arguments;
@@ -48,18 +48,23 @@ public class DockerComposeExecArgument {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 			DockerComposeExecArgument other = (DockerComposeExecArgument) obj;
 		if (arguments == null) {
-			if (other.arguments != null)
+			if (other.arguments != null) {
 				return false;
-		} else if (!arguments.equals(other.arguments))
+			}
+		} else if (!arguments.equals(other.arguments)) {
 			return false;
+		}
 		return true;
 	}
 

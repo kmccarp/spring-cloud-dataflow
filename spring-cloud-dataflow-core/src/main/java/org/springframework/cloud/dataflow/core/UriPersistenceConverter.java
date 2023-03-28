@@ -37,6 +37,6 @@ public class UriPersistenceConverter implements AttributeConverter<URI, String> 
 
 	@Override
 	public URI convertToEntityAttribute(String databaseValue) {
-		return (StringUtils.hasLength(databaseValue) ? URI.create(databaseValue.trim()) : null);
+		return StringUtils.hasLength(databaseValue) ? URI.create(databaseValue.trim()) : null;
 	}
 }

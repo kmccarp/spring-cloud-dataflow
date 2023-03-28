@@ -123,9 +123,9 @@ public class Graph {
 		// There is no implied link from aa to bb because aa is mapping the exit space
 		// so there is no implied transition 'COMPLETED=bb'. bb can only be reached via
 		// transition. For that case unvisitedNodes here will contain bb
-		if (unvisitedNodes.size() != 0) {
+		if (!unvisitedNodes.isEmpty()) {
 			int loopCount = 0;
-			while (unvisitedNodes.size() != 0 && loopCount < 10000) {
+			while (!unvisitedNodes.isEmpty() && loopCount < 10000) {
 				Node nextHead = findAHead(unvisitedNodes, unfollowedLinks);
 				unvisitedNodes.remove(nextHead);
 				toFollow = findLinksFrom(nextHead, false);
@@ -135,7 +135,7 @@ public class Graph {
 				// there is no need
 				// to explicitly mention in the DSL. This might change once the job
 				// references support properties.
-				if (toFollow.size() != 0) {
+				if (!toFollow.isEmpty()) {
 					graphText.append(" && ");
 					printNode(graphText, nextHead, unvisitedNodes);
 					followLinks(graphText, toFollow, null, unvisitedNodes, unfollowedLinks, false);
@@ -148,7 +148,7 @@ public class Graph {
 	}
 
 	private Node findAHead(List<Node> unvisitedNodes, List<Link> unvisitedLinks) {
-		if (unvisitedNodes.size() == 0) {
+		if (unvisitedNodes.isEmpty()) {
 			return null;
 		}
 		Node candidate = unvisitedNodes.get(0);
@@ -176,7 +176,7 @@ public class Graph {
 	 */
 	private void followLinks(StringBuilder graphText, List<Link> toFollow, Node nodeToTerminateFollow,
 			List<Node> unvisitedNodes, List<Link> unfollowedLinks, boolean inNestedSplit) {
-		while (toFollow.size() != 0) {
+		while (!toFollow.isEmpty()) {
 			if (toFollow.size() > 1) { // SPLIT
 				if (!inNestedSplit && graphText.length() != 0) {
 					// If there is something already in the text, a && is needed to
@@ -332,7 +332,7 @@ public class Graph {
 					}
 				}
 				List<Link> links = findLinksFrom(successor, true);
-				if (links.size() == 0) {
+				if (links.isEmpty()) {
 					successor = null;
 				}
 				else if (links.size() == 1) {
@@ -396,7 +396,7 @@ public class Graph {
 	}
 
 	private Node findEndOfSplit(List<Link> toFollow) {
-		if (toFollow.size() == 0) {
+		if (toFollow.isEmpty()) {
 			return null;
 		}
 		if (toFollow.size() == 1) {
@@ -419,7 +419,7 @@ public class Graph {
 				return nextCandidate;
 			}
 			List<Link> links = findLinksFrom(nextCandidate, true);
-			if (links.size() == 0) {
+			if (links.isEmpty()) {
 				nextCandidate = null;
 			}
 			else if (links.size() == 1) {
@@ -515,7 +515,7 @@ public class Graph {
 			try {
 				commonTarget = findEndOfSplit(sortNotTransitionLinkFirst(toFollow));
 				singleSplitNecessary = 
-					commonTarget != null && !commonTarget.name.equals("END") && 
+					commonTarget != null && !"END".equals(commonTarget.name) && 
 					// This checks we aren't already dealing with a split that targets the same thing
 					(nodeToFinishFollowingAt == null || !nodeToFinishFollowingAt.equals(commonTarget));
 			} catch (IllegalStateException ise) {
@@ -583,10 +583,10 @@ public class Graph {
 				}
 				Node transitionTarget = findNodeById(l.to);
 				String transitionTargetName = transitionTarget.name;
-				if (transitionTargetName.equals("FAIL")) {
+				if ("FAIL".equals(transitionTargetName)) {
 					transitionTargetName = TransitionNode.FAIL;
 				}
-				else if (transitionTargetName.equals("END")) {
+				else if ("END".equals(transitionTargetName)) {
 					transitionTargetName = TransitionNode.END;
 				}
 				else if (transitionTarget.getLabel() != null) {
@@ -642,8 +642,8 @@ public class Graph {
 		for (Link link : links) {
 			if (link.from.equals(n.id)) {
 				if ((!link.hasTransitionSet()
-						&& (includeThoseLeadingToEnd || !findNodeById(link.to).name.equals("END")))
-						|| (link.hasTransitionSet() && link.getTransitionName().equals("'*'"))) {
+						&& (includeThoseLeadingToEnd || !"END".equals(findNodeById(link.to).name)))
+						|| (link.hasTransitionSet() && "'*'".equals(link.getTransitionName()))) {
 					result.add(link);
 				}
 			}
@@ -661,7 +661,7 @@ public class Graph {
 			if (link.from.equals(n.id)) {
 				// Only include links to 'END' if there are properties on it
 				if (includeThoseLeadingToEnd
-						|| !(findNodeById(link.to).name.equals("END") && hasNoProperties(link))) {
+						|| !("END".equals(findNodeById(link.to).name) && hasNoProperties(link))) {
 					result.add(link);
 				}
 			}

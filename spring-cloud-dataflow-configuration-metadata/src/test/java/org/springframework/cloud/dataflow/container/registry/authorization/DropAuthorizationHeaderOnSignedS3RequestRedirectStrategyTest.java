@@ -43,7 +43,7 @@ import static org.assertj.core.api.Assertions.entry;
 public class DropAuthorizationHeaderOnSignedS3RequestRedirectStrategyTest {
 
 	@ClassRule
-	public final static S3SignedRedirectRequestServerResource s3SignedRedirectRequestServerResource =
+	public static final S3SignedRedirectRequestServerResource s3SignedRedirectRequestServerResource =
 			new S3SignedRedirectRequestServerResource();
 
 	private AnnotationConfigApplicationContext context;

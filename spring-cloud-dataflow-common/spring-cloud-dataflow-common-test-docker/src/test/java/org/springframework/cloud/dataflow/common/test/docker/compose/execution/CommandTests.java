@@ -43,7 +43,7 @@ public class CommandTests {
     @Mock private ErrorHandler errorHandler;
     private Command dockerComposeCommand;
     private final List<String> consumedLogLines = new ArrayList<>();
-    private final Consumer<String> logConsumer = s -> consumedLogLines.add(s);
+    private final Consumer<String> logConsumer = consumedLogLines::add;
 
     @Before
     public void before() throws IOException {

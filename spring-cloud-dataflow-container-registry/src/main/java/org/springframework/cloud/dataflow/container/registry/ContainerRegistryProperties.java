@@ -79,7 +79,7 @@ public class ContainerRegistryProperties {
 
 	public static class HttpProxy {
 		private String host = "";
-		private int port = 0;
+		private int port;
 
 		public String getHost() {
 			return host;

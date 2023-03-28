@@ -24,7 +24,7 @@ import org.mockito.stubbing.Answer;
 
 public class MockitoMultiAnswer<T> implements Answer<T> {
 	private final List<Function<InvocationOnMock, T>> invocationHandlers;
-	private int numberOfTimesCalled = 0;
+	private int numberOfTimesCalled;
 
 	public MockitoMultiAnswer(List<Function<InvocationOnMock, T>> invocationHandlers) {
 		this.invocationHandlers = new ArrayList<>(invocationHandlers);

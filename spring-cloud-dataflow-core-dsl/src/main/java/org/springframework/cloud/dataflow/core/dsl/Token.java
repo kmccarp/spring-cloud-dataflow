@@ -99,8 +99,9 @@ public class Token {
 		}
 		Token token = (Token) o;
 		boolean basicMatch = this.kind == token.kind && this.startPos == token.startPos && this.endPos == token.endPos;
-		if (!basicMatch)
+		if (!basicMatch) {
 			return false;
+		}
 		if (this.kind.hasPayload()) {
 			if (!this.data.equals(token.data)) {
 				return false;
