@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.util.Assert;
 
-public class DaemonEnvironmentValidator implements EnvironmentValidator {
+public final class DaemonEnvironmentValidator implements EnvironmentValidator {
 
 	private static final Set<String> ILLEGAL_VARIABLES = new HashSet<>(Arrays.asList(DOCKER_TLS_VERIFY, DOCKER_HOST, DOCKER_CERT_PATH));
 

@@ -56,7 +56,7 @@ public abstract class AbstractTokenizer {
 		}
 	}
 
-	private final int[] NO_LINEBREAKS = new int[0];
+	private final int[] noLinebreaks = new int[0];
 
 	/**
 	 * The string to be tokenized.
@@ -81,12 +81,12 @@ public abstract class AbstractTokenizer {
 	/**
 	 * Output stream of tokens.
 	 */
-	protected List<Token> tokens = new ArrayList<Token>();
+	protected List<Token> tokens = new ArrayList<>();
 
 	/**
 	 * Positions of linebreaks in the parsed string.
 	 */
-	protected int[] linebreaks = NO_LINEBREAKS;
+	protected int[] linebreaks = noLinebreaks;
 
 	abstract void process();
 

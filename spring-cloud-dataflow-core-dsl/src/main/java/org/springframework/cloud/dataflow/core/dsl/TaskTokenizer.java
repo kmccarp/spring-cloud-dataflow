@@ -131,6 +131,7 @@ class TaskTokenizer extends AbstractTokenizer {
 					break;
 				case '\\':
 					raiseException(DSLMessage.UNEXPECTED_ESCAPE_CHAR);
+					break;
 				default:
 					raiseException(DSLMessage.TASK_UNEXPECTED_DATA, Character.valueOf(ch).toString());
 				}

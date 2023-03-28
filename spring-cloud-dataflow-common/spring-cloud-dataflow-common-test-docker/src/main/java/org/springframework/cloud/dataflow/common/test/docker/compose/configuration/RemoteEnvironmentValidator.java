@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-public class RemoteEnvironmentValidator implements EnvironmentValidator {
+public final class RemoteEnvironmentValidator implements EnvironmentValidator {
 
 	private static final Set<String> SECURE_VARIABLES = new HashSet<>(Arrays.asList(DOCKER_TLS_VERIFY, DOCKER_CERT_PATH));
 	private static final RemoteEnvironmentValidator VALIDATOR = new RemoteEnvironmentValidator();

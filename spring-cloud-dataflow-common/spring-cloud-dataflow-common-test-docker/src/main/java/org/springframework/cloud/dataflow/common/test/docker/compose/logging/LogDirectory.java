@@ -17,7 +17,7 @@ package org.springframework.cloud.dataflow.common.test.docker.compose.logging;
 
 import java.util.Optional;
 
-public class LogDirectory {
+public final class LogDirectory {
 
     private LogDirectory() {}
 

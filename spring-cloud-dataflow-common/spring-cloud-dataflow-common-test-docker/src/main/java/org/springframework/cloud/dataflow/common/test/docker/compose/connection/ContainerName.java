@@ -21,8 +21,8 @@ import java.util.Arrays;
 
 public class ContainerName {
 
-	private String rawName;
-	private String semanticName;
+	private final String rawName;
+	private final String semanticName;
 
     public ContainerName(String rawName, String semanticName) {
 		this.rawName = rawName;
@@ -53,23 +53,30 @@ public class ContainerName {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
         ContainerName other = (ContainerName) obj;
 		if (rawName == null) {
-			if (other.rawName != null)
+			if (other.rawName != null) {
 				return false;
-		} else if (!rawName.equals(other.rawName))
+			}
+		} else if (!rawName.equals(other.rawName)) {
 			return false;
+		}
 		if (semanticName == null) {
-			if (other.semanticName != null)
+			if (other.semanticName != null) {
 				return false;
-		} else if (!semanticName.equals(other.semanticName))
+			}
+		} else if (!semanticName.equals(other.semanticName)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -92,7 +99,7 @@ public class ContainerName {
     }
 
     private static boolean probablyCustomName(String rawName) {
-        return !(rawName.split("_").length >= 3);
+        return rawName.split("_").length < 3;
     }
 
     private static String withoutDirectory(String rawName) {

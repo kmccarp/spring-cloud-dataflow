@@ -38,7 +38,7 @@ public class FileLogCollector implements LogCollector {
 
 	private final File logDirectory;
 
-	private ExecutorService executor = null;
+	private ExecutorService executor;
 
 	public FileLogCollector(File logDirectory) {
 		Assert.state(!logDirectory.isFile(), "Log directory cannot be a file");
@@ -59,7 +59,7 @@ public class FileLogCollector implements LogCollector {
 		}
 
 		List<String> serviceNames = dockerCompose.services();
-		if (serviceNames.size() == 0) {
+		if (serviceNames.isEmpty()) {
 			return;
 		}
 		executor = Executors.newFixedThreadPool(serviceNames.size());

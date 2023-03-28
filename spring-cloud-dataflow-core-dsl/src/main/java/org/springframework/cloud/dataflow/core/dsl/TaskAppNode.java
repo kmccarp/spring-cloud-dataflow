@@ -29,9 +29,9 @@ import java.util.Map;
  */
 public class TaskAppNode extends LabelledTaskNode {
 
-	private Token taskName;
+	private final Token taskName;
 
-	private ArgumentNode[] arguments;
+	private final ArgumentNode[] arguments;
 
 	private Map<String, String> argumentsMap;
 
@@ -88,7 +88,7 @@ public class TaskAppNode extends LabelledTaskNode {
 				argumentsMap = Collections.emptyMap();
 			}
 			else {
-				argumentsMap = new LinkedHashMap<String, String>();
+				argumentsMap = new LinkedHashMap<>();
 				for (ArgumentNode argument : arguments) {
 					argumentsMap.put(argument.getName(), argument.getValue());
 				}

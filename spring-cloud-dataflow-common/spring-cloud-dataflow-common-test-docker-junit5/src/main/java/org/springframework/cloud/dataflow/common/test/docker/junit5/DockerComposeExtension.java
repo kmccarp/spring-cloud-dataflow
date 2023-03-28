@@ -95,7 +95,7 @@ public class DockerComposeExtension
 	@Override
 	public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
 			throws ParameterResolutionException {
-		return (parameterContext.getParameter().getType() == DockerComposeInfo.class);
+		return parameterContext.getParameter().getType() == DockerComposeInfo.class;
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class DockerComposeExtension
 	private static DockerComposeManager getDockerComposeManager(ExtensionContext context) {
 		Class<?> testClass = context.getRequiredTestClass();
 		Store store = getStore(context);
-		return store.getOrComputeIfAbsent(testClass, (key)->{return new DockerComposeManager();}, DockerComposeManager.class);
+		return store.getOrComputeIfAbsent(testClass, key-> new DockerComposeManager(), DockerComposeManager.class);
 	}
 
 	private static Store getStore(ExtensionContext context) {

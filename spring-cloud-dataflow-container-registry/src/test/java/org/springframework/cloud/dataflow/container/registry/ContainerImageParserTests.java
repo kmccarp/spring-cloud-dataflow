@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public class ContainerImageParserTests {
 
-	private ContainerImageParser containerImageNameParser =
+	private final ContainerImageParser containerImageNameParser =
 			new ContainerImageParser("test-domain.io", "tag654", "official-repo-name");
 
 
