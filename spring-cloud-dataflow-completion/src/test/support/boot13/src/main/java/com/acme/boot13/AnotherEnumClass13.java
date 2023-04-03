@@ -21,5 +21,5 @@ package com.acme.boot13;
  */
 public enum AnotherEnumClass13 {
 	low,
-	high;
+	high
 }

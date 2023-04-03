@@ -28,10 +28,10 @@ import org.springframework.cloud.dataflow.common.test.docker.junit5.DockerCompos
 @ExtendWith(DockerComposeExtension.class)
 public class DockerCompose2Tests {
 
-	public final static String CLUSTER1 = "dc1";
-	public final static String CLUSTER2 = "dc2";
-	public final static String CLUSTER3 = "dc3";
-	public final static String CLUSTER4 = "dc4";
+	public static final String CLUSTER1 = "dc1";
+	public static final String CLUSTER2 = "dc2";
+	public static final String CLUSTER3 = "dc3";
+	public static final String CLUSTER4 = "dc4";
 
 	@Test
 	@DockerCompose(id = DockerCompose2Tests.CLUSTER3, locations = {"src/test/resources/docker-compose-3.yml"})

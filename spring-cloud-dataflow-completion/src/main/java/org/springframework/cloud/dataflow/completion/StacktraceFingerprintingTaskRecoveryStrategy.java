@@ -81,7 +81,7 @@ public abstract class StacktraceFingerprintingTaskRecoveryStrategy<E extends Exc
 	 */
 	private void addFingerprintForException(E exception) {
 		boolean seenParserClass = false;
-		List<StackTraceElement> fingerPrint = new ArrayList<StackTraceElement>();
+		List<StackTraceElement> fingerPrint = new ArrayList<>();
 		for (StackTraceElement frame : exception.getStackTrace()) {
 			if (frame.getClassName().equals(TaskDefinition.class.getName())) {
 				seenParserClass = true;

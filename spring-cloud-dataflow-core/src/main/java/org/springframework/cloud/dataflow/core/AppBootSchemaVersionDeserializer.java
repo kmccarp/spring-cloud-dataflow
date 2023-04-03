@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
  * @author Corneil du Plessis
  */
 public class AppBootSchemaVersionDeserializer extends StdDeserializer<AppBootSchemaVersion> {
+	private static final long serialVersionUID = 1;
 	public AppBootSchemaVersionDeserializer() {
 		super(AppBootSchemaVersion.class);
 	}

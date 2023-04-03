@@ -41,7 +41,7 @@ import org.springframework.web.client.ResponseErrorHandler;
  */
 public class SkipperClientResponseErrorHandler extends DefaultResponseErrorHandler {
 
-	private ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper;
 
 	/**
 	 * Instantiates a new skipper client response error handler.

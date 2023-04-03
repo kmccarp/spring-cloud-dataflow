@@ -74,11 +74,11 @@ public class JobExecutionResource extends RepresentationModel<JobExecutionResour
 
 	private String jobParametersString;
 
-	private boolean restartable = false;
+	private boolean restartable;
 
-	private boolean abandonable = false;
+	private boolean abandonable;
 
-	private boolean stoppable = false;
+	private boolean stoppable;
 
 	private boolean defined;
 

@@ -54,6 +54,6 @@ public class DeleteProperties {
 
 	@Override
 	public int hashCode() {
-		return (deletePackage ? 1 : 0);
+		return deletePackage ? 1 : 0;
 	}
 }

@@ -311,9 +311,9 @@ public class TaskExecutionResource extends RepresentationModel<TaskExecutionReso
 		}
 		else {
 			if (this.composedTaskJobExecutionStatus != null) {
-				return (this.composedTaskJobExecutionStatus.equals("ABANDONED") ||
-						this.composedTaskJobExecutionStatus.equals("FAILED") ||
-						this.composedTaskJobExecutionStatus.equals("STOPPED")) ?
+				return ("ABANDONED".equals(this.composedTaskJobExecutionStatus) ||
+						"FAILED".equals(this.composedTaskJobExecutionStatus) ||
+						"STOPPED".equals(this.composedTaskJobExecutionStatus)) ?
 						TaskExecutionStatus.ERROR : TaskExecutionStatus.COMPLETE;
 			}
 

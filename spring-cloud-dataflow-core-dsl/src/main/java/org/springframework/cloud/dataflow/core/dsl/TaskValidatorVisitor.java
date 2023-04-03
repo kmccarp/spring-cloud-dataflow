@@ -38,23 +38,23 @@ public class TaskValidatorVisitor extends TaskVisitor {
 	// Text of the AST being validated
 	private String taskDsl;
 
-	private List<TaskValidationProblem> problems = new ArrayList<>();
+	private final List<TaskValidationProblem> problems = new ArrayList<>();
 
 	// At the end of the visit, verify any sequences that are never used
-	private List<LabelledTaskNode> recordedSequences = new ArrayList<>();
+	private final List<LabelledTaskNode> recordedSequences = new ArrayList<>();
 
-	private Set<TransitionNode> transitionsTargetingLabels = new HashSet<>();
+	private final Set<TransitionNode> transitionsTargetingLabels = new HashSet<>();
 
-	private Set<String> labelsDefined = new HashSet<>();
+	private final Set<String> labelsDefined = new HashSet<>();
 
-	private Set<String> taskAppNamesWithoutLabels = new HashSet<>();
+	private final Set<String> taskAppNamesWithoutLabels = new HashSet<>();
 
 	public List<TaskValidationProblem> getProblems() {
 		return problems;
 	}
 
 	public boolean hasProblems() {
-		return problems.size() != 0;
+		return !problems.isEmpty();
 	}
 
 	public void reset() {

@@ -31,7 +31,7 @@ public class DockerExecutable implements Executable {
 			"/usr/bin/docker"
 	);
 
-	private DockerConfiguration dockerConfiguration;
+	private final DockerConfiguration dockerConfiguration;
 
 	public DockerExecutable(DockerConfiguration dockerConfiguration) {
 		this.dockerConfiguration = dockerConfiguration;

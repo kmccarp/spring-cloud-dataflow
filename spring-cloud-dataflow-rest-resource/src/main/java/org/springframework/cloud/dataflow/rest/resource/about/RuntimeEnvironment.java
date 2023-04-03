@@ -35,7 +35,7 @@ public class RuntimeEnvironment {
 	/**
 	 * The {@link RuntimeEnvironmentDetails} of the task launcher.
 	 */
-	private List<RuntimeEnvironmentDetails> taskLaunchers = new ArrayList<RuntimeEnvironmentDetails>();
+	private List<RuntimeEnvironmentDetails> taskLaunchers = new ArrayList<>();
 
 	/**
 	 * Default constructor for serialization frameworks.

@@ -99,7 +99,7 @@ public abstract class StacktraceFingerprintingRecoveryStrategy<E extends Excepti
 	 */
 	private void addFingerprintForException(E exception) {
 		boolean seenParserClass = false;
-		List<StackTraceElement> fingerPrint = new ArrayList<StackTraceElement>();
+		List<StackTraceElement> fingerPrint = new ArrayList<>();
 		for (StackTraceElement frame : exception.getStackTrace()) {
 			if (frame.getClassName().equals(StreamDefinition.class.getName())) {
 				seenParserClass = true;
@@ -117,7 +117,7 @@ public abstract class StacktraceFingerprintingRecoveryStrategy<E extends Excepti
 		StackTraceElement[] stackTrace = exception.getStackTrace();
 		for (StackTraceElement frame : fingerPrint) {
 			if (frame.getClassName().contains("StreamParser")
-					&& (frame.getMethodName().equals("<init>") || frame.getMethodName().equals("parse"))) {
+					&& ("<init>".equals(frame.getMethodName()) || "parse".equals(frame.getMethodName()))) {
 				return true;
 			}
 			if (!stackTrace[i++].equals(frame)) {

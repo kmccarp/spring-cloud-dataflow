@@ -135,7 +135,7 @@ abstract class YamlPathSegment {
 
 	public static final class AtIndex extends YamlPathSegment {
 
-		private int index;
+		private final int index;
 
 		AtIndex(int index) {
 			this.index = index;
@@ -181,10 +181,7 @@ abstract class YamlPathSegment {
 				return false;
 			}
 			AtIndex other = (AtIndex) obj;
-			if (index != other.index) {
-				return false;
-			}
-			return true;
+			return index == other.index;
 		}
 
 		@Override
@@ -200,7 +197,7 @@ abstract class YamlPathSegment {
 
 	public static class ValAtKey extends YamlPathSegment {
 
-		private String key;
+		private final String key;
 
 		ValAtKey(String key) {
 			this.key = key;

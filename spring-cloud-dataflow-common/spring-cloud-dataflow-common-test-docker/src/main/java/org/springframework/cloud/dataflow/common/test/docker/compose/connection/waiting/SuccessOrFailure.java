@@ -21,7 +21,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 public class SuccessOrFailure {
 
-	private Optional<String> optionalFailureMessage;
+	private final Optional<String> optionalFailureMessage;
 
     public SuccessOrFailure(Optional<String> optionalFailureMessage) {
 		this.optionalFailureMessage = optionalFailureMessage;

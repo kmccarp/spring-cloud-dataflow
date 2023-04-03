@@ -179,19 +179,24 @@ public class TaskDefinition extends DataFlowAppDefinition {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		TaskDefinition other = (TaskDefinition) obj;
 		if (dslText == null) {
-			if (other.dslText != null)
+			if (other.dslText != null) {
 				return false;
+			}
 		}
-		else if (!dslText.equals(other.dslText))
+		else if (!dslText.equals(other.dslText)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -204,7 +209,7 @@ public class TaskDefinition extends DataFlowAppDefinition {
 		/**
 		 * @see AppDefinition#getProperties()
 		 */
-		private final Map<String, String> properties = new HashMap<String, String>();
+		private final Map<String, String> properties = new HashMap<>();
 
 		/**
 		 * @see DataFlowAppDefinition#registeredAppName

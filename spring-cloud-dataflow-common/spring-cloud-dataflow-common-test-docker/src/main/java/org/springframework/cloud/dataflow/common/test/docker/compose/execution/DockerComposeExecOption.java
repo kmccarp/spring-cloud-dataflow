@@ -21,7 +21,7 @@ import java.util.List;
 
 public class DockerComposeExecOption {
 
-	private List<String> options;
+	private final List<String> options;
 
 	public DockerComposeExecOption(List<String> options) {
 		this.options = options;
@@ -53,18 +53,23 @@ public class DockerComposeExecOption {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 			DockerComposeExecOption other = (DockerComposeExecOption) obj;
 		if (options == null) {
-			if (other.options != null)
+			if (other.options != null) {
 				return false;
-		} else if (!options.equals(other.options))
+			}
+		} else if (!options.equals(other.options)) {
 			return false;
+		}
 		return true;
 	}
 

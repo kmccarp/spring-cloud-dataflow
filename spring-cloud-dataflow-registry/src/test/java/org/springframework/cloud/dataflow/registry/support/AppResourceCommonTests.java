@@ -42,8 +42,8 @@ import static org.mockito.Mockito.verify;
  */
 public class AppResourceCommonTests {
 
-	private ResourceLoader resourceLoader = mock(ResourceLoader.class);
-	private AppResourceCommon appResourceCommon = new AppResourceCommon(new MavenProperties(), resourceLoader);
+	private final ResourceLoader resourceLoader = mock(ResourceLoader.class);
+	private final AppResourceCommon appResourceCommon = new AppResourceCommon(new MavenProperties(), resourceLoader);
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testBadNamedJars() throws Exception {
@@ -66,7 +66,7 @@ public class AppResourceCommonTests {
 			fail("Excepted IllegalArgumentException for an invalid URI path");
 		}
 		catch (Exception e) {
-			assertThat(e.getMessage().equals("URI path doesn't exist"));
+			assertThat("URI path doesn't exist".equals(e.getMessage()));
 		}
 	}
 
@@ -130,7 +130,7 @@ public class AppResourceCommonTests {
 			fail("Excepted IllegalArgumentException for an invalid URI path");
 		}
 		catch (Exception e) {
-			assertThat(e.getMessage().equals("URI file name extension doesn't exist"));
+			assertThat("URI file name extension doesn't exist".equals(e.getMessage()));
 		}
 	}
 
@@ -142,7 +142,7 @@ public class AppResourceCommonTests {
 			fail("Excepted IllegalArgumentException for an invalid URL resource URI");
 		}
 		catch (Exception e) {
-			assertThat(e.getMessage().equals("Could not parse version from https://com.com-0.0.2-SNAPSHOT/test.zip, expected format is <artifactId>-<version>.jar"));
+			assertThat("Could not parse version from https://com.com-0.0.2-SNAPSHOT/test.zip, expected format is <artifactId>-<version>.jar".equals(e.getMessage()));
 		}
 	}
 

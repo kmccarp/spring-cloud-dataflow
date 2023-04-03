@@ -21,7 +21,7 @@ package org.springframework.cloud.dataflow.rest;
  *
  * @author Eric Bottard
  */
-public class Version {
+public final class Version {
 
 	/**
 	 * Should be incremented each time the API evolves whether it's a breaking change or

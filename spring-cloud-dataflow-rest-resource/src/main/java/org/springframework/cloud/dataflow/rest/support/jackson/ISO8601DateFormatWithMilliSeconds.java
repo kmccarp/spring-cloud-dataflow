@@ -30,6 +30,8 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 @SuppressWarnings("serial")
 public class ISO8601DateFormatWithMilliSeconds extends StdDateFormat {
 
+	private static final long serialVersionUID = 1;
+
 	public ISO8601DateFormatWithMilliSeconds(TimeZone tz, Locale loc, Boolean lenient) {
 		super(tz, loc, lenient);
 	}

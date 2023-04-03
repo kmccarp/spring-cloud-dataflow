@@ -374,7 +374,7 @@ public class DefaultAppRegistryService implements AppRegistryService {
 		for(String [] line : lines) {
 			previous = createAppRegistrations(registrations, line, previous);
 		}
-		List<AppRegistration> result = registrations.values()
+		return registrations.values()
 				.stream()
 				// drop registration if it doesn't have main uri as user only had metadata
 				.filter(ar -> ar.getUri() != null)
@@ -384,7 +384,6 @@ public class DefaultAppRegistryService implements AppRegistryService {
 					save(ar);
 					return ar;
 				}).collect(Collectors.toList());
-		return result;
 	}
 
 	private AppRegistration createAppRegistrations(Map<String, AppRegistration> registrations, String[] lineSplit, AppRegistration previous) {
@@ -424,7 +423,7 @@ public class DefaultAppRegistryService implements AppRegistryService {
 				throw new IllegalArgumentException(e);
 			}
 		} else if (typeName.length == 3) {
-			if (extra.equals("metadata")) {
+			if ("metadata".equals(extra)) {
 				// metadata app uri
 				try {
 					ar.setMetadataUri(new URI(lineSplit[1]));

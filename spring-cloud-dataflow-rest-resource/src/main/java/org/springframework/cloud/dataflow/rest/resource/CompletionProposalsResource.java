@@ -31,7 +31,7 @@ import org.springframework.hateoas.RepresentationModel;
  */
 public class CompletionProposalsResource extends RepresentationModel<CompletionProposalsResource> {
 
-	private List<Proposal> proposals = new ArrayList<>();
+	private final List<Proposal> proposals = new ArrayList<>();
 
 	public void addProposal(String text, String explanation) {
 		proposals.add(new Proposal(text, explanation));

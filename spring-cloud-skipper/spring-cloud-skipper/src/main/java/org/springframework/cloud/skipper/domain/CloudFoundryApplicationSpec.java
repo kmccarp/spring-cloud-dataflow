@@ -207,6 +207,6 @@ public class CloudFoundryApplicationSpec {
 	}
 
 	public enum HealthCheckType {
-		port, process, http;
+		port, process, http
 	}
 }

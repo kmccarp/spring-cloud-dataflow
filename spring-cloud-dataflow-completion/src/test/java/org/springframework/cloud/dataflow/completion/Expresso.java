@@ -24,5 +24,5 @@ package org.springframework.cloud.dataflow.completion;
  */
 public enum Expresso {
 	SINGLE,
-	DOUBLE;
+	DOUBLE
 }

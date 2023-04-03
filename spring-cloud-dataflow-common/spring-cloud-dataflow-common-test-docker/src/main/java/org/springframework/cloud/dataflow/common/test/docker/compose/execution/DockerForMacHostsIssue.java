@@ -27,14 +27,14 @@ import org.springframework.util.FileCopyUtils;
  *
  * @see <a href="https://github.com/docker/compose/issues/3419#issuecomment-221793401">Docker Compose Issue #3419</a>
  */
-public class DockerForMacHostsIssue {
+public final class DockerForMacHostsIssue {
 
 	private static final String REDIRECT_LINE = "127.0.0.1 localunixsocket\n";
 	private static final String WARNING_MESSAGE = "\n\n **** WARNING: Your tests may be slow ****\n"
 			+ "Please add the following line to /etc/hosts:\n    "
 			+ REDIRECT_LINE
 			+ "\nFor more information, see https://github.com/docker/compose/issues/3419#issuecomment-221793401\n\n";
-	private static volatile boolean checkPerformed = false;
+	private static volatile boolean checkPerformed;
 
 	@SuppressWarnings("checkstyle:BanSystemErr")
 	public static void issueWarning() {
@@ -47,7 +47,7 @@ public class DockerForMacHostsIssue {
 	}
 
 	private static boolean onMacOsX() {
-		return System.getProperty("os.name", "generic").equals("Mac OS X");
+		return "Mac OS X".equals(System.getProperty("os.name", "generic"));
 	}
 
 	private static boolean localunixsocketRedirectedInEtcHosts() {

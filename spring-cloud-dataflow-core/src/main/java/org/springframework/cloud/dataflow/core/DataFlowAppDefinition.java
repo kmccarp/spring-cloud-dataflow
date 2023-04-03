@@ -111,10 +111,12 @@ abstract class DataFlowAppDefinition {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		DataFlowAppDefinition other = (DataFlowAppDefinition) obj;
 		if (!this.getName().equals(other.getName())) {
 			return false;

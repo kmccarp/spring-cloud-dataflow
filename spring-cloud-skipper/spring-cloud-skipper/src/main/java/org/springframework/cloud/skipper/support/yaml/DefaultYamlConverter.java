@@ -142,10 +142,10 @@ public class DefaultYamlConverter implements YamlConverter {
 	public static class DefaultBuilder implements Builder {
 
 		private Mode mode;
-		private ArrayList<Properties> propertiesList = new ArrayList<>();
-		private ArrayList<Map<String, String>> mapList = new ArrayList<>();
-		private ArrayList<File> fileList = new ArrayList<>();
-		private ArrayList<String> keyspaceList = new ArrayList<>();
+		private final ArrayList<Properties> propertiesList = new ArrayList<>();
+		private final ArrayList<Map<String, String>> mapList = new ArrayList<>();
+		private final ArrayList<File> fileList = new ArrayList<>();
+		private final ArrayList<String> keyspaceList = new ArrayList<>();
 
 		@Override
 		public Builder mode(Mode mode) {

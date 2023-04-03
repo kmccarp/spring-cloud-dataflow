@@ -31,10 +31,12 @@ public class CumulativeHistory {
 	private double max;
 
 	public void append(double value) {
-		if (value > max || count == 0)
+		if (value > max || count == 0) {
 			max = value;
-		if (value < min || count == 0)
+		}
+		if (value < min || count == 0) {
 			min = value;
+		}
 		sum += value;
 		sumSquares += value * value;
 		count++;

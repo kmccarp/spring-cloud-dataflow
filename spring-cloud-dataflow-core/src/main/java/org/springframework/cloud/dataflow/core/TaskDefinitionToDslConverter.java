@@ -33,7 +33,7 @@ import org.springframework.util.StringUtils;
  */
 public class TaskDefinitionToDslConverter {
 
-	private final static List<String> dataFlowAddedProperties = Arrays.asList(TaskDefinition.SPRING_CLOUD_TASK_NAME);
+	private static final List<String> dataFlowAddedProperties = Arrays.asList(TaskDefinition.SPRING_CLOUD_TASK_NAME);
 
 	/**
 	 * Reverse engineers a {@link TaskDefinition} into a semantically equivalent DSL text representation.
@@ -54,8 +54,7 @@ public class TaskDefinitionToDslConverter {
 		for (String propertyName : properties.keySet()) {
 			if (!dataFlowAddedProperties.contains(propertyName)) {
 				String propertyValue = StringEscapeUtils.unescapeHtml4(properties.get(propertyName));
-				dslBuilder.append(" --").append(propertyName).append("=").append(
-						DefinitionUtils.escapeNewlines(DefinitionUtils.autoQuotes(propertyValue)));
+				dslBuilder.append(" --").append(propertyName).append("=").append(DefinitionUtils.escapeNewlines(DefinitionUtils.autoQuotes(propertyValue)));
 			}
 		}
 		return dslBuilder.toString();

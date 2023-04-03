@@ -161,8 +161,7 @@ class ProposalsCollectorSupportUtils {
 				startsWithBuffer.append(t.getKind().getTokenChars());
 			}
 		}
-		String startsWith = startsWithBuffer.toString();
-		return startsWith;
+		return startsWithBuffer.toString();
 	}
 
 	/**
