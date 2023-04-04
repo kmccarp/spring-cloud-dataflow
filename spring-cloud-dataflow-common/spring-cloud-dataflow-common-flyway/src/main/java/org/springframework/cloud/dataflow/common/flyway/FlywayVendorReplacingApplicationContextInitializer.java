@@ -52,7 +52,7 @@ public class FlywayVendorReplacingApplicationContextInitializer implements
 		ConfigurableEnvironment env = applicationContext.getEnvironment();
 
 		// If there is a spring.datasource.url prefixed w/ "jdbc:mysql:" and using the MariaDB driver then replace {vendor}
-		boolean usingMariaDriver = env.getProperty("spring.datasource.driver-class-name", "").equals("org.mariadb.jdbc.Driver");
+		boolean usingMariaDriver = "org.mariadb.jdbc.Driver".equals(env.getProperty("spring.datasource.driver-class-name", ""));
 		boolean usingMySqlUrl = env.getProperty("spring.datasource.url", "").startsWith("jdbc:mysql:");
 		if (!(usingMariaDriver && usingMySqlUrl)) {
 			return;

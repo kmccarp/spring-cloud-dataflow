@@ -43,17 +43,17 @@ public class Tokens {
 	 * Position of linebreaks in the parsed string. Token positions are absolute from
 	 * start of string, so this array can be used to compute the line the token is on.
 	 */
-	private int[] linebreaks;
+	private final int[] linebreaks;
 
 	/**
 	 * Index of stream token currently being processed.
 	 */
-	private int position = 0;
+	private int position;
 
 	/**
 	 * Index of last stream token that was successfully processed.
 	 */
-	private int lastGoodPosition = 0;
+	private int lastGoodPosition;
 
 	/**
 	 * Create a new tokens holder that can be iterated over. Created by the particular

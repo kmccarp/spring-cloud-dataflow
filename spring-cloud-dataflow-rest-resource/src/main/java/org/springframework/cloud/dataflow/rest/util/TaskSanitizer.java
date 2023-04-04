@@ -33,7 +33,7 @@ import org.springframework.cloud.task.repository.TaskExecution;
  */
 public class TaskSanitizer {
 
-	private ArgumentSanitizer argumentSanitizer = new ArgumentSanitizer();
+	private final ArgumentSanitizer argumentSanitizer = new ArgumentSanitizer();
 
 	public TaskExecution sanitizeTaskExecutionArguments(TaskExecution taskExecution) {
 		List<String> args = taskExecution.getArguments().stream()

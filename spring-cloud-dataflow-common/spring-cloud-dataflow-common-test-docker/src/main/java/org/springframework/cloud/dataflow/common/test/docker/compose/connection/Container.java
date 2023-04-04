@@ -36,7 +36,7 @@ public class Container {
 	private final Docker docker;
 	private final DockerCompose dockerCompose;
 
-	private Supplier<Ports> portMappings = memoize(() -> this.getDockerPorts());
+	private Supplier<Ports> portMappings = memoize(this::getDockerPorts);
 
 	public static <T> Supplier<T> memoize(Supplier<T> original) {
 		return new Supplier<T>() {
@@ -107,7 +107,7 @@ public class Container {
 
 	public void start() throws IOException, InterruptedException {
 		dockerCompose.start(this);
-		portMappings = memoize(() -> this.getDockerPorts());
+		portMappings = memoize(this::getDockerPorts);
 	}
 
 	public void stop() throws IOException, InterruptedException {

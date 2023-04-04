@@ -123,12 +123,12 @@ public class ContainerRegistryConfiguration {
 	/**
 	 * Used for testing with self-signed certificates.
 	 */
-	private boolean disableSslVerification = false;
+	private boolean disableSslVerification;
 
 	/**
 	 * If true all container registry communication will be channeled through a pre-configured Http Proxy.
 	 */
-	private boolean useHttpProxy = false;
+	private boolean useHttpProxy;
 
 	public Map<String, String> getExtra() {
 		return extra;

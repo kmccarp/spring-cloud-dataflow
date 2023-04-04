@@ -62,15 +62,15 @@ public class PackageWriterTests {
 		assertThat(zipFile.getName()).isEqualTo("myapp-1.0.0.zip");
 		final AtomicInteger processedEntries = new AtomicInteger(3);
 		ZipUtil.iterate(zipFile, (inputStream, zipEntry) -> {
-			if (zipEntry.getName().equals("myapp-1.0.0/package.yml")) {
+			if ("myapp-1.0.0/package.yml".equals(zipEntry.getName())) {
 				assertExpectedContents(inputStream, "package.yml");
 				processedEntries.decrementAndGet();
 			}
-			if (zipEntry.getName().equals("myapp-1.0.0/values.yml")) {
+			if ("myapp-1.0.0/values.yml".equals(zipEntry.getName())) {
 				assertExpectedContents(inputStream, "values.yml");
 				processedEntries.decrementAndGet();
 			}
-			if (zipEntry.getName().equals("myapp-1.0.0/templates/myapp.yml")) {
+			if ("myapp-1.0.0/templates/myapp.yml".equals(zipEntry.getName())) {
 				assertExpectedContents(inputStream, "generic-template.yml");
 				processedEntries.decrementAndGet();
 			}

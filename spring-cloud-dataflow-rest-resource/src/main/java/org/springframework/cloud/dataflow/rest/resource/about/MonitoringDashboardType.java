@@ -23,5 +23,5 @@ package org.springframework.cloud.dataflow.rest.resource.about;
 public enum MonitoringDashboardType {
 	NONE,
 	GRAFANA,
-	WAVEFRONT;
+	WAVEFRONT
 }

@@ -47,11 +47,11 @@ public class FlywayVendorReplacingApplicationContextInitializerTests {
 		props.addAll(configuredLocationProps);
 
 		// Prime an actual env by running it through the AppContextRunner with the configured properties
-		new ApplicationContextRunner().withPropertyValues(props.toArray(new String[0])).run((context) -> {
+		new ApplicationContextRunner().withPropertyValues(props.toArray(new String[0])).run(context -> {
 			ConfigurableEnvironment env = context.getEnvironment();
 
 			// Sanity check the locations props are as expected
-			configuredLocationProps.forEach((location) -> {
+			configuredLocationProps.forEach(location -> {
 				String key = location.split("=")[0];
 				String value = location.split("=")[1];
 				assertThat(env.getProperty(key)).isEqualTo(value);
@@ -62,7 +62,7 @@ public class FlywayVendorReplacingApplicationContextInitializerTests {
 			flywayVendorReplacingInitializer.initialize(context);
 
 			// Verify they are replaced as expected
-			finalLocationProps.forEach((location) -> {
+			finalLocationProps.forEach(location -> {
 				String key = location.split("=")[0];
 				String value = location.split("=")[1];
 				assertThat(env.getProperty(key)).isEqualTo(value);

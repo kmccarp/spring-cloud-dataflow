@@ -61,7 +61,7 @@ public class DefaultPackageReader implements PackageReader {
 		// Iterate over all files and "deserialize" the package.
 		for (File file : files) {
 			// Package metadata
-			if (file.getName().equalsIgnoreCase("package.yaml") || file.getName().equalsIgnoreCase("package.yml")) {
+			if ("package.yaml".equalsIgnoreCase(file.getName()) || "package.yml".equalsIgnoreCase(file.getName())) {
 				pkg.setMetadata(loadPackageMetadata(file));
 				continue;
 			}
@@ -72,21 +72,21 @@ public class DefaultPackageReader implements PackageReader {
 			}
 
 			// Package property values for configuration
-			if (file.getName().equalsIgnoreCase("values.yaml") ||
-					file.getName().equalsIgnoreCase("values.yml")) {
+			if ("values.yaml".equalsIgnoreCase(file.getName()) ||
+					"values.yml".equalsIgnoreCase(file.getName())) {
 				pkg.setConfigValues(loadConfigValues(file));
 				continue;
 			}
 
 			// The template files
 			final File absoluteFile = file.getAbsoluteFile();
-			if (absoluteFile.isDirectory() && absoluteFile.getName().equals("templates")) {
+			if (absoluteFile.isDirectory() && "templates".equals(absoluteFile.getName())) {
 				pkg.setTemplates(loadTemplates(file));
 				continue;
 			}
 
 			// dependent packages
-			if ((file.getName().equalsIgnoreCase("packages") && file.isDirectory())) {
+			if (("packages".equalsIgnoreCase(file.getName()) && file.isDirectory())) {
 				File[] dependentPackageDirectories = file.listFiles();
 				List<Package> dependencies = new ArrayList<>();
 				for (File dependentPackageDirectory : dependentPackageDirectories) {
@@ -131,7 +131,7 @@ public class DefaultPackageReader implements PackageReader {
 		Path path = Paths.get(file.getAbsolutePath());
 		String fileName = path.getFileName().toString();
 		if (!fileName.startsWith(".")) {
-			return (fileName.endsWith("yml") || fileName.endsWith("yaml"));
+			return fileName.endsWith("yml") || fileName.endsWith("yaml");
 		}
 		return false;
 	}
@@ -171,7 +171,6 @@ public class DefaultPackageReader implements PackageReader {
 		catch (IOException e) {
 			throw new SkipperException("Error reading yaml file", e);
 		}
-		PackageMetadata pkgMetadata = (PackageMetadata) yaml.load(fileContents);
-		return pkgMetadata;
+		return (PackageMetadata) yaml.load(fileContents);
 	}
 }

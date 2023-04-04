@@ -117,12 +117,12 @@ class YamlPath {
 		try {
 			while (tokens.hasMoreTokens()) {
 				String token = tokens.nextToken(delim);
-				if (token.equals(".") || token.equals("]")) {
+				if (".".equals(token) || "]".equals(token)) {
 					// Skip it silently
 				}
-				else if (token.equals("[")) {
+				else if ("[".equals(token)) {
 					String bracketed = tokens.nextToken("]");
-					if (bracketed.equals("]")) {
+					if ("]".equals(bracketed)) {
 						// empty string between []? Makes no sense, so ignore
 						// that.
 					}

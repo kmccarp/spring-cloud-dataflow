@@ -114,7 +114,7 @@ public class Status extends NonVersionedAbstractEntity {
 
 	@JsonIgnore
 	public List<DeploymentState> getDeploymentStateList() {
-		return getAppStatusList().stream().map(appStatus -> appStatus.getState()).collect(Collectors.toList());
+		return getAppStatusList().stream().map(AppStatus::getState).collect(Collectors.toList());
 	}
 
 	@JsonIgnore
@@ -133,7 +133,7 @@ public class Status extends NonVersionedAbstractEntity {
 			if (this.platformStatus != null) {
 				return mapper.readValue(this.platformStatus, typeRef);
 			}
-			return new ArrayList<AppStatus>();
+			return new ArrayList<>();
 		}
 		catch (Exception e) {
 			throw new IllegalArgumentException("Could not parse Skipper Platfrom Status JSON:" + platformStatus, e);

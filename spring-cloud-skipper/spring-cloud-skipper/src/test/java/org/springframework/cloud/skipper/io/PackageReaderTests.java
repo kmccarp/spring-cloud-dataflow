@@ -76,7 +76,7 @@ public class PackageReaderTests {
 	}
 
 	private void assertTimeOrLogPackage(Package dependentPackage0) {
-		if (dependentPackage0.getMetadata().getName().equals("time")) {
+		if ("time".equals(dependentPackage0.getMetadata().getName())) {
 			assertTimePackage(dependentPackage0);
 		}
 		else {
@@ -118,10 +118,8 @@ public class PackageReaderTests {
 	private Set<String> convertToSet(String tags) {
 		Set<String> initialSet = StringUtils.commaDelimitedListToSet(tags);
 
-		Set<String> setToReturn = initialSet.stream()
+		return initialSet.stream()
 				.map(StringUtils::trimAllWhitespace)
 				.collect(Collectors.toSet());
-
-		return setToReturn;
 	}
 }

@@ -90,7 +90,7 @@ class YamlBuilder {
 	 */
 	public Object build() {
 		String propString = this.path.toPropString();
-		boolean force = keyspaceList.stream().anyMatch((s) -> {
+		boolean force = keyspaceList.stream().anyMatch(s -> {
 			// check that prop starts with regex pattern and
 			// need to skip full match
 			Matcher m = Pattern.compile(s).matcher(propString);
@@ -141,7 +141,7 @@ class YamlBuilder {
 			listItems.clear();
 		}
 		if (!listItems.isEmpty()) {
-			return listItems.values().stream().map(childBuilder -> childBuilder.build())
+			return listItems.values().stream().map(YamlBuilder::build)
 					.collect(Collectors.toList());
 		}
 		else {

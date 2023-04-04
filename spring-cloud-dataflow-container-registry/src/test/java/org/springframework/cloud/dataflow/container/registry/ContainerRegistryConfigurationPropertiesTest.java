@@ -60,7 +60,7 @@ public class ContainerRegistryConfigurationPropertiesTest {
 							StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME, map));
 				})
 				.withUserConfiguration(Config1.class)
-				.run((context) -> {
+				.run(context -> {
 					ContainerRegistryProperties properties = context.getBean(ContainerRegistryProperties.class);
 					assertThat(properties.getRegistryConfigurations()).hasSize(2);
 

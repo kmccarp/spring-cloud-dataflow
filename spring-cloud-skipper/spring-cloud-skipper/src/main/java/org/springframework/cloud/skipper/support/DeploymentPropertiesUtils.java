@@ -59,7 +59,7 @@ public final class DeploymentPropertiesUtils {
 	 * @return the Map of parsed key value pairs
 	 */
 	public static Map<String, String> parse(String s) {
-		Map<String, String> deploymentProperties = new HashMap<String, String>();
+		Map<String, String> deploymentProperties = new HashMap<>();
 		ArrayList<String> pairs = new ArrayList<>();
 
 		// get raw candidates as simple comma split

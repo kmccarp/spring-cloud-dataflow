@@ -16,7 +16,7 @@
 package org.springframework.cloud.dataflow.common.test.docker.compose.execution;
 
 public class ProcessResult {
-    private int exitCode;
+	private final int exitCode;
     private final String output;
 
     public ProcessResult(int exitCode, String output) {

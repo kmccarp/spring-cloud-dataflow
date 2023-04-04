@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class FlowNode extends LabelledTaskNode {
 
-	private List<LabelledTaskNode> series;
+	private final List<LabelledTaskNode> series;
 
 	FlowNode(List<LabelledTaskNode> nodes) {
 		super(nodes.get(0).getStartPos(), nodes.get(nodes.size() - 1).getEndPos());

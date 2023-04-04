@@ -52,19 +52,19 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  */
 public class DefaultSkipperClientTests {
 
-	private final String ERROR1 = "{\"timestamp\":1508161424577," +
+	private final String error1 = "{\"timestamp\":1508161424577," +
 			"\"status\":404," +
 			"\"error\":\"Not Found\"," +
 			"\"exception\":\"org.springframework.cloud.skipper.ReleaseNotFoundException\"," +
 			"\"message\":\"Release not found\",\"path\":\"/api/status/mylog\",\"releaseName\":\"mylog\"}";
 
-	private final String ERROR2 = "{\"timestamp\":1508161424577," +
+	private final String error2 = "{\"timestamp\":1508161424577," +
 			"\"status\":404," +
 			"\"error\":\"Not Found\"," +
 			"\"exception\":\"org.springframework.cloud.skipper.SkipperException\"," +
 			"\"message\":\"Some skipper message\",\"path\":\"/api/status/mylog\"}";
 
-	private final String ERROR3 = "{\"timestamp\":1508161424577," +
+	private final String error3 = "{\"timestamp\":1508161424577," +
 			"\"status\":409," +
 			"\"error\":\"Conflict\"," +
 			"\"exception\":\"org.springframework.cloud.skipper.PackageDeleteException\"," +
@@ -101,7 +101,7 @@ public class DefaultSkipperClientTests {
 
 		MockRestServiceServer mockServer = MockRestServiceServer.bindTo(restTemplate).build();
 		mockServer.expect(requestTo("/release/status/mylog"))
-				.andRespond(withStatus(HttpStatus.NOT_FOUND).body(ERROR1).contentType(MediaType.APPLICATION_JSON));
+				.andRespond(withStatus(HttpStatus.NOT_FOUND).body(error1).contentType(MediaType.APPLICATION_JSON));
 
 		skipperClient.status("mylog");
 	}
@@ -114,7 +114,7 @@ public class DefaultSkipperClientTests {
 
 		MockRestServiceServer mockServer = MockRestServiceServer.bindTo(restTemplate).build();
 		mockServer.expect(requestTo("/release/status/mylog"))
-				.andRespond(withStatus(HttpStatus.NOT_FOUND).body(ERROR2).contentType(MediaType.APPLICATION_JSON));
+				.andRespond(withStatus(HttpStatus.NOT_FOUND).body(error2).contentType(MediaType.APPLICATION_JSON));
 
 		skipperClient.status("mylog");
 	}
@@ -152,7 +152,7 @@ public class DefaultSkipperClientTests {
 
 		MockRestServiceServer mockServer = MockRestServiceServer.bindTo(restTemplate).build();
 		mockServer.expect(requestTo("/release/release1/package"))
-				.andRespond(withStatus(HttpStatus.CONFLICT).body(ERROR3).contentType(MediaType.APPLICATION_JSON));
+				.andRespond(withStatus(HttpStatus.CONFLICT).body(error3).contentType(MediaType.APPLICATION_JSON));
 		skipperClient.delete("release1", true);
 	}
 

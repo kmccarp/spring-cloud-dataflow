@@ -87,7 +87,7 @@ public class DeploymentPropertiesUtilsTests {
 			fail("Illegal Argument Exception expected.");
 		}
 		catch (Exception e) {
-			assertTrue(e.getMessage().equals("Only deployment property keys starting with 'app.' or 'scheduler' or 'deployer.'  or 'version.' allowed."));
+			assertTrue("Only deployment property keys starting with 'app.' or 'scheduler' or 'deployer.'  or 'version.' allowed.".equals(e.getMessage()));
 		}
 
 		props = DeploymentPropertiesUtils.parse("deployer.foo=bar,invalidkeyvalue2");
@@ -124,7 +124,7 @@ public class DeploymentPropertiesUtilsTests {
 			fail("Illegal Argument Exception expected.");
 		}
 		catch (Exception e) {
-			assertTrue(e.getMessage().equals("Only deployment property keys starting with 'app.' or 'scheduler' or 'deployer.'  or 'version.' allowed."));
+			assertTrue("Only deployment property keys starting with 'app.' or 'scheduler' or 'deployer.'  or 'version.' allowed.".equals(e.getMessage()));
 		}
 
 		props = DeploymentPropertiesUtils.parseArgumentList("a=b c=d", " ");

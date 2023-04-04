@@ -63,7 +63,7 @@ public class YamlConverterTests {
 				"      same: xxx.yyy\n"
 		);
 
-		Map<String, String> input = new HashMap<String, String>();
+		Map<String, String> input = new HashMap<>();
 		input.put("hi.this.is.same", "xxx.yyy");
 		doMapConversionTest(
 				input,
@@ -91,7 +91,7 @@ public class YamlConverterTests {
 				"    is:\n" +
 				"      same: xxx.yyy\n"
 		);
-		Map<String, String> input = new HashMap<String, String>();
+		Map<String, String> input = new HashMap<>();
 		input.put("bye.this.is.same", "xxx.yyy");
 		input.put("hi.this.is.same", "xxx.yyy");
 		doMapConversionTest(
@@ -180,7 +180,7 @@ public class YamlConverterTests {
 				// ==>
 				"some:\n" +
 				"  property: something-else\n",
-				(status) -> {
+				status -> {
 					assertThat(status.getSeverity()).isEqualTo(0);
 				}
 		);
@@ -195,7 +195,7 @@ public class YamlConverterTests {
 				"some:\n" +
 				"  property:\n" +
 				"    sub: sub-value\n",
-				(status) -> {
+				status -> {
 					assertStatus(status, YamlConversionStatus.ERROR,
 							"Direct assignment 'some.property=a-scalar' can not be combined with sub-property assignment 'some.property.sub...'");
 				}
@@ -212,7 +212,7 @@ public class YamlConverterTests {
 				"some:\n" +
 				"  property: a-scalar\n" +
 				"  property.sub: sub-value\n",
-				(status) -> {
+				status -> {
 					assertThat(status.getSeverity()).isEqualTo(0);
 				}
 		);
@@ -228,7 +228,7 @@ public class YamlConverterTests {
 				"some:\n" +
 				"  property:\n" +
 				"    sub1.sub2: sub-value\n",
-				(status) -> {
+				status -> {
 					assertThat(status.getSeverity()).isEqualTo(0);
 				}
 		);
@@ -246,7 +246,7 @@ public class YamlConverterTests {
 				"  property:\n" +
 				"    sub1.sub2: sub-value1\n" +
 				"    sub3.sub4: sub-value2\n",
-				(status) -> {
+				status -> {
 					assertThat(status.getSeverity()).isEqualTo(0);
 				}
 		);
@@ -272,7 +272,7 @@ public class YamlConverterTests {
 				"  property:\n" +
 				"    sub5.sub6: sub-value1\n" +
 				"    sub7.sub8: sub-value2\n",
-				(status) -> {
+				status -> {
 					assertThat(status.getSeverity()).isEqualTo(0);
 				}
 		);
@@ -301,7 +301,7 @@ public class YamlConverterTests {
 				"      hibernate: DEBUG\n" +
 				"      hibernate.type: ALL\n" +
 				"  rootLogger: INFO, stdout\n",
-				(status) -> {
+				status -> {
 					assertThat(status.getSeverity()).isEqualTo(0);
 				}
 		);
@@ -334,7 +334,7 @@ public class YamlConverterTests {
 				"      hibernate: DEBUG\n" +
 				"      hibernate.type: ALL\n" +
 				"  rootLogger: INFO, stdout\n",
-				(status) -> {
+				status -> {
 					assertThat(status.getSeverity()).isEqualTo(0);
 				}
 		);
@@ -351,7 +351,7 @@ public class YamlConverterTests {
 				"  property:\n" +
 				"  - zero\n" +
 				"  - one\n",
-				(status) -> {
+				status -> {
 					assertStatus(status, YamlConversionStatus.ERROR,
 							"Direct assignment 'some.property=a-scalar' can not be combined with sequence assignment 'some.property[0]...'");
 				}
@@ -372,7 +372,7 @@ public class YamlConverterTests {
 				"    '1': one\n" +
 				"    abc: val1\n" +
 				"    def: val2\n",
-				(status) -> {
+				status -> {
 					assertStatus(status, YamlConversionStatus.WARNING,
 							"'some.property' has some entries that look like list items and others that look like map entries");
 				}
@@ -394,7 +394,7 @@ public class YamlConverterTests {
 				"    '1': one\n" +
 				"    abc: val1\n" +
 				"    def: val2\n",
-				(status) -> {
+				status -> {
 					assertStatus(status, YamlConversionStatus.ERROR,
 							"Direct assignment 'some.property=a-scalar' can not be combined with sub-property assignment 'some.property.abc...'. ");
 					assertStatus(status, YamlConversionStatus.ERROR,
@@ -404,7 +404,7 @@ public class YamlConverterTests {
 	}
 
 	private void doConversionTest(String input, String expectedOutput) throws Exception {
-		do_conversionTest(input, expectedOutput, (status) -> {
+		do_conversionTest(input, expectedOutput, status -> {
 			assertThat(status.getSeverity()).isEqualTo(YamlConversionStatus.OK);
 		});
 	}
@@ -432,7 +432,7 @@ public class YamlConverterTests {
 	}
 
 	private void doMapConversionTest(Map<String, String> input, String expectedOutput) throws Exception {
-		do_mapConversionTest(input, expectedOutput, (status) -> {
+		do_mapConversionTest(input, expectedOutput, status -> {
 			assertThat(status.getSeverity()).isEqualTo(YamlConversionStatus.OK);
 		});
 	}

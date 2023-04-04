@@ -39,7 +39,7 @@ import org.springframework.util.StringUtils;
  */
 public class DefaultPackageWriter implements PackageWriter {
 
-	private Yaml yaml;
+	private final Yaml yaml;
 
 	public DefaultPackageWriter() {
 		DumperOptions dumperOptions = new DumperOptions();

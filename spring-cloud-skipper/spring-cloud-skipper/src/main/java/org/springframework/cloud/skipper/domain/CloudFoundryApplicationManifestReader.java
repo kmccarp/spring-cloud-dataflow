@@ -47,7 +47,7 @@ import org.springframework.cloud.skipper.SkipperException;
  */
 public class CloudFoundryApplicationManifestReader implements SkipperManifestReader {
 
-	private final static Logger logger = LoggerFactory.getLogger(CloudFoundryApplicationManifestReader.class);
+	private static final Logger logger = LoggerFactory.getLogger(CloudFoundryApplicationManifestReader.class);
 
 	@Override
 	public List<CloudFoundryApplicationSkipperManifest> read(String manifest) {

@@ -27,8 +27,8 @@ package org.springframework.cloud.skipper.support.yaml;
 public class YamlConversionResult {
 
 	static YamlConversionResult EMPTY = new YamlConversionResult(YamlConversionStatus.EMPTY, "");
-	private YamlConversionStatus status;
-	private String yaml;
+	private final YamlConversionStatus status;
+	private final String yaml;
 
 	/**
 	 * Instantiates a new yaml conversion result.
