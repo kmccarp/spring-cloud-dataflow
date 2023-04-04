@@ -25,5 +25,5 @@ package com.acme.common;
 public enum SomeEnum {
 	one,
 	two,
-	three;
+	three
 }

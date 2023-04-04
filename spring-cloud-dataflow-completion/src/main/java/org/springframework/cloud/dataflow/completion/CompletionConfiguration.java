@@ -146,7 +146,7 @@ public class CompletionConfiguration {
 
 	@Bean
 	public TaskCompletionProvider taskCompletionProvider() {
-		List<RecoveryStrategy<?>> recoveryStrategies = Arrays.<RecoveryStrategy<?>>asList(
+		List<RecoveryStrategy<?>> recoveryStrategies = Arrays.asList(
 				emptyStartYieldsAppsTaskRecoveryStrategy(), expandOneDashToTwoDashesTaskRecoveryStrategy(),
 				configurationPropertyNameAfterDashDashTaskRecoveryStrategy(),
 				unfinishedConfigurationPropertyNameTaskRecoveryStrategy(),

@@ -29,13 +29,13 @@ import org.springframework.util.Assert;
  */
 public class TaskApp {
 
-	private String taskDefinitionName;
+	private final String taskDefinitionName;
 
-	private String name;
+	private final String name;
 
-	private Map<String, String> arguments;
+	private final Map<String, String> arguments;
 
-	private String label;
+	private final String label;
 
 	TaskApp(String taskDefinitionName, TaskAppNode taskAppNode) {
 		Assert.notNull(taskAppNode, "taskAppNode not expected to be null");

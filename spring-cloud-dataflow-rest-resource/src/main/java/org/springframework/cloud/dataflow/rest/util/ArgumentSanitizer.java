@@ -50,7 +50,7 @@ import org.springframework.util.StringUtils;
  * @author Corneil du Plessis
  */
 public class ArgumentSanitizer {
-	private final static Logger logger = LoggerFactory.getLogger(ArgumentSanitizer.class);
+	private static final Logger logger = LoggerFactory.getLogger(ArgumentSanitizer.class);
 
 	private static final String[] REGEX_PARTS = {"*", "$", "^", "+"};
 
@@ -59,14 +59,14 @@ public class ArgumentSanitizer {
 	private static final String[] KEYS_TO_SANITIZE = {"username", "password", "secret", "key", "token", ".*credentials.*",
 			"vcap_services", "url"};
 
-	private final static TypeReference<Map<String, Object>> mapTypeReference = new TypeReference<Map<String, Object>>() {
+	private static final TypeReference<Map<String, Object>> mapTypeReference = new TypeReference<Map<String, Object>>() {
 	};
 
 	private final ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
 
 	private final ObjectMapper jsonMapper = new ObjectMapper();
 
-	private Pattern[] keysToSanitize;
+	private final Pattern[] keysToSanitize;
 
 	public ArgumentSanitizer() {
 		this.keysToSanitize = new Pattern[KEYS_TO_SANITIZE.length];

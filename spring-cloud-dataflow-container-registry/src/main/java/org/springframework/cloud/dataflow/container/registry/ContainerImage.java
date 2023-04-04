@@ -165,7 +165,7 @@ public class ContainerImage {
 	}
 
 	public String getRepositoryReference() {
-		return (StringUtils.hasText(this.repositoryTag) ? repositoryTag : repositoryDigest);
+		return StringUtils.hasText(this.repositoryTag) ? repositoryTag : repositoryDigest;
 	}
 
 	private String getReferencePrefix() {

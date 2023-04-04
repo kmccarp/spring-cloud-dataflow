@@ -1545,8 +1545,7 @@ public class TaskParserTests {
 	// --
 
 	private TaskNode parse(String dsltext) {
-		TaskNode ctn = new TaskParser("test", dsltext, true, true).parse();
-		return ctn;
+		return new TaskParser("test", dsltext, true, true).parse();
 	}
 
 	private TaskNode parse(String name, String dsltext) {
@@ -1554,13 +1553,11 @@ public class TaskParserTests {
 	}
 
 	private TaskNode parse(String dsltext, boolean validate) {
-		TaskNode ctn = new TaskParser("test", dsltext, true, validate).parse();
-		return ctn;
+		return new TaskParser("test", dsltext, true, validate).parse();
 	}
 
 	private TaskNode parse(String composedTaskName, String dsltext, boolean validate) {
-		TaskNode ctn = new TaskParser(composedTaskName, dsltext, true, validate).parse();
-		return ctn;
+		return new TaskParser(composedTaskName, dsltext, true, validate).parse();
 	}
 
 	private void assertToken(TokenKind kind, String string, int start, int end, Token t) {
@@ -1626,7 +1623,7 @@ public class TaskParserTests {
 	private void assertApps(List<TaskApp> taskApps, String... expectedTaskAppNames) {
 		assertEquals("Expected " + expectedTaskAppNames.length + " but was " + taskApps.size() + ": " + taskApps,
 				expectedTaskAppNames.length, taskApps.size());
-		Set<String> set2 = new HashSet<String>();
+		Set<String> set2 = new HashSet<>();
 		for (TaskApp taskApp : taskApps) {
 			StringBuilder s = new StringBuilder();
 			if (taskApp.getLabel() != null) {
@@ -1644,7 +1641,7 @@ public class TaskParserTests {
 			}
 			set2.remove(expectedTaskAppName);
 		}
-		if (set2.size() != 0) {
+		if (!set2.isEmpty()) {
 			fail("Unexpected app" + (set2.size() > 1 ? "s" : "") + " :" + set2);
 		}
 	}
@@ -1690,13 +1687,13 @@ public class TaskParserTests {
 
 		@Override
 		public boolean preVisitSequence(LabelledTaskNode firstNode, int sequenceNumber) {
-			s.append(">SN[" + (firstNode.hasLabel() ? firstNode.getLabelString() + ": " : "") + sequenceNumber + "] ");
+			s.append(">SN[").append(firstNode.hasLabel() ? firstNode.getLabelString() + ": " : "").append(sequenceNumber).append("] ");
 			return true;
 		}
 
 		@Override
 		public void postVisitSequence(LabelledTaskNode firstNode, int sequenceNumber) {
-			s.append("<SN[" + sequenceNumber + "] ");
+			s.append("<SN[").append(sequenceNumber).append("] ");
 		}
 
 		@Override
@@ -1707,7 +1704,7 @@ public class TaskParserTests {
 
 		@Override
 		public void visit(FlowNode flow) {
-			s.append("=F" + (flow.hasLabel() ? "[" + flow.getLabelString() + ":]" : "") + " ");
+			s.append("=F").append(flow.hasLabel() ? "[" + flow.getLabelString() + ":]" : "").append(" ");
 		}
 
 		@Override
@@ -1723,7 +1720,7 @@ public class TaskParserTests {
 
 		@Override
 		public void visit(SplitNode split) {
-			s.append("=S" + (split.hasLabel() ? "[" + split.getLabelString() + ":]" : "") + " ");
+			s.append("=S").append(split.hasLabel() ? "[" + split.getLabelString() + ":]" : "").append(" ");
 		}
 
 		@Override
@@ -1739,7 +1736,7 @@ public class TaskParserTests {
 
 		@Override
 		public void visit(TaskAppNode taskApp) {
-			s.append("=TA[" + (taskApp.hasLabel() ? taskApp.getLabelString() + ": " : "") + taskApp.getName() + "] ");
+			s.append("=TA[").append(taskApp.hasLabel() ? taskApp.getLabelString() + ": " : "").append(taskApp.getName()).append("] ");
 		}
 
 		@Override
@@ -1755,12 +1752,9 @@ public class TaskParserTests {
 
 		@Override
 		public void visit(TransitionNode transition) {
-			s.append("=T["
-					+ (transition.isExitCodeCheck() ? transition.getStatusToCheck()
-							: "'" + transition.getStatusToCheck() + "'")
-					+ "->" + (transition.isTargetApp() ? transition.getTargetApp().stringify()
-							: ":" + transition.getTargetLabel())
-					+ "] ");
+			s.append("=T[").append(transition.isExitCodeCheck() ? transition.getStatusToCheck()
+							: "'" + transition.getStatusToCheck() + "'").append("->").append(transition.isTargetApp() ? transition.getTargetApp().stringify()
+							: ":" + transition.getTargetLabel()).append("] ");
 		}
 
 		@Override

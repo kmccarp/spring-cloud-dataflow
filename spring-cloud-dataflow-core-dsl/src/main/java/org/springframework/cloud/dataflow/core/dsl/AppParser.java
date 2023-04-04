@@ -124,7 +124,7 @@ public class AppParser {
 			String argValue = eatArgValue();
 			tokens.checkpoint();
 			if (args == null) {
-				args = new ArrayList<ArgumentNode>();
+				args = new ArrayList<>();
 			}
 			args.add(new ArgumentNode(toData(argNameComponents), argValue, dashDash.startPos, t.endPos));
 		}
@@ -162,7 +162,7 @@ public class AppParser {
 	 * @return array of tokens separated by a dot
 	 */
 	protected List<Token> eatDottedName() {
-		List<Token> result = new ArrayList<Token>(3);
+		List<Token> result = new ArrayList<>(3);
 		Token name = tokens.next();
 		if (!name.isKind(TokenKind.IDENTIFIER)) {
 			tokens.raiseException(name.startPos, DSLMessage.NOT_EXPECTED_TOKEN,
@@ -219,9 +219,9 @@ public class AppParser {
 	 */
 	protected List<String> tokenListToStringList(List<Token> tokens) {
 		if (tokens.isEmpty()) {
-			return Collections.<String>emptyList();
+			return Collections.emptyList();
 		}
-		List<String> data = new ArrayList<String>();
+		List<String> data = new ArrayList<>();
 		for (Token token : tokens) {
 			data.add(token.data);
 		}

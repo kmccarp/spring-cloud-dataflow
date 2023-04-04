@@ -63,7 +63,7 @@ public class CompletionProposal {
 		return String.format("%s[%s]", getClass().getSimpleName(), text);
 	}
 
-	public static class Factory {
+	public static final class Factory {
 
 		private final String start;
 

@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
  * @author Corneil du Plessis
  */
 public class AppBootSchemaVersionSerializer extends StdSerializer<AppBootSchemaVersion> {
+	private static final long serialVersionUID = 1;
 	public AppBootSchemaVersionSerializer() {
 		super(AppBootSchemaVersion.class);
 	}

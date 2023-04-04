@@ -35,6 +35,8 @@ import org.springframework.cloud.dataflow.rest.job.StepExecutionHistory;
  */
 public class Jackson2DataflowModule extends SimpleModule {
 
+	private static final long serialVersionUID = 1;
+
 	public Jackson2DataflowModule() {
 		super("spring-cloud-dataflow-module", new Version(1, 0, 0, null, "org.springframework.cloud", "spring-cloud-dataflow"));
 

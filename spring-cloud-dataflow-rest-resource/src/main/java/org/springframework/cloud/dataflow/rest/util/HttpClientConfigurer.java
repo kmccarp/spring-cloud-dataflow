@@ -50,7 +50,7 @@ public class HttpClientConfigurer {
 	private final HttpClientBuilder httpClientBuilder;
 
 	private boolean useBasicAuth;
-	private HttpHost targetHost;
+	private final HttpHost targetHost;
 
 	private CredentialsProvider credentialsProvider;
 

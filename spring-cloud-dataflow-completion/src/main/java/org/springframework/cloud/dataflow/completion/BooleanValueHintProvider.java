@@ -43,7 +43,7 @@ public class BooleanValueHintProvider implements ValueHintProvider {
 
 	@Override
 	public List<ValueHint> generateValueHints(ConfigurationMetadataProperty property, ClassLoader classLoader) {
-		return "java.lang.Boolean".equals(property.getType()) ? BOOLEANS : Collections.<ValueHint>emptyList();
+		return "java.lang.Boolean".equals(property.getType()) ? BOOLEANS : Collections.emptyList();
 	}
 
 	@Override

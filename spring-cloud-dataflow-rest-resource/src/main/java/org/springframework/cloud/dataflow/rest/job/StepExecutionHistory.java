@@ -28,27 +28,27 @@ import org.springframework.batch.core.StepExecution;
 public class StepExecutionHistory {
 	private final String stepName;
 
-	private int count = 0;
+	private int count;
 
-	private CumulativeHistory commitCount = new CumulativeHistory();
+	private final CumulativeHistory commitCount = new CumulativeHistory();
 
-	private CumulativeHistory rollbackCount = new CumulativeHistory();
+	private final CumulativeHistory rollbackCount = new CumulativeHistory();
 
-	private CumulativeHistory readCount = new CumulativeHistory();
+	private final CumulativeHistory readCount = new CumulativeHistory();
 
-	private CumulativeHistory writeCount = new CumulativeHistory();
+	private final CumulativeHistory writeCount = new CumulativeHistory();
 
-	private CumulativeHistory filterCount = new CumulativeHistory();
+	private final CumulativeHistory filterCount = new CumulativeHistory();
 
-	private CumulativeHistory readSkipCount = new CumulativeHistory();
+	private final CumulativeHistory readSkipCount = new CumulativeHistory();
 
-	private CumulativeHistory writeSkipCount = new CumulativeHistory();
+	private final CumulativeHistory writeSkipCount = new CumulativeHistory();
 
-	private CumulativeHistory processSkipCount = new CumulativeHistory();
+	private final CumulativeHistory processSkipCount = new CumulativeHistory();
 
-	private CumulativeHistory duration = new CumulativeHistory();
+	private final CumulativeHistory duration = new CumulativeHistory();
 
-	private CumulativeHistory durationPerRead = new CumulativeHistory();
+	private final CumulativeHistory durationPerRead = new CumulativeHistory();
 
 	public StepExecutionHistory(String stepName) {
 		this.stepName = stepName;

@@ -69,9 +69,9 @@ public class DockerComposeExecutable implements Executable {
 		return DockerComposeVersion.parseFromDockerComposeVersion(versionOutput);
 	}
 
-	private DockerComposeFiles dockerComposeFiles;
+	private final DockerComposeFiles dockerComposeFiles;
 
-	private DockerConfiguration dockerConfiguration;
+	private final DockerConfiguration dockerConfiguration;
 
 	private ProjectName projectName = ProjectName.random();
 

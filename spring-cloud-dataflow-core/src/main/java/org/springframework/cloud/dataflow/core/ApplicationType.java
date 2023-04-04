@@ -48,6 +48,6 @@ public enum ApplicationType {
 	/**
 	 * An application type to execute a short-lived process.
 	 */
-	task;
+	task
 
 }

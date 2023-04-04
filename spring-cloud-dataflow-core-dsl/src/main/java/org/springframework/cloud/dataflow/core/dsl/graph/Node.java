@@ -73,22 +73,22 @@ public class Node {
 
 	@JsonIgnore
 	public boolean isStart() {
-		return name.equals("START");
+		return "START".equals(name);
 	}
 
 	@JsonIgnore
 	public boolean isEnd() {
-		return name.equals("END");
+		return "END".equals(name);
 	}
 
 	@JsonIgnore
 	public boolean isFail() {
-		return name.equals("FAIL");
+		return "FAIL".equals(name);
 	}
 
 	@JsonIgnore
 	public boolean isSync() {
-		return name.equals("SYNC");
+		return "SYNC".equals(name);
 	}
 
 	@JsonIgnore

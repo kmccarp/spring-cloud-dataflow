@@ -47,7 +47,7 @@ import org.springframework.cloud.skipper.SkipperException;
  */
 public class SpringCloudDeployerApplicationManifestReader implements SkipperManifestReader {
 
-	private final static Logger logger = LoggerFactory.getLogger(SpringCloudDeployerApplicationManifestReader.class);
+	private static final Logger logger = LoggerFactory.getLogger(SpringCloudDeployerApplicationManifestReader.class);
 
 	public List<SpringCloudDeployerApplicationManifest> read(String manifest) {
 		if (canSupport(manifest)) {

@@ -69,7 +69,7 @@ public class JobExecutionThinResource extends RepresentationModel<JobExecutionTh
 
 	private String startTime = "";
 
-	private Date startDateTime = null;
+	private Date startDateTime;
 
 	private String duration = "";
 
@@ -77,11 +77,11 @@ public class JobExecutionThinResource extends RepresentationModel<JobExecutionTh
 
 	private String jobParametersString;
 
-	private boolean restartable = false;
+	private boolean restartable;
 
-	private boolean abandonable = false;
+	private boolean abandonable;
 
-	private boolean stoppable = false;
+	private boolean stoppable;
 
 	private boolean defined;
 

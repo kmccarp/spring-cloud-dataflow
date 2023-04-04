@@ -52,7 +52,7 @@ public class JobParameterJacksonDeserializer extends JsonDeserializer<JobParamet
 
 		final JobParameter jobParameter;
 
-		if (!type.isEmpty() && !type.equalsIgnoreCase("STRING")) {
+		if (!type.isEmpty() && !"STRING".equalsIgnoreCase(type)) {
 			if ("DATE".equalsIgnoreCase(type)) {
 				// TODO: when upgraded to Java8 use java DateTime
 				jobParameter = new JobParameter(DateTime.parse(value).toDate(), identifying);
