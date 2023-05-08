@@ -19,11 +19,12 @@ import static java.util.Arrays.asList;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 public class DockerCommandLocations {
-    private static final Predicate<String> IS_NOT_NULL = path -> path != null;
+    private static final Predicate<String> IS_NOT_NULL = Objects::nonNull;
     private static final Predicate<String> FILE_EXISTS = path -> new File(path).exists();
 
     private final List<String> possiblePaths;

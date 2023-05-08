@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_EMPTY)
 public class Link {
 
-	public final static String PROPERTY_TRANSITION_NAME = "transitionName";
+	public static final String PROPERTY_TRANSITION_NAME = "transitionName";
 
 	public String from;
 
@@ -43,7 +43,7 @@ public class Link {
 	 * Properties on a link can capture the name of a potential transition that would lead
 	 * to this link being taken when the 'from' job completes.
 	 */
-	public Map<String, String> properties = null;
+	public Map<String, String> properties;
 
 	Link() {
 

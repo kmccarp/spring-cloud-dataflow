@@ -27,13 +27,13 @@ package org.springframework.cloud.dataflow.core.dsl;
  *
  * @author Andy Clement
  */
-public class TransitionNode extends AstNode {
+public final class TransitionNode extends AstNode {
 
-	public final static String FAIL = "$FAIL";
+	public static final String FAIL = "$FAIL";
 
-	public final static String END = "$END";
+	public static final String END = "$END";
 
-	private Token statusToken;
+	private final Token statusToken;
 
 	// Holds the string value of the token, with any quotes removed
 	private String status;

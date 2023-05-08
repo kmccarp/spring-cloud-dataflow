@@ -268,7 +268,7 @@ public class DockerComposeRule {
 		}
 
 		public T clusterWaits(Iterable<? extends ClusterWait> elements) {
-			elements.forEach(e -> clusterWaits.add(e));
+			elements.forEach(clusterWaits::add);
 			return self();
 		}
 

@@ -117,11 +117,11 @@ public enum DSLMessage {
 	UNEXPECTED_DATA_IN_DESTINATION_NAME(Kind.ERROR, 171, "unexpected data in destination name ''{0}''"), //
 	;
 
-	private Kind kind;
+	private final Kind kind;
 
-	private int code;
+	private final int code;
 
-	private String message;
+	private final String message;
 
 	DSLMessage(Kind kind, int code, String message) {
 		this.kind = kind;

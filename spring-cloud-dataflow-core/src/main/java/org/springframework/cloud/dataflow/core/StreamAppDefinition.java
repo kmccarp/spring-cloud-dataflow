@@ -72,19 +72,24 @@ public class StreamAppDefinition extends DataFlowAppDefinition {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj)) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		StreamAppDefinition other = (StreamAppDefinition) obj;
 		if (streamName == null) {
-			if (other.streamName != null)
+			if (other.streamName != null) {
 				return false;
+			}
 		}
-		else if (!streamName.equals(other.streamName))
+		else if (!streamName.equals(other.streamName)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -104,7 +109,7 @@ public class StreamAppDefinition extends DataFlowAppDefinition {
 		/**
 		 * @see AppDefinition#getProperties()
 		 */
-		private final Map<String, String> properties = new HashMap<String, String>();
+		private final Map<String, String> properties = new HashMap<>();
 
 		/**
 		 * @see StreamAppDefinition#streamName

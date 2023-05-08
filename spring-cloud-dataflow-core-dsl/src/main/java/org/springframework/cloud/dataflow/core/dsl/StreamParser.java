@@ -82,7 +82,7 @@ public class StreamParser extends AppParser {
 		}
 
 		// Check that each app has a unique label (either explicit or implicit)
-		Map<String, AppNode> alreadySeen = new LinkedHashMap<String, AppNode>();
+		Map<String, AppNode> alreadySeen = new LinkedHashMap<>();
 		for (int m = 0; m < ast.getAppNodes().size(); m++) {
 			AppNode node = ast.getAppNodes().get(m);
 			AppNode previous = alreadySeen.put(node.getLabelName(), node);
@@ -371,7 +371,7 @@ public class StreamParser extends AppParser {
 	 */
 	protected List<AppNode> eatAppList(boolean preceedingSourceChannelSpecified) {
 		Tokens tokens = getTokens();
-		List<AppNode> appNodes = new ArrayList<AppNode>();
+		List<AppNode> appNodes = new ArrayList<>();
 		int usedListDelimiter = -1;
 		int usedStreamDelimiter = -1;
 		appNodes.add(eatApp());

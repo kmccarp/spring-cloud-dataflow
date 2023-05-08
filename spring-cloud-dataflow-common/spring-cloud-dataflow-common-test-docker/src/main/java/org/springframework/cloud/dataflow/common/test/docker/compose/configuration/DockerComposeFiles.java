@@ -55,7 +55,7 @@ public class DockerComposeFiles {
 				}
 				return path;
 			})
-			.map(path -> path.toFile())
+			.map(Path::toFile)
 			.collect(toList());
 		validateAtLeastOneComposeFileSpecified(dockerComposeFiles);
 		validateComposeFilesExist(dockerComposeFiles);

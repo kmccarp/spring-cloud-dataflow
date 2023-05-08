@@ -34,17 +34,17 @@ public class TaskNode extends AstNode {
 	/**
 	 * The name of the task.
 	 */
-	private String name;
+	private final String name;
 
 	/**
 	 * The DSL text that was parsed to create this TaskNode.
 	 */
-	private String taskDSL;
+	private final String taskDSL;
 
 	/**
 	 * The sequence of LabelledNodes parsed from the dsl.
 	 */
-	private List<LabelledTaskNode> sequences;
+	private final List<LabelledTaskNode> sequences;
 
 	/**
 	 * All the apps mentioned in the task dsl.
@@ -52,8 +52,8 @@ public class TaskNode extends AstNode {
 	private List<TaskApp> taskApps;
 
 	TaskNode(String name, String taskDSL, List<LabelledTaskNode> sequences, boolean inAppMode) {
-		super((sequences.size() == 0) ? 0 : sequences.get(0).getStartPos(),
-				(sequences.size() == 0) ? 0 : sequences.get(sequences.size() - 1).getEndPos());
+		super((sequences.isEmpty()) ? 0 : sequences.get(0).getStartPos(),
+				(sequences.isEmpty()) ? 0 : sequences.get(sequences.size() - 1).getEndPos());
 		this.name = name;
 		this.taskDSL = taskDSL;
 		this.sequences = sequences;
@@ -149,7 +149,7 @@ public class TaskNode extends AstNode {
 	 * @return the first node in the first sequence.
 	 */
 	public LabelledTaskNode getStart() {
-		if (sequences.size() == 0) {
+		if (sequences.isEmpty()) {
 			return null;
 		}
 		else {
@@ -196,9 +196,9 @@ public class TaskNode extends AstNode {
 	 */
 	public boolean isComposed() {
 		// Is there just one task
-		boolean isOneTask = (sequences.size() == 1 && sequences.get(0).isFlow()
+		boolean isOneTask = sequences.size() == 1 && sequences.get(0).isFlow()
 				&& ((FlowNode) sequences.get(0)).getSeriesLength() == 1
-				&& ((FlowNode) sequences.get(0)).getSeriesElement(0).isTaskApp());
+				&& ((FlowNode) sequences.get(0)).getSeriesElement(0).isTaskApp();
 		if (!isOneTask) {
 			return true;
 		}
@@ -212,7 +212,7 @@ public class TaskNode extends AstNode {
 	 * or null if it is a composed task
 	 */
 	public TaskAppNode getTaskApp() {
-		return (isComposed() ? null : (TaskAppNode) (((FlowNode) sequences.get(0)).getSeriesElement(0)));
+		return isComposed() ? null : (TaskAppNode) (((FlowNode) sequences.get(0)).getSeriesElement(0));
 	}
 
 	public String toString() {
@@ -224,13 +224,13 @@ public class TaskNode extends AstNode {
 
 	static class ExecutableDSLVisitor extends TaskVisitor {
 
-		private final static int START_OF_FLOW = 0;
+		private static final int START_OF_FLOW = 0;
 
-		private final static int START_OF_SPLIT = 1;
+		private static final int START_OF_SPLIT = 1;
 
-		private final static int IN_FLOW = 2;
+		private static final int IN_FLOW = 2;
 
-		private final static int IN_SPLIT = 3;
+		private static final int IN_SPLIT = 3;
 
 		private StringBuilder dsl = new StringBuilder();
 

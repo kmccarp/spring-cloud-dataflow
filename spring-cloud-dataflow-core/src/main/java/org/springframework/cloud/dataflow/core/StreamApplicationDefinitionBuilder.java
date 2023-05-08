@@ -78,10 +78,10 @@ class StreamApplicationDefinitionBuilder {
 			if (appNode.hasArguments()) {
 				ArgumentNode[] arguments = appNode.getArguments();
 				for (ArgumentNode argument : arguments) {
-					if (argument.getName().equalsIgnoreCase("inputType")) {
+					if ("inputType".equalsIgnoreCase(argument.getName())) {
 						builder.setProperty(BindingPropertyKeys.INPUT_CONTENT_TYPE, argument.getValue());
 					}
-					else if (argument.getName().equalsIgnoreCase("outputType")) {
+					else if ("outputType".equalsIgnoreCase(argument.getName())) {
 						builder.setProperty(BindingPropertyKeys.OUTPUT_CONTENT_TYPE, argument.getValue());
 					}
 					else {

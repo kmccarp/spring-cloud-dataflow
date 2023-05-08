@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class SplitNode extends LabelledTaskNode {
 
-	private List<LabelledTaskNode> parallelTaskApps;
+	private final List<LabelledTaskNode> parallelTaskApps;
 
 	SplitNode(int startpos, int endpos, List<LabelledTaskNode> parallelSequences) {
 		super(startpos, endpos);
