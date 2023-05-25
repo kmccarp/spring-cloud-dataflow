@@ -44,12 +44,12 @@ public class AppResourceCommon {
 	/**
 	 * the maven properties to use in case of maven resource
 	 */
-	private MavenProperties mavenProperties;
+	private final MavenProperties mavenProperties;
 
 	/**
 	 * Delegated resource loader for resolving metadata from the metadata URI
 	 */
-	private ResourceLoader metadataResourceLoader;
+	private final ResourceLoader metadataResourceLoader;
 
 
 	public AppResourceCommon(MavenProperties mavenProperties, ResourceLoader resourceLoader) {
@@ -198,13 +198,13 @@ public class AppResourceCommon {
 					mavenResource.getGroupId(),
 					mavenResource.getArtifactId()));
 			if (StringUtils.hasText(mavenResource.getExtension())) {
-				mavenResourceStringBuilder.append(":" + mavenResource.getExtension());
+				mavenResourceStringBuilder.append(":").append(mavenResource.getExtension());
 			}
 			else {
 				mavenResourceStringBuilder.append(":jar");
 			}
 			if (StringUtils.hasText(mavenResource.getClassifier())) {
-				mavenResourceStringBuilder.append(":" + mavenResource.getClassifier());
+				mavenResourceStringBuilder.append(":").append(mavenResource.getClassifier());
 			}
 			return mavenResourceStringBuilder.toString();
 		}
@@ -224,8 +224,7 @@ public class AppResourceCommon {
 	String getUrlResourceWithoutVersion(UrlResource urlResource) {
 		String version = getUrlResourceVersion(urlResource);
 		URI uri = getUri(urlResource);
-		String theRest = uri.toString().substring(0, uri.toString().indexOf("-" + version));
-		return theRest;
+		return uri.toString().substring(0, uri.toString().indexOf("-" + version));
 	}
 
 	private String getDockerImageWithoutVersion(DockerResource dockerResource) {

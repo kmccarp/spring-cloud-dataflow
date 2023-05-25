@@ -246,14 +246,17 @@ public class AppRegistration extends AbstractEntity implements Comparable<AppReg
 	@Override
 	public boolean equals(Object o) {
 		// self check
-		if (this == o)
+		if (this == o) {
 			return true;
+		}
 		// null check
-		if (o == null)
+		if (o == null) {
 			return false;
+		}
 		// type check and cast
-		if (getClass() != o.getClass())
+		if (getClass() != o.getClass()) {
 			return false;
+		}
 		AppRegistration appRegistration = (AppRegistration) o;
 		// field comparison
 		return this.getName().equals(appRegistration.getName())

@@ -30,7 +30,7 @@ public class FeatureInfo {
 
 	private boolean tasksEnabled = true;
 
-	private boolean schedulesEnabled = false;
+	private boolean schedulesEnabled;
 
 	/**
 	 * This enum shows what SCDF monitoring dashboard configuration is exposed.

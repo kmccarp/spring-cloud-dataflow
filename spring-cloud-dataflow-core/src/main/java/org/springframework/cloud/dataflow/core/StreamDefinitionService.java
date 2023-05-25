@@ -29,7 +29,7 @@ import org.springframework.cloud.dataflow.core.dsl.StreamNode;
  */
 public interface StreamDefinitionService {
 
-	public final static List<String> dataFlowAddedProperties = Arrays.asList(
+	public static final List<String> dataFlowAddedProperties = Arrays.asList(
 			DataFlowPropertyKeys.STREAM_APP_TYPE,
 			DataFlowPropertyKeys.STREAM_APP_LABEL,
 			DataFlowPropertyKeys.STREAM_NAME,

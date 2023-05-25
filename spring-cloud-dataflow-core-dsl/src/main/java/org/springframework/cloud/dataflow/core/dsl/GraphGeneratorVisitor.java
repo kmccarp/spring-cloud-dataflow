@@ -38,14 +38,14 @@ import org.springframework.cloud.dataflow.core.dsl.graph.Node;
  */
 public class GraphGeneratorVisitor extends TaskVisitor {
 
-	private int nextNodeId = 0;
+	private int nextNodeId;
 
 	// As the visit proceeds different contexts are entered/exited - into a
 	// flow, into a split, etc.
-	private Stack<GraphGeneratorVisitor.Context> contexts = new Stack<>();
+	private final Stack<GraphGeneratorVisitor.Context> contexts = new Stack<>();
 
 	// The sequences built during the visit
-	private List<GraphGeneratorVisitor.Sequence> sequences = new ArrayList<>();
+	private final List<GraphGeneratorVisitor.Sequence> sequences = new ArrayList<>();
 
 	// Which sequence is currently being visited
 	private int currentSequence;
@@ -57,7 +57,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 	private Map<String, Node> existingNodesToReuse;
 
 	public Graph getGraph() {
-		if (sequences.size() == 0) {
+		if (sequences.isEmpty()) {
 			List<Node> nodes = new ArrayList<>();
 			List<Link> links = new ArrayList<>();
 			nodes.add(new Node("0", "START"));
@@ -67,8 +67,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 		}
 		else {
 			GraphGeneratorVisitor.Sequence s = sequences.get(0);
-			Graph g = new Graph(s.nodes, s.links);
-			return g;
+			return new Graph(s.nodes, s.links);
 		}
 	}
 
@@ -111,7 +110,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 
 	@Override
 	public void endVisit() {
-		if (sequences.size() > 0) {
+		if (!sequences.isEmpty()) {
 			GraphGeneratorVisitor.Sequence mainSequence = sequences.get(0);
 			// iterate until nothing left to do
 			int tooMany = 0;
@@ -153,7 +152,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 	 * @return a single transition (if there are any) and any others with the same target
 	 */
 	private List<Context.TransitionTarget> findNextTransitions(List<Context.TransitionTarget> transitions) {
-		if (transitions.size() == 0) {
+		if (transitions.isEmpty()) {
 			return Collections.emptyList();
 		}
 		List<Context.TransitionTarget> sameTarget = new ArrayList<>();
@@ -272,7 +271,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 	@Override
 	public boolean preVisit(SplitNode split) {
 		List<String> open = currentContext().getDanglingNodes();
-		String startId = (open.size() == 0 ? currentContext().startNodeId : open.get(0));
+		String startId = open.isEmpty() ? currentContext().startNodeId : open.get(0);
 		// If there are multiple open nodes, we need a sync node !
 		if (open.size() > 1) {
 			String syncId = nextId();
@@ -453,7 +452,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 				}
 			}
 			List<String> danglingNodes = currentContext().getDanglingNodes();
-			if (danglingNodes.size() == 0) {
+			if (danglingNodes.isEmpty()) {
 				// This app is the first in the flow and will create the first dangling
 				// node
 				addLink(new Link(currentContext().startNodeId, nextId));
@@ -482,7 +481,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 			addLink(new Link(currentContext().startNodeId, nextId));
 			currentContext().addDanglingNodes(false, nextId);
 		}
-		existingNodesToReuse = (currentContext().isFlow ? currentContext().extraNodes : new HashMap<>());
+		existingNodesToReuse = currentContext().isFlow ? currentContext().extraNodes : new HashMap<>();
 	}
 
 	// Gathers knowledge about a sequence during visiting
@@ -550,16 +549,16 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 		// Within a flow, transitions to the 'same job' would share a node
 		// target, as would all transitions to an $END or $FAIL node. This
 		// keeps track of what has been created so it can be reused.
-		Map<String, Node> nodesSharedInFlow = new LinkedHashMap<String, Node>();
+		Map<String, Node> nodesSharedInFlow = new LinkedHashMap<>();
 
 		// When processing apps in a real Flow or Split, this is the Ast node
 		// for that Flow or Split.
 		LabelledTaskNode containingNode;
 
 		// Tracking what kind of context we are in
-		boolean isFlow = false;
+		boolean isFlow;
 
-		boolean isSplit = false;
+		boolean isSplit;
 
 		// Id of the first node in this context (start of a flow, start of a
 		// split)

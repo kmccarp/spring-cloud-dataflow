@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.springframework.cloud.dataflow.common.test.docker.compose.connection.ContainerName;
 
-public class TestContainerNames {
+public final class TestContainerNames {
 
     private TestContainerNames() {}
 

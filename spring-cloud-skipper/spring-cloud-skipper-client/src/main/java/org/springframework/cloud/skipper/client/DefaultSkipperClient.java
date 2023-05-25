@@ -129,7 +129,7 @@ public class DefaultSkipperClient implements SkipperClient {
 	public Info status(String releaseName) {
 		ParameterizedTypeReference<Info> typeReference =
 				new ParameterizedTypeReference<Info>() { };
-		Map<String, String> uriVariables = new HashMap<String, String>();
+		Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("releaseName", releaseName);
 
 		ResponseEntity<Info> resourceResponseEntity =
@@ -177,7 +177,7 @@ public class DefaultSkipperClient implements SkipperClient {
 	public Info status(String releaseName, int releaseVersion) {
 		ParameterizedTypeReference<Info> typeReference =
 				new ParameterizedTypeReference<Info>() { };
-		Map<String, String> uriVariables = new HashMap<String, String>();
+		Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("releaseName", releaseName);
 		uriVariables.put("releaseVersion", Integer.toString(releaseVersion));
 		ResponseEntity<Info> resourceResponseEntity =
@@ -193,7 +193,7 @@ public class DefaultSkipperClient implements SkipperClient {
 	public LogInfo getLog(String releaseName) {
 		ParameterizedTypeReference<LogInfo> typeReference =
 				new ParameterizedTypeReference<LogInfo>() { };
-		Map<String, String> uriVariables = new HashMap<String, String>();
+		Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("releaseName", releaseName);
 
 		ResponseEntity<LogInfo> resourceResponseEntity =
@@ -209,7 +209,7 @@ public class DefaultSkipperClient implements SkipperClient {
 	public LogInfo getLog(String releaseName, String appName) {
 		ParameterizedTypeReference<LogInfo> typeReference =
 				new ParameterizedTypeReference<LogInfo>() { };
-		Map<String, String> uriVariables = new HashMap<String, String>();
+		Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("releaseName", releaseName);
 		uriVariables.put("appName", appName);
 
@@ -227,7 +227,7 @@ public class DefaultSkipperClient implements SkipperClient {
 		ParameterizedTypeReference<Release> typeReference =
 				new ParameterizedTypeReference<Release>() { };
 
-		Map<String, String> uriVariables = new HashMap<String, String>();
+		Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("releaseName", releaseName);
 
 		HttpEntity<ScaleRequest> httpEntity = new HttpEntity<>(scaleRequest);
@@ -281,7 +281,7 @@ public class DefaultSkipperClient implements SkipperClient {
 	public String manifest(String releaseName) {
 		ParameterizedTypeReference<Manifest> typeReference =
 				new ParameterizedTypeReference<Manifest>() { };
-		Map<String, String> uriVariables = new HashMap<String, String>();
+		Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("releaseName", releaseName);
 		ResponseEntity<Manifest> resourceResponseEntity =
 				restTemplate.exchange(baseUri + "/release/manifest/{releaseName}",
@@ -296,7 +296,7 @@ public class DefaultSkipperClient implements SkipperClient {
 	public String manifest(String releaseName, int releaseVersion) {
 		ParameterizedTypeReference<Manifest> typeReference =
 				new ParameterizedTypeReference<Manifest>() { };
-		Map<String, String> uriVariables = new HashMap<String, String>();
+		Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("releaseName", releaseName);
 		uriVariables.put("releaseVersion", Integer.toString(releaseVersion));
 		ResponseEntity<Manifest> resourceResponseEntity =
@@ -312,7 +312,7 @@ public class DefaultSkipperClient implements SkipperClient {
 	public Collection<PackageMetadata> search(String name, boolean details) {
 		ParameterizedTypeReference<HateoasResponseWrapper<PackageMetadatasResponseWrapper>> typeReference =
 				new ParameterizedTypeReference<HateoasResponseWrapper<PackageMetadatasResponseWrapper>>() { };
-		Map<String, String> uriVariables = new HashMap<String, String>();
+		Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("size", "2000");
 		String url = baseUri + "/packageMetadata";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -492,8 +492,7 @@ public class DefaultSkipperClient implements SkipperClient {
 		HttpEntity<UploadRequest> httpEntity = new HttpEntity<>(uploadRequest);
 		ResponseEntity<PackageMetadata> resourceResponseEntity =
 				restTemplate.exchange(url, HttpMethod.POST, httpEntity, typeReference);
-		PackageMetadata packageMetadata = resourceResponseEntity.getBody();
-		return packageMetadata;
+		return resourceResponseEntity.getBody();
 	}
 
 	@Override

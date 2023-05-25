@@ -64,8 +64,12 @@ public class ActuatorPostRequest {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 		ActuatorPostRequest that = (ActuatorPostRequest) o;
 		return Objects.equals(endpoint, that.endpoint) && Objects.equals(body, that.body);
 	}

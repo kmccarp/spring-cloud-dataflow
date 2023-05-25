@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.fail;
  */
 public class SpringCloudDeployerApplicationManifestReaderTests {
 
-	private SpringCloudDeployerApplicationManifestReader applicationManifestReader = new SpringCloudDeployerApplicationManifestReader();
+	private final SpringCloudDeployerApplicationManifestReader applicationManifestReader = new SpringCloudDeployerApplicationManifestReader();
 
 	@Test
 	public void readTests() throws IOException {
@@ -64,10 +64,10 @@ public class SpringCloudDeployerApplicationManifestReaderTests {
 	private void assertTimeOrLogApp(SpringCloudDeployerApplicationManifest applicationSpec) {
 		if (applicationSpec.getMetadata().containsKey("name")) {
 			String name = applicationSpec.getMetadata().get("name");
-			if (name.equals("time-source")) {
+			if ("time-source".equals(name)) {
 				assertTime(applicationSpec);
 			}
-			else if (name.equals("log-sink")) {
+			else if ("log-sink".equals(name)) {
 				assertLog(applicationSpec);
 			}
 			else {

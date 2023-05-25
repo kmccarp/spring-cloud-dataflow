@@ -181,10 +181,7 @@ abstract class YamlPathSegment {
 				return false;
 			}
 			AtIndex other = (AtIndex) obj;
-			if (index != other.index) {
-				return false;
-			}
-			return true;
+			return index == other.index;
 		}
 
 		@Override

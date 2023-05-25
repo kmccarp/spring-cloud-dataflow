@@ -28,7 +28,7 @@ import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-public class LegacyDockerComposeExtension extends DockerComposeRule implements BeforeAllCallback, AfterAllCallback {
+public final class LegacyDockerComposeExtension extends DockerComposeRule implements BeforeAllCallback, AfterAllCallback {
 
 	private LegacyDockerComposeExtension(DockerComposeFiles files, List<ClusterWait> clusterWaits,
 			LogCollector logCollector, DockerMachine machine, boolean pullOnStartup, ProjectName projectName) {

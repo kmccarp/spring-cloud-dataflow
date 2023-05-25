@@ -20,7 +20,7 @@ import java.util.List;
 
 public class DockerComposeRunOption {
 
-	private List<String> options;
+	private final List<String> options;
 
 	public DockerComposeRunOption(List<String> options) {
 		this.options = options;
@@ -49,18 +49,23 @@ public class DockerComposeRunOption {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 			DockerComposeRunOption other = (DockerComposeRunOption) obj;
 		if (options == null) {
-			if (other.options != null)
+			if (other.options != null) {
 				return false;
-		} else if (!options.equals(other.options))
+			}
+		} else if (!options.equals(other.options)) {
 			return false;
+		}
 		return true;
 	}
 

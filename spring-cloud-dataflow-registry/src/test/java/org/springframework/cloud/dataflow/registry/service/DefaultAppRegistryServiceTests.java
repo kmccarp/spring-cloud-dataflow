@@ -71,12 +71,12 @@ import static org.mockito.Mockito.when;
  */
 public class DefaultAppRegistryServiceTests {
 
-	private AppRegistrationRepository appRegistrationRepository = mock(AppRegistrationRepository.class);
+	private final AppRegistrationRepository appRegistrationRepository = mock(AppRegistrationRepository.class);
 
-	private ResourceLoader resourceLoader = new DefaultResourceLoader();
+	private final ResourceLoader resourceLoader = new DefaultResourceLoader();
 
-	private AppRegistryService appRegistryService = new DefaultAppRegistryService(appRegistrationRepository,
-			new AppResourceCommon(new MavenProperties(), resourceLoader), mock(DefaultAuditRecordService.class));
+	private final AppRegistryService appRegistryService = new DefaultAppRegistryService(appRegistrationRepository,
+new AppResourceCommon(new MavenProperties(), resourceLoader), mock(DefaultAuditRecordService.class));
 
 	@Test
 	public void testNotFound() {

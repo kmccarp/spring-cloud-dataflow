@@ -38,7 +38,7 @@ public class SkipperClientConfiguration {
 	/**
 	 * Default bean name for {@link RestTemplate} created by {@code SkipperClientConfiguration}.
 	 */
-	public final static String SKIPPERCLIENT_RESTTEMPLATE_BEAN_NAME = "skipperClientRestTemplate";
+	public static final String SKIPPERCLIENT_RESTTEMPLATE_BEAN_NAME = "skipperClientRestTemplate";
 
 	@Bean(name = SKIPPERCLIENT_RESTTEMPLATE_BEAN_NAME)
 	public RestTemplate skipperClientRestTemplate(RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) {

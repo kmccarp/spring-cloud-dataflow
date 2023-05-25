@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CloudFoundryApplicationManifestReaderTests {
 
-	private CloudFoundryApplicationManifestReader applicationManifestReader = new CloudFoundryApplicationManifestReader();
+	private final CloudFoundryApplicationManifestReader applicationManifestReader = new CloudFoundryApplicationManifestReader();
 
 	@Test
 	public void readTests() throws IOException {

@@ -259,12 +259,10 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 			ConfigurationMetadataRepository configurationMetadataRepository = ConfigurationMetadataRepositoryJsonBuilder
 					.create().withJsonResource(new ByteArrayInputStream(encodedMetadata.getBytes()))
 					.build();
-
-			List<ConfigurationMetadataProperty> result = configurationMetadataRepository.getAllProperties().entrySet()
+			return configurationMetadataRepository.getAllProperties().entrySet()
 					.stream()
-					.map(e -> e.getValue())
+					.map(Map.Entry::getValue)
 					.collect(Collectors.toList());
-			return result;
 		}
 		catch (Exception e) {
 			throw new AppMetadataResolutionException("Invalid Metadata for " + imageName);

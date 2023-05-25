@@ -92,8 +92,7 @@ public class DefaultStreamDefinitionService implements StreamDefinitionService {
 					if (propertyValue.contains("|")) {
 						propertyValue = "'" + propertyValue + "'";
 					}
-					dslBuilder.append(" --").append(propertyName).append("=").append(
-							DefinitionUtils.escapeNewlines(DefinitionUtils.autoQuotes(propertyValue)));
+					dslBuilder.append(" --").append(propertyName).append("=").append(DefinitionUtils.escapeNewlines(DefinitionUtils.autoQuotes(propertyValue)));
 				}
 			}
 
@@ -115,9 +114,7 @@ public class DefaultStreamDefinitionService implements StreamDefinitionService {
 		}
 
 		// Bridge dsl shortcut optimization
-		String dsl = dslBuilder.toString().replace("> bridge >", ">");
-
-		return dsl;
+		return dslBuilder.toString().replace("> bridge >", ">");
 	}
 
 	@Override

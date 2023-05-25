@@ -53,7 +53,7 @@ public interface YamlConverter {
 		DEFAULT,
 
 		/** Flatten properties if parent has a scalar and sub-keys */
-		FLATTEN;
+		FLATTEN
 	}
 
 	/**

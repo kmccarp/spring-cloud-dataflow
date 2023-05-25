@@ -21,5 +21,5 @@ package com.acme.boot14;
  */
 public enum AnotherEnumClass14 {
 	very_high,
-	very_low;
+	very_low
 }

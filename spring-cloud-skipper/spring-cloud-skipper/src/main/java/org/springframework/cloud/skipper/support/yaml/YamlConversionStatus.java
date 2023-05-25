@@ -35,7 +35,7 @@ public class YamlConversionStatus {
 	public static final int WARNING = 1;
 	public static final int ERROR = 2;
 	private int severity;
-	private List<ConversionMessage> entries = new ArrayList<>();
+	private final List<ConversionMessage> entries = new ArrayList<>();
 
 	void addError(String message) {
 		entries.add(new ConversionMessage(ERROR, message));

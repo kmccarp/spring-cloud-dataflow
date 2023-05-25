@@ -26,6 +26,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -159,14 +160,14 @@ public final class DeploymentPropertiesUtils {
 			for (int i = 0; i < candidates.length; i++) {
 				int elementsInQuotesIndex = findEndToken(candidates, i) +1;
 				if (elementsInQuotesIndex > -1) {
-					if(!candidates[i].equals("")) {
+					if(!"".equals(candidates[i])) {
 						pairs.add(candidates[i]);
 					}
 					i++;
 					for (; i < elementsInQuotesIndex; i++) {
 						pairs.set(pairs.size() - 1, pairs.get(pairs.size() - 1) + delimiter + candidates[i]);
 					}
-					if(!(i < candidates.length)) {
+					if(i >= candidates.length) {
 						break;
 					}
 				}
@@ -181,7 +182,7 @@ public final class DeploymentPropertiesUtils {
 				}
 				else {
 					// we have a key/value pair having '=', or malformed first pair
-					if(!candidates[i].equals("")) {
+					if(!"".equals(candidates[i])) {
 						int endToken = findEndToken(candidates, i);
 						if(endToken > -1) {
 							pairs.add(candidates[i] + " " + candidates[endToken]);
@@ -247,7 +248,7 @@ public final class DeploymentPropertiesUtils {
 		case 1:
 			String extension = FilenameUtils.getExtension(propertiesFile.getName());
 			Properties props = null;
-			if (extension.equals("yaml") || extension.equals("yml")) {
+			if ("yaml".equals(extension) || "yml".equals(extension)) {
 				YamlPropertiesFactoryBean yamlPropertiesFactoryBean = new YamlPropertiesFactoryBean();
 				yamlPropertiesFactoryBean.setResources(new FileSystemResource(propertiesFile));
 				yamlPropertiesFactoryBean.afterPropertiesSet();
@@ -332,7 +333,7 @@ public final class DeploymentPropertiesUtils {
 				.filter(kv -> kv.getKey().startsWith(wildcardPrefix) || kv.getKey().startsWith(appPrefix))
 				.collect(Collectors.toMap(kv -> kv.getKey().startsWith(wildcardPrefix)
 								? "spring.cloud.deployer." + kv.getKey().substring(wildcardLength)
-								: "spring.cloud.deployer." + kv.getKey().substring(appLength), kv -> kv.getValue(),
+								: "spring.cloud.deployer." + kv.getKey().substring(appLength), Map.Entry::getValue,
 						(fromWildcard, fromApp) -> fromApp));
 		logger.debug("extractAndQualifyDeployerProperties:{}", result);
 		return result;
@@ -359,12 +360,12 @@ public final class DeploymentPropertiesUtils {
 				.filter(kv -> kv.getKey().startsWith(wildcardPrefix) || kv.getKey().startsWith(appPrefix))
 				.collect(Collectors.toMap(kv -> kv.getKey().startsWith(wildcardPrefix)
 								? "spring.cloud.deployer." + kv.getKey().substring(wildcardLength)
-								: "spring.cloud.deployer." + kv.getKey().substring(appLength), kv -> kv.getValue(),
+								: "spring.cloud.deployer." + kv.getKey().substring(appLength), Map.Entry::getValue,
 						(fromWildcard, fromApp) -> fromApp));
 
 		Map<String, String> resultApp = new TreeMap<>(input).entrySet().stream()
 				.filter(kv -> !kv.getKey().startsWith(wildcardPrefix) && !kv.getKey().startsWith(appPrefix))
-				.collect(Collectors.toMap(kv -> kv.getKey(), kv -> kv.getValue(),
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
 						(fromWildcard, fromApp) -> fromApp));
 
 		resultDeployer.putAll(resultApp);

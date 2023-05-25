@@ -27,6 +27,8 @@ import org.springframework.boot.configurationmetadata.ConfigurationMetadataPrope
 @SuppressWarnings("serial")
 public class ConfigurationMetadataPropertyEntity extends ConfigurationMetadataProperty {
 
+	private static final long serialVersionUID = 1;
+
 	public ConfigurationMetadataPropertyEntity() {
 		super();
 	}

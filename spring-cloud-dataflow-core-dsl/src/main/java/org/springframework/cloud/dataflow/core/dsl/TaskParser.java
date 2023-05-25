@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
  */
 public class TaskParser extends AppParser {
 
-	public final static ArgumentNode[] NO_ARGUMENTS = new ArgumentNode[0];
+	public static final ArgumentNode[] NO_ARGUMENTS = new ArgumentNode[0];
 
 	/**
 	 * Task name.
@@ -196,7 +196,7 @@ public class TaskParser extends AppParser {
 					name.data != null ? name.data : new String(name.getKind().tokenChars));
 		}
 		getTokens().checkpoint();
-		ArgumentNode[] arguments = (inAppMode ? maybeEatAppArgs() : null);
+		ArgumentNode[] arguments = inAppMode ? maybeEatAppArgs() : null;
 		if (!inAppMode && peek(TokenKind.DOUBLE_MINUS)) {
 			getTokens().raiseException(peek().startPos, DSLMessage.TASK_ARGUMENTS_NOT_ALLOWED_UNLESS_IN_APP_MODE);
 		}
@@ -238,7 +238,7 @@ public class TaskParser extends AppParser {
 			String argValue = eatArgValue();
 			tokens.checkpoint();
 			if (args == null) {
-				args = new ArrayList<ArgumentNode>();
+				args = new ArrayList<>();
 			}
 			args.add(new ArgumentNode(toData(argNameComponents), argValue, dashDash.startPos, t.endPos));
 		}
@@ -277,7 +277,7 @@ public class TaskParser extends AppParser {
 				task.setLabel(label);
 				t = TransitionNode.toAnotherTask(transitionOn, task);
 			}
-			if (t.isExitCodeCheck() && !t.getStatusToCheck().equals("*")) {
+			if (t.isExitCodeCheck() && !"*".equals(t.getStatusToCheck())) {
 				// If an exit code check, must be a number
 				try {
 					Integer.parseInt(t.getStatusToCheck());
