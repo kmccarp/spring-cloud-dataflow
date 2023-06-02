@@ -28,46 +28,46 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cloud.dataflow.common.test.docker.compose.connection.Cluster;
 
 public class ClusterWait {
-    private static final Logger log = LoggerFactory.getLogger(ClusterWait.class);
-    private final ClusterHealthCheck clusterHealthCheck;
-    private final ReadableDuration timeout;
+	private static final Logger log = LoggerFactory.getLogger(ClusterWait.class);
+	private final ClusterHealthCheck clusterHealthCheck;
+	private final ReadableDuration timeout;
 
-    public ClusterWait(ClusterHealthCheck clusterHealthCheck, ReadableDuration timeout) {
-        this.clusterHealthCheck = clusterHealthCheck;
-        this.timeout = timeout;
-    }
+	public ClusterWait(ClusterHealthCheck clusterHealthCheck, ReadableDuration timeout) {
+		this.clusterHealthCheck = clusterHealthCheck;
+		this.timeout = timeout;
+	}
 
-    public void waitUntilReady(Cluster cluster) {
-        final AtomicReference<Optional<SuccessOrFailure>> lastSuccessOrFailure = new AtomicReference<>(
-                Optional.empty());
+	public void waitUntilReady(Cluster cluster) {
+		final AtomicReference<Optional<SuccessOrFailure>> lastSuccessOrFailure = new AtomicReference<>(
+	Optional.empty());
 
-        log.info("Waiting for cluster to be healthy");
-        try {
-            Awaitility.await()
-                    .pollInterval(50, TimeUnit.MILLISECONDS)
-                    .atMost(timeout.getMillis(), TimeUnit.MILLISECONDS)
-                    .until(weHaveSuccess(cluster, lastSuccessOrFailure));
-        } catch (ConditionTimeoutException e) {
-            throw new IllegalStateException(serviceDidNotStartupExceptionMessage(lastSuccessOrFailure));
-        }
-    }
+		log.info("Waiting for cluster to be healthy");
+		try {
+			Awaitility.await()
+		.pollInterval(50, TimeUnit.MILLISECONDS)
+		.atMost(timeout.getMillis(), TimeUnit.MILLISECONDS)
+		.until(weHaveSuccess(cluster, lastSuccessOrFailure));
+		} catch (ConditionTimeoutException e) {
+			throw new IllegalStateException(serviceDidNotStartupExceptionMessage(lastSuccessOrFailure));
+		}
+	}
 
-    private Callable<Boolean> weHaveSuccess(Cluster cluster,
-            AtomicReference<Optional<SuccessOrFailure>> lastSuccessOrFailure) {
-        return () -> {
-            SuccessOrFailure successOrFailure = clusterHealthCheck.isClusterHealthy(cluster);
-            lastSuccessOrFailure.set(Optional.of(successOrFailure));
-            return successOrFailure.succeeded();
-        };
-    }
+	private Callable<Boolean> weHaveSuccess(Cluster cluster,
+AtomicReference<Optional<SuccessOrFailure>> lastSuccessOrFailure) {
+		return () -> {
+			SuccessOrFailure successOrFailure = clusterHealthCheck.isClusterHealthy(cluster);
+			lastSuccessOrFailure.set(Optional.of(successOrFailure));
+			return successOrFailure.succeeded();
+		};
+	}
 
-    private static String serviceDidNotStartupExceptionMessage(
-            AtomicReference<Optional<SuccessOrFailure>> lastSuccessOrFailure) {
-        String healthcheckFailureMessage = lastSuccessOrFailure.get()
-                .flatMap(SuccessOrFailure::toOptionalFailureMessage)
-                .orElse("The healthcheck did not finish before the timeout");
+	private static String serviceDidNotStartupExceptionMessage(
+AtomicReference<Optional<SuccessOrFailure>> lastSuccessOrFailure) {
+		String healthcheckFailureMessage = lastSuccessOrFailure.get()
+	.flatMap(SuccessOrFailure::toOptionalFailureMessage)
+	.orElse("The healthcheck did not finish before the timeout");
 
-        return "The cluster failed to pass a startup check: " + healthcheckFailureMessage;
-    }
+		return "The cluster failed to pass a startup check: " + healthcheckFailureMessage;
+	}
 
 }

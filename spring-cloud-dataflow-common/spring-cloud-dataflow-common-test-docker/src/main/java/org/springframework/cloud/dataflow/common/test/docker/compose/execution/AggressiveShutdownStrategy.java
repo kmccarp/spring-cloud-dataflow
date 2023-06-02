@@ -33,45 +33,45 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.connection.
 @Deprecated
 public class AggressiveShutdownStrategy implements ShutdownStrategy {
 
-    private static final Logger log = LoggerFactory.getLogger(AggressiveShutdownStrategy.class);
+	private static final Logger log = LoggerFactory.getLogger(AggressiveShutdownStrategy.class);
 
-    @Override
-    public void shutdown(DockerCompose dockerCompose, Docker docker) throws IOException, InterruptedException {
-        List<ContainerName> runningContainers = dockerCompose.ps();
+	@Override
+	public void shutdown(DockerCompose dockerCompose, Docker docker) throws IOException, InterruptedException {
+		List<ContainerName> runningContainers = dockerCompose.ps();
 
-        log.info("Shutting down {}", runningContainers.stream().map(ContainerName::semanticName).collect(toList()));
-        if (removeContainersCatchingErrors(docker, runningContainers)) {
-            return;
-        }
+		log.info("Shutting down {}", runningContainers.stream().map(ContainerName::semanticName).collect(toList()));
+		if (removeContainersCatchingErrors(docker, runningContainers)) {
+			return;
+		}
 
-        log.debug("First shutdown attempted failed due to btrfs volume error... retrying");
-        if (removeContainersCatchingErrors(docker, runningContainers)) {
-            return;
-        }
+		log.debug("First shutdown attempted failed due to btrfs volume error... retrying");
+		if (removeContainersCatchingErrors(docker, runningContainers)) {
+			return;
+		}
 
-        log.warn("Couldn't shut down containers due to btrfs volume error, "
-                + "see https://circleci.com/docs/docker-btrfs-error/ for more info.");
+		log.warn("Couldn't shut down containers due to btrfs volume error, "
+	+ "see https://circleci.com/docs/docker-btrfs-error/ for more info.");
 
-        log.info("Pruning networks");
-        docker.pruneNetworks();
-    }
+		log.info("Pruning networks");
+		docker.pruneNetworks();
+	}
 
-    private static boolean removeContainersCatchingErrors(Docker docker, List<ContainerName> runningContainers) throws IOException, InterruptedException {
-        try {
-            removeContainers(docker, runningContainers);
-            return true;
-        } catch (DockerExecutionException exception) {
-            return false;
-        }
-    }
+	private static boolean removeContainersCatchingErrors(Docker docker, List<ContainerName> runningContainers) throws IOException, InterruptedException {
+		try {
+			removeContainers(docker, runningContainers);
+			return true;
+		} catch (DockerExecutionException exception) {
+			return false;
+		}
+	}
 
-    private static void removeContainers(Docker docker, List<ContainerName> running) throws IOException, InterruptedException {
-        List<String> rawContainerNames = running.stream()
-                .map(ContainerName::rawName)
-                .collect(toList());
+	private static void removeContainers(Docker docker, List<ContainerName> running) throws IOException, InterruptedException {
+		List<String> rawContainerNames = running.stream()
+	.map(ContainerName::rawName)
+	.collect(toList());
 
-        docker.rm(rawContainerNames);
-        log.debug("Finished shutdown");
-    }
+		docker.rm(rawContainerNames);
+		log.debug("Finished shutdown");
+	}
 
 }

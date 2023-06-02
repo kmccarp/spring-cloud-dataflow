@@ -21,7 +21,7 @@ package org.springframework.cloud.dataflow.common.flyway;
  *
  * @author Glenn Renfro
  */
-public class DataFlowSchemaMigrationException extends RuntimeException{
+public class DataFlowSchemaMigrationException extends RuntimeException {
 
 	private static final long serialVersionUID = 2000527476523962349L;
 

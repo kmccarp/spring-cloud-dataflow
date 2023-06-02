@@ -53,7 +53,7 @@ public class DefaultPackageWriter implements PackageWriter {
 		PackageMetadata packageMetadata = pkg.getMetadata();
 		File tmpDir = TempFileUtils.createTempDirectory("skipper" + packageMetadata.getName()).toFile();
 		File rootPackageDir = new File(tmpDir,
-				String.format("%s-%s", packageMetadata.getName(), packageMetadata.getVersion()));
+	String.format("%s-%s", packageMetadata.getName(), packageMetadata.getVersion()));
 		rootPackageDir.mkdir();
 		writePackage(pkg, rootPackageDir);
 		if (!pkg.getDependencies().isEmpty()) {

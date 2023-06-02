@@ -88,7 +88,7 @@ public class DefaultContainerImageMetadataResolverTest {
 		when(registryAuthorizer.getAuthorizationHeaders(any(ContainerImage.class), any())).thenReturn(new HttpHeaders());
 
 		this.containerRegistryService = new ContainerRegistryService(containerImageRestTemplateFactory,
-				new ContainerImageParser(), registryConfigurationMap, Arrays.asList(registryAuthorizer));
+	new ContainerImageParser(), registryConfigurationMap, Arrays.asList(registryAuthorizer));
 	}
 
 	@Test(expected = ContainerRegistryException.class)
@@ -106,7 +106,7 @@ public class DefaultContainerImageMetadataResolverTest {
 		mockManifestRestTemplateCall(manifestResponse, "registry-1.docker.io", null, "test/image", "latest");
 
 		mockBlogRestTemplateCall("{\"config\": { \"Labels\": { \"boza\": \"koza\"} } }",
-				"registry-1.docker.io", null, "test/image", "123");
+	"registry-1.docker.io", null, "test/image", "123");
 
 		Map<String, String> labels = resolver.getImageLabels("test/image:latest");
 		assertThat(labels.size(), is(1));
@@ -122,7 +122,7 @@ public class DefaultContainerImageMetadataResolverTest {
 		mockManifestRestTemplateCall(manifestResponse, "my-private-repository.com", "5000", "test/image", "latest");
 
 		mockBlogRestTemplateCall("{\"config\": { \"Labels\": { \"boza\": \"koza\"} } }",
-				"my-private-repository.com", "5000", "test/image", "123");
+	"my-private-repository.com", "5000", "test/image", "123");
 
 		Map<String, String> labels = resolver.getImageLabels("my-private-repository.com:5000/test/image:latest");
 		assertThat(labels.size(), is(1));
@@ -139,8 +139,8 @@ public class DefaultContainerImageMetadataResolverTest {
 	public void getImageLabelsMissingRegistryAuthorizer() {
 
 		DefaultContainerImageMetadataResolver resolver = new MockedDefaultContainerImageMetadataResolver(
-				new ContainerRegistryService(containerImageRestTemplateFactory,
-						new ContainerImageParser(), registryConfigurationMap, Collections.emptyList()));
+	new ContainerRegistryService(containerImageRestTemplateFactory,
+new ContainerImageParser(), registryConfigurationMap, Collections.emptyList()));
 
 		resolver.getImageLabels("test/image:latest");
 	}
@@ -153,7 +153,7 @@ public class DefaultContainerImageMetadataResolverTest {
 		when(registryAuthorizer.getAuthorizationHeaders(any(ContainerImage.class), any())).thenReturn(null);
 
 		DefaultContainerImageMetadataResolver resolver = new MockedDefaultContainerImageMetadataResolver(
-				new ContainerRegistryService(containerImageRestTemplateFactory, new ContainerImageParser(), registryConfigurationMap, Arrays.asList(registryAuthorizer)));
+	new ContainerRegistryService(containerImageRestTemplateFactory, new ContainerImageParser(), registryConfigurationMap, Arrays.asList(registryAuthorizer)));
 
 		resolver.getImageLabels("test/image:latest");
 	}
@@ -165,7 +165,7 @@ public class DefaultContainerImageMetadataResolverTest {
 
 		Map<String, Object> manifestResponseWithoutConfig = Collections.emptyMap();
 		mockManifestRestTemplateCall(manifestResponseWithoutConfig, "registry-1.docker.io",
-				null, "test/image", "latest");
+	null, "test/image", "latest");
 
 		resolver.getImageLabels("test/image:latest");
 	}
@@ -177,7 +177,7 @@ public class DefaultContainerImageMetadataResolverTest {
 		String emptyDigest = "";
 		Map<String, Object> manifestResponse = Collections.singletonMap("config", Collections.singletonMap("digest", emptyDigest));
 		mockManifestRestTemplateCall(manifestResponse, "registry-1.docker.io", null,
-				"test/image", "latest");
+	"test/image", "latest");
 
 		resolver.getImageLabels("test/image:latest");
 	}
@@ -189,49 +189,49 @@ public class DefaultContainerImageMetadataResolverTest {
 
 		Map<String, Object> manifestResponse = Collections.singletonMap("config", Collections.singletonMap("digest", "123"));
 		mockManifestRestTemplateCall(manifestResponse, "registry-1.docker.io", null,
-				"test/image", "latest");
+	"test/image", "latest");
 
 		mockBlogRestTemplateCall("{\"config\": { } }",
-				"registry-1.docker.io", null, "test/image", "123");
+	"registry-1.docker.io", null, "test/image", "123");
 
 		Map<String, String> labels = resolver.getImageLabels("test/image:latest");
 		assertThat(labels.size(), is(0));
 	}
 
 	private void mockManifestRestTemplateCall(Map<String, Object> mapToReturn, String registryHost,
-			String registryPort, String repository, String tagOrDigest) {
+String registryPort, String repository, String tagOrDigest) {
 
 		UriComponents manifestUriComponents = UriComponentsBuilder.newInstance()
-				.scheme("https")
-				.host(registryHost)
-				.port(StringUtils.hasText(registryPort) ? registryPort : null)
-				.path("v2/{repository}/manifests/{reference}")
-				.build().expand(repository, tagOrDigest);
+	.scheme("https")
+	.host(registryHost)
+	.port(StringUtils.hasText(registryPort) ? registryPort : null)
+	.path("v2/{repository}/manifests/{reference}")
+	.build().expand(repository, tagOrDigest);
 
 
 		when(mockRestTemplate.exchange(
-				eq(manifestUriComponents.toUri()),
-				eq(HttpMethod.GET),
-				any(HttpEntity.class),
-				eq(Map.class))).thenReturn(new ResponseEntity<>(mapToReturn, HttpStatus.OK));
+	eq(manifestUriComponents.toUri()),
+	eq(HttpMethod.GET),
+	any(HttpEntity.class),
+	eq(Map.class))).thenReturn(new ResponseEntity<>(mapToReturn, HttpStatus.OK));
 	}
 
 	private void mockBlogRestTemplateCall(String jsonResponse, String registryHost, String registryPort,
-			String repository, String digest) throws JsonProcessingException {
+String repository, String digest) throws JsonProcessingException {
 
 		UriComponents blobUriComponents = UriComponentsBuilder.newInstance()
-				.scheme("https")
-				.host(registryHost)
-				.port(StringUtils.hasText(registryPort) ? registryPort : null)
-				.path("v2/{repository}/blobs/{digest}")
-				.build().expand(repository, digest);
+	.scheme("https")
+	.host(registryHost)
+	.port(StringUtils.hasText(registryPort) ? registryPort : null)
+	.path("v2/{repository}/blobs/{digest}")
+	.build().expand(repository, digest);
 
 		when(mockRestTemplate.exchange(
-				eq(blobUriComponents.toUri()),
-				eq(HttpMethod.GET),
-				any(HttpEntity.class),
-				eq(Map.class)))
-				.thenReturn(new ResponseEntity<>(new ObjectMapper().readValue(jsonResponse, Map.class), HttpStatus.OK));
+	eq(blobUriComponents.toUri()),
+	eq(HttpMethod.GET),
+	any(HttpEntity.class),
+	eq(Map.class)))
+	.thenReturn(new ResponseEntity<>(new ObjectMapper().readValue(jsonResponse, Map.class), HttpStatus.OK));
 	}
 
 	private class MockedDefaultContainerImageMetadataResolver extends DefaultContainerImageMetadataResolver {

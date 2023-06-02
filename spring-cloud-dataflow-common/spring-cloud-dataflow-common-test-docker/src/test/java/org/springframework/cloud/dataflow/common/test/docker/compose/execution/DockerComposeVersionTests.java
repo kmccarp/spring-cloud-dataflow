@@ -26,25 +26,25 @@ import static org.hamcrest.Matchers.lessThan;
 
 public class DockerComposeVersionTests {
 
-    @Test
-    public void compare_major_versions_first() {
-        assertThat(Version.valueOf("2.1.0").compareTo(Version.valueOf("1.2.1")), greaterThan(0));
-    }
+	@Test
+	public void compare_major_versions_first() {
+		assertThat(Version.valueOf("2.1.0").compareTo(Version.valueOf("1.2.1")), greaterThan(0));
+	}
 
-    @Test
-    public void compare_minor_versions_when_major_versions_are_the_same() {
-        assertThat(Version.valueOf("2.1.7").compareTo(Version.valueOf("2.3.2")), lessThan(0));
-    }
+	@Test
+	public void compare_minor_versions_when_major_versions_are_the_same() {
+		assertThat(Version.valueOf("2.1.7").compareTo(Version.valueOf("2.3.2")), lessThan(0));
+	}
 
-    @Test
-    public void return_equals_for_the_same_version_strings() {
-        assertThat(Version.valueOf("2.1.2").compareTo(Version.valueOf("2.1.2")), is(0));
-    }
+	@Test
+	public void return_equals_for_the_same_version_strings() {
+		assertThat(Version.valueOf("2.1.2").compareTo(Version.valueOf("2.1.2")), is(0));
+	}
 
-    @Test
-    public void remove_non_digits_when_passing_version_string() {
-        assertThat(
-                DockerComposeVersion.parseFromDockerComposeVersion("docker-compose version 1.7.0rc1, build 1ad8866"),
-                is(Version.valueOf("1.7.0")));
-    }
+	@Test
+	public void remove_non_digits_when_passing_version_string() {
+		assertThat(
+	DockerComposeVersion.parseFromDockerComposeVersion("docker-compose version 1.7.0rc1, build 1ad8866"),
+	is(Version.valueOf("1.7.0")));
+	}
 }

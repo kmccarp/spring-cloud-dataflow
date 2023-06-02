@@ -66,7 +66,7 @@ public class FileLogCollector implements LogCollector {
 		serviceNames.stream().forEachOrdered(service -> this.collectLogs(service, dockerCompose));
 	}
 
-	private void collectLogs(String container, DockerCompose dockerCompose)  {
+	private void collectLogs(String container, DockerCompose dockerCompose) {
 		executor.submit(() -> {
 			File outputFile = new File(logDirectory, container + ".log");
 			try {

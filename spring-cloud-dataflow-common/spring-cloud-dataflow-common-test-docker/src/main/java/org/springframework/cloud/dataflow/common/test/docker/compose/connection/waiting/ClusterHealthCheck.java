@@ -29,48 +29,48 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.connection.
 
 @FunctionalInterface
 public interface ClusterHealthCheck {
-    static ClusterHealthCheck serviceHealthCheck(List<String> containerNames, HealthCheck<List<Container>> delegate) {
-        return transformingHealthCheck(cluster -> cluster.containers(containerNames), delegate);
-    }
+	static ClusterHealthCheck serviceHealthCheck(List<String> containerNames, HealthCheck<List<Container>> delegate) {
+		return transformingHealthCheck(cluster -> cluster.containers(containerNames), delegate);
+	}
 
-    static ClusterHealthCheck serviceHealthCheck(String containerName, HealthCheck<Container> containerCheck) {
-        return transformingHealthCheck(cluster -> cluster.container(containerName), containerCheck);
-    }
+	static ClusterHealthCheck serviceHealthCheck(String containerName, HealthCheck<Container> containerCheck) {
+		return transformingHealthCheck(cluster -> cluster.container(containerName), containerCheck);
+	}
 
-    static <T> ClusterHealthCheck transformingHealthCheck(Function<Cluster, T> transform, HealthCheck<T> healthCheck) {
-        return cluster -> {
-            T target = transform.apply(cluster);
-            return healthCheck.isHealthy(target);
-        };
-    }
+	static <T> ClusterHealthCheck transformingHealthCheck(Function<Cluster, T> transform, HealthCheck<T> healthCheck) {
+		return cluster -> {
+			T target = transform.apply(cluster);
+			return healthCheck.isHealthy(target);
+		};
+	}
 
-    /**
-     * Returns a check that the native "healthcheck" status of the docker containers is not unhealthy.
-     *
-     * <p>Does not wait for DOWN or PAUSED containers, or containers with no healthcheck defined.
-     *
-     * @return native health checks
-     */
-    static ClusterHealthCheck nativeHealthChecks() {
-        return cluster -> {
-            Set<String> unhealthyContainers = new LinkedHashSet<>();
-            try {
-                for (Container container : cluster.allContainers()) {
-                    State state = container.state();
-                    if (state == State.UNHEALTHY) {
-                        unhealthyContainers.add(container.getContainerName());
-                    }
-                }
-                if (!unhealthyContainers.isEmpty()) {
-                    return SuccessOrFailure.failure(
-                            "The following containers are not healthy: " + unhealthyContainers.stream().collect(joining(", ")));
-                }
-                return SuccessOrFailure.success();
-            } catch (IOException e) {
-                return SuccessOrFailure.fromException(e);
-            }
-        };
-    }
+	/**
+	* Returns a check that the native "healthcheck" status of the docker containers is not unhealthy.
+	*
+	* <p>Does not wait for DOWN or PAUSED containers, or containers with no healthcheck defined.
+	*
+	* @return native health checks
+	*/
+	static ClusterHealthCheck nativeHealthChecks() {
+		return cluster -> {
+			Set<String> unhealthyContainers = new LinkedHashSet<>();
+			try {
+				for (Container container : cluster.allContainers()) {
+					State state = container.state();
+					if (state == State.UNHEALTHY) {
+						unhealthyContainers.add(container.getContainerName());
+					}
+				}
+				if (!unhealthyContainers.isEmpty()) {
+					return SuccessOrFailure.failure(
+				"The following containers are not healthy: " + unhealthyContainers.stream().collect(joining(", ")));
+				}
+				return SuccessOrFailure.success();
+			} catch (IOException e) {
+				return SuccessOrFailure.fromException(e);
+			}
+		};
+	}
 
-    SuccessOrFailure isClusterHealthy(Cluster cluster) throws InterruptedException;
+	SuccessOrFailure isClusterHealthy(Cluster cluster) throws InterruptedException;
 }

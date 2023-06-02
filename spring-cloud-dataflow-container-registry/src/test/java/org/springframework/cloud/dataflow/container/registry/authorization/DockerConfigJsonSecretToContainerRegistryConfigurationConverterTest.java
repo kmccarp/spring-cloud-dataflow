@@ -70,8 +70,8 @@ public class DockerConfigJsonSecretToContainerRegistryConfigurationConverterTest
 	public void testConvertAnonymousRegistry() throws URISyntaxException {
 
 		when(mockRestTemplate.exchange(
-				eq(new URI("https://demo.repository.io/v2/_catalog")), eq(HttpMethod.GET), any(), eq(Map.class)))
-				.thenReturn(new ResponseEntity<>(new HashMap<>(), HttpStatus.OK));
+	eq(new URI("https://demo.repository.io/v2/_catalog")), eq(HttpMethod.GET), any(), eq(Map.class)))
+	.thenReturn(new ResponseEntity<>(new HashMap<>(), HttpStatus.OK));
 
 		String b = "{\"auths\":{\"demo.repository.io\":{}}}";
 		Map<String, ContainerRegistryConfiguration> result = converter.convert(b);
@@ -91,8 +91,8 @@ public class DockerConfigJsonSecretToContainerRegistryConfigurationConverterTest
 	public void testConvertBasicAuthRegistry() throws URISyntaxException {
 
 		when(mockRestTemplate.exchange(
-				eq(new URI("https://demo.repository.io/v2/_catalog")), eq(HttpMethod.GET), any(), eq(Map.class)))
-				.thenReturn(new ResponseEntity<>(new HashMap<>(), HttpStatus.OK));
+	eq(new URI("https://demo.repository.io/v2/_catalog")), eq(HttpMethod.GET), any(), eq(Map.class)))
+	.thenReturn(new ResponseEntity<>(new HashMap<>(), HttpStatus.OK));
 
 		String b = "{\"auths\":{\"demo.repository.io\":{\"username\":\"testuser\",\"password\":\"testpassword\",\"auth\":\"YWRtaW46SGFyYm9yMTIzNDU=\"}}}";
 		Map<String, ContainerRegistryConfiguration> result = converter.convert(b);
@@ -112,8 +112,8 @@ public class DockerConfigJsonSecretToContainerRegistryConfigurationConverterTest
 	public void testConvertWithPort() throws URISyntaxException {
 
 		when(mockRestTemplate.exchange(
-				eq(new URI("https://demo.repository.io/v2/_catalog")), eq(HttpMethod.GET), any(), eq(Map.class)))
-				.thenReturn(new ResponseEntity<>(new HashMap<>(), HttpStatus.OK));
+	eq(new URI("https://demo.repository.io/v2/_catalog")), eq(HttpMethod.GET), any(), eq(Map.class)))
+	.thenReturn(new ResponseEntity<>(new HashMap<>(), HttpStatus.OK));
 
 		String b = "{\"auths\":{\"demo.repository.io:5050\":{\"username\":\"testuser\",\"password\":\"testpassword\",\"auth\":\"YWRtaW46SGFyYm9yMTIzNDU=\"}}}";
 		Map<String, ContainerRegistryConfiguration> result = converter.convert(b);
@@ -135,10 +135,10 @@ public class DockerConfigJsonSecretToContainerRegistryConfigurationConverterTest
 		HttpHeaders authenticateHeader = new HttpHeaders();
 		authenticateHeader.add("Www-Authenticate", "Bearer realm=\"https://demo.repository.io/service/token\",service=\"demo-registry\",scope=\"registry:category:pull\"");
 		HttpClientErrorException httpClientErrorException =
-				HttpClientErrorException.create(HttpStatus.UNAUTHORIZED, "", authenticateHeader, new byte[0], null);
+	HttpClientErrorException.create(HttpStatus.UNAUTHORIZED, "", authenticateHeader, new byte[0], null);
 
 		when(mockRestTemplate.exchange(eq(new URI("https://demo.repository.io/v2/")),
-				eq(HttpMethod.GET), any(), eq(Map.class))).thenThrow(httpClientErrorException);
+	eq(HttpMethod.GET), any(), eq(Map.class))).thenThrow(httpClientErrorException);
 
 		String b = "{\"auths\":{\"demo.repository.io\":{\"username\":\"testuser\",\"password\":\"testpassword\",\"auth\":\"YWRtaW46SGFyYm9yMTIzNDU=\"}}}";
 		Map<String, ContainerRegistryConfiguration> result = converter.convert(b);
@@ -153,7 +153,7 @@ public class DockerConfigJsonSecretToContainerRegistryConfigurationConverterTest
 		assertThat(registryConfiguration.getSecret(), is("testpassword"));
 		assertThat(registryConfiguration.getAuthorizationType(), is(ContainerRegistryConfiguration.AuthorizationType.dockeroauth2));
 		assertThat(registryConfiguration.getExtra().get("registryAuthUri"),
-				is("https://demo.repository.io/service/token?service=demo-registry&scope=repository:{repository}:pull"));
+	is("https://demo.repository.io/service/token?service=demo-registry&scope=repository:{repository}:pull"));
 
 	}
 

@@ -69,7 +69,7 @@ public class ExternalOauth2ResourceAuthoritiesMapper implements AuthoritiesMappe
 	 *                        the user's security roles
 	 */
 	public ExternalOauth2ResourceAuthoritiesMapper(
-		URI roleProviderUri) {
+URI roleProviderUri) {
 		Assert.notNull(roleProviderUri, "The provided roleProviderUri must not be null.");
 		this.roleProviderUri = roleProviderUri;
 
@@ -93,11 +93,13 @@ public class ExternalOauth2ResourceAuthoritiesMapper implements AuthoritiesMappe
 		for (String permission : response.getBody()) {
 			if (!StringUtils.hasText(permission)) {
 				logger.warn("Received an empty permission from {}", roleProviderUri);
-			} else {
+			}
+			else {
 				final CoreSecurityRoles securityRole = CoreSecurityRoles.fromKey(permission.toUpperCase());
 				if (securityRole == null) {
 					logger.warn("Invalid role {} provided by {}", permission, roleProviderUri);
-				} else {
+				}
+				else {
 					switch (securityRole) {
 						case CREATE:
 							authorities.add(CREATE);

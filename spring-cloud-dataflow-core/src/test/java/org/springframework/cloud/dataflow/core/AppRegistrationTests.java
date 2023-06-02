@@ -67,9 +67,9 @@ public class AppRegistrationTests {
 	@Test
 	public void testToString() {
 		AppRegistration registration1 = new AppRegistration("foo", ApplicationType.task, URI.create("file:///foobar"),
-				URI.create("file:///foobar-metadata"));
+	URI.create("file:///foobar-metadata"));
 		assertThat(registration1.toString()).contains("foo").contains("task").contains("file:///foobar")
-				.contains("file:///foobar-metadata");
+	.contains("file:///foobar-metadata");
 	}
 
 }

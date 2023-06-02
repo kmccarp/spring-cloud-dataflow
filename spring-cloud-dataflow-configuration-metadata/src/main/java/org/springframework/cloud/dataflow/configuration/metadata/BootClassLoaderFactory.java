@@ -63,7 +63,7 @@ public class BootClassLoaderFactory {
 		}
 
 		ClassLoaderExposingLauncher launcher = useBoot14Layout ? new Boot14ClassLoaderExposingLauncher()
-				: new Boot13ClassLoaderExposingLauncher();
+	: new Boot13ClassLoaderExposingLauncher();
 
 		return launcher.createClassLoader();
 	}
@@ -106,7 +106,7 @@ public class BootClassLoaderFactory {
 		@Override
 		protected boolean isNestedArchive(Archive.Entry entry) {
 			return (!entry.isDirectory() && entry.getName().startsWith(BOOT_14_LIBS_LOCATION))
-					|| (entry.isDirectory() && entry.getName().equals(BOOT_14_CLASSESS_LOCATION));
+		|| (entry.isDirectory() && entry.getName().equals(BOOT_14_CLASSESS_LOCATION));
 		}
 
 		@Override

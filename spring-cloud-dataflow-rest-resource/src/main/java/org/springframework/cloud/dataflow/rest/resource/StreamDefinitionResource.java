@@ -61,6 +61,7 @@ public class StreamDefinitionResource extends RepresentationModel<StreamDefiniti
 	 * Description of the Stream status.
 	 */
 	private String statusDescription;
+
 	/**
 	 * Default constructor for serialization frameworks.
 	 */
@@ -93,7 +94,7 @@ public class StreamDefinitionResource extends RepresentationModel<StreamDefiniti
 	 * @param statusDescription Description of the stream status
 	 */
 	public StreamDefinitionResource(String name, String dslText, String originalDslText, String description, String status,
-			String statusDescription) {
+String statusDescription) {
 		this.name = name;
 		this.dslText = dslText;
 		this.originalDslText = originalDslText;

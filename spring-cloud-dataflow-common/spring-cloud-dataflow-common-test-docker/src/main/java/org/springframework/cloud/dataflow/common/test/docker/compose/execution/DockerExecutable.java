@@ -26,9 +26,9 @@ public class DockerExecutable implements Executable {
 	private static final Logger log = LoggerFactory.getLogger(DockerExecutable.class);
 
 	private static final DockerCommandLocations DOCKER_LOCATIONS = new DockerCommandLocations(
-			System.getenv("DOCKER_LOCATION"),
-			"/usr/local/bin/docker",
-			"/usr/bin/docker"
+System.getenv("DOCKER_LOCATION"),
+"/usr/local/bin/docker",
+"/usr/bin/docker"
 	);
 
 	private DockerConfiguration dockerConfiguration;
@@ -48,8 +48,8 @@ public class DockerExecutable implements Executable {
 
 	protected String dockerPath() {
 		String pathToUse = DOCKER_LOCATIONS.preferredLocation()
-				.orElseThrow(() -> new IllegalStateException(
-						"Could not find docker, looked in: " + DOCKER_LOCATIONS));
+	.orElseThrow(() -> new IllegalStateException(
+"Could not find docker, looked in: " + DOCKER_LOCATIONS));
 
 		log.debug("Using docker found at " + pathToUse);
 
@@ -63,9 +63,9 @@ public class DockerExecutable implements Executable {
 		args.addAll(Arrays.asList(commands));
 
 		return dockerConfiguration().configuredDockerComposeProcess()
-				.command(args)
-				.redirectErrorStream(true)
-				.start();
+	.command(args)
+	.redirectErrorStream(true)
+	.start();
 	}
 
 	public static DockerExecutable.Builder builder() {

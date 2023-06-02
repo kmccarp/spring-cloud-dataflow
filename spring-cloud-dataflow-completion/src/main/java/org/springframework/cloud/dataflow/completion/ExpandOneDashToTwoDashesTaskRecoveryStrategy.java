@@ -31,8 +31,7 @@ import org.springframework.util.Assert;
  * @author Eric Bottard
  * @author Andy Clement
  */
-class ExpandOneDashToTwoDashesTaskRecoveryStrategy
-		extends StacktraceFingerprintingTaskRecoveryStrategy<ParseException> {
+class ExpandOneDashToTwoDashesTaskRecoveryStrategyextends StacktraceFingerprintingTaskRecoveryStrategy<ParseException> {
 
 	@Autowired
 	private ConfigurationPropertyNameAfterDashDashTaskRecoveryStrategy recoveryAfterDashDash;
@@ -43,7 +42,7 @@ class ExpandOneDashToTwoDashesTaskRecoveryStrategy
 
 	@Override
 	public void addProposals(String dsl, ParseException exception, int detailLevel,
-			List<CompletionProposal> proposals) {
+List<CompletionProposal> proposals) {
 		// Pretend there was an additional dash and invoke the dedicated strategy for that
 		// case
 		String withDashDash = dsl + "-";
@@ -52,7 +51,7 @@ class ExpandOneDashToTwoDashesTaskRecoveryStrategy
 		}
 		catch (CheckPointedParseException recoverable) {
 			Assert.isTrue(recoveryAfterDashDash.shouldTrigger(withDashDash, recoverable),
-					"did not trigger after dash-dash");
+		"did not trigger after dash-dash");
 			recoveryAfterDashDash.addProposals(withDashDash, recoverable, detailLevel, proposals);
 		}
 	}

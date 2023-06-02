@@ -37,8 +37,8 @@ public class StreamCompletionProvider {
 	private final StreamDefinitionService streamDefinitionService;
 
 	public StreamCompletionProvider(List<RecoveryStrategy<?>> completionRecoveryStrategies,
-			List<ExpansionStrategy> completionExpansionStrategies,
-			StreamDefinitionService streamDefinitionService) {
+List<ExpansionStrategy> completionExpansionStrategies,
+StreamDefinitionService streamDefinitionService) {
 		this.completionRecoveryStrategies = new ArrayList<>(completionRecoveryStrategies);
 		this.completionExpansionStrategies = new ArrayList<>(completionExpansionStrategies);
 		this.streamDefinitionService = streamDefinitionService;

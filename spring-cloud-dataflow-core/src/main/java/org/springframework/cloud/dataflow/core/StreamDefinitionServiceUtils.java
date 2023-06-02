@@ -37,11 +37,8 @@ public class StreamDefinitionServiceUtils {
 	 */
 	public static LinkedList<StreamAppDefinition>  sanitizeStreamAppDefinitions(LinkedList<StreamAppDefinition> streamAppDefinitions) {
 		return streamAppDefinitions.stream()
-				.map(app -> StreamAppDefinition.Builder
-						.from(app)
-						.setProperties(new ArgumentSanitizer().sanitizeProperties(app.getProperties()))
-						.build(app.getStreamName())
-				).collect(Collectors.toCollection(LinkedList::new));
+	.map(app -> StreamAppDefinition.Builder.from(app).setProperties(new ArgumentSanitizer().sanitizeProperties(app.getProperties())).build(app.getStreamName())
+	).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/**

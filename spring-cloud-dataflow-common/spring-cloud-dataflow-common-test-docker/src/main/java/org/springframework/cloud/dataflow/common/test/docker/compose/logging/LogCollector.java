@@ -21,8 +21,8 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.execution.D
 
 public interface LogCollector {
 
-    void startCollecting(DockerCompose dockerCompose) throws IOException, InterruptedException;
+	void startCollecting(DockerCompose dockerCompose) throws IOException, InterruptedException;
 
-    void stopCollecting() throws InterruptedException;
+	void stopCollecting() throws InterruptedException;
 
 }

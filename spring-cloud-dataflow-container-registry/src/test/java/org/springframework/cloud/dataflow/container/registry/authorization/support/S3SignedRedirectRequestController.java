@@ -56,12 +56,12 @@ public class S3SignedRedirectRequestController {
 		}
 		HttpHeaders redirectHeaders = new HttpHeaders();
 		redirectHeaders.add(HttpHeaders.LOCATION, "/test/docker/registry/v2/blobs/test/data" +
-				"?X-Amz-Algorithm=AWS4-HMAC-SHA256" +
-				"&X-Amz-Credential=test" +
-				"&X-Amz-Date=test" +
-				"&X-Amz-Expires=1200" +
-				"&X-Amz-SignedHeaders=host" +
-				"&X-Amz-Signature=test");
+	"?X-Amz-Algorithm=AWS4-HMAC-SHA256" +
+	"&X-Amz-Credential=test" +
+	"&X-Amz-Date=test" +
+	"&X-Amz-Expires=1200" +
+	"&X-Amz-SignedHeaders=host" +
+	"&X-Amz-Signature=test");
 
 		return new ResponseEntity<>(redirectHeaders, HttpStatus.TEMPORARY_REDIRECT);
 	}
@@ -77,8 +77,8 @@ public class S3SignedRedirectRequestController {
 	private ResponseEntity<Resource> buildFromString(String body) {
 		ByteArrayResource resource = new ByteArrayResource(body.getBytes());
 		return ResponseEntity.ok()
-				.contentLength(body.length())
-				.contentType(MediaType.valueOf(ContainerRegistryProperties.DOCKER_IMAGE_MANIFEST_MEDIA_TYPE))
-				.body(resource);
+	.contentLength(body.length())
+	.contentType(MediaType.valueOf(ContainerRegistryProperties.DOCKER_IMAGE_MANIFEST_MEDIA_TYPE))
+	.body(resource);
 	}
 }

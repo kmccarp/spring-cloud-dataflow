@@ -35,14 +35,14 @@ public class ApplicationConfigurationMetadataResolverAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean(ApplicationConfigurationMetadataResolver.class)
 	public ApplicationConfigurationMetadataResolver metadataResolver(
-			ContainerImageMetadataResolver containerImageMetadataResolver) {
+ContainerImageMetadataResolver containerImageMetadataResolver) {
 		return new BootApplicationConfigurationMetadataResolver(containerImageMetadataResolver);
 	}
 
 	@Bean
 	@ConditionalOnMissingBean(ContainerImageMetadataResolver.class)
 	public ContainerImageMetadataResolver containerImageMetadataResolver(
-			ContainerRegistryService containerRegistryService) {
+ContainerRegistryService containerRegistryService) {
 		return new DefaultContainerImageMetadataResolver(containerRegistryService);
 	}
 }

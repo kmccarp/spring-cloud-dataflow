@@ -67,7 +67,7 @@ public class TransitionNode extends AstNode {
 			isExitCodeCheck = false;
 			String quotesUsed = statusToken.data.substring(0, 1);
 			this.status = statusToken.data.substring(1, statusToken.data.length() - 1).replace(quotesUsed + quotesUsed,
-					quotesUsed);
+		quotesUsed);
 		}
 		else {
 			isExitCodeCheck = true;

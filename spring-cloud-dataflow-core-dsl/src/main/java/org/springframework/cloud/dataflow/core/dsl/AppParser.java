@@ -71,7 +71,7 @@ public class AppParser {
 		Token name = tokens.next();
 		if (!name.isKind(TokenKind.IDENTIFIER)) {
 			tokens.raiseException(name.startPos, DSLMessage.EXPECTED_APPNAME,
-					name.data != null ? name.data : new String(name.getKind().tokenChars));
+		name.data != null ? name.data : new String(name.getKind().tokenChars));
 		}
 		if (tokens.peek(TokenKind.COLON) && tokens.isNextAdjacent()) {
 			tokens.next(); // swallow colon
@@ -166,7 +166,7 @@ public class AppParser {
 		Token name = tokens.next();
 		if (!name.isKind(TokenKind.IDENTIFIER)) {
 			tokens.raiseException(name.startPos, DSLMessage.NOT_EXPECTED_TOKEN,
-					name.data != null ? name.data : new String(name.getKind().tokenChars));
+		name.data != null ? name.data : new String(name.getKind().tokenChars));
 		}
 		result.add(name);
 		while (tokens.peek(TokenKind.DOT)) {
@@ -259,7 +259,7 @@ public class AppParser {
 		}
 		return true;
 	}
-	
+
 	protected AppNode makeAppNode(LabelNode label, String appName, int startPos, int endPos, ArgumentNode[] arguments) {
 		return new AppNode(label, appName, startPos, endPos, arguments);
 	}

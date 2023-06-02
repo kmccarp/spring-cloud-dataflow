@@ -39,14 +39,14 @@ public class Docker {
 	// Without java escape characters: ^(\d+)\.(\d+)\.(\d+)(?:-.*)?$
 	private static final Pattern VERSION_PATTERN = Pattern.compile("^Docker version (\\d+)\\.(\\d+)\\.(\\d+)(?:-.*)?$");
 	private static final String HEALTH_STATUS_FORMAT = "--format=" + "{{if not .State.Running}}DOWN"
-			+ "{{else if .State.Paused}}PAUSED" + "{{else if index .State \"Health\"}}"
-			+ "{{if eq .State.Health.Status \"healthy\"}}HEALTHY" + "{{else}}UNHEALTHY{{end}}"
-			+ "{{else}}HEALTHY{{end}}";
++ "{{else if .State.Paused}}PAUSED" + "{{else if index .State \"Health\"}}"
++ "{{if eq .State.Health.Status \"healthy\"}}HEALTHY" + "{{else}}UNHEALTHY{{end}}"
++ "{{else}}HEALTHY{{end}}";
 	private static final String HEALTH_STATUS_FORMAT_WINDOWS = HEALTH_STATUS_FORMAT.replaceAll("\"", "`\"");
 
 	public static Version version() throws IOException, InterruptedException {
 		return new Docker(DockerExecutable.builder().dockerConfiguration(DockerMachine.localMachine().build()).build())
-				.configuredVersion();
+	.configuredVersion();
 	}
 
 	public Version configuredVersion() throws IOException, InterruptedException {
@@ -54,7 +54,7 @@ public class Docker {
 		Matcher matcher = VERSION_PATTERN.matcher(versionString);
 		Assert.state(matcher.matches(), "Unexpected output of docker -v: " + versionString);
 		return Version.forIntegers(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)),
-				Integer.parseInt(matcher.group(3)));
+	Integer.parseInt(matcher.group(3)));
 	}
 
 	private final Command command;

@@ -22,13 +22,13 @@ import org.junit.Test;
 import org.springframework.cloud.dataflow.common.test.docker.compose.connection.waiting.Exceptions;
 
 public class ExceptionsTests {
-    @Test
-    public void print_out_a_condensed_version_of_the_stacktrace() {
-        RuntimeException exception = new RuntimeException("foo", new IllegalStateException("bar", new UnsupportedOperationException("baz")));
-        assertThat(Exceptions.condensedStacktraceFor(exception), is(
-                  "java.lang.RuntimeException: foo\n"
-                + "java.lang.IllegalStateException: bar\n"
-                + "java.lang.UnsupportedOperationException: baz"
-        ));
-    }
+	@Test
+	public void print_out_a_condensed_version_of_the_stacktrace() {
+		RuntimeException exception = new RuntimeException("foo", new IllegalStateException("bar", new UnsupportedOperationException("baz")));
+		assertThat(Exceptions.condensedStacktraceFor(exception), is(
+	"java.lang.RuntimeException: foo\n"
++ "java.lang.IllegalStateException: bar\n"
++ "java.lang.UnsupportedOperationException: baz"
+		));
+	}
 }

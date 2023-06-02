@@ -26,13 +26,13 @@ public class DockerComposeRunArgument {
 		this.arguments = arguments;
 	}
 
-    public List<String> arguments() {
-    	return arguments;
-    }
+	public List<String> arguments() {
+		return arguments;
+	}
 
-    public static DockerComposeRunArgument arguments(String... arguments) {
-        return DockerComposeRunArgument.of(Arrays.asList(arguments));
-    }
+	public static DockerComposeRunArgument arguments(String... arguments) {
+		return DockerComposeRunArgument.of(Arrays.asList(arguments));
+	}
 
 	private static DockerComposeRunArgument of(List<String> asList) {
 		return new DockerComposeRunArgument(asList);
@@ -55,11 +55,12 @@ public class DockerComposeRunArgument {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-			DockerComposeRunArgument other = (DockerComposeRunArgument) obj;
+		DockerComposeRunArgument other = (DockerComposeRunArgument) obj;
 		if (arguments == null) {
 			if (other.arguments != null)
 				return false;
-		} else if (!arguments.equals(other.arguments))
+		}
+		else if (!arguments.equals(other.arguments))
 			return false;
 		return true;
 	}

@@ -133,7 +133,7 @@ public class TaskValidatorVisitor extends TaskVisitor {
 				labelsDefined.add(labelString);
 				if (taskAppNamesWithoutLabels.contains(labelString)) {
 					pushProblem(taskApp.getLabel().startPos,
-							DSLMessage.TASK_VALIDATION_LABEL_CLASHES_WITH_TASKAPP_NAME);
+				DSLMessage.TASK_VALIDATION_LABEL_CLASHES_WITH_TASKAPP_NAME);
 				}
 			}
 			else {
@@ -155,7 +155,7 @@ public class TaskValidatorVisitor extends TaskVisitor {
 		for (TransitionNode transitionTargetingLabel : transitionsTargetingLabels) {
 			if (!labelsDefined.contains(transitionTargetingLabel.getTargetLabel())) {
 				pushProblem(transitionTargetingLabel.startPos,
-						DSLMessage.TASK_VALIDATION_TRANSITION_TARGET_LABEL_UNDEFINED);
+			DSLMessage.TASK_VALIDATION_TRANSITION_TARGET_LABEL_UNDEFINED);
 			}
 		}
 	}

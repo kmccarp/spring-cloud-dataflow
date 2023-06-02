@@ -30,13 +30,12 @@ import org.springframework.cloud.dataflow.registry.service.AppRegistryService;
  * @author Eric Bottard
  * @author Mark Fisher
  */
-class DestinationNameYieldsAppsRecoveryStrategy
-		extends StacktraceFingerprintingRecoveryStrategy<CheckPointedParseException> {
+class DestinationNameYieldsAppsRecoveryStrategyextends StacktraceFingerprintingRecoveryStrategy<CheckPointedParseException> {
 
 	private final AppRegistryService appRegistry;
 
 	public DestinationNameYieldsAppsRecoveryStrategy(AppRegistryService appRegistry,
-			StreamDefinitionService streamDefinitionService) {
+StreamDefinitionService streamDefinitionService) {
 		super(CheckPointedParseException.class, streamDefinitionService, ":foo >", ":foo > ");
 		this.appRegistry = appRegistry;
 	}
@@ -53,12 +52,12 @@ class DestinationNameYieldsAppsRecoveryStrategy
 
 	@Override
 	public void addProposals(String dsl, CheckPointedParseException exception, int detailLevel,
-			List<CompletionProposal> proposals) {
+List<CompletionProposal> proposals) {
 		CompletionProposal.Factory completionFactory = CompletionProposal.expanding(dsl);
 		for (AppRegistration appRegistration : appRegistry.findAll()) {
 			if (appRegistration.getType() == ApplicationType.processor || appRegistration.getType() == ApplicationType.sink) {
 				proposals.add(completionFactory.withSeparateTokens(appRegistration.getName(),
-						"Wire destination into a " + appRegistration.getType() + " app"));
+			"Wire destination into a " + appRegistration.getType() + " app"));
 			}
 		}
 	}

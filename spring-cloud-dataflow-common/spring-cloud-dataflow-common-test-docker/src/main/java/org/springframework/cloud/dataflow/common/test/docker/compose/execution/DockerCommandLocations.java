@@ -23,25 +23,25 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class DockerCommandLocations {
-    private static final Predicate<String> IS_NOT_NULL = path -> path != null;
-    private static final Predicate<String> FILE_EXISTS = path -> new File(path).exists();
+	private static final Predicate<String> IS_NOT_NULL = path -> path != null;
+	private static final Predicate<String> FILE_EXISTS = path -> new File(path).exists();
 
-    private final List<String> possiblePaths;
+	private final List<String> possiblePaths;
 
-    public DockerCommandLocations(String... possiblePaths) {
-        this.possiblePaths = asList(possiblePaths);
-    }
+	public DockerCommandLocations(String... possiblePaths) {
+		this.possiblePaths = asList(possiblePaths);
+	}
 
-    public Optional<String> preferredLocation() {
+	public Optional<String> preferredLocation() {
 
-        return possiblePaths.stream()
-                .filter(IS_NOT_NULL)
-                .filter(FILE_EXISTS)
-                .findFirst();
-    }
+		return possiblePaths.stream()
+	.filter(IS_NOT_NULL)
+	.filter(FILE_EXISTS)
+	.findFirst();
+	}
 
-    @Override
-    public String toString() {
-        return "DockerCommandLocations{possiblePaths=" + possiblePaths + "}";
-    }
+	@Override
+	public String toString() {
+		return "DockerCommandLocations{possiblePaths=" + possiblePaths + "}";
+	}
 }

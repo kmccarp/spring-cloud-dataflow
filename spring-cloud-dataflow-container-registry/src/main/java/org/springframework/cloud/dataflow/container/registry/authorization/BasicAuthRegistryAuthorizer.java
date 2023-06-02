@@ -35,10 +35,10 @@ public class BasicAuthRegistryAuthorizer implements RegistryAuthorizer {
 
 	@Override
 	public HttpHeaders getAuthorizationHeaders(ContainerRegistryConfiguration registryConfiguration,
-			Map<String, String> configProperties) {
+Map<String, String> configProperties) {
 
 		Assert.isTrue(registryConfiguration.getAuthorizationType() == this.getType(),
-				"Incorrect type: " + registryConfiguration.getAuthorizationType());
+	"Incorrect type: " + registryConfiguration.getAuthorizationType());
 
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setBasicAuth(registryConfiguration.getUser(), registryConfiguration.getSecret());
@@ -47,7 +47,7 @@ public class BasicAuthRegistryAuthorizer implements RegistryAuthorizer {
 
 	@Override
 	public HttpHeaders getAuthorizationHeaders(ContainerImage containerImage,
-			ContainerRegistryConfiguration registryConfiguration) {
+ContainerRegistryConfiguration registryConfiguration) {
 
 		return getAuthorizationHeaders(registryConfiguration, null);
 	}

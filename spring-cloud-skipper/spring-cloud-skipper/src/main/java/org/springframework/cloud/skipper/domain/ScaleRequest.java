@@ -127,7 +127,7 @@ public class ScaleRequest {
 		@Override
 		public String toString() {
 			return  "ScaleRequest [appName= " + this.name + ", count= " + this.count + ", properties= " +
-					this.properties.toString() + "]";
+		this.properties.toString() + "]";
 		}
 	}
 }

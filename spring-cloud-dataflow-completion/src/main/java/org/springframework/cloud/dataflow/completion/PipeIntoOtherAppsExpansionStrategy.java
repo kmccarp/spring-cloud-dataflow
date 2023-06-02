@@ -47,7 +47,7 @@ public class PipeIntoOtherAppsExpansionStrategy implements ExpansionStrategy {
 
 	@Override
 	public boolean addProposals(String text, StreamDefinition streamDefinition, int detailLevel,
-			List<CompletionProposal> collector) {
+List<CompletionProposal> collector) {
 		if (text.isEmpty() || !text.endsWith(" ")) {
 			return false;
 		}
@@ -68,7 +68,7 @@ public class PipeIntoOtherAppsExpansionStrategy implements ExpansionStrategy {
 			if (appRegistration.getType() == ApplicationType.processor || appRegistration.getType() == ApplicationType.sink) {
 				String expansion = CompletionUtils.maybeQualifyWithLabel(appRegistration.getName(), streamAppDefinitions);
 				collector.add(proposals.withSeparateTokens("| " + expansion,
-						"Continue stream definition with a " + appRegistration.getType()));
+			"Continue stream definition with a " + appRegistration.getType()));
 			}
 		}
 		return false;

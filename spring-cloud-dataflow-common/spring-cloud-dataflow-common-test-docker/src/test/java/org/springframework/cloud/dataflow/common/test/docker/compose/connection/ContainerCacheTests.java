@@ -28,23 +28,23 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.execution.D
 
 public class ContainerCacheTests {
 
-    private static final String CONTAINER_NAME = "container";
+	private static final String CONTAINER_NAME = "container";
 
-    private final Docker docker = mock(Docker.class);
-    private final DockerCompose dockerCompose = mock(DockerCompose.class);
-    private final ContainerCache containers = new ContainerCache(docker, dockerCompose);
+	private final Docker docker = mock(Docker.class);
+	private final DockerCompose dockerCompose = mock(DockerCompose.class);
+	private final ContainerCache containers = new ContainerCache(docker, dockerCompose);
 
-    @Test
-    public void return_a_container_with_the_specified_name_when_getting_a_new_container() {
-        Container container = containers.container(CONTAINER_NAME);
-        assertThat(container, is(new Container(CONTAINER_NAME, docker, dockerCompose)));
-    }
+	@Test
+	public void return_a_container_with_the_specified_name_when_getting_a_new_container() {
+		Container container = containers.container(CONTAINER_NAME);
+		assertThat(container, is(new Container(CONTAINER_NAME, docker, dockerCompose)));
+	}
 
-    @Test
-    public void return_the_same_object_when_getting_a_container_twice() {
-        Container container = containers.container(CONTAINER_NAME);
-        Container sameContainer = containers.container(CONTAINER_NAME);
-        assertThat(container, is(sameInstance(sameContainer)));
-    }
+	@Test
+	public void return_the_same_object_when_getting_a_container_twice() {
+		Container container = containers.container(CONTAINER_NAME);
+		Container sameContainer = containers.container(CONTAINER_NAME);
+		assertThat(container, is(sameInstance(sameContainer)));
+	}
 
 }

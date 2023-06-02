@@ -46,8 +46,7 @@ public class ContainerRegistryService {
 	private static final Logger logger = LoggerFactory.getLogger(ContainerRegistryService.class);
 
 	private static final List<String> SUPPORTED_MANIFEST_MEDIA_TYPES =
-			Collections.unmodifiableList(Arrays.asList(ContainerRegistryProperties.OCI_IMAGE_MANIFEST_MEDIA_TYPE,
-					ContainerRegistryProperties.DOCKER_IMAGE_MANIFEST_MEDIA_TYPE));
+Collections.unmodifiableList(Arrays.asList(ContainerRegistryProperties.OCI_IMAGE_MANIFEST_MEDIA_TYPE,ContainerRegistryProperties.DOCKER_IMAGE_MANIFEST_MEDIA_TYPE));
 
 	private static final String HTTPS_SCHEME = "https";
 
@@ -70,9 +69,9 @@ public class ContainerRegistryService {
 	private final Map<ContainerRegistryConfiguration.AuthorizationType, RegistryAuthorizer> registryAuthorizerMap;
 
 	public ContainerRegistryService(ContainerImageRestTemplateFactory containerImageRestTemplateFactory,
-			ContainerImageParser containerImageParser,
-			Map<String, ContainerRegistryConfiguration> registryConfigurations,
-			List<RegistryAuthorizer> registryAuthorizers) {
+ContainerImageParser containerImageParser,
+Map<String, ContainerRegistryConfiguration> registryConfigurations,
+List<RegistryAuthorizer> registryAuthorizers) {
 		this.containerImageRestTemplateFactory = containerImageRestTemplateFactory;
 		this.containerImageParser = containerImageParser;
 		this.registryConfigurations = registryConfigurations;
@@ -99,20 +98,20 @@ public class ContainerRegistryService {
 			Map<String, String> properties = new HashMap<>();
 			properties.put(DockerOAuth2RegistryAuthorizer.DOCKER_REGISTRY_REPOSITORY_FIELD_KEY, repositoryName);
 			HttpHeaders httpHeaders = new HttpHeaders(this.registryAuthorizerMap.get(containerRegistryConfiguration.getAuthorizationType()).getAuthorizationHeaders(
-					containerRegistryConfiguration, properties));
+		containerRegistryConfiguration, properties));
 			httpHeaders.set(HttpHeaders.ACCEPT, "application/json");
 
 			UriComponents manifestUriComponents = UriComponentsBuilder.newInstance()
-					.scheme(HTTPS_SCHEME)
-					.host(containerRegistryConfiguration.getRegistryHost())
-					.path(TAGS_LIST_PATH)
-					.build().expand(repositoryName);
+		.scheme(HTTPS_SCHEME)
+		.host(containerRegistryConfiguration.getRegistryHost())
+		.path(TAGS_LIST_PATH)
+		.build().expand(repositoryName);
 
 			RestTemplate requestRestTemplate = this.containerImageRestTemplateFactory.getContainerRestTemplate(
-					containerRegistryConfiguration.isDisableSslVerification(), containerRegistryConfiguration.isUseHttpProxy());
+		containerRegistryConfiguration.isDisableSslVerification(), containerRegistryConfiguration.isUseHttpProxy());
 
 			ResponseEntity<Map> manifest = requestRestTemplate.exchange(manifestUriComponents.toUri(),
-					HttpMethod.GET, new HttpEntity<>(httpHeaders), Map.class);
+		HttpMethod.GET, new HttpEntity<>(httpHeaders), Map.class);
 			return  (List<String>) manifest.getBody().get(TAGS_FIELD);
 		}
 		catch (Exception e) {
@@ -129,26 +128,26 @@ public class ContainerRegistryService {
 	public Map getRepositories(String registryName) {
 		try {
 			ContainerRegistryConfiguration containerRegistryConfiguration = this.registryConfigurations
-					.get(registryName);
+		.get(registryName);
 			Map<String, String> properties = new HashMap<>();
 			properties.put(DockerOAuth2RegistryAuthorizer.DOCKER_REGISTRY_REPOSITORY_FIELD_KEY, registryName);
 			HttpHeaders httpHeaders = new HttpHeaders(
-					this.registryAuthorizerMap.get(containerRegistryConfiguration.getAuthorizationType())
-							.getAuthorizationHeaders(
-									containerRegistryConfiguration, properties));
+		this.registryAuthorizerMap.get(containerRegistryConfiguration.getAuthorizationType())
+	.getAuthorizationHeaders(
+containerRegistryConfiguration, properties));
 			httpHeaders.set(HttpHeaders.ACCEPT, "application/json");
 			UriComponents manifestUriComponents = UriComponentsBuilder.newInstance()
-					.scheme(HTTPS_SCHEME)
-					.host(containerRegistryConfiguration.getRegistryHost())
-					.path(CATALOG_LIST_PATH)
-					.build();
+		.scheme(HTTPS_SCHEME)
+		.host(containerRegistryConfiguration.getRegistryHost())
+		.path(CATALOG_LIST_PATH)
+		.build();
 
 
 			RestTemplate requestRestTemplate = this.containerImageRestTemplateFactory.getContainerRestTemplate(
-					containerRegistryConfiguration.isDisableSslVerification(), containerRegistryConfiguration.isUseHttpProxy());
+		containerRegistryConfiguration.isDisableSslVerification(), containerRegistryConfiguration.isUseHttpProxy());
 
 			ResponseEntity<Map> manifest = requestRestTemplate.exchange(manifestUriComponents.toUri(),
-					HttpMethod.GET, new HttpEntity<>(httpHeaders), Map.class);
+		HttpMethod.GET, new HttpEntity<>(httpHeaders), Map.class);
 			return manifest.getBody();
 		}
 		catch (Exception e) {
@@ -166,25 +165,25 @@ public class ContainerRegistryService {
 		ContainerRegistryConfiguration registryConf = this.registryConfigurations.get(containerImage.getRegistryHost());
 		if (registryConf == null) {
 			throw new ContainerRegistryException(
-					"Could not find an Registry Configuration for: " + containerImage.getRegistryHost());
+		"Could not find an Registry Configuration for: " + containerImage.getRegistryHost());
 		}
 
 		// Retrieve a registry authorizer that supports the configured authorization type.
 		RegistryAuthorizer registryAuthorizer = this.registryAuthorizerMap.get(registryConf.getAuthorizationType());
 		if (registryAuthorizer == null) {
 			throw new ContainerRegistryException(
-					"Could not find an RegistryAuthorizer of type:" + registryConf.getAuthorizationType());
+		"Could not find an RegistryAuthorizer of type:" + registryConf.getAuthorizationType());
 		}
 
 		// Use the authorizer to obtain authorization headers.
 		HttpHeaders authHttpHeaders = registryAuthorizer.getAuthorizationHeaders(containerImage, registryConf);
 		if (authHttpHeaders == null) {
 			throw new ContainerRegistryException(
-					"Could not obtain authorized headers for: " + containerImage + ", config:" + registryConf);
+		"Could not obtain authorized headers for: " + containerImage + ", config:" + registryConf);
 		}
 
 		RestTemplate requestRestTemplate = this.containerImageRestTemplateFactory.getContainerRestTemplate(
-				registryConf.isDisableSslVerification(), registryConf.isUseHttpProxy());
+	registryConf.isDisableSslVerification(), registryConf.isUseHttpProxy());
 
 		return new ContainerRegistryRequest(containerImage, registryConf, authHttpHeaders, requestRestTemplate);
 	}
@@ -201,14 +200,14 @@ public class ContainerRegistryService {
 		// Docker Registry HTTP V2 API pull manifest
 		ContainerImage containerImage = registryRequest.getContainerImage();
 		UriComponents manifestUriComponents = UriComponentsBuilder.newInstance()
-				.scheme(HTTPS_SCHEME)
-				.host(containerImage.getHostname())
-				.port(StringUtils.hasText(containerImage.getPort()) ? containerImage.getPort() : null)
-				.path(IMAGE_MANIFEST_REFERENCE_PATH)
-				.build().expand(containerImage.getRepository(), containerImage.getRepositoryReference());
+	.scheme(HTTPS_SCHEME)
+	.host(containerImage.getHostname())
+	.port(StringUtils.hasText(containerImage.getPort()) ? containerImage.getPort() : null)
+	.path(IMAGE_MANIFEST_REFERENCE_PATH)
+	.build().expand(containerImage.getRepository(), containerImage.getRepositoryReference());
 
 		ResponseEntity<T> manifest = registryRequest.getRestTemplate().exchange(manifestUriComponents.toUri(),
-				HttpMethod.GET, new HttpEntity<>(httpHeaders), responseClassType);
+	HttpMethod.GET, new HttpEntity<>(httpHeaders), responseClassType);
 		return manifest.getBody();
 	}
 
@@ -218,14 +217,14 @@ public class ContainerRegistryService {
 
 		// Docker Registry HTTP V2 API pull config blob
 		UriComponents blobUriComponents = UriComponentsBuilder.newInstance()
-				.scheme(HTTPS_SCHEME)
-				.host(containerImage.getHostname())
-				.port(StringUtils.hasText(containerImage.getPort()) ? containerImage.getPort() : null)
-				.path(IMAGE_BLOB_DIGEST_PATH)
-				.build().expand(containerImage.getRepository(), configDigest);
+	.scheme(HTTPS_SCHEME)
+	.host(containerImage.getHostname())
+	.port(StringUtils.hasText(containerImage.getPort()) ? containerImage.getPort() : null)
+	.path(IMAGE_BLOB_DIGEST_PATH)
+	.build().expand(containerImage.getRepository(), configDigest);
 
 		ResponseEntity<T> blob = registryRequest.getRestTemplate().exchange(blobUriComponents.toUri(),
-				HttpMethod.GET, new HttpEntity<>(httpHeaders), responseClassType);
+	HttpMethod.GET, new HttpEntity<>(httpHeaders), responseClassType);
 
 		return blob.getBody();
 	}

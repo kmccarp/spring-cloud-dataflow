@@ -37,9 +37,10 @@ public class AppBootSchemaVersionSerializer extends StdSerializer<AppBootSchemaV
 
 	@Override
 	public void serialize(AppBootSchemaVersion appBootSchemaVersion, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-		if(appBootSchemaVersion != null) {
+		if (appBootSchemaVersion != null) {
 			jsonGenerator.writeString(appBootSchemaVersion.getBootVersion());
-		} else {
+		}
+		else {
 			jsonGenerator.writeNull();
 		}
 	}

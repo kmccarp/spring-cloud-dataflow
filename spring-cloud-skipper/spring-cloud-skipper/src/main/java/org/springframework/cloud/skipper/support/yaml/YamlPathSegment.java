@@ -69,16 +69,16 @@ abstract class YamlPathSegment {
 
 	public static YamlPathSegment decode(String code) {
 		switch (code.charAt(0)) {
-		case '*':
-			return anyChild();
-		case '.':
-			return valueAt(code.substring(1));
-		case '&':
-			return keyAt(code.substring(1));
-		case '[':
-			return valueAt(Integer.parseInt(code.substring(1)));
-		default:
-			throw new IllegalArgumentException("Can't decode YamlPathSegment from '" + code + "'");
+			case '*':
+				return anyChild();
+			case '.':
+				return valueAt(code.substring(1));
+			case '&':
+				return keyAt(code.substring(1));
+			case '[':
+				return valueAt(Integer.parseInt(code.substring(1)));
+			default:
+				throw new IllegalArgumentException("Can't decode YamlPathSegment from '" + code + "'");
 		}
 	}
 
@@ -124,7 +124,7 @@ abstract class YamlPathSegment {
 		@Override
 		protected char getTypeCode() {
 			return '*';
-		};
+		}
 
 		@Override
 		protected String getValueCode() {

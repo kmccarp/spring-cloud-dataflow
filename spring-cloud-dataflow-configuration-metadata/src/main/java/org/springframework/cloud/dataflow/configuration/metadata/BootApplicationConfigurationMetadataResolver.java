@@ -111,16 +111,16 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 	}
 
 	public BootApplicationConfigurationMetadataResolver(ClassLoader parent,
-			ContainerImageMetadataResolver containerImageMetadataResolver) {
+ContainerImageMetadataResolver containerImageMetadataResolver) {
 		this.parent = parent;
 		this.containerImageMetadataResolver = containerImageMetadataResolver;
 		JarFile.registerUrlProtocolHandler();
 		try {
 			loadVisible(
-					visibleConfigurationMetadataResources(
-							ApplicationConfigurationMetadataResolver.class.getClassLoader()),
-					this.globalVisibleClasses,
-					this.globalVisibleProperties);
+		visibleConfigurationMetadataResources(
+	ApplicationConfigurationMetadataResolver.class.getClassLoader()),
+		this.globalVisibleClasses,
+		this.globalVisibleProperties);
 		}
 		catch (IOException e) {
 			throw new RuntimeException("Error reading global list of visible configuration properties", e);
@@ -132,22 +132,22 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 		Resource[] configurationResources = resourcePatternResolver.getResources(VISIBLE_PROPERTIES);
 
 		Resource[] deprecatedSpringConfigurationResources = resourcePatternResolver
-				.getResources(DEPRECATED_SPRING_CONFIGURATION_PROPERTIES);
+	.getResources(DEPRECATED_SPRING_CONFIGURATION_PROPERTIES);
 		if (deprecatedSpringConfigurationResources.length > 0) {
 			logger.warn("The use of " + DEPRECATED_SPRING_CONFIGURATION_PROPERTIES + " is a deprecated. Please use "
-					+ VISIBLE_PROPERTIES + " instead.");
+		+ VISIBLE_PROPERTIES + " instead.");
 		}
 		Resource[] deprecatedDataflowConfigurationResources = resourcePatternResolver
-				.getResources(DEPRECATED_DATAFLOW_CONFIGURATION_PROPERTIES);
+	.getResources(DEPRECATED_DATAFLOW_CONFIGURATION_PROPERTIES);
 		if (deprecatedDataflowConfigurationResources.length > 0) {
 			logger.warn("The use of " + DEPRECATED_DATAFLOW_CONFIGURATION_PROPERTIES
-					+ " is a deprecated. Please use " + VISIBLE_PROPERTIES + " instead.");
+		+ " is a deprecated. Please use " + VISIBLE_PROPERTIES + " instead.");
 		}
 
 		Resource[] portMappingResources = resourcePatternResolver.getResources(PORT_MAPPING_PROPERTIES);
 		Resource[] groupingResources = resourcePatternResolver.getResources(OPTION_GROUPS_PROPERTIES);
 		return concatArrays(configurationResources, deprecatedSpringConfigurationResources,
-				deprecatedDataflowConfigurationResources, portMappingResources, groupingResources);
+	deprecatedDataflowConfigurationResources, portMappingResources, groupingResources);
 
 	}
 
@@ -178,7 +178,7 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 		}
 		catch (Exception e) {
 			logger.warn("Failed to retrieve properties for resource {} because of {}",
-					app, ExceptionUtils.getRootCauseMessage(e));
+		app, ExceptionUtils.getRootCauseMessage(e));
 			if (logger.isDebugEnabled()) {
 				logger.debug("(Details) for failed to retrieve properties for resource:" + app, e);
 			}
@@ -203,7 +203,7 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 		}
 		catch (Exception e) {
 			logger.warn("Failed to retrieve port names for resource {} because of {}",
-					app, ExceptionUtils.getRootCauseMessage(e));
+		app, ExceptionUtils.getRootCauseMessage(e));
 			if (logger.isDebugEnabled()) {
 				logger.debug("(Details) for failed to retrieve port names for resource:" + app, e);
 			}
@@ -228,7 +228,7 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 		}
 		catch (Exception e) {
 			logger.warn("Failed to retrieve port names for resource {} because of {}",
-					app, ExceptionUtils.getRootCauseMessage(e));
+		app, ExceptionUtils.getRootCauseMessage(e));
 			if (logger.isDebugEnabled()) {
 				logger.debug("(Details) for failed to retrieve port names for resource:" + app, e);
 			}
@@ -257,13 +257,13 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 
 		try {
 			ConfigurationMetadataRepository configurationMetadataRepository = ConfigurationMetadataRepositoryJsonBuilder
-					.create().withJsonResource(new ByteArrayInputStream(encodedMetadata.getBytes()))
-					.build();
+		.create().withJsonResource(new ByteArrayInputStream(encodedMetadata.getBytes()))
+		.build();
 
 			List<ConfigurationMetadataProperty> result = configurationMetadataRepository.getAllProperties().entrySet()
-					.stream()
-					.map(e -> e.getValue())
-					.collect(Collectors.toList());
+		.stream()
+		.map(e -> e.getValue())
+		.collect(Collectors.toList());
 			return result;
 		}
 		catch (Exception e) {
@@ -282,14 +282,14 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 		if (StringUtils.hasText(inboundPortMapping)) {
 			Set<String> inboundPorts = new HashSet<>();
 			inboundPorts.addAll(Arrays.asList(StringUtils
-					.delimitedListToStringArray(inboundPortMapping, ",", " ")));
+		.delimitedListToStringArray(inboundPortMapping, ",", " ")));
 			portsMap.put("inbound", inboundPorts);
 		}
 		String outboundPortMapping = labels.get(CONFIGURATION_PROPERTIES_OUTBOUND_PORTS);
 		if (StringUtils.hasText(outboundPortMapping)) {
 			Set<String> outboundPorts = new HashSet<>();
 			outboundPorts.addAll(Arrays.asList(StringUtils
-					.delimitedListToStringArray(outboundPortMapping, ",", " ")));
+		.delimitedListToStringArray(outboundPortMapping, ",", " ")));
 			portsMap.put("outbound", outboundPorts);
 		}
 		return portsMap;
@@ -303,11 +303,11 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 		}
 		Map<String, Set<String>> groupingsMap = new HashMap<>();
 		labels.entrySet().stream()
-			.filter(e -> e.getKey().startsWith(CONFIGURATION_PROPERTIES_OPTION_GROUPS))
-			.forEach(e -> {
-				String gKey = e.getKey().substring(CONFIGURATION_PROPERTIES_OPTION_GROUPS.length() + 1);
-				groupingsMap.put(gKey, new HashSet<>(Arrays.asList(StringUtils.delimitedListToStringArray(e.getValue(), ",", " "))));
-			});
+	.filter(e -> e.getKey().startsWith(CONFIGURATION_PROPERTIES_OPTION_GROUPS))
+	.forEach(e -> {
+		String gKey = e.getKey().substring(CONFIGURATION_PROPERTIES_OPTION_GROUPS.length() + 1);
+		groupingsMap.put(gKey, new HashSet<>(Arrays.asList(StringUtils.delimitedListToStringArray(e.getValue(), ",", " "))));
+	});
 		return groupingsMap;
 	}
 
@@ -319,7 +319,7 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 			Collection<String> visibleProperties = new HashSet<>(this.globalVisibleProperties);
 
 			loadVisible(visibleConfigurationMetadataResources(moduleClassLoader), visibleClasses,
-					visibleProperties);
+		visibleProperties);
 
 			ConfigurationMetadataRepositoryJsonBuilder builder = ConfigurationMetadataRepositoryJsonBuilder.create();
 			for (Resource r : moduleResourceLoader.getResources(CONFIGURATION_METADATA_PATTERN)) {
@@ -333,7 +333,8 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 						}
 					}
 
-				} // Props in the root group have an id that looks prefixed itself. Handle
+				}
+				// Props in the root group have an id that looks prefixed itself. Handle
 				// here
 				else if ("_ROOT_GROUP_".equals(group.getId())) {
 					for (ConfigurationMetadataProperty property : group.getProperties().values()) {
@@ -358,7 +359,7 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 		}
 		catch (Exception e) {
 			throw new RuntimeException("Exception trying to list configuration properties for application " + archive,
-					e);
+		e);
 		}
 	}
 
@@ -371,20 +372,20 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 				Properties properties = new Properties();
 				properties.load(resource.getInputStream());
 				inboundPorts.addAll(Arrays.asList(StringUtils
-						.delimitedListToStringArray(properties.getProperty(CONFIGURATION_PROPERTIES_INBOUND_PORTS), ",",
-								" ")));
+			.delimitedListToStringArray(properties.getProperty(CONFIGURATION_PROPERTIES_INBOUND_PORTS), ",",
+		" ")));
 				portsMap.put("inbound", inboundPorts);
 				outboundPorts.addAll(Arrays.asList(StringUtils
-						.delimitedListToStringArray(properties.getProperty(CONFIGURATION_PROPERTIES_OUTBOUND_PORTS),
-								",", " ")));
+			.delimitedListToStringArray(properties.getProperty(CONFIGURATION_PROPERTIES_OUTBOUND_PORTS),
+		",", " ")));
 				portsMap.put("outbound", outboundPorts);
 			}
 			return portsMap;
 		}
 		catch (Exception e) {
 			throw new AppMetadataResolutionException(
-					"Exception trying to list configuration properties for application " + archive,
-					e);
+		"Exception trying to list configuration properties for application " + archive,
+		e);
 		}
 	}
 
@@ -394,7 +395,7 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 			for (Resource resource : visibleConfigurationMetadataResources(moduleClassLoader)) {
 				Properties properties = new Properties();
 				properties.load(resource.getInputStream());
-				for(String key : properties.stringPropertyNames()) {
+				for (String key : properties.stringPropertyNames()) {
 					if (key.startsWith(CONFIGURATION_PROPERTIES_OPTION_GROUPS)) {
 						String value = properties.getProperty(key);
 						String gKey = key.substring(CONFIGURATION_PROPERTIES_OPTION_GROUPS.length() + 1);
@@ -406,7 +407,7 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 		}
 		catch (Exception e) {
 			throw new AppMetadataResolutionException(
-					"Exception trying to list configuration properties option groups for application " + archive, e);
+		"Exception trying to list configuration properties option groups for application " + archive, e);
 		}
 	}
 
@@ -429,14 +430,14 @@ public class BootApplicationConfigurationMetadataResolver extends ApplicationCon
 	 * Loads visible properties and group classes and add them to the given collections.
 	 */
 	private void loadVisible(Resource[] resources, Collection<String> classes, Collection<String> names)
-			throws IOException {
+throws IOException {
 		for (Resource resource : resources) {
 			Properties properties = new Properties();
 			properties.load(resource.getInputStream());
 			classes.addAll(Arrays.asList(StringUtils
-					.delimitedListToStringArray(properties.getProperty(CONFIGURATION_PROPERTIES_CLASSES), ",", " ")));
+		.delimitedListToStringArray(properties.getProperty(CONFIGURATION_PROPERTIES_CLASSES), ",", " ")));
 			names.addAll(Arrays.asList(StringUtils
-					.delimitedListToStringArray(properties.getProperty(CONFIGURATION_PROPERTIES_NAMES), ",", " ")));
+		.delimitedListToStringArray(properties.getProperty(CONFIGURATION_PROPERTIES_NAMES), ",", " ")));
 		}
 	}
 

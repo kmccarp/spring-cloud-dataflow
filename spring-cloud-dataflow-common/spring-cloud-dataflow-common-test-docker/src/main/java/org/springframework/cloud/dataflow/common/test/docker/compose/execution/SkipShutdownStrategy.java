@@ -21,18 +21,18 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.configurati
 
 public class SkipShutdownStrategy implements ShutdownStrategy {
 
-    private static final Logger log = LoggerFactory.getLogger(SkipShutdownStrategy.class);
+	private static final Logger log = LoggerFactory.getLogger(SkipShutdownStrategy.class);
 
-    @Override
-    public void shutdown(DockerCompose dockerCompose, Docker docker) {
-        log.warn("\n"
-                + "******************************************************************************************\n"
-                + "* docker-compose-rule has been configured to skip docker-compose shutdown:               *\n"
-                + "* this means the containers will be left running after tests finish executing.           *\n"
-                + "* If you see this message when running on CI it means you are potentially abandoning     *\n"
-                + "* long running processes and leaking resources.                                          *\n"
-                + "******************************************************************************************");
-    }
+	@Override
+	public void shutdown(DockerCompose dockerCompose, Docker docker) {
+		log.warn("\n"
+	+ "******************************************************************************************\n"
+	+ "* docker-compose-rule has been configured to skip docker-compose shutdown:               *\n"
+	+ "* this means the containers will be left running after tests finish executing.           *\n"
+	+ "* If you see this message when running on CI it means you are potentially abandoning     *\n"
+	+ "* long running processes and leaking resources.                                          *\n"
+	+ "******************************************************************************************");
+	}
 
 
 }

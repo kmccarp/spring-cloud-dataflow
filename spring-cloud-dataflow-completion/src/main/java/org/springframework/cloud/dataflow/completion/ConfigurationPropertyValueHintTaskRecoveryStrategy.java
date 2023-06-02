@@ -38,8 +38,7 @@ import org.springframework.cloud.dataflow.registry.service.AppRegistryService;
  * @author Andy Clement
  * @author Oleg Zhurakousky
  */
-public class ConfigurationPropertyValueHintTaskRecoveryStrategy
-		extends StacktraceFingerprintingTaskRecoveryStrategy<CheckPointedParseException> {
+public class ConfigurationPropertyValueHintTaskRecoveryStrategyextends StacktraceFingerprintingTaskRecoveryStrategy<CheckPointedParseException> {
 
 	private final ProposalsCollectorSupportUtils collectorSupport;
 
@@ -47,14 +46,14 @@ public class ConfigurationPropertyValueHintTaskRecoveryStrategy
 	private ValueHintProvider[] valueHintProviders = new ValueHintProvider[0];
 
 	ConfigurationPropertyValueHintTaskRecoveryStrategy(AppRegistryService appRegistry,
-			ApplicationConfigurationMetadataResolver metadataResolver) {
+ApplicationConfigurationMetadataResolver metadataResolver) {
 		super(CheckPointedParseException.class, "foo --bar=");
 		this.collectorSupport = new ProposalsCollectorSupportUtils(appRegistry, metadataResolver);
 	}
 
 	@Override
 	public void addProposals(String dsl, CheckPointedParseException exception, int detailLevel,
-			List<CompletionProposal> collector) {
+List<CompletionProposal> collector) {
 
 		String propertyName = recoverPropertyName(exception);
 

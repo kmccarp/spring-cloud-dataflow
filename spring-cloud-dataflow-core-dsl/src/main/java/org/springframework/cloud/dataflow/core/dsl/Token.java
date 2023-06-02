@@ -89,7 +89,7 @@ public class Token {
 	@Override
 	public int hashCode() {
 		return this.kind.ordinal() * 37 + (this.startPos + this.endPos) * 37
-				+ (this.kind.hasPayload() ? this.data.hashCode() : 0);
+	+ (this.kind.hasPayload() ? this.data.hashCode() : 0);
 	}
 
 	@Override

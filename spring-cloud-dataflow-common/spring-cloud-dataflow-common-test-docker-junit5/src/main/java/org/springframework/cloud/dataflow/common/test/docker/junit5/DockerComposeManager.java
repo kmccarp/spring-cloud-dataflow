@@ -40,7 +40,8 @@ public class DockerComposeManager {
 	private final Map<String, List<DockerComposeData>> classKeys = new HashMap<>();
 	private final Map<String, List<DockerComposeData>> methodKeys = new HashMap<>();
 
-	public DockerComposeManager() {}
+	public DockerComposeManager() {
+	}
 
 	public void addClassDockerComposeData(String classKey, DockerComposeData dockerComposeData) {
 		String key = dockerComposeData.id + "$" + classKey;
@@ -248,7 +249,7 @@ public class DockerComposeManager {
 		}
 	}
 
-	private static class OrderingWrapper implements Comparable<OrderingWrapper>{
+	private static class OrderingWrapper implements Comparable<OrderingWrapper> {
 		Integer order;
 		DockerComposeRule rule;
 

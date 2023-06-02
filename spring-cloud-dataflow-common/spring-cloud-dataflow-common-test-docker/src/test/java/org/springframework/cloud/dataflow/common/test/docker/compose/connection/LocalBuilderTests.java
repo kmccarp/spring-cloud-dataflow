@@ -46,8 +46,8 @@ public class LocalBuilderTests {
 		Map<String, String> environment2 = new HashMap<>();
 		environment2.put("ENV_2", "VAL_2");
 		DockerMachine localMachine = new LocalBuilder(DAEMON, new HashMap<>()).withEnvironment(environment1)
-																		   .withEnvironment(environment2)
-																		   .build();
+	.withEnvironment(environment2)
+	.build();
 		assertThat(localMachine, not(containsEnvironment(environment1)));
 		assertThat(localMachine, containsEnvironment(environment2));
 	}
@@ -58,8 +58,8 @@ public class LocalBuilderTests {
 		environment.put("ENV_1", "VAL_1");
 		environment.put("ENV_2", "VAL_2");
 		DockerMachine localMachine = new LocalBuilder(DAEMON, new HashMap<>()).withEnvironment(environment)
-																		   .withAdditionalEnvironmentVariable("ENV_3", "VAL_3")
-																		   .build();
+	.withAdditionalEnvironmentVariable("ENV_3", "VAL_3")
+	.build();
 		assertThat(localMachine, containsEnvironment(environment));
 		Map<String, String> environment2 = new HashMap<>();
 		environment2.put("ENV_3", "VAL_3");
@@ -75,8 +75,8 @@ public class LocalBuilderTests {
 		Map<String, String> environment2 = new HashMap<>();
 		environment2.put("ENV_2", "VAL_2");
 		DockerMachine localMachine = new LocalBuilder(REMOTE, dockerVariables).withEnvironment(environment1)
-																		   .withEnvironment(environment2)
-																		   .build();
+	.withEnvironment(environment2)
+	.build();
 		assertThat(localMachine, not(containsEnvironment(environment1)));
 		assertThat(localMachine, containsEnvironment(environment2));
 	}
@@ -89,8 +89,8 @@ public class LocalBuilderTests {
 		environment.put("ENV_1", "VAL_1");
 		environment.put("ENV_2", "VAL_2");
 		DockerMachine localMachine = new LocalBuilder(REMOTE, dockerVariables).withEnvironment(environment)
-																			  .withAdditionalEnvironmentVariable("ENV_3", "VAL_3")
-																			  .build();
+	.withAdditionalEnvironmentVariable("ENV_3", "VAL_3")
+	.build();
 		assertThat(localMachine, containsEnvironment(environment));
 		Map<String, String> environment2 = new HashMap<>();
 		environment2.put("ENV_3", "VAL_3");
@@ -103,8 +103,8 @@ public class LocalBuilderTests {
 		environment.put("ENV_1", "VAL_1");
 		environment.put("ENV_2", "VAL_2");
 		DockerMachine localMachine = new LocalBuilder(DAEMON, new HashMap<>()).withEnvironment(environment)
-																		   .withAdditionalEnvironmentVariable("ENV_2", "DIFFERENT_VALUE")
-																		   .build();
+	.withAdditionalEnvironmentVariable("ENV_2", "DIFFERENT_VALUE")
+	.build();
 
 		Map<String, String> expected = new HashMap<>();
 		expected.put("ENV_1", "VAL_1");
@@ -120,8 +120,8 @@ public class LocalBuilderTests {
 		Map<String, String> overrideEnv = new HashMap<>();
 		overrideEnv.put("ENV_1", "DIFFERENT_VALUE");
 		DockerMachine localMachine = new LocalBuilder(DAEMON, systemEnv)
-				.withEnvironment(overrideEnv)
-				.build();
+	.withEnvironment(overrideEnv)
+	.build();
 
 		assertThat(localMachine, not(containsEnvironment(systemEnv)));
 		assertThat(localMachine, containsEnvironment(overrideEnv));
@@ -152,7 +152,7 @@ public class LocalBuilderTests {
 		exception.expectMessage("cannot exist in your additional environment variable block");
 
 		new LocalBuilder(DAEMON, new HashMap<>()).withAdditionalEnvironmentVariable(DOCKER_HOST, "tcp://192.168.99.100:2376")
-											  .build();
+	.build();
 	}
 
 	@Test
@@ -168,7 +168,7 @@ public class LocalBuilderTests {
 		exception.expectMessage("cannot exist in your additional environment variable block");
 
 		new LocalBuilder(REMOTE, dockerVariables).withAdditionalEnvironmentVariable(DOCKER_HOST, "tcp://192.168.99.101:2376")
-												 .build();
+	.build();
 	}
 
 	@Test

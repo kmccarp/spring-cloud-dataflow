@@ -59,7 +59,7 @@ public class DefaultYamlConverter implements YamlConverter {
 	 * @param keyspaceList the keyspace list
 	 */
 	public DefaultYamlConverter(Mode mode, ArrayList<Map<String, String>> mapList, ArrayList<Properties> propertiesList,
-			ArrayList<File> fileList, ArrayList<String> keyspaceList) {
+ArrayList<File> fileList, ArrayList<String> keyspaceList) {
 		this.mode = mode != null ? mode : Mode.DEFAULT;
 		this.propertiesList = propertiesList;
 		this.mapList = mapList;

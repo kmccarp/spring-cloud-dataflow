@@ -30,34 +30,34 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.connection.
 import org.springframework.cloud.dataflow.common.test.docker.compose.connection.waiting.SuccessOrFailure;
 
 public class HttpHealthCheckTests {
-    private static final Function<DockerPort, String> URL_FUNCTION = port -> null;
-    public static final int PORT = 1234;
-    private final Container container = mock(Container.class);
+	private static final Function<DockerPort, String> URL_FUNCTION = port -> null;
+	public static final int PORT = 1234;
+	private final Container container = mock(Container.class);
 
-    @Test
-    public void be_healthy_when_the_port_is_listening_over_http() {
-        whenTheContainerIsListeningOnHttpTo(PORT, URL_FUNCTION);
+	@Test
+	public void be_healthy_when_the_port_is_listening_over_http() {
+		whenTheContainerIsListeningOnHttpTo(PORT, URL_FUNCTION);
 
-        assertThat(
-                HealthChecks.toRespondOverHttp(PORT, URL_FUNCTION).isHealthy(container),
-                is(successful()));
-    }
+		assertThat(
+	HealthChecks.toRespondOverHttp(PORT, URL_FUNCTION).isHealthy(container),
+	is(successful()));
+	}
 
-    @Test
-    public void be_unhealthy_when_all_ports_are_not_listening() {
-        whenTheContainerIsNotListeningOnHttpTo(PORT, URL_FUNCTION);
+	@Test
+	public void be_unhealthy_when_all_ports_are_not_listening() {
+		whenTheContainerIsNotListeningOnHttpTo(PORT, URL_FUNCTION);
 
-        assertThat(
-                HealthChecks.toRespondOverHttp(PORT, URL_FUNCTION).isHealthy(container),
-                is(failure()));
-    }
+		assertThat(
+	HealthChecks.toRespondOverHttp(PORT, URL_FUNCTION).isHealthy(container),
+	is(failure()));
+	}
 
-    private void whenTheContainerIsListeningOnHttpTo(int port, Function<DockerPort, String> urlFunction) {
-        when(container.portIsListeningOnHttp(port, urlFunction)).thenReturn(SuccessOrFailure.success());
-    }
+	private void whenTheContainerIsListeningOnHttpTo(int port, Function<DockerPort, String> urlFunction) {
+		when(container.portIsListeningOnHttp(port, urlFunction)).thenReturn(SuccessOrFailure.success());
+	}
 
-    private void whenTheContainerIsNotListeningOnHttpTo(int port, Function<DockerPort, String> urlFunction) {
-        when(container.portIsListeningOnHttp(port, urlFunction)).thenReturn(SuccessOrFailure.failure("not listening"));
-    }
+	private void whenTheContainerIsNotListeningOnHttpTo(int port, Function<DockerPort, String> urlFunction) {
+		when(container.portIsListeningOnHttp(port, urlFunction)).thenReturn(SuccessOrFailure.failure("not listening"));
+	}
 
 }

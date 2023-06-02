@@ -24,19 +24,20 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.connection.
 
 public class TestContainerNames {
 
-    private TestContainerNames() {}
+	private TestContainerNames() {
+	}
 
-    public static List<ContainerName> of(String... semanticNames) {
-        return Arrays.stream(semanticNames)
-                .map(TestContainerNames::testContainerName)
-                .collect(toList());
-    }
+	public static List<ContainerName> of(String... semanticNames) {
+		return Arrays.stream(semanticNames)
+	.map(TestContainerNames::testContainerName)
+	.collect(toList());
+	}
 
-    private static ContainerName testContainerName(String testName) {
-        return ContainerName.builder()
-                .semanticName(testName)
-                .rawName("123456_" + testName + "_1")
-                .build();
-    }
+	private static ContainerName testContainerName(String testName) {
+		return ContainerName.builder()
+	.semanticName(testName)
+	.rawName("123456_" + testName + "_1")
+	.build();
+	}
 
 }

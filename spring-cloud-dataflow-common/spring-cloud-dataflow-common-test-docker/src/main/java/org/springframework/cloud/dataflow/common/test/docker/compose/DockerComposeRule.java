@@ -70,10 +70,11 @@ public class DockerComposeRule {
 	private DockerMachine machine;
 	private boolean pullOnStartup;
 
-	protected DockerComposeRule() {}
+	protected DockerComposeRule() {
+	}
 
 	public DockerComposeRule(DockerComposeFiles files, List<ClusterWait> clusterWaits, LogCollector logCollector,
-			DockerMachine machine, boolean pullOnStartup, ProjectName projectName) {
+DockerMachine machine, boolean pullOnStartup, ProjectName projectName) {
 		super();
 		this.files = files;
 		this.clusterWaits = clusterWaits;
@@ -101,16 +102,16 @@ public class DockerComposeRule {
 
 	public DockerComposeExecutable dockerComposeExecutable() {
 		return DockerComposeExecutable.builder()
-			.dockerComposeFiles(files())
-			.dockerConfiguration(machine())
-			.projectName(projectName())
-			.build();
+	.dockerComposeFiles(files())
+	.dockerConfiguration(machine())
+	.projectName(projectName())
+	.build();
 	}
 
 	public DockerExecutable dockerExecutable() {
 		return DockerExecutable.builder()
-				.dockerConfiguration(machine())
-				.build();
+	.dockerConfiguration(machine())
+	.build();
 	}
 
 	public Docker docker() {
@@ -128,9 +129,9 @@ public class DockerComposeRule {
 
 	public Cluster containers() {
 		return Cluster.builder()
-				.ip(machine().getIp())
-				.containerCache(new ContainerCache(docker(), dockerCompose()))
-				.build();
+	.ip(machine().getIp())
+	.containerCache(new ContainerCache(docker(), dockerCompose()))
+	.build();
 	}
 
 	protected int retryAttempts() {
@@ -170,7 +171,7 @@ public class DockerComposeRule {
 		logCollector().startCollecting(dockerCompose());
 		log.debug("Waiting for services");
 		new ClusterWait(ClusterHealthCheck.nativeHealthChecks(), nativeServiceHealthCheckTimeout())
-				.waitUntilReady(containers());
+	.waitUntilReady(containers());
 		clusterWaits().forEach(clusterWait -> clusterWait.waitUntilReady(containers()));
 		log.debug("docker-compose cluster started");
 	}
@@ -185,12 +186,12 @@ public class DockerComposeRule {
 	}
 
 	public String exec(DockerComposeExecOption options, String containerName,
-			DockerComposeExecArgument arguments) throws IOException, InterruptedException {
+DockerComposeExecArgument arguments) throws IOException, InterruptedException {
 		return dockerCompose().exec(options, containerName, arguments);
 	}
 
 	public String run(DockerComposeRunOption options, String containerName,
-			DockerComposeRunArgument arguments) throws IOException, InterruptedException {
+DockerComposeRunArgument arguments) throws IOException, InterruptedException {
 		return dockerCompose().run(options, containerName, arguments);
 	}
 

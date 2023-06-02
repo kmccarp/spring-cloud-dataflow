@@ -61,9 +61,7 @@ import static org.mockito.Mockito.mock;
  * @author Christian Tzolov
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { CompletionConfiguration.class,
-		BootVersionsCompletionProviderTests.Mocks.class }, properties = {
-		"spring.main.allow-bean-definition-overriding=true" })
+@SpringBootTest(classes = {CompletionConfiguration.class,BootVersionsCompletionProviderTests.Mocks.class}, properties = {"spring.main.allow-bean-definition-overriding=true"})
 @SuppressWarnings("unchecked")
 public class BootVersionsCompletionProviderTests {
 
@@ -74,7 +72,7 @@ public class BootVersionsCompletionProviderTests {
 	public void testBoot13Layout() {
 		List<CompletionProposal> result = completionProvider.complete("boot13 --", 0);
 		assertThat(result, hasItems(Proposals.proposalThat(is("boot13 --level=")), Proposals.proposalThat(is("boot13 --number=")),
-				Proposals.proposalThat(is("boot13 --some-string="))));
+	Proposals.proposalThat(is("boot13 --some-string="))));
 
 		// Test that custom classes can also be loaded correctly
 		result = completionProvider.complete("boot13 --level=", 0);
@@ -88,12 +86,12 @@ public class BootVersionsCompletionProviderTests {
 	public void testBoot14Layout() {
 		List<CompletionProposal> result = completionProvider.complete("boot14 --", 0);
 		assertThat(result, hasItems(Proposals.proposalThat(is("boot14 --level=")), Proposals.proposalThat(is("boot14 --number=")),
-				Proposals.proposalThat(is("boot14 --some-string="))));
+	Proposals.proposalThat(is("boot14 --some-string="))));
 
 		// Test that custom classes can also be loaded correctly
 		result = completionProvider.complete("boot14 --level=", 0);
 		assertThat(result,
-				hasItems(Proposals.proposalThat(is("boot14 --level=very_low")), Proposals.proposalThat(is("boot14 --level=very_high"))));
+	hasItems(Proposals.proposalThat(is("boot14 --level=very_low")), Proposals.proposalThat(is("boot14 --level=very_high"))));
 
 		result = completionProvider.complete("boot14 --number=", 0);
 		assertThat(result, hasItems(Proposals.proposalThat(is("boot14 --number=one")), Proposals.proposalThat(is("boot14 --number=two"))));
@@ -111,8 +109,8 @@ public class BootVersionsCompletionProviderTests {
 	public static class Mocks {
 
 		private static final File ROOT = new File("src/test/resources",
-				BootVersionsCompletionProviderTests.Mocks.class.getPackage().getName().replace('.', '/')
-						+ "/boot_versions");
+	BootVersionsCompletionProviderTests.Mocks.class.getPackage().getName().replace('.', '/')
++ "/boot_versions");
 
 		@MockBean
 		private DefaultContainerImageMetadataResolver containerImageMetadataResolver;
@@ -127,8 +125,8 @@ public class BootVersionsCompletionProviderTests {
 		public AppRegistryService appRegistry() {
 
 			return new DefaultAppRegistryService(mock(AppRegistrationRepository.class),
-					new AppResourceCommon(new MavenProperties(), new FileSystemResourceLoader()),
-					mock(DefaultAuditRecordService.class)) {
+		new AppResourceCommon(new MavenProperties(), new FileSystemResourceLoader()),
+		mock(DefaultAuditRecordService.class)) {
 
 				@Override
 				public boolean appExist(String name, ApplicationType type) {
@@ -178,7 +176,7 @@ public class BootVersionsCompletionProviderTests {
 		@Bean
 		public ApplicationConfigurationMetadataResolver metadataResolver() {
 			return new BootApplicationConfigurationMetadataResolver(
-					StreamCompletionProviderTests.class.getClassLoader(), containerImageMetadataResolver);
+		StreamCompletionProviderTests.class.getClassLoader(), containerImageMetadataResolver);
 		}
 	}
 }

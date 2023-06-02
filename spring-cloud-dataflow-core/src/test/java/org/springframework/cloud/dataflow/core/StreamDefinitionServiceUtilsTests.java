@@ -79,7 +79,7 @@ public class StreamDefinitionServiceUtilsTests {
 	@Test
 	public void testLabelsInStreams() {
 		reverseDslTest("http | step1: transform --expression=payload.toUpperCase()" +
-				" | step2: transform --expression=payload+'!' | log", 4);
+	" | step2: transform --expression=payload+'!' | log", 4);
 	}
 
 	@Test
@@ -123,7 +123,7 @@ public class StreamDefinitionServiceUtilsTests {
 		assertEquals(expectedAppSize, this.streamDefinitionService.getAppDefinitions(streamDefinition).size());
 
 		assertEquals(streamDefinition.getDslText(),
-				this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
+	this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
 	}
 
 	@Test
@@ -134,18 +134,18 @@ public class StreamDefinitionServiceUtilsTests {
 		StreamDefinition streamDefinition = new StreamDefinition("streamName", dslText);
 
 		assertEquals("foo --foo='key|value' | bar",
-				this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
+	this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
 	}
 
 	@Test
 	public void testExclusionOfDataFlowAddedProperties() {
 
 		List<String> dataFlowAddedProperties = Arrays.asList(
-				DataFlowPropertyKeys.STREAM_APP_TYPE,
-				DataFlowPropertyKeys.STREAM_APP_LABEL,
-				DataFlowPropertyKeys.STREAM_NAME,
-				BindingPropertyKeys.OUTPUT_REQUIRED_GROUPS,
-				BindingPropertyKeys.OUTPUT_DESTINATION);
+	DataFlowPropertyKeys.STREAM_APP_TYPE,
+	DataFlowPropertyKeys.STREAM_APP_LABEL,
+	DataFlowPropertyKeys.STREAM_NAME,
+	BindingPropertyKeys.OUTPUT_REQUIRED_GROUPS,
+	BindingPropertyKeys.OUTPUT_DESTINATION);
 
 		for (String key : dataFlowAddedProperties) {
 			String dslText = "foo --" + key + "=boza  | bar";
@@ -154,7 +154,7 @@ public class StreamDefinitionServiceUtilsTests {
 			StreamDefinition streamDefinition = new StreamDefinition("streamName", dslText);
 
 			assertEquals("foo | bar",
-					this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
+		this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
 		}
 	}
 
@@ -167,7 +167,7 @@ public class StreamDefinitionServiceUtilsTests {
 		StreamDefinition streamDefinition = new StreamDefinition("streamName", dslText);
 
 		assertEquals(":boza > foo | bar",
-				this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
+	this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
 	}
 
 	@Test
@@ -181,47 +181,47 @@ public class StreamDefinitionServiceUtilsTests {
 		StreamAppDefinition bar = this.streamDefinitionService.getAppDefinitions(streamDefinition).get(1);
 
 		StreamAppDefinition foo2 = StreamAppDefinition.Builder.from(foo)
-				.setProperty("p1", "a b")
-				.setProperty("p2", "'c d'")
-				.setProperty("p3", "ef")
-				.setProperty("p4", "'i' 'j'")
-				.setProperty("p5", "\"k l\"")
-				.build(streamName);
+	.setProperty("p1", "a b")
+	.setProperty("p2", "'c d'")
+	.setProperty("p3", "ef")
+	.setProperty("p4", "'i' 'j'")
+	.setProperty("p5", "\"k l\"")
+	.build(streamName);
 
 		StreamAppDefinition bar2 = StreamAppDefinition.Builder.from(bar)
-				.setProperty("p1", "a b")
-				.setProperty("p2", "'c d'")
-				.setProperty("p3", "ef")
-				.build(streamName);
+	.setProperty("p1", "a b")
+	.setProperty("p2", "'c d'")
+	.setProperty("p3", "ef")
+	.build(streamName);
 
 		assertEquals("foo --p1='a b' --p2=\"'c d'\" --p3=ef --p4=\"'i' 'j'\" --p5=\"k l\" | bar --p1='a b' --p2=\"'c d'\" --p3=ef",
-				this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), new LinkedList(Arrays.asList(foo2, bar2))));
+	this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), new LinkedList(Arrays.asList(foo2, bar2))));
 	}
 
 	@Test
 	public void autoQuotesOnSemicolonProperties() {
 
 		StreamDefinition streamDefinition = new StreamDefinition("streamName",
-				"http-source-kafka --server.port=9900 | couchbase-sink-kafka " +
-						"--inputType=\"application/x-java-object;type=com.example.dto.InputDto\"");
+	"http-source-kafka --server.port=9900 | couchbase-sink-kafka " +
+"--inputType=\"application/x-java-object;type=com.example.dto.InputDto\"");
 
 		assertEquals("http-source-kafka --server.port=9900 | couchbase-sink-kafka " +
-						"--spring.cloud.stream.bindings.input.contentType='application/x-java-object;type=com.example.dto.InputDto'",
-				this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
+	"--spring.cloud.stream.bindings.input.contentType='application/x-java-object;type=com.example.dto.InputDto'",
+	this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
 
 
 		streamDefinition = new StreamDefinition("stream2", "jdbc-mssql --cron='/10 * * * * *' " +
-				"--max-messages=-1 --password='******' --query='UPDATE top (100) ASSURANCE SET assurance_flag = 1 " +
-				"OUTPUT Inserted.* WHERE assurance_flag IS NULL' " +
-				"--url='jdbc:sqlserver://db:1433;encrypt=false&databaseName=Spring' --username='*****' | " +
-				"cust-processor | router --default-output-channel=out");
+	"--max-messages=-1 --password='******' --query='UPDATE top (100) ASSURANCE SET assurance_flag = 1 " +
+	"OUTPUT Inserted.* WHERE assurance_flag IS NULL' " +
+	"--url='jdbc:sqlserver://db:1433;encrypt=false&databaseName=Spring' --username='*****' | " +
+	"cust-processor | router --default-output-channel=out");
 
 		assertEquals("jdbc-mssql --cron='/10 * * * * *' " +
-						"--max-messages=-1 --password='******' --query='UPDATE top (100) ASSURANCE SET assurance_flag = 1 " +
-						"OUTPUT Inserted.* WHERE assurance_flag IS NULL' " +
-						"--url='jdbc:sqlserver://db:1433;encrypt=false&databaseName=Spring' --username='*****' | " +
-						"cust-processor | router --default-output-channel=out",
-				this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
+	"--max-messages=-1 --password='******' --query='UPDATE top (100) ASSURANCE SET assurance_flag = 1 " +
+	"OUTPUT Inserted.* WHERE assurance_flag IS NULL' " +
+	"--url='jdbc:sqlserver://db:1433;encrypt=false&databaseName=Spring' --username='*****' | " +
+	"cust-processor | router --default-output-channel=out",
+	this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
 
 	}
 
@@ -229,17 +229,17 @@ public class StreamDefinitionServiceUtilsTests {
 	public void autoQuotesOnStarProperties() {
 
 		StreamDefinition streamDefinition = new StreamDefinition("stream2", "jdbc-mssql --cron='/10 * * * * *' " +
-				"--max-messages=-1 --password='******' --query='UPDATE top (100) ASSURANCE SET assurance_flag = 1 " +
-				"OUTPUT Inserted.* WHERE assurance_flag IS NULL' " +
-				"--url='jdbc:sqlserver://db:1433;encrypt=false&databaseName=Spring' --username='*****' | " +
-				"cust-processor | router --default-output-channel=out");
+	"--max-messages=-1 --password='******' --query='UPDATE top (100) ASSURANCE SET assurance_flag = 1 " +
+	"OUTPUT Inserted.* WHERE assurance_flag IS NULL' " +
+	"--url='jdbc:sqlserver://db:1433;encrypt=false&databaseName=Spring' --username='*****' | " +
+	"cust-processor | router --default-output-channel=out");
 
 		assertEquals("jdbc-mssql --cron='/10 * * * * *' " +
-						"--max-messages=-1 --password='******' --query='UPDATE top (100) ASSURANCE SET assurance_flag = 1 " +
-						"OUTPUT Inserted.* WHERE assurance_flag IS NULL' " +
-						"--url='jdbc:sqlserver://db:1433;encrypt=false&databaseName=Spring' --username='*****' | " +
-						"cust-processor | router --default-output-channel=out",
-				this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
+	"--max-messages=-1 --password='******' --query='UPDATE top (100) ASSURANCE SET assurance_flag = 1 " +
+	"OUTPUT Inserted.* WHERE assurance_flag IS NULL' " +
+	"--url='jdbc:sqlserver://db:1433;encrypt=false&databaseName=Spring' --username='*****' | " +
+	"cust-processor | router --default-output-channel=out",
+	this.streamDefinitionService.constructDsl(streamDefinition.getDslText(), this.streamDefinitionService.getAppDefinitions(streamDefinition)));
 	}
 
 }

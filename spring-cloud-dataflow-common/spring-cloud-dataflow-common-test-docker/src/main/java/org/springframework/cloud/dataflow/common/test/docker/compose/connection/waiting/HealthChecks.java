@@ -22,17 +22,18 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.connection.
 
 public final class HealthChecks {
 
-    private HealthChecks() {}
+	private HealthChecks() {
+	}
 
-    public static HealthCheck<Container> toRespondOverHttp(int internalPort, Function<DockerPort, String> urlFunction) {
-        return container -> container.portIsListeningOnHttp(internalPort, urlFunction);
-    }
+	public static HealthCheck<Container> toRespondOverHttp(int internalPort, Function<DockerPort, String> urlFunction) {
+		return container -> container.portIsListeningOnHttp(internalPort, urlFunction);
+	}
 
-    public static HealthCheck<Container> toRespond2xxOverHttp(int internalPort, Function<DockerPort, String> urlFunction) {
-        return container -> container.portIsListeningOnHttpAndCheckStatus2xx(internalPort, urlFunction);
-    }
+	public static HealthCheck<Container> toRespond2xxOverHttp(int internalPort, Function<DockerPort, String> urlFunction) {
+		return container -> container.portIsListeningOnHttpAndCheckStatus2xx(internalPort, urlFunction);
+	}
 
-    public static HealthCheck<Container> toHaveAllPortsOpen() {
-        return Container::areAllPortsOpen;
-    }
+	public static HealthCheck<Container> toHaveAllPortsOpen() {
+		return Container::areAllPortsOpen;
+	}
 }

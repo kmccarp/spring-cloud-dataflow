@@ -40,7 +40,7 @@ public final class DeploymentPropertiesUtils {
 	 * Pattern used for parsing a String of command-line arguments.
 	 */
 	private static final Pattern DEPLOYMENT_PARAMS_PATTERN = Pattern
-			.compile("(\\s(?=" + "([^\\\"']*[\\\"'][^\\\"']*[\\\"'])*[^\\\"']*$))");
+.compile("(\\s(?=" + "([^\\\"']*[\\\"'][^\\\"']*[\\\"'])*[^\\\"']*$))");
 
 	private DeploymentPropertiesUtils() {
 		// prevent instantiation
@@ -114,7 +114,7 @@ public final class DeploymentPropertiesUtils {
 	 */
 	public static Map<String, String> convert(Properties properties) {
 		Map<String, String> result = new HashMap<>(properties.size());
-		for (Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();) {
+		for (Enumeration<?> e = properties.propertyNames(); e.hasMoreElements(); ) {
 			String key = (String) e.nextElement();
 			result.put(key, properties.getProperty(key));
 		}

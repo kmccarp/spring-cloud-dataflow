@@ -43,7 +43,7 @@ public class StreamDeployment {
 	public StreamDeployment(String streamName, String deploymentProperties) {
 		Assert.hasText(streamName, "Stream name must not be null");
 		this.streamName = streamName;
-		this.deploymentProperties = StringUtils.hasText(deploymentProperties) ? deploymentProperties: "";
+		this.deploymentProperties = StringUtils.hasText(deploymentProperties) ? deploymentProperties : "";
 	}
 
 	public String getStreamName() {

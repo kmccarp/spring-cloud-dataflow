@@ -45,7 +45,7 @@ public class TaskDefinitionToDslConverter {
 		if (StringUtils.hasText(taskDefinition.getDslText())) {
 			TaskParser taskParser = new TaskParser("__dummy", taskDefinition.getDslText(), true, true);
 			Assert.isTrue(!taskParser.parse().isComposed(),
-					"The TaskDefinitionToDslConverter doesn't support Composed Tasks!");
+		"The TaskDefinitionToDslConverter doesn't support Composed Tasks!");
 		}
 
 		StringBuilder dslBuilder = new StringBuilder();
@@ -55,7 +55,7 @@ public class TaskDefinitionToDslConverter {
 			if (!dataFlowAddedProperties.contains(propertyName)) {
 				String propertyValue = StringEscapeUtils.unescapeHtml4(properties.get(propertyName));
 				dslBuilder.append(" --").append(propertyName).append("=").append(
-						DefinitionUtils.escapeNewlines(DefinitionUtils.autoQuotes(propertyValue)));
+			DefinitionUtils.escapeNewlines(DefinitionUtils.autoQuotes(propertyValue)));
 			}
 		}
 		return dslBuilder.toString();

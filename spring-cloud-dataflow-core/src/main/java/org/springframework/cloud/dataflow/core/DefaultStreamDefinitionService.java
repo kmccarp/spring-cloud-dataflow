@@ -93,7 +93,7 @@ public class DefaultStreamDefinitionService implements StreamDefinitionService {
 						propertyValue = "'" + propertyValue + "'";
 					}
 					dslBuilder.append(" --").append(propertyName).append("=").append(
-							DefinitionUtils.escapeNewlines(DefinitionUtils.autoQuotes(propertyValue)));
+				DefinitionUtils.escapeNewlines(DefinitionUtils.autoQuotes(propertyValue)));
 				}
 			}
 
@@ -106,7 +106,8 @@ public class DefaultStreamDefinitionService implements StreamDefinitionService {
 			else {
 				if (appDefinition.getApplicationType() != ApplicationType.app) {
 					dslBuilder.append(" | ");
-				} else {
+				}
+				else {
 					dslBuilder.append(" || ");
 				}
 			}

@@ -31,7 +31,7 @@ public class StreamApplicationDefinitionTests {
 	@Test
 	public void testBuilder() {
 		StreamAppDefinition definition = new StreamAppDefinition.Builder().setRegisteredAppName("time")
-				.setLabel("label").setApplicationType(ApplicationType.source).setProperty(OUTPUT_BINDING_KEY, "channel").build("ticktock");
+	.setLabel("label").setApplicationType(ApplicationType.source).setProperty(OUTPUT_BINDING_KEY, "channel").build("ticktock");
 
 		assertEquals("ticktock", definition.getStreamName());
 		assertEquals("time", definition.getRegisteredAppName());

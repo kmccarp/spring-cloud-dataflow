@@ -38,55 +38,55 @@ public class ContainerRegistryConfigurationPropertiesTest {
 	@Test
 	public void registryConfigurationProperties() {
 		this.contextRunner
-				.withInitializer(context -> {
-					Map<String, Object> map = new HashMap<>();
+	.withInitializer(context -> {
+		Map<String, Object> map = new HashMap<>();
 
-					// harbor - dockeroauth2
-					map.put("spring.cloud.dataflow.container.registry-configurations[goharbor].registry-host", "demo.goharbor.io");
-					map.put("spring.cloud.dataflow.container.registry-configurations[goharbor].authorization-type", "dockeroauth2");
-					map.put("spring.cloud.dataflow.container.registry-configurations[goharbor].user", "admin");
-					map.put("spring.cloud.dataflow.container.registry-configurations[goharbor].secret", "Harbor12345");
-					map.put("spring.cloud.dataflow.container.registry-configurations[goharbor].disable-ssl-verification", "true");
+		// harbor - dockeroauth2
+		map.put("spring.cloud.dataflow.container.registry-configurations[goharbor].registry-host", "demo.goharbor.io");
+		map.put("spring.cloud.dataflow.container.registry-configurations[goharbor].authorization-type", "dockeroauth2");
+		map.put("spring.cloud.dataflow.container.registry-configurations[goharbor].user", "admin");
+		map.put("spring.cloud.dataflow.container.registry-configurations[goharbor].secret", "Harbor12345");
+		map.put("spring.cloud.dataflow.container.registry-configurations[goharbor].disable-ssl-verification", "true");
 
-					// amazon ecr - awsecr
-					map.put("spring.cloud.dataflow.container.registry-configurations[myamazonaws].registry-host", "283191309520.dkr.ecr.us-west-1.amazonaws.com");
-					map.put("spring.cloud.dataflow.container.registry-configurations[myamazonaws].authorization-type", "awsecr");
-					map.put("spring.cloud.dataflow.container.registry-configurations[myamazonaws].user", "myawsuser");
-					map.put("spring.cloud.dataflow.container.registry-configurations[myamazonaws].secret", "myawspassword");
-					map.put("spring.cloud.dataflow.container.registry-configurations[myamazonaws].extra[region]", "us-west-1");
-					map.put("spring.cloud.dataflow.container.registry-configurations[myamazonaws].extra[registryIds]", "283191309520");
+		// amazon ecr - awsecr
+		map.put("spring.cloud.dataflow.container.registry-configurations[myamazonaws].registry-host", "283191309520.dkr.ecr.us-west-1.amazonaws.com");
+		map.put("spring.cloud.dataflow.container.registry-configurations[myamazonaws].authorization-type", "awsecr");
+		map.put("spring.cloud.dataflow.container.registry-configurations[myamazonaws].user", "myawsuser");
+		map.put("spring.cloud.dataflow.container.registry-configurations[myamazonaws].secret", "myawspassword");
+		map.put("spring.cloud.dataflow.container.registry-configurations[myamazonaws].extra[region]", "us-west-1");
+		map.put("spring.cloud.dataflow.container.registry-configurations[myamazonaws].extra[registryIds]", "283191309520");
 
-					context.getEnvironment().getPropertySources().addLast(new SystemEnvironmentPropertySource(
-							StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME, map));
-				})
-				.withUserConfiguration(Config1.class)
-				.run((context) -> {
-					ContainerRegistryProperties properties = context.getBean(ContainerRegistryProperties.class);
-					assertThat(properties.getRegistryConfigurations()).hasSize(2);
+		context.getEnvironment().getPropertySources().addLast(new SystemEnvironmentPropertySource(
+	StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME, map));
+	})
+	.withUserConfiguration(Config1.class)
+	.run((context) -> {
+		ContainerRegistryProperties properties = context.getBean(ContainerRegistryProperties.class);
+		assertThat(properties.getRegistryConfigurations()).hasSize(2);
 
-					ContainerRegistryConfiguration goharborConf = properties.getRegistryConfigurations().get("goharbor");
-					assertThat(goharborConf).isNotNull();
-					assertThat(goharborConf.getRegistryHost()).isEqualTo("demo.goharbor.io");
-					assertThat(goharborConf.getAuthorizationType()).isEqualTo(ContainerRegistryConfiguration.AuthorizationType.dockeroauth2);
-					assertThat(goharborConf.getUser()).isEqualTo("admin");
-					assertThat(goharborConf.getSecret()).isEqualTo("Harbor12345");
-					assertThat(goharborConf.isDisableSslVerification()).isTrue();
-					assertThat(goharborConf.getExtra()).isEmpty();
+		ContainerRegistryConfiguration goharborConf = properties.getRegistryConfigurations().get("goharbor");
+		assertThat(goharborConf).isNotNull();
+		assertThat(goharborConf.getRegistryHost()).isEqualTo("demo.goharbor.io");
+		assertThat(goharborConf.getAuthorizationType()).isEqualTo(ContainerRegistryConfiguration.AuthorizationType.dockeroauth2);
+		assertThat(goharborConf.getUser()).isEqualTo("admin");
+		assertThat(goharborConf.getSecret()).isEqualTo("Harbor12345");
+		assertThat(goharborConf.isDisableSslVerification()).isTrue();
+		assertThat(goharborConf.getExtra()).isEmpty();
 
-					ContainerRegistryConfiguration myamazonawsConf = properties.getRegistryConfigurations().get("myamazonaws");
-					assertThat(myamazonawsConf).isNotNull();
-					assertThat(myamazonawsConf.getRegistryHost()).isEqualTo("283191309520.dkr.ecr.us-west-1.amazonaws.com");
-					assertThat(myamazonawsConf.getAuthorizationType()).isEqualTo(ContainerRegistryConfiguration.AuthorizationType.awsecr);
-					assertThat(myamazonawsConf.getUser()).isEqualTo("myawsuser");
-					assertThat(myamazonawsConf.getSecret()).isEqualTo("myawspassword");
-					assertThat(myamazonawsConf.isDisableSslVerification()).isFalse();
-					assertThat(myamazonawsConf.getExtra()).hasSize(2);
-					assertThat(myamazonawsConf.getExtra().get("region")).isEqualTo("us-west-1");
-					assertThat(myamazonawsConf.getExtra().get("registryIds")).isEqualTo("283191309520");
-				});
+		ContainerRegistryConfiguration myamazonawsConf = properties.getRegistryConfigurations().get("myamazonaws");
+		assertThat(myamazonawsConf).isNotNull();
+		assertThat(myamazonawsConf.getRegistryHost()).isEqualTo("283191309520.dkr.ecr.us-west-1.amazonaws.com");
+		assertThat(myamazonawsConf.getAuthorizationType()).isEqualTo(ContainerRegistryConfiguration.AuthorizationType.awsecr);
+		assertThat(myamazonawsConf.getUser()).isEqualTo("myawsuser");
+		assertThat(myamazonawsConf.getSecret()).isEqualTo("myawspassword");
+		assertThat(myamazonawsConf.isDisableSslVerification()).isFalse();
+		assertThat(myamazonawsConf.getExtra()).hasSize(2);
+		assertThat(myamazonawsConf.getExtra().get("region")).isEqualTo("us-west-1");
+		assertThat(myamazonawsConf.getExtra().get("registryIds")).isEqualTo("283191309520");
+	});
 	}
 
-	@EnableConfigurationProperties({ ContainerRegistryProperties.class })
+	@EnableConfigurationProperties({ContainerRegistryProperties.class})
 	private static class Config1 {
 	}
 }

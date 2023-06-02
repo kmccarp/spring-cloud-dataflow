@@ -62,7 +62,8 @@ public class ContainerImage {
 	private static final Pattern IP_PATTERN = Pattern.compile("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$");
 	private static final Pattern PORT_PATTERN = Pattern.compile("^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
 
-	enum RepositoryReferenceType {tag, digest, unknown}
+	enum RepositoryReferenceType {tag, digest, unknown
+	}
 
 	/**
 	 * Registry hostname or IP address where the image is stored.
@@ -124,7 +125,7 @@ public class ContainerImage {
 
 	public void setHostname(String hostname) {
 		Assert.isTrue(HOSTNAME_PATTERN.matcher(hostname).matches()
-				|| IP_PATTERN.matcher(hostname).matches(), "Invalid registry hostname: " + hostname);
+	|| IP_PATTERN.matcher(hostname).matches(), "Invalid registry hostname: " + hostname);
 		this.hostname = hostname;
 	}
 
@@ -148,8 +149,8 @@ public class ContainerImage {
 	public void setNamespaceComponents(String[] namespaceComponents) {
 		if (namespaceComponents != null && namespaceComponents.length > 0) {
 			Stream.of(namespaceComponents).forEach(
-					pathComponent -> Assert.isTrue(NAMESPACE_COMPONENT_PATTERN.matcher(pathComponent).matches(),
-							"Invalid namespace path component: " + pathComponent));
+		pathComponent -> Assert.isTrue(NAMESPACE_COMPONENT_PATTERN.matcher(pathComponent).matches(),
+	"Invalid namespace path component: " + pathComponent));
 			this.setRepositoryNamespace(String.join("/", namespaceComponents));
 		}
 	}
@@ -160,7 +161,7 @@ public class ContainerImage {
 
 	public void setRepositoryName(String repositoryName) {
 		Assert.isTrue(REPOSITORY_NAME_PATTERN.matcher(repositoryName).matches(),
-				"Invalid repository name: " + repositoryName);
+	"Invalid repository name: " + repositoryName);
 		this.repositoryName = repositoryName;
 	}
 
@@ -178,7 +179,8 @@ public class ContainerImage {
 	public RepositoryReferenceType getRepositoryReferenceType() {
 		if (StringUtils.hasText(this.repositoryTag)) {
 			return RepositoryReferenceType.tag;
-		} if (StringUtils.hasText(this.repositoryDigest)) {
+		}
+		if (StringUtils.hasText(this.repositoryDigest)) {
 			return RepositoryReferenceType.digest;
 		}
 		return RepositoryReferenceType.unknown;
@@ -191,7 +193,7 @@ public class ContainerImage {
 	public void setRepositoryTag(String repositoryTag) {
 		Assert.isTrue(TAG_PATTERN.matcher(repositoryTag).matches(), "Invalid repository tag: " + repositoryTag);
 		Assert.isTrue(!StringUtils.hasText(this.repositoryDigest),
-				"Can not set repository Tag because of existing Digest " + repositoryDigest);
+	"Can not set repository Tag because of existing Digest " + repositoryDigest);
 		this.repositoryTag = repositoryTag;
 	}
 
@@ -202,14 +204,14 @@ public class ContainerImage {
 	public void setRepositoryDigest(String repositoryDigest) {
 		Assert.isTrue(DIGEST_PATTERN.matcher(repositoryDigest).matches(), "Invalid repository digest: " + repositoryDigest);
 		Assert.isTrue(!StringUtils.hasText(this.repositoryTag),
-				"Can not set repository digest because of existing tag " + repositoryTag);
+	"Can not set repository digest because of existing tag " + repositoryTag);
 		this.repositoryDigest = repositoryDigest;
 	}
 
 	@Override
 	public String toString() {
 		return "ContainerImage{ host='" + hostname + "', port='" + port + "', namespace='"
-				+ repositoryNamespace + "', name='" + repositoryName
-				+ (StringUtils.hasText(repositoryTag) ? "', tag='" + repositoryTag + "'}" : "', digest='" + repositoryDigest + "'}");
+	+ repositoryNamespace + "', name='" + repositoryName
+	+ (StringUtils.hasText(repositoryTag) ? "', tag='" + repositoryTag + "'}" : "', digest='" + repositoryDigest + "'}");
 	}
 }

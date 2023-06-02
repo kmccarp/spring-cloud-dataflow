@@ -42,7 +42,7 @@ public class PlatformTaskExecutionInformation {
 	private final int runningExecutionCount;
 
 	public PlatformTaskExecutionInformation(String name, String type, int maximumTaskExecutions,
-			int runningExecutionCount) {
+int runningExecutionCount) {
 		this.name = name;
 		this.type = type;
 		this.maximumTaskExecutions = maximumTaskExecutions;

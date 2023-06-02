@@ -162,11 +162,11 @@ public class DefaultAuthoritiesMapper implements AuthoritiesMapper {
 		}
 		else if (!roleMapping.isMapGroupClaims()) {
 			grantedAuthorities =
-					roleMapping.convertRoleMappingKeysToCoreSecurityRoles().entrySet().stream().map(mapEntry -> {
-						final CoreSecurityRoles role = mapEntry.getKey();
-						rolesAsStrings.add(role.getKey());
-						return new SimpleGrantedAuthority(roleMapping.getRolePrefix() + mapEntry.getKey());
-					}).collect(Collectors.toSet());
+		roleMapping.convertRoleMappingKeysToCoreSecurityRoles().entrySet().stream().map(mapEntry -> {
+			final CoreSecurityRoles role = mapEntry.getKey();
+			rolesAsStrings.add(role.getKey());
+			return new SimpleGrantedAuthority(roleMapping.getRolePrefix() + mapEntry.getKey());
+		}).collect(Collectors.toSet());
 			logger.info("Adding ALL roles: {}.", StringUtils.collectionToCommaDelimitedString(rolesAsStrings));
 		}
 		return grantedAuthorities;
@@ -228,6 +228,6 @@ public class DefaultAuthoritiesMapper implements AuthoritiesMapper {
 			}
 			return scope;
 		})
-		.collect(Collectors.toSet());
+	.collect(Collectors.toSet());
 	}
 }

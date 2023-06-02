@@ -166,7 +166,7 @@ public class TaskDefinition extends DataFlowAppDefinition {
 	@Override
 	public String toString() {
 		return new ToStringCreator(this).append("dslText", this.dslText).append("appDefinition", this.appDefinition)
-				.toString();
+	.toString();
 	}
 
 	@Override
@@ -231,7 +231,7 @@ public class TaskDefinition extends DataFlowAppDefinition {
 		public static TaskDefinitionBuilder from(DataFlowAppDefinition definition) {
 			TaskDefinitionBuilder builder = new TaskDefinitionBuilder();
 			builder.setRegisteredAppName(definition.getRegisteredAppName()).setLabel(definition.getName())
-					.addProperties(definition.getProperties());
+		.addProperties(definition.getProperties());
 			return builder;
 		}
 

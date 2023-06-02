@@ -52,7 +52,7 @@ public class AccessTokenClearingLogoutSuccessHandler extends SimpleUrlLogoutSucc
 
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
-		Authentication authentication) throws IOException, ServletException {
+Authentication authentication) throws IOException, ServletException {
 
 		if (authentication instanceof OAuth2AuthenticationToken) {
 			final OAuth2AuthenticationToken oauth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;

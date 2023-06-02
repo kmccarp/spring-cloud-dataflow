@@ -44,10 +44,10 @@ public class CustomAuthoritiesOpaqueTokenIntrospector implements OpaqueTokenIntr
 	private AuthoritiesMapper authorityMapper;
 
 	public CustomAuthoritiesOpaqueTokenIntrospector(
-			String introspectionUri,
-			String clientId,
-			String clientSecret,
-			AuthoritiesMapper authorityMapper) {
+String introspectionUri,
+String clientId,
+String clientSecret,
+AuthoritiesMapper authorityMapper) {
 		this.delegate = new NimbusOpaqueTokenIntrospector(introspectionUri, clientId, clientSecret);
 		this.principalExtractor = new DefaultPrincipalExtractor();
 		this.authorityMapper = authorityMapper;
@@ -59,7 +59,7 @@ public class CustomAuthoritiesOpaqueTokenIntrospector implements OpaqueTokenIntr
 		OAuth2AuthenticatedPrincipal principal = this.delegate.introspect(token);
 		Object principalName = principalExtractor.extractPrincipal(principal.getAttributes());
 		return new DefaultOAuth2AuthenticatedPrincipal(
-				principalName.toString(), principal.getAttributes(), extractAuthorities(principal, token));
+	principalName.toString(), principal.getAttributes(), extractAuthorities(principal, token));
 	}
 
 	private Collection<GrantedAuthority> extractAuthorities(OAuth2AuthenticatedPrincipal principal, String token) {

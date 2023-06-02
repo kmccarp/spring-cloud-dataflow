@@ -31,16 +31,17 @@ public final class AdditionalEnvironmentValidator {
 
 	private static final Set<String> ILLEGAL_VARIABLES = new HashSet<>(Arrays.asList(DOCKER_TLS_VERIFY, DOCKER_HOST, DOCKER_CERT_PATH));
 
-	private AdditionalEnvironmentValidator() {}
+	private AdditionalEnvironmentValidator() {
+	}
 
 	public static Map<String, String> validate(Map<String, String> additionalEnvironment) {
 		HashSet<String> invalidVariables = new HashSet<>(additionalEnvironment.keySet());
 		invalidVariables.retainAll(ILLEGAL_VARIABLES);
 
 		String errorMessage = invalidVariables.stream()
-											  .collect(Collectors.joining(", ",
-																		  "The following variables: ",
-																		  " cannot exist in your additional environment variable block as they will interfere with Docker."));
+	.collect(Collectors.joining(", ",
+"The following variables: ",
+" cannot exist in your additional environment variable block as they will interfere with Docker."));
 		Assert.state(invalidVariables.isEmpty(), errorMessage);
 		return additionalEnvironment;
 	}

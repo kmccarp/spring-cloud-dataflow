@@ -108,7 +108,7 @@ public abstract class AbstractTokenizer {
 	protected boolean isTwoCharToken(TokenKind kind) {
 		Assert.isTrue(kind.tokenChars.length == 2, "The token kind being looked for should be of length 2");
 		Assert.isTrue(toProcess[pos] == kind.tokenChars[0],
-				"Expected these characters to have already been tested for equality");
+	"Expected these characters to have already been tested for equality");
 		return toProcess[pos + 1] == kind.tokenChars[1];
 	}
 
@@ -222,8 +222,8 @@ public abstract class AbstractTokenizer {
 	 */
 	protected boolean isArgValueIdentifierTerminator(char ch, boolean quoteOpen) {
 		return (ch == '|' && !quoteOpen) || (ch == ';' && !quoteOpen) || ch == '\0' || (ch == ' ' && !quoteOpen)
-				|| (ch == '\t' && !quoteOpen) || (ch == '>' && !quoteOpen) || (ch == '\r' && !quoteOpen)
-				|| (ch == '\n' && !quoteOpen);
+	|| (ch == '\t' && !quoteOpen) || (ch == '>' && !quoteOpen) || (ch == '\r' && !quoteOpen)
+	|| (ch == '\n' && !quoteOpen);
 	}
 
 	/**

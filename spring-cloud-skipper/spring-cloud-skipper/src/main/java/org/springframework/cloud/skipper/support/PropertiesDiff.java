@@ -40,7 +40,7 @@ public final class PropertiesDiff {
 	private Map<String, PropertyChange> changed = new HashMap<>();
 
 	private PropertiesDiff(Map<String, String> removed, Map<String, String> added, Map<String, String> common,
-			Map<String, PropertyChange> changed) {
+Map<String, PropertyChange> changed) {
 		this.removed = removed;
 		this.added = added;
 		this.common = common;
@@ -95,7 +95,7 @@ public final class PropertiesDiff {
 	@Override
 	public String toString() {
 		return "PropertiesDiff [added=" + added + ", removed=" + removed + ", changed=" + changed + ", common=" + common
-				+ "]";
+	+ "]";
 	}
 
 	/**
@@ -209,7 +209,7 @@ public final class PropertiesDiff {
 				}
 				else {
 					changed.put(diff.getFieldName(),
-							new PropertyChange(diff.getLeft().toString(), diff.getRight().toString()));
+				new PropertyChange(diff.getLeft().toString(), diff.getRight().toString()));
 				}
 			}
 

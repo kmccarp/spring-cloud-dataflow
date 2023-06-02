@@ -49,7 +49,7 @@ public class DockerOAuth2RegistryAuthorizer implements RegistryAuthorizer {
 	private final ContainerImageRestTemplateFactory containerImageRestTemplate;
 
 	public DockerOAuth2RegistryAuthorizer(
-			ContainerImageRestTemplateFactory containerImageRestTemplate) {
+ContainerImageRestTemplateFactory containerImageRestTemplate) {
 		Assert.notNull(containerImageRestTemplate, "Non null containerImageRestTemplate is expected!");
 		this.containerImageRestTemplate = containerImageRestTemplate;
 	}
@@ -63,7 +63,7 @@ public class DockerOAuth2RegistryAuthorizer implements RegistryAuthorizer {
 	public HttpHeaders getAuthorizationHeaders(ContainerRegistryConfiguration registryConfiguration, Map<String, String> configProperties) {
 
 		Assert.isTrue(registryConfiguration.getAuthorizationType() == this.getType(),
-				"Incorrect authorization type: " + registryConfiguration.getAuthorizationType());
+	"Incorrect authorization type: " + registryConfiguration.getAuthorizationType());
 
 		final HttpHeaders requestHttpHeaders = new HttpHeaders();
 		if (StringUtils.hasText(registryConfiguration.getUser()) && StringUtils.hasText(registryConfiguration.getSecret())) {
@@ -73,12 +73,12 @@ public class DockerOAuth2RegistryAuthorizer implements RegistryAuthorizer {
 		}
 
 		UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(registryConfiguration.getExtra().getOrDefault(DOCKER_REGISTRY_AUTH_URI_KEY,
-				DEFAULT_DOCKER_REGISTRY_AUTH_URI)).build().expand(configProperties.get(
-				DOCKER_REGISTRY_REPOSITORY_FIELD_KEY));
+	DEFAULT_DOCKER_REGISTRY_AUTH_URI)).build().expand(configProperties.get(
+	DOCKER_REGISTRY_REPOSITORY_FIELD_KEY));
 		final HttpHeaders responseHttpHeaders = new HttpHeaders();
 
 		ResponseEntity<Map> authorization = this.getRestTemplate(registryConfiguration)
-				.exchange(uriComponents.toUri(), HttpMethod.GET, new HttpEntity<>(requestHttpHeaders), Map.class);
+	.exchange(uriComponents.toUri(), HttpMethod.GET, new HttpEntity<>(requestHttpHeaders), Map.class);
 
 		if (authorization != null) {
 			Map<String, String> authorizationBody = (Map<String, String>) authorization.getBody();
@@ -91,12 +91,12 @@ public class DockerOAuth2RegistryAuthorizer implements RegistryAuthorizer {
 	public HttpHeaders getAuthorizationHeaders(ContainerImage containerImage, ContainerRegistryConfiguration registryConfiguration) {
 
 		Assert.isTrue(registryConfiguration.getAuthorizationType() == this.getType(),
-				"Incorrect authorization type: " + registryConfiguration.getAuthorizationType());
+	"Incorrect authorization type: " + registryConfiguration.getAuthorizationType());
 
 		Assert.notNull(containerImage, "Valid containerImageName is required!");
 		String imageRepository = containerImage.getRepository();
 		Assert.hasText(imageRepository, "Valid repository name (e.g. namespace/repository-name without the tag)" +
-				" is required for the authorization");
+	" is required for the authorization");
 
 		final HttpHeaders requestHttpHeaders = new HttpHeaders();
 		if (StringUtils.hasText(registryConfiguration.getUser()) && StringUtils.hasText(registryConfiguration.getSecret())) {
@@ -106,13 +106,13 @@ public class DockerOAuth2RegistryAuthorizer implements RegistryAuthorizer {
 		}
 
 		String registryAuthUri =
-				registryConfiguration.getExtra().getOrDefault(DOCKER_REGISTRY_AUTH_URI_KEY, DEFAULT_DOCKER_REGISTRY_AUTH_URI);
+	registryConfiguration.getExtra().getOrDefault(DOCKER_REGISTRY_AUTH_URI_KEY, DEFAULT_DOCKER_REGISTRY_AUTH_URI);
 		UriComponents uriComponents = UriComponentsBuilder.fromHttpUrl(registryAuthUri).build().expand(imageRepository);
 
 		final HttpHeaders responseHttpHeaders = new HttpHeaders();
 
 		ResponseEntity<Map> authorization = this.getRestTemplate(registryConfiguration)
-				.exchange(uriComponents.toUri(), HttpMethod.GET, new HttpEntity<>(requestHttpHeaders), Map.class);
+	.exchange(uriComponents.toUri(), HttpMethod.GET, new HttpEntity<>(requestHttpHeaders), Map.class);
 
 		if (authorization != null) {
 			Map<String, String> authorizationBody = (Map<String, String>) authorization.getBody();
@@ -123,6 +123,6 @@ public class DockerOAuth2RegistryAuthorizer implements RegistryAuthorizer {
 
 	private RestTemplate getRestTemplate(ContainerRegistryConfiguration registryConfiguration) {
 		return this.containerImageRestTemplate.getContainerRestTemplate(registryConfiguration.isDisableSslVerification(),
-				registryConfiguration.isUseHttpProxy());
+	registryConfiguration.isUseHttpProxy());
 	}
 }

@@ -21,27 +21,27 @@ import java.util.List;
 import org.springframework.cloud.dataflow.common.test.docker.compose.connection.ContainerName;
 
 public class RetryingDockerCompose extends DelegatingDockerCompose {
-    private final Retryer retryer;
+	private final Retryer retryer;
 
-    public RetryingDockerCompose(int retryAttempts, DockerCompose dockerCompose) {
-        this(new Retryer(retryAttempts, Retryer.STANDARD_DELAY), dockerCompose);
-    }
+	public RetryingDockerCompose(int retryAttempts, DockerCompose dockerCompose) {
+		this(new Retryer(retryAttempts, Retryer.STANDARD_DELAY), dockerCompose);
+	}
 
-    public RetryingDockerCompose(Retryer retryer, DockerCompose dockerCompose) {
-        super(dockerCompose);
-        this.retryer = retryer;
-    }
+	public RetryingDockerCompose(Retryer retryer, DockerCompose dockerCompose) {
+		super(dockerCompose);
+		this.retryer = retryer;
+	}
 
-    @Override
-    public void up() throws IOException, InterruptedException {
-        retryer.<Void>runWithRetries(() -> {
-            super.up();
-            return null;
-        });
-    }
+	@Override
+	public void up() throws IOException, InterruptedException {
+		retryer.<Void>runWithRetries(() -> {
+			super.up();
+			return null;
+		});
+	}
 
-    @Override
-    public List<ContainerName> ps() throws IOException, InterruptedException {
-        return retryer.runWithRetries(super::ps);
-    }
+	@Override
+	public List<ContainerName> ps() throws IOException, InterruptedException {
+		return retryer.runWithRetries(super::ps);
+	}
 }

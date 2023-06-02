@@ -29,28 +29,28 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.connection.
 import org.springframework.cloud.dataflow.common.test.docker.compose.connection.waiting.SuccessOrFailure;
 
 public class PortsHealthCheckTests {
-    private final HealthCheck<Container> healthCheck = HealthChecks.toHaveAllPortsOpen();
-    private final Container container = mock(Container.class);
+	private final HealthCheck<Container> healthCheck = HealthChecks.toHaveAllPortsOpen();
+	private final Container container = mock(Container.class);
 
-    @Test
-    public void be_healthy_when_all_ports_are_listening() {
-        whenTheContainerHasAllPortsOpen();
+	@Test
+	public void be_healthy_when_all_ports_are_listening() {
+		whenTheContainerHasAllPortsOpen();
 
-        assertThat(healthCheck.isHealthy(container), is(successful()));
-    }
+		assertThat(healthCheck.isHealthy(container), is(successful()));
+	}
 
-    @Test
-    public void be_unhealthy_when_all_ports_are_not_listening() {
-        whenTheContainerDoesNotHaveAllPortsOpen();
+	@Test
+	public void be_unhealthy_when_all_ports_are_not_listening() {
+		whenTheContainerDoesNotHaveAllPortsOpen();
 
-        assertThat(healthCheck.isHealthy(container), is(failure()));
-    }
+		assertThat(healthCheck.isHealthy(container), is(failure()));
+	}
 
-    private void whenTheContainerDoesNotHaveAllPortsOpen() {
-        when(container.areAllPortsOpen()).thenReturn(SuccessOrFailure.failure("not all ports open"));
-    }
+	private void whenTheContainerDoesNotHaveAllPortsOpen() {
+		when(container.areAllPortsOpen()).thenReturn(SuccessOrFailure.failure("not all ports open"));
+	}
 
-    private void whenTheContainerHasAllPortsOpen() {
-        when(container.areAllPortsOpen()).thenReturn(SuccessOrFailure.success());
-    }
+	private void whenTheContainerHasAllPortsOpen() {
+		when(container.areAllPortsOpen()).thenReturn(SuccessOrFailure.success());
+	}
 }

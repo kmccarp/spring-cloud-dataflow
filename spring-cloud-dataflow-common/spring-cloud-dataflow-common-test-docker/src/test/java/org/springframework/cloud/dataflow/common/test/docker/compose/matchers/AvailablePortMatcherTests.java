@@ -40,7 +40,7 @@ public class AvailablePortMatcherTests {
 	@Test
 	public void throw_exception_when_there_are_some_unavailable_ports() {
 		List<DockerPort> unavailablePorts = Arrays.asList(new DockerPort("0.0.0.0", 1234, 1234),
-														 new DockerPort("1.2.3.4", 2345, 3456));
+	new DockerPort("1.2.3.4", 2345, 3456));
 		exception.expect(AssertionError.class);
 		exception.expectMessage("For host with ip address: 0.0.0.0");
 		exception.expectMessage("external port '1234' mapped to internal port '1234' was unavailable");

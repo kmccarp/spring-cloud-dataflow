@@ -38,8 +38,7 @@ import org.springframework.cloud.dataflow.common.test.docker.junit5.DockerCompos
  * @author Janne Valkealahti
  *
  */
-public class DockerComposeExtension
-		implements BeforeAllCallback, BeforeEachCallback, AfterAllCallback, AfterEachCallback, ParameterResolver {
+public class DockerComposeExtensionimplements BeforeAllCallback, BeforeEachCallback, AfterAllCallback, AfterEachCallback, ParameterResolver {
 
 	private static final Namespace NAMESPACE = Namespace.create(DockerComposeExtension.class);
 
@@ -54,8 +53,8 @@ public class DockerComposeExtension
 		List<DockerCompose> dockerComposeAnnotations = AnnotationUtils.findRepeatableAnnotations(testClass, DockerCompose.class);
 		for (DockerCompose dockerComposeAnnotation : dockerComposeAnnotations) {
 			DockerComposeData dockerComposeData = new DockerComposeData(dockerComposeAnnotation.id(),
-					dockerComposeAnnotation.locations(), dockerComposeAnnotation.services(),
-					dockerComposeAnnotation.log(), dockerComposeAnnotation.start(), dockerComposeAnnotation.order());
+		dockerComposeAnnotation.locations(), dockerComposeAnnotation.services(),
+		dockerComposeAnnotation.log(), dockerComposeAnnotation.start(), dockerComposeAnnotation.order());
 			dockerComposeManager.addClassDockerComposeData(classKey, dockerComposeData);
 		}
 	}
@@ -72,8 +71,8 @@ public class DockerComposeExtension
 		List<DockerCompose> dockerComposeAnnotations = AnnotationUtils.findRepeatableAnnotations(testMethod, DockerCompose.class);
 		for (DockerCompose dockerComposeAnnotation : dockerComposeAnnotations) {
 			DockerComposeData dockerComposeData = new DockerComposeData(dockerComposeAnnotation.id(),
-					dockerComposeAnnotation.locations(), dockerComposeAnnotation.services(),
-					dockerComposeAnnotation.log(), dockerComposeAnnotation.start(), dockerComposeAnnotation.order());
+		dockerComposeAnnotation.locations(), dockerComposeAnnotation.services(),
+		dockerComposeAnnotation.log(), dockerComposeAnnotation.start(), dockerComposeAnnotation.order());
 			dockerComposeManager.addMethodDockerComposeData(classKey, methodKey, dockerComposeData);
 		}
 		dockerComposeManager.build(classKey, methodKey);
@@ -94,13 +93,13 @@ public class DockerComposeExtension
 
 	@Override
 	public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
-			throws ParameterResolutionException {
+throws ParameterResolutionException {
 		return (parameterContext.getParameter().getType() == DockerComposeInfo.class);
 	}
 
 	@Override
 	public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
-			throws ParameterResolutionException {
+throws ParameterResolutionException {
 		DockerComposeManager dockerComposeManager = getDockerComposeManager(extensionContext);
 		return new DefaultDockerComposeInfo(dockerComposeManager);
 	}
@@ -108,7 +107,9 @@ public class DockerComposeExtension
 	private static DockerComposeManager getDockerComposeManager(ExtensionContext context) {
 		Class<?> testClass = context.getRequiredTestClass();
 		Store store = getStore(context);
-		return store.getOrComputeIfAbsent(testClass, (key)->{return new DockerComposeManager();}, DockerComposeManager.class);
+		return store.getOrComputeIfAbsent(testClass, (key) -> {
+			return new DockerComposeManager();
+		}, DockerComposeManager.class);
 	}
 
 	private static Store getStore(ExtensionContext context) {

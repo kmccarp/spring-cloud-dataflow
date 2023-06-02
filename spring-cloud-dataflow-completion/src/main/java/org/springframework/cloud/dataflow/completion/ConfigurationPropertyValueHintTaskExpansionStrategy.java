@@ -47,13 +47,13 @@ public class ConfigurationPropertyValueHintTaskExpansionStrategy implements Task
 	private ValueHintProvider[] valueHintProviders = new ValueHintProvider[0];
 
 	ConfigurationPropertyValueHintTaskExpansionStrategy(AppRegistryService appRegistry,
-			ApplicationConfigurationMetadataResolver metadataResolver) {
+ApplicationConfigurationMetadataResolver metadataResolver) {
 		this.collectorSupport = new ProposalsCollectorSupportUtils(appRegistry, metadataResolver);
 	}
 
 	@Override
 	public boolean addProposals(String text, TaskDefinition parseResult, int detailLevel,
-			List<CompletionProposal> collector) {
+List<CompletionProposal> collector) {
 		Set<String> propertyNames = new HashSet<>(parseResult.getProperties().keySet());
 		propertyNames.removeAll(CompletionUtils.IMPLICIT_TASK_PARAMETER_NAMES);
 		if (text.endsWith(" ") || propertyNames.isEmpty()) {

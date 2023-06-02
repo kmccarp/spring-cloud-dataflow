@@ -39,7 +39,7 @@ public interface AppRegistrationRepositoryCustom {
 	 * @return paginated list of filtered app registrations.
 	 */
 	Page<AppRegistration> findAllByTypeAndNameIsLikeAndVersionAndDefaultVersion(
-			@Nullable ApplicationType type, @Nullable String name, @Nullable String version, boolean defaultVersion,
-			Pageable pageable);
+@Nullable ApplicationType type, @Nullable String name, @Nullable String version, boolean defaultVersion,
+Pageable pageable);
 
 }

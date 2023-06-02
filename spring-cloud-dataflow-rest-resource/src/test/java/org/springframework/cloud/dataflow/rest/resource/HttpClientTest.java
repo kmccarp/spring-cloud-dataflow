@@ -65,15 +65,15 @@ public class HttpClientTest {
 
 		final URI targetHost = new URI("http://test.com");
 		try (final CloseableHttpClient client = HttpClientConfigurer.create(targetHost)
-				.addInterceptor(new ResourceBasedAuthorizationInterceptor(resource))
-				.addInterceptor((request, context) -> {
-					final String authorization = request.getFirstHeader(HttpHeaders.AUTHORIZATION).getValue();
-					Assertions.assertThat(authorization).isEqualTo(credentials);
+	.addInterceptor(new ResourceBasedAuthorizationInterceptor(resource))
+	.addInterceptor((request, context) -> {
+		final String authorization = request.getFirstHeader(HttpHeaders.AUTHORIZATION).getValue();
+		Assertions.assertThat(authorization).isEqualTo(credentials);
 
-					// Throw an exception to short-circuit making an HTTP request
-					throw new Passed();
-				})
-				.buildHttpClient()) {
+		// Throw an exception to short-circuit making an HTTP request
+		throw new Passed();
+	})
+	.buildHttpClient()) {
 			client.execute(new HttpGet(targetHost));
 		}
 	}
@@ -89,15 +89,15 @@ public class HttpClientTest {
 
 		final URI targetHost = new URI("http://test.com");
 		try (final CloseableHttpClient client = HttpClientConfigurer.create(targetHost)
-				.addInterceptor(new ResourceBasedAuthorizationInterceptor(resource))
-				.addInterceptor((request, context) -> {
-					final String authorization = request.getFirstHeader(HttpHeaders.AUTHORIZATION).getValue();
-					Assertions.assertThat(authorization).isEqualTo(credentials);
+	.addInterceptor(new ResourceBasedAuthorizationInterceptor(resource))
+	.addInterceptor((request, context) -> {
+		final String authorization = request.getFirstHeader(HttpHeaders.AUTHORIZATION).getValue();
+		Assertions.assertThat(authorization).isEqualTo(credentials);
 
-					// Throw an exception to short-circuit making an HTTP request
-					throw new Passed();
-				})
-				.buildHttpClient()) {
+		// Throw an exception to short-circuit making an HTTP request
+		throw new Passed();
+	})
+	.buildHttpClient()) {
 			client.execute(new HttpGet(targetHost));
 		}
 	}

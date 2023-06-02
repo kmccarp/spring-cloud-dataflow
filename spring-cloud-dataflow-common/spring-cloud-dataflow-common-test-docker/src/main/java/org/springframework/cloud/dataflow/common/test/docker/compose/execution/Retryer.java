@@ -22,37 +22,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Retryer {
-    private static final Logger log = LoggerFactory.getLogger(Retryer.class);
-    public static final ReadableDuration STANDARD_DELAY = Duration.standardSeconds(5);
+	private static final Logger log = LoggerFactory.getLogger(Retryer.class);
+	public static final ReadableDuration STANDARD_DELAY = Duration.standardSeconds(5);
 
-    public interface RetryableDockerOperation<T> {
-        T call() throws IOException, InterruptedException;
-    }
+	public interface RetryableDockerOperation<T> {
+		T call() throws IOException, InterruptedException;
+	}
 
-    private final int retryAttempts;
-    private final ReadableDuration delay;
+	private final int retryAttempts;
+	private final ReadableDuration delay;
 
-    public Retryer(int retryAttempts, ReadableDuration delay) {
-        this.retryAttempts = retryAttempts;
-        this.delay = delay;
-    }
+	public Retryer(int retryAttempts, ReadableDuration delay) {
+		this.retryAttempts = retryAttempts;
+		this.delay = delay;
+	}
 
-    public <T> T runWithRetries(RetryableDockerOperation<T> operation) throws IOException, InterruptedException {
-        DockerExecutionException lastExecutionException = null;
-        for (int i = 0; i <= retryAttempts; i++) {
-            try {
-                return operation.call();
-            } catch (DockerExecutionException e) {
-                lastExecutionException = e;
-                log.warn("Caught exception: {}", e.getMessage());
-                log.warn("Retrying after {}", delay);
-                if (i < retryAttempts) {
-                    Thread.sleep(delay.getMillis());
-                }
-            }
-        }
+	public <T> T runWithRetries(RetryableDockerOperation<T> operation) throws IOException, InterruptedException {
+		DockerExecutionException lastExecutionException = null;
+		for (int i = 0; i <= retryAttempts; i++) {
+			try {
+				return operation.call();
+			} catch (DockerExecutionException e) {
+				lastExecutionException = e;
+				log.warn("Caught exception: {}", e.getMessage());
+				log.warn("Retrying after {}", delay);
+				if (i < retryAttempts) {
+					Thread.sleep(delay.getMillis());
+				}
+			}
+		}
 
-        log.error("Exhausted all retry attempts. Tried {} times.", retryAttempts);
-        throw lastExecutionException;
-    }
+		log.error("Exhausted all retry attempts. Tried {} times.", retryAttempts);
+		throw lastExecutionException;
+	}
 }

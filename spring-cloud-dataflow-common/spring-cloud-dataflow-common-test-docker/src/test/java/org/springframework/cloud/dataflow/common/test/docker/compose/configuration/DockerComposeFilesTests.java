@@ -54,8 +54,8 @@ public class DockerComposeFilesTests {
 
 	@Test
 	public void
-			throw_correct_exception_when_there_is_a_single_missing_compose_file_with_an_existing_compose_file()
-			throws Exception {
+throw_correct_exception_when_there_is_a_single_missing_compose_file_with_an_existing_compose_file()
+throws Exception {
 		exception.expect(IllegalStateException.class);
 		exception.expectMessage("The following docker-compose files:");
 		exception.expectMessage("does-not-exist.yaml");
@@ -79,15 +79,15 @@ public class DockerComposeFilesTests {
 		File composeFile2 = tempFolder.newFile("docker-compose2.yaml");
 		DockerComposeFiles dockerComposeFiles = DockerComposeFiles.from(composeFile1.getAbsolutePath(), composeFile2.getAbsolutePath());
 		assertThat(dockerComposeFiles.constructComposeFileCommand(), contains(
-				"--file", composeFile1.getAbsolutePath(), "--file", composeFile2.getAbsolutePath()));
+	"--file", composeFile1.getAbsolutePath(), "--file", composeFile2.getAbsolutePath()));
 	}
 
 	@Test
 	public void testFromClasspathExist() {
 		DockerComposeFiles dockerComposeFiles = DockerComposeFiles.from("classpath:docker-compose-cp1.yaml",
-				"classpath:org/springframework/cloud/dataflow/common/test/docker/compose/docker-compose-cp2.yaml");
+	"classpath:org/springframework/cloud/dataflow/common/test/docker/compose/docker-compose-cp2.yaml");
 		assertThat(dockerComposeFiles.constructComposeFileCommand(), contains(is("--file"),
-				containsString("docker-compose-cp1.yaml"), is("--file"), containsString("docker-compose-cp2.yaml")));
+	containsString("docker-compose-cp1.yaml"), is("--file"), containsString("docker-compose-cp2.yaml")));
 	}
 
 	@Test

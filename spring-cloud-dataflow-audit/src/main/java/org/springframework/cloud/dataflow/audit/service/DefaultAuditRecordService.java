@@ -44,103 +44,104 @@ import org.springframework.util.Assert;
  */
 public class DefaultAuditRecordService implements AuditRecordService {
 
-    private static final Logger logger = LoggerFactory.getLogger(DefaultAuditRecordService.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultAuditRecordService.class);
 
-    private final AuditRecordRepository auditRecordRepository;
+	private final AuditRecordRepository auditRecordRepository;
 
-    private final ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper;
 
-    private final ArgumentSanitizer sanitizer;
+	private final ArgumentSanitizer sanitizer;
 
-    public DefaultAuditRecordService(AuditRecordRepository auditRecordRepository) {
+	public DefaultAuditRecordService(AuditRecordRepository auditRecordRepository) {
 
-        this(auditRecordRepository, null);
-    }
+		this(auditRecordRepository, null);
+	}
 
-    public DefaultAuditRecordService(AuditRecordRepository auditRecordRepository, ObjectMapper objectMapper) {
+	public DefaultAuditRecordService(AuditRecordRepository auditRecordRepository, ObjectMapper objectMapper) {
 
-        Assert.notNull(auditRecordRepository, "auditRecordRepository must not be null.");
-        this.auditRecordRepository = auditRecordRepository;
-        if (objectMapper == null) {
-            objectMapper = new ObjectMapper();
-            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        }
-        this.objectMapper = objectMapper;
-        this.sanitizer = new ArgumentSanitizer();
-    }
+		Assert.notNull(auditRecordRepository, "auditRecordRepository must not be null.");
+		this.auditRecordRepository = auditRecordRepository;
+		if (objectMapper == null) {
+			objectMapper = new ObjectMapper();
+			objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		}
+		this.objectMapper = objectMapper;
+		this.sanitizer = new ArgumentSanitizer();
+	}
 
-    @Override
-    public AuditRecord populateAndSaveAuditRecord(AuditOperationType auditOperationType,
-                                                  AuditActionType auditActionType,
-                                                  String correlationId, String data, String platformName) {
+	@Override
+	public AuditRecord populateAndSaveAuditRecord(AuditOperationType auditOperationType,
+AuditActionType auditActionType,
+String correlationId, String data, String platformName) {
 
-        Assert.notNull(auditActionType, "auditActionType must not be null.");
-        Assert.notNull(auditOperationType, "auditOperationType must not be null.");
+		Assert.notNull(auditActionType, "auditActionType must not be null.");
+		Assert.notNull(auditOperationType, "auditOperationType must not be null.");
 
-        final AuditRecord auditRecord = new AuditRecord();
-        auditRecord.setAuditAction(auditActionType);
-        auditRecord.setAuditOperation(auditOperationType);
-        auditRecord.setCorrelationId(correlationId);
-        auditRecord.setAuditData(data);
-        auditRecord.setPlatformName(platformName);
-        return this.auditRecordRepository.save(auditRecord);
-    }
+		final AuditRecord auditRecord = new AuditRecord();
+		auditRecord.setAuditAction(auditActionType);
+		auditRecord.setAuditOperation(auditOperationType);
+		auditRecord.setCorrelationId(correlationId);
+		auditRecord.setAuditData(data);
+		auditRecord.setPlatformName(platformName);
+		return this.auditRecordRepository.save(auditRecord);
+	}
 
-    @Override
-    public AuditRecord populateAndSaveAuditRecordUsingMapData(
-            AuditOperationType auditOperationType,
-            AuditActionType auditActionType,
-            String correlationId, Map<String, Object> data,
-            String platformName
-    ) {
+	@Override
+	public AuditRecord populateAndSaveAuditRecordUsingMapData(
+AuditOperationType auditOperationType,
+AuditActionType auditActionType,
+String correlationId, Map<String, Object> data,
+String platformName) {
 
-        String dataAsString;
-        try {
-            Map<String, Object> sanitizedData = sanitizeMap(data);
-            dataAsString = objectMapper.writeValueAsString(sanitizedData);
-        } catch (JsonProcessingException e) {
-            logger.error("Error serializing audit record data.  Data = " + data);
-            dataAsString = "Error serializing audit record data.  Data = " + data;
-        }
-        return this.populateAndSaveAuditRecord(auditOperationType, auditActionType, correlationId, dataAsString, platformName);
-    }
+		String dataAsString;
+		try {
+			Map<String, Object> sanitizedData = sanitizeMap(data);
+			dataAsString = objectMapper.writeValueAsString(sanitizedData);
+		} catch (JsonProcessingException e) {
+			logger.error("Error serializing audit record data.  Data = " + data);
+			dataAsString = "Error serializing audit record data.  Data = " + data;
+		}
+		return this.populateAndSaveAuditRecord(auditOperationType, auditActionType, correlationId, dataAsString, platformName);
+	}
 
-    private Map<String, Object> sanitizeMap(Map<String, Object> data) {
+	private Map<String, Object> sanitizeMap(Map<String, Object> data) {
 
-        final Map<String, Object> result = new HashMap<>();
-        data.forEach((k, v) -> result.put(k, sanitize(k, v)));
-        return result;
-    }
+		final Map<String, Object> result = new HashMap<>();
+		data.forEach((k, v) -> result.put(k, sanitize(k, v)));
+		return result;
+	}
 
-    private Object sanitize(String key, Object value) {
+	private Object sanitize(String key, Object value) {
 
-        if (value instanceof String) {
-            return sanitizer.sanitize(key, (String) value);
-        } else if (value instanceof Map) {
-            Map<String, Object> input = (Map) value;
-            return sanitizeMap(input);
-        } else {
-            return value;
-        }
-    }
+		if (value instanceof String) {
+			return sanitizer.sanitize(key, (String) value);
+		}
+		else if (value instanceof Map) {
+			Map<String, Object> input = (Map) value;
+			return sanitizeMap(input);
+		}
+		else {
+			return value;
+		}
+	}
 
 
-    @Override
-    public Page<AuditRecord> findAuditRecordByAuditOperationTypeAndAuditActionTypeAndDate(
-            Pageable pageable,
-            AuditActionType[] actions,
-            AuditOperationType[] operations,
-            Instant fromDate,
-            Instant toDate) {
+	@Override
+	public Page<AuditRecord> findAuditRecordByAuditOperationTypeAndAuditActionTypeAndDate(
+Pageable pageable,
+AuditActionType[] actions,
+AuditOperationType[] operations,
+Instant fromDate,
+Instant toDate) {
 
-        return this.auditRecordRepository.findByActionTypeAndOperationTypeAndDate(operations, actions, fromDate, toDate,
-                pageable);
-    }
+		return this.auditRecordRepository.findByActionTypeAndOperationTypeAndDate(operations, actions, fromDate, toDate,
+	pageable);
+	}
 
-    @Override
-    public Optional<AuditRecord> findById(Long id) {
+	@Override
+	public Optional<AuditRecord> findById(Long id) {
 
-        return this.auditRecordRepository.findById(id);
-    }
+		return this.auditRecordRepository.findById(id);
+	}
 
 }

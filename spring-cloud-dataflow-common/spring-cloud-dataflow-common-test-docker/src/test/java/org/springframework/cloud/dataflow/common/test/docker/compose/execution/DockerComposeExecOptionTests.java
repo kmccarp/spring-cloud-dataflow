@@ -23,9 +23,10 @@ import static org.springframework.cloud.dataflow.common.test.docker.compose.exec
 
 public class DockerComposeExecOptionTests {
 
-    @Test public void
-    be_constructable_with_no_args() {
-        DockerComposeExecOption option = noOptions();
-        assertThat(option.options(), empty());
-    }
+	@Test
+	public void
+be_constructable_with_no_args() {
+		DockerComposeExecOption option = noOptions();
+		assertThat(option.options(), empty());
+	}
 }

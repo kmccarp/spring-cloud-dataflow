@@ -44,19 +44,19 @@ class AddAppOptionsExpansionStrategy implements ExpansionStrategy {
 	private final StreamDefinitionService streamDefinitionService;
 
 	public AddAppOptionsExpansionStrategy(AppRegistryService appRegistry,
-			ApplicationConfigurationMetadataResolver metadataResolver,
-			StreamDefinitionService streamDefinitionService) {
+ApplicationConfigurationMetadataResolver metadataResolver,
+StreamDefinitionService streamDefinitionService) {
 		this.collectorSupport = new ProposalsCollectorSupportUtils(appRegistry, metadataResolver);
 		this.streamDefinitionService = streamDefinitionService;
 	}
 
 	@Override
 	public boolean addProposals(String text, StreamDefinition streamDefinition, int detailLevel,
-			List<CompletionProposal> collector) {
+List<CompletionProposal> collector) {
 		LinkedList<StreamAppDefinition> streamAppDefinitions = this.streamDefinitionService.getAppDefinitions(streamDefinition);
 		StreamAppDefinition lastApp = StreamDefinitionServiceUtils.getDeploymentOrderIterator(streamAppDefinitions).next();
 		AppRegistration appRegistration = this.collectorSupport.findAppRegistration(lastApp.getName(),
-				CompletionUtils.determinePotentialTypes(lastApp,streamAppDefinitions.size() > 1));
+	CompletionUtils.determinePotentialTypes(lastApp, streamAppDefinitions.size() > 1));
 
 		if (appRegistration != null) {
 			Set<String> alreadyPresentOptions = new HashSet<>(lastApp.getProperties().keySet());

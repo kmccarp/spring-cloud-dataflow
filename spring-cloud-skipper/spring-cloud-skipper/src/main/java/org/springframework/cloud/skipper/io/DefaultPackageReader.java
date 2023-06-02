@@ -73,7 +73,7 @@ public class DefaultPackageReader implements PackageReader {
 
 			// Package property values for configuration
 			if (file.getName().equalsIgnoreCase("values.yaml") ||
-					file.getName().equalsIgnoreCase("values.yml")) {
+		file.getName().equalsIgnoreCase("values.yml")) {
 				pkg.setConfigValues(loadConfigValues(file));
 				continue;
 			}

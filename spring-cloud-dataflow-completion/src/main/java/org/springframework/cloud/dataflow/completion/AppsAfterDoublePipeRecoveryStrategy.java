@@ -33,29 +33,28 @@ import org.springframework.cloud.dataflow.registry.service.AppRegistryService;
  * @author Mark Fisher
  * @author Andy Clement
  */
-public class AppsAfterDoublePipeRecoveryStrategy
-		extends StacktraceFingerprintingRecoveryStrategy<CheckPointedParseException> {
+public class AppsAfterDoublePipeRecoveryStrategyextends StacktraceFingerprintingRecoveryStrategy<CheckPointedParseException> {
 
 	private final AppRegistryService appRegistryService;
 
 	AppsAfterDoublePipeRecoveryStrategy(AppRegistryService appRegistryService,
-			StreamDefinitionService streamDefinitionService) {
-		super(CheckPointedParseException.class, streamDefinitionService,"foo ||", "foo || ");
+StreamDefinitionService streamDefinitionService) {
+		super(CheckPointedParseException.class, streamDefinitionService, "foo ||", "foo || ");
 		this.appRegistryService = appRegistryService;
 	}
 
 	@Override
 	public void addProposals(String dsl, CheckPointedParseException exception, int detailLevel,
-			List<CompletionProposal> collector) {
+List<CompletionProposal> collector) {
 		StreamDefinition streamDefinition = new StreamDefinition("__dummy",
-				exception.getExpressionStringUntilCheckpoint());
+	exception.getExpressionStringUntilCheckpoint());
 		CompletionProposal.Factory proposals = CompletionProposal.expanding(dsl);
 		for (AppRegistration appRegistration : appRegistryService.findAll()) {
 			if (appRegistration.getType() == ApplicationType.app) {
 				String expansion = CompletionUtils.maybeQualifyWithLabel(appRegistration.getName(),
-						this.streamDefinitionService.getAppDefinitions(streamDefinition));
+			this.streamDefinitionService.getAppDefinitions(streamDefinition));
 				collector.add(proposals.withSeparateTokens(expansion,
-						"Continue stream definition with a " + appRegistration.getType()));
+			"Continue stream definition with a " + appRegistration.getType()));
 			}
 		}
 	}

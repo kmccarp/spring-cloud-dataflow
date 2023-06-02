@@ -30,7 +30,7 @@ public abstract class AppStatusMixin extends AppStatus {
 
 	@JsonCreator
 	AppStatusMixin(@JsonProperty("deploymentId") String deploymentId,
-			@JsonProperty("state") DeploymentState deploymentState) {
+@JsonProperty("state") DeploymentState deploymentState) {
 		super(deploymentId, deploymentState);
 	}
 }

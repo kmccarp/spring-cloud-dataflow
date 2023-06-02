@@ -50,8 +50,8 @@ public class SchemaVersionTargets {
 	@Override
 	public String toString() {
 		return "SchemaVersionTargets{" +
-				"defaultSchemaTarget='" + defaultSchemaTarget + '\'' +
-				", schemas=" + schemas +
-				'}';
+	"defaultSchemaTarget='" + defaultSchemaTarget + '\'' +
+	", schemas=" + schemas +
+	'}';
 	}
 }

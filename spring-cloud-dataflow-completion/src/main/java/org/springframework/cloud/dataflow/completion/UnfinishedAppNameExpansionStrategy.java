@@ -45,12 +45,12 @@ public class UnfinishedAppNameExpansionStrategy implements ExpansionStrategy {
 
 	UnfinishedAppNameExpansionStrategy(AppRegistryService appRegistry, StreamDefinitionService streamDefinitionService) {
 		this.appRegistry = appRegistry;
-		this.streamDefinitionService  = streamDefinitionService;
+		this.streamDefinitionService = streamDefinitionService;
 	}
 
 	@Override
 	public boolean addProposals(String text, StreamDefinition streamDefinition, int detailLevel,
-			List<CompletionProposal> collector) {
+List<CompletionProposal> collector) {
 
 		LinkedList<StreamAppDefinition> streamAppDefinitions = this.streamDefinitionService.getAppDefinitions(streamDefinition);
 		StreamAppDefinition lastApp = StreamDefinitionServiceUtils.getDeploymentOrderIterator(streamAppDefinitions).next();
@@ -66,12 +66,12 @@ public class UnfinishedAppNameExpansionStrategy implements ExpansionStrategy {
 		CompletionProposal.Factory proposals = CompletionProposal.expanding(text);
 
 		List<ApplicationType> validTypesAtThisPosition = Arrays
-				.asList(CompletionUtils.determinePotentialTypes(lastApp, streamAppDefinitions.size() > 1));
+	.asList(CompletionUtils.determinePotentialTypes(lastApp, streamAppDefinitions.size() > 1));
 
 		for (AppRegistration appRegistration : appRegistry.findAll()) {
 			String candidateName = appRegistration.getName();
 			if (validTypesAtThisPosition.contains(appRegistration.getType()) && !alreadyTyped.equals(candidateName)
-					&& candidateName.startsWith(alreadyTyped)) {
+		&& candidateName.startsWith(alreadyTyped)) {
 				String expansion = CompletionUtils.maybeQualifyWithLabel(appRegistration.getName(), streamAppDefinitions);
 
 				collector.add(proposals.withSuffix(expansion.substring(alreadyTyped.length())));

@@ -44,7 +44,7 @@ public class DropAuthorizationHeaderOnSignedS3RequestRedirectStrategyTest {
 
 	@ClassRule
 	public final static S3SignedRedirectRequestServerResource s3SignedRedirectRequestServerResource =
-			new S3SignedRedirectRequestServerResource();
+new S3SignedRedirectRequestServerResource();
 
 	private AnnotationConfigApplicationContext context;
 
@@ -61,10 +61,10 @@ public class DropAuthorizationHeaderOnSignedS3RequestRedirectStrategyTest {
 		context = new AnnotationConfigApplicationContext(TestApplication.class);
 
 		final DefaultContainerImageMetadataResolver imageMetadataResolver =
-				context.getBean(DefaultContainerImageMetadataResolver.class);
+	context.getBean(DefaultContainerImageMetadataResolver.class);
 
 		Map<String, String> imageLabels = imageMetadataResolver.getImageLabels("localhost:" +
-				s3SignedRedirectRequestServerResource.getS3SignedRedirectServerPort() + "/test/s3-redirect-image:1.0.0");
+	s3SignedRedirectRequestServerResource.getS3SignedRedirectServerPort() + "/test/s3-redirect-image:1.0.0");
 
 		assertThat(imageLabels).containsOnly(entry("foo", "bar"));
 	}
@@ -78,14 +78,14 @@ public class DropAuthorizationHeaderOnSignedS3RequestRedirectStrategyTest {
 			ContainerRegistryProperties properties = new ContainerRegistryProperties();
 			ContainerRegistryConfiguration registryConfiguration = new ContainerRegistryConfiguration();
 			registryConfiguration.setRegistryHost(
-					String.format("localhost:%s", s3SignedRedirectRequestServerResource.getS3SignedRedirectServerPort()));
+		String.format("localhost:%s", s3SignedRedirectRequestServerResource.getS3SignedRedirectServerPort()));
 			registryConfiguration.setAuthorizationType(ContainerRegistryConfiguration.AuthorizationType.dockeroauth2);
 			registryConfiguration.setUser("admin");
 			registryConfiguration.setSecret("Harbor12345");
 			registryConfiguration.setDisableSslVerification(true);
 			registryConfiguration.setExtra(Collections.singletonMap(
-					DockerOAuth2RegistryAuthorizer.DOCKER_REGISTRY_AUTH_URI_KEY,
-					"https://localhost:" + s3SignedRedirectRequestServerResource.getS3SignedRedirectServerPort() + "/service/token"));
+		DockerOAuth2RegistryAuthorizer.DOCKER_REGISTRY_AUTH_URI_KEY,
+		"https://localhost:" + s3SignedRedirectRequestServerResource.getS3SignedRedirectServerPort() + "/service/token"));
 			properties.setRegistryConfigurations(Collections.singletonMap("goharbor", registryConfiguration));
 
 			return properties;

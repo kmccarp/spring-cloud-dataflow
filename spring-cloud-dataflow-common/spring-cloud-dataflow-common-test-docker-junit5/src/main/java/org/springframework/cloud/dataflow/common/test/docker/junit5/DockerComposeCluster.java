@@ -20,6 +20,8 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.DockerCompo
 public interface DockerComposeCluster {
 
 	DockerComposeRule getRule();
+
 	void start();
+
 	void stop();
 }

@@ -82,9 +82,9 @@ public class PackageWriterTests {
 	private void assertExpectedContents(InputStream zipEntryInputStream, String resourceSuffix) throws IOException {
 		String zipEntryAsString = StreamUtils.copyToString(zipEntryInputStream, Charset.defaultCharset());
 		String expectedYaml = StreamUtils.copyToString(
-				TestResourceUtils.qualifiedResource(getClass(), resourceSuffix)
-						.getInputStream(),
-				Charset.defaultCharset());
+	TestResourceUtils.qualifiedResource(getClass(), resourceSuffix)
+.getInputStream(),
+	Charset.defaultCharset());
 		assertThat(removeCr(zipEntryAsString)).isEqualTo(removeCr(expectedYaml));
 	}
 

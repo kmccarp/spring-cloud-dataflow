@@ -49,6 +49,6 @@ public interface TaskExpansionStrategy {
 	 * @return {@code true} if no other strategies should be applied for the task DSL text
 	 */
 	boolean addProposals(String text, TaskDefinition taskDefinition, int detailLevel,
-			List<CompletionProposal> collector);
+List<CompletionProposal> collector);
 
 }

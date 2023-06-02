@@ -79,7 +79,7 @@ public class AppResourceCommon {
 		}
 		else {
 			throw new IllegalArgumentException("Do not support extracting resource from Resource of type "
-					+ resource.getClass().getSimpleName());
+		+ resource.getClass().getSimpleName());
 		}
 	}
 
@@ -89,12 +89,12 @@ public class AppResourceCommon {
 			DockerImage dockerImage = DockerImage.fromImageName(uri);
 			String tag = dockerImage.getTag();
 			Assert.isTrue(StringUtils.hasText(tag), "Could not extract tag from " +
-					dockerResource.getDescription());
+		dockerResource.getDescription());
 			return tag;
 		}
 		catch (IOException e) {
 			throw new IllegalArgumentException("Docker Resource URI is not in expected format to extract version. " +
-					dockerResource.getDescription(), e);
+		dockerResource.getDescription(), e);
 		}
 	}
 
@@ -118,7 +118,7 @@ public class AppResourceCommon {
 		Pattern pattern = Pattern.compile("(.*)-(\\d)(.*?)(-metadata)?");
 		Matcher m = pattern.matcher(fileNameNoExtension);
 		Assert.isTrue(m.matches(), "Could not parse version from " + getUri(urlResource)
-				+ ", expected format is <artifactId>-<version>.jar or  <artifactId>-<version>-metadata.jar");
+	+ ", expected format is <artifactId>-<version>.jar or  <artifactId>-<version>-metadata.jar");
 		return m;
 	}
 
@@ -156,26 +156,26 @@ public class AppResourceCommon {
 			String scheme = new URI(resourceUri).getScheme();
 			if (scheme == null) {
 				throw new IllegalArgumentException("Invalid URI schema for resource: " + resourceUri
-						+ " Expected URI schema prefix like file://, http:// or classpath:// but got none");
+			+ " Expected URI schema prefix like file://, http:// or classpath:// but got none");
 			}
 			scheme = scheme.toLowerCase();
 			Assert.notNull(scheme, "a scheme (prefix) is required");
 
 			switch (scheme) {
-			case "maven":
-				String coordinates = resourceUri.replaceFirst("maven:\\/*", "");
-				result = MavenResource.parse(coordinates, mavenProperties);
-				break;
-			case "docker":
-				String dockerUri = resourceUri.replaceFirst("docker:\\/*", "");
-				result = new DockerResource(dockerUri);
-				break;
-			case "http":
-			case "https":
-				result = new DownloadingUrlResourceLoader().getResource(resourceUri);
-				break;
-			default:
-				result = new DefaultResourceLoader().getResource(resourceUri);
+				case "maven":
+					String coordinates = resourceUri.replaceFirst("maven:\\/*", "");
+					result = MavenResource.parse(coordinates, mavenProperties);
+					break;
+				case "docker":
+					String dockerUri = resourceUri.replaceFirst("docker:\\/*", "");
+					result = new DockerResource(dockerUri);
+					break;
+				case "http":
+				case "https":
+					result = new DownloadingUrlResourceLoader().getResource(resourceUri);
+					break;
+				default:
+					result = new DefaultResourceLoader().getResource(resourceUri);
 			}
 		}
 		catch (URISyntaxException e) {
@@ -195,8 +195,8 @@ public class AppResourceCommon {
 			MavenResource mavenResource = (MavenResource) resource;
 			StringBuilder mavenResourceStringBuilder = new StringBuilder();
 			mavenResourceStringBuilder.append(String.format("maven://%s:%s",
-					mavenResource.getGroupId(),
-					mavenResource.getArtifactId()));
+		mavenResource.getGroupId(),
+		mavenResource.getArtifactId()));
 			if (StringUtils.hasText(mavenResource.getExtension())) {
 				mavenResourceStringBuilder.append(":" + mavenResource.getExtension());
 			}
@@ -217,7 +217,7 @@ public class AppResourceCommon {
 		}
 		else {
 			throw new IllegalArgumentException("Do not support extracting resource from Resource of type "
-					+ resource.getClass().getSimpleName());
+		+ resource.getClass().getSimpleName());
 		}
 	}
 
@@ -242,9 +242,9 @@ public class AppResourceCommon {
 		}
 		catch (IOException e) {
 			throw new IllegalArgumentException(
-					"Docker Resource URI is not in expected format to extract version. " +
-							dockerResource.getDescription(),
-					e);
+		"Docker Resource URI is not in expected format to extract version. " +
+	dockerResource.getDescription(),
+		e);
 		}
 	}
 

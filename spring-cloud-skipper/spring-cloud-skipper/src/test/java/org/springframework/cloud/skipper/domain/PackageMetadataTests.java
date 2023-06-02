@@ -26,7 +26,7 @@ public class PackageMetadataTests {
 	@Test
 	public void equalsContract() {
 		EqualsVerifier.forClass(PackageMetadata.class)
-				.withOnlyTheseFields("repositoryId", "name", "version")
-				.verify();
+	.withOnlyTheseFields("repositoryId", "name", "version")
+	.verify();
 	}
 }

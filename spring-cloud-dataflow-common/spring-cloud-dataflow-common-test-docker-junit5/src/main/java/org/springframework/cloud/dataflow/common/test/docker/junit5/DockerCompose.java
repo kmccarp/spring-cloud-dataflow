@@ -34,9 +34,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public @interface DockerCompose {
 
 	int order() default 0;
+
 	String id() default "";
+
 	boolean start() default true;
+
 	String[] locations() default {};
+
 	String[] services() default {};
+
 	String log() default "";
 }

@@ -19,37 +19,37 @@ import java.util.Map;
 import java.util.Optional;
 
 public enum DockerType implements HostIpResolver, EnvironmentValidator {
-    DAEMON(DaemonEnvironmentValidator.instance(), new DaemonHostIpResolver()),
-    REMOTE(RemoteEnvironmentValidator.instance(), new RemoteHostIpResolver());
+	DAEMON(DaemonEnvironmentValidator.instance(), new DaemonHostIpResolver()),
+	REMOTE(RemoteEnvironmentValidator.instance(), new RemoteHostIpResolver());
 
-    private final EnvironmentValidator validator;
-    private final HostIpResolver resolver;
+	private final EnvironmentValidator validator;
+	private final HostIpResolver resolver;
 
-    DockerType(EnvironmentValidator validator, HostIpResolver resolver) {
-        this.validator = validator;
-        this.resolver = resolver;
-    }
+	DockerType(EnvironmentValidator validator, HostIpResolver resolver) {
+		this.validator = validator;
+		this.resolver = resolver;
+	}
 
-    @Override
-    public void validateEnvironmentVariables(Map<String, String> dockerEnvironment) {
-        validator.validateEnvironmentVariables(dockerEnvironment);
-    }
+	@Override
+	public void validateEnvironmentVariables(Map<String, String> dockerEnvironment) {
+		validator.validateEnvironmentVariables(dockerEnvironment);
+	}
 
-    @Override
-    public String resolveIp(String dockerHost) {
-        return resolver.resolveIp(dockerHost);
-    }
+	@Override
+	public String resolveIp(String dockerHost) {
+		return resolver.resolveIp(dockerHost);
+	}
 
-    public static Optional<DockerType> getFirstValidDockerTypeForEnvironment(Map<String, String> environment) {
-        for (DockerType currType : DockerType.values()) {
-            try {
-                currType.validateEnvironmentVariables(environment);
-                return Optional.of(currType);
-            } catch (IllegalStateException e) {
-                // ignore and try next type
-            }
-        }
-        return Optional.empty();
-    }
+	public static Optional<DockerType> getFirstValidDockerTypeForEnvironment(Map<String, String> environment) {
+		for (DockerType currType : DockerType.values()) {
+			try {
+				currType.validateEnvironmentVariables(environment);
+				return Optional.of(currType);
+			} catch (IllegalStateException e) {
+				// ignore and try next type
+			}
+		}
+		return Optional.empty();
+	}
 
 }

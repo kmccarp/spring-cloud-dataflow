@@ -37,7 +37,7 @@ public class TaskSanitizer {
 
 	public TaskExecution sanitizeTaskExecutionArguments(TaskExecution taskExecution) {
 		List<String> args = taskExecution.getArguments().stream()
-				.map(argument -> (this.argumentSanitizer.sanitize(argument))).collect(Collectors.toList());
+	.map(argument -> (this.argumentSanitizer.sanitize(argument))).collect(Collectors.toList());
 		taskExecution.setArguments(args);
 		return taskExecution;
 	}
@@ -58,14 +58,14 @@ public class TaskSanitizer {
 		Map<String, String> sanitizedDeploymentProperties = this.argumentSanitizer.sanitizeProperties(existingDeploymentProperties);
 
 		AppDefinition sanitizedAppDefinition = new AppDefinition(existingAppDeploymentRequest.getDefinition().getName(),
-				sanitizedAppProperties);
+	sanitizedAppProperties);
 		List<String> sanitizedCommandLineArgs = existingAppDeploymentRequest.getCommandlineArguments().stream()
-				.map(argument -> (this.argumentSanitizer.sanitize(argument))).collect(Collectors.toList());
+	.map(argument -> (this.argumentSanitizer.sanitize(argument))).collect(Collectors.toList());
 		AppDeploymentRequest sanitizedAppDeploymentRequest = new AppDeploymentRequest(
-				sanitizedAppDefinition,
-				existingAppDeploymentRequest.getResource(),
-				sanitizedDeploymentProperties,
-				sanitizedCommandLineArgs);
+	sanitizedAppDefinition,
+	existingAppDeploymentRequest.getResource(),
+	sanitizedDeploymentProperties,
+	sanitizedCommandLineArgs);
 		sanitizedTaskManifest.setTaskDeploymentRequest(sanitizedAppDeploymentRequest);
 		return sanitizedTaskManifest;
 	}

@@ -42,7 +42,7 @@ public class JobParameterJacksonDeserializer extends JsonDeserializer<JobParamet
 
 	@Override
 	public JobParameter deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
-			throws IOException, JsonProcessingException {
+throws IOException, JsonProcessingException {
 		ObjectCodec oc = jsonParser.getCodec();
 		JsonNode node = oc.readTree(jsonParser);
 
@@ -73,7 +73,7 @@ public class JobParameterJacksonDeserializer extends JsonDeserializer<JobParamet
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("jobParameter - value: {} (type: {}, isIdentifying: {})",
-					jobParameter.getValue(), jobParameter.getType().name(), jobParameter.isIdentifying());
+		jobParameter.getValue(), jobParameter.getType().name(), jobParameter.isIdentifying());
 		}
 
 		return jobParameter;

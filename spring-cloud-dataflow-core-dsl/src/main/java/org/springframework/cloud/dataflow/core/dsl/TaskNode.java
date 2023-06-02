@@ -53,7 +53,7 @@ public class TaskNode extends AstNode {
 
 	TaskNode(String name, String taskDSL, List<LabelledTaskNode> sequences, boolean inAppMode) {
 		super((sequences.size() == 0) ? 0 : sequences.get(0).getStartPos(),
-				(sequences.size() == 0) ? 0 : sequences.get(sequences.size() - 1).getEndPos());
+	(sequences.size() == 0) ? 0 : sequences.get(sequences.size() - 1).getEndPos());
 		this.name = name;
 		this.taskDSL = taskDSL;
 		this.sequences = sequences;
@@ -197,8 +197,8 @@ public class TaskNode extends AstNode {
 	public boolean isComposed() {
 		// Is there just one task
 		boolean isOneTask = (sequences.size() == 1 && sequences.get(0).isFlow()
-				&& ((FlowNode) sequences.get(0)).getSeriesLength() == 1
-				&& ((FlowNode) sequences.get(0)).getSeriesElement(0).isTaskApp());
+	&& ((FlowNode) sequences.get(0)).getSeriesLength() == 1
+	&& ((FlowNode) sequences.get(0)).getSeriesElement(0).isTaskApp());
 		if (!isOneTask) {
 			return true;
 		}

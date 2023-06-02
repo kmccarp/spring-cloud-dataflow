@@ -48,8 +48,8 @@ public class SkipperClientConfigurationTests {
 	}
 
 	@Configuration
-	@ImportAutoConfiguration(classes = { JacksonAutoConfiguration.class, RestTemplateAutoConfiguration.class,
-			SkipperClientConfiguration.class })
+	@ImportAutoConfiguration(classes = {JacksonAutoConfiguration.class, RestTemplateAutoConfiguration.class,
+SkipperClientConfiguration.class})
 	static class TestConfig {
 	}
 }

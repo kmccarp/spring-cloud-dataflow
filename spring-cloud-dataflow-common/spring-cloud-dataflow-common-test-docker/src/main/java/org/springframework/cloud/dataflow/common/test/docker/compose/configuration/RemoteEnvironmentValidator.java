@@ -39,16 +39,16 @@ public class RemoteEnvironmentValidator implements EnvironmentValidator {
 		return VALIDATOR;
 	}
 
-	private RemoteEnvironmentValidator() {}
+	private RemoteEnvironmentValidator() {
+	}
 
 	@Override
 	public void validateEnvironmentVariables(Map<String, String> dockerEnvironment) {
 		Collection<String> missingVariables = getMissingEnvVariables(dockerEnvironment);
 		String errorMessage = missingVariables.stream()
-											  .collect(joining(", ",
-															   "Missing required environment variables: ",
-															   ". Please run `docker-machine env <machine-name>` and "
-																	   + "ensure they are set on the DockerComposition."));
+	.collect(joining(", ",
+"Missing required environment variables: ",
+". Please run `docker-machine env <machine-name>` and "+ "ensure they are set on the DockerComposition."));
 
 		Assert.state(missingVariables.isEmpty(), errorMessage);
 	}
@@ -57,8 +57,8 @@ public class RemoteEnvironmentValidator implements EnvironmentValidator {
 		Collection<String> requiredVariables = new HashSet<>(Arrays.asList(DOCKER_HOST));
 		requiredVariables.addAll(secureVariablesRequired(dockerEnvironment));
 		return requiredVariables.stream()
-								.filter(envVariable -> !StringUtils.hasText(dockerEnvironment.get(envVariable)))
-								.collect(Collectors.toSet());
+	.filter(envVariable -> !StringUtils.hasText(dockerEnvironment.get(envVariable)))
+	.collect(Collectors.toSet());
 	}
 
 	private static Set<String> secureVariablesRequired(Map<String, String> dockerEnvironment) {

@@ -32,20 +32,20 @@ public class AggressiveShutdownWithNetworkCleanupStrategyTest {
 //    @Rule
 //    public final ExpectedException exception = ExpectedException.none();
 
-    private final DockerCompose mockDockerCompose = mock(DockerCompose.class);
-    private final Docker mockDocker = mock(Docker.class);
+	private final DockerCompose mockDockerCompose = mock(DockerCompose.class);
+	private final Docker mockDocker = mock(Docker.class);
 
-    private static final String error_msg = "Random DockerExecutionException message";
+	private static final String error_msg = "Random DockerExecutionException message";
 
-    @Test
-    public void docker_compose_down_should_be_called_despite_docker_rm_throwing_exception() throws Exception {
-        doThrow(new DockerExecutionException(error_msg))
-                .when(mockDocker)
-                .rm(anyList());
+	@Test
+	public void docker_compose_down_should_be_called_despite_docker_rm_throwing_exception() throws Exception {
+		doThrow(new DockerExecutionException(error_msg))
+	.when(mockDocker)
+	.rm(anyList());
 
-        ShutdownStrategy.AGGRESSIVE_WITH_NETWORK_CLEANUP.shutdown(mockDockerCompose, mockDocker);
+		ShutdownStrategy.AGGRESSIVE_WITH_NETWORK_CLEANUP.shutdown(mockDockerCompose, mockDocker);
 
-        verify(mockDockerCompose, times(1)).down();
-    }
+		verify(mockDockerCompose, times(1)).down();
+	}
 
 }

@@ -117,7 +117,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 			int tooMany = 0;
 			while (!mainSequence.outstandingTransitions.isEmpty() && tooMany < 50) {
 				List<Context.TransitionTarget> nextTransitions = findNextTransitions(
-						mainSequence.outstandingTransitions);
+			mainSequence.outstandingTransitions);
 				mainSequence.outstandingTransitions.removeAll(nextTransitions);
 				GraphGeneratorVisitor.Sequence sequence = findSequence(nextTransitions.get(0).label);
 				if (sequence == null) {
@@ -130,12 +130,12 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 					TransitionTarget transitionTarget = iter.next();
 					FlowNode flowInWhichTransitionOccurring = transitionTarget.flow;
 					Map<String, Node> candidates = mainSequence.labeledNodesInEachFlow
-							.get(flowInWhichTransitionOccurring);
+				.get(flowInWhichTransitionOccurring);
 					for (Map.Entry<String, Node> candidate : candidates.entrySet()) {
 						if (candidate.getKey().equals(transitionTarget.label)) {
 							// This is the right one!
 							mainSequence.links.add(new Link(transitionTarget.nodeId, candidate.getValue().id,
-									transitionTarget.onState));
+						transitionTarget.onState));
 							iter.remove();
 						}
 					}
@@ -177,7 +177,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 	}
 
 	private void inline(GraphGeneratorVisitor.Sequence mainSequence, GraphGeneratorVisitor.Sequence sequence,
-			List<Context.TransitionTarget> transitionTargets) {
+List<Context.TransitionTarget> transitionTargets) {
 
 		// Record a map of ids in the sequence to the new node ids to use when creating
 		// new links
@@ -225,7 +225,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 			}
 			else {
 				newLink = new Link(nodeIds.get(existingLinkFrom), nodeIds.get(existingLinkTo),
-						existingLink.getTransitionName());
+			existingLink.getTransitionName());
 				mainSequence.links.add(newLink);
 			}
 		}
@@ -234,7 +234,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 		List<Context.TransitionTarget> rewrittenTransitions = new ArrayList<>();
 		for (Context.TransitionTarget looseEnd : sequence.outstandingTransitions) {
 			Context.TransitionTarget tt = new Context.TransitionTarget(nodeIds.get(looseEnd.nodeId), looseEnd.onState,
-					looseEnd.label);
+		looseEnd.label);
 			// They should have the same 'flow' as the sequence they are injected into
 			tt.flow = transitionTargets.get(0).flow;
 			tt.lastNodeId = transitionTargets.get(0).lastNodeId;// nodeIds.get(looseEnd.lastNodeId);
@@ -351,7 +351,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 				if (n == null) {
 					String nextId = nextId();
 					n = new Node(nextId, transition.getTargetApp().getName(),
-							toMap(transition.getTargetApp().getArguments()));
+				toMap(transition.getTargetApp().getArguments()));
 					if (transition.getTargetApp().hasLabel()) {
 						n.setLabel(transition.getTargetApp().getLabelString());
 					}
@@ -379,7 +379,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 			else {
 				// Record a new transition attempted
 				currentContext().addTransitionTarget(currentTaskAppId, transition.getStatusToCheck(),
-						transition.getTargetLabel());
+			transition.getTargetLabel());
 			}
 		}
 	}
@@ -443,7 +443,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 			if (taskApp.hasLabel()) {
 				// If this one has a label, try to connect hanging transitions to it
 				for (Iterator<Context.TransitionTarget> iterator = currentContext().getTransitionTargets()
-						.iterator(); iterator.hasNext();) {
+						.iterator(); iterator.hasNext(); ) {
 					Context.TransitionTarget tt = iterator.next();
 					if (tt.label.equals(taskApp.getLabelString())) {
 						// Target found!
@@ -520,7 +520,7 @@ public class GraphGeneratorVisitor extends TaskVisitor {
 			}
 			for (Link l : links) {
 				s.append("[" + (l.getTransitionName() == null ? "" : l.getTransitionName() + ":") + l.from + "-" + l.to
-						+ "]");
+			+ "]");
 			}
 			s.append("  transitions:").append(outstandingTransitions);
 			s.append("   flowLabelsMap:").append(labeledNodesInEachFlow);

@@ -45,16 +45,16 @@ public class AwsEcrAuthorizer implements RegistryAuthorizer {
 
 	@Override
 	public HttpHeaders getAuthorizationHeaders(ContainerImage containerImage,
-			ContainerRegistryConfiguration registryConfiguration) {
+ContainerRegistryConfiguration registryConfiguration) {
 		return getAuthorizationHeaders(registryConfiguration, null);
 	}
 
 	@Override
 	public HttpHeaders getAuthorizationHeaders(ContainerRegistryConfiguration registryConfiguration,
-			Map<String, String> configProperties) {
+Map<String, String> configProperties) {
 
 		Assert.isTrue(registryConfiguration.getAuthorizationType() == this.getType(),
-				"Incorrect type: " + registryConfiguration.getAuthorizationType());
+	"Incorrect type: " + registryConfiguration.getAuthorizationType());
 
 		AmazonECRClientBuilder ecrBuilder = AmazonECRClientBuilder.standard();
 		if (registryConfiguration.getExtra().containsKey(AWS_REGION)) {
@@ -63,7 +63,7 @@ public class AwsEcrAuthorizer implements RegistryAuthorizer {
 		if (StringUtils.hasText(registryConfiguration.getUser()) && StringUtils.hasText(registryConfiguration.getSecret())) {
 			// Expects that the 'user' == 'Access Key ID' and 'secret' == 'Secret Access Key'
 			ecrBuilder.withCredentials(new AWSStaticCredentialsProvider(
-					new BasicAWSCredentials(registryConfiguration.getUser(), registryConfiguration.getSecret())));
+		new BasicAWSCredentials(registryConfiguration.getUser(), registryConfiguration.getSecret())));
 		}
 
 		AmazonECR client = ecrBuilder.build();

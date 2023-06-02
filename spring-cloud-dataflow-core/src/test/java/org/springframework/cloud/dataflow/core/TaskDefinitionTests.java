@@ -52,7 +52,7 @@ public class TaskDefinitionTests {
 	@Test
 	public void testPackageProtectedConstructor() {
 		TaskDefinition definition = new TaskDefinition("timestamp", "label",
-				Collections.singletonMap("spring.cloud.task.name", "label"));
+	Collections.singletonMap("spring.cloud.task.name", "label"));
 		assertEquals("label", definition.getName());
 		assertEquals("timestamp", definition.getRegisteredAppName());
 		assertEquals(1, definition.getProperties().size());
@@ -62,8 +62,8 @@ public class TaskDefinitionTests {
 	@Test
 	public void testBuilder() {
 		TaskDefinition definition = new TaskDefinition.TaskDefinitionBuilder()
-				.from(new TaskDefinition("test", "timestamp"))
-				.build();
+	.from(new TaskDefinition("test", "timestamp"))
+	.build();
 		assertEquals("test", definition.getName());
 		assertEquals("timestamp", definition.getRegisteredAppName());
 		assertEquals(1, definition.getProperties().size());
@@ -89,6 +89,7 @@ public class TaskDefinitionTests {
 		assertFalse("TaskDefinitions were not expected to be equal.", definitionOne.equals(null));
 		assertFalse("TaskDefinitions were not expected to be equal.", definitionOne.equals("HI"));
 	}
+
 	@Test
 	public void testHashCode() {
 		TaskDefinition definitionOne = new TaskDefinition("test", "timestamp");
@@ -112,16 +113,16 @@ public class TaskDefinitionTests {
 
 	@Test
 	public void testBuilderSetProperties() {
-		Map<String,String> properties = new HashMap<>();
+		Map<String, String> properties = new HashMap<>();
 		properties.put("foo", "bar");
 		TaskDefinition definition = new TaskDefinition.TaskDefinitionBuilder()
-				.from(new TaskDefinition("test", "timestamp"))
-				.setProperties(properties)
-				.build();
+	.from(new TaskDefinition("test", "timestamp"))
+	.setProperties(properties)
+	.build();
 		assertEquals("test", definition.getName());
 		assertEquals("timestamp", definition.getRegisteredAppName());
 		assertEquals(1, definition.getProperties().size());
 		assertEquals("bar", definition.getProperties().get("foo"));
 	}
 
-	}
+}

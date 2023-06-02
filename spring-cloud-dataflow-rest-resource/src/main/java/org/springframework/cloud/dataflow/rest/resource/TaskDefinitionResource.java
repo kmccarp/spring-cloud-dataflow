@@ -110,7 +110,8 @@ public class TaskDefinitionResource extends RepresentationModel<TaskDefinitionRe
 	public String getStatus() {
 		if (this.getLastTaskExecution() == null) {
 			return TaskExecutionStatus.UNKNOWN.toString();
-		} else {
+		}
+		else {
 			return this.getLastTaskExecution().getTaskExecutionStatus().toString();
 		}
 	}

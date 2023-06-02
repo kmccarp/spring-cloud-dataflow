@@ -30,7 +30,8 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
 public final class IOMatchers {
-	private IOMatchers() {}
+	private IOMatchers() {
+	}
 
 	public static Matcher<File> hasFiles(int numberOfFiles) {
 		return new ValueCachingMatcher<File>() {
@@ -39,17 +40,17 @@ public final class IOMatchers {
 			@Override
 			public void describeTo(Description description) {
 				description.appendText("directory ")
-						   .appendValue(value())
-						   .appendText(" to have " + numberOfFiles + " files");
+			.appendValue(value())
+			.appendText(" to have " + numberOfFiles + " files");
 			}
 
 			@Override
 			protected void describeMismatchSafely(File item, Description mismatchDescription) {
 				mismatchDescription.appendText("directory ")
-								   .appendValue(item)
-								   .appendText(" had " + files.length + " files ")
-								   .appendText(Arrays.toString(files))
-								   .appendText(" or is not a directory");
+			.appendValue(item)
+			.appendText(" had " + files.length + " files ")
+			.appendText(Arrays.toString(files))
+			.appendText(" or is not a directory");
 			}
 
 			@Override
@@ -71,8 +72,8 @@ public final class IOMatchers {
 			@Override
 			protected void describeMismatchSafely(File item, Description mismatchDescription) {
 				mismatchDescription.appendText("file ")
-								   .appendValue(item)
-								   .appendText(" did not have name " + filename);
+			.appendValue(item)
+			.appendText(" did not have name " + filename);
 			}
 
 			@Override
@@ -124,15 +125,15 @@ public final class IOMatchers {
 			@Override
 			public void describeTo(Description description) {
 				description.appendText("file ")
-						   .appendValue(value())
-						   .appendText(" to exist");
+			.appendValue(value())
+			.appendText(" to exist");
 			}
 
 			@Override
 			protected void describeMismatchSafely(File item, Description mismatchDescription) {
 				mismatchDescription.appendText("file ")
-								   .appendValue(item.getAbsolutePath())
-								   .appendText(" did not exist");
+			.appendValue(item.getAbsolutePath())
+			.appendText(" did not exist");
 			}
 
 			@Override
@@ -147,13 +148,13 @@ public final class IOMatchers {
 			@Override
 			public void describeTo(Description description) {
 				description.appendValue(value())
-						   .appendText(" is directory");
+			.appendText(" is directory");
 			}
 
 			@Override
 			protected void describeMismatchSafely(File item, Description mismatchDescription) {
 				mismatchDescription.appendValue(item.getAbsolutePath())
-								   .appendText(" is not a directory");
+			.appendText(" is not a directory");
 			}
 
 			@Override
@@ -168,15 +169,15 @@ public final class IOMatchers {
 			@Override
 			public void describeTo(Description description) {
 				description.appendText("file ")
-						   .appendValue(value())
-						   .appendText(" to exist");
+			.appendValue(value())
+			.appendText(" to exist");
 			}
 
 			@Override
 			protected void describeMismatchSafely(Path item, Description mismatchDescription) {
 				mismatchDescription.appendText("file ")
-								   .appendValue(item)
-								   .appendText(" did not exist");
+			.appendValue(item)
+			.appendText(" did not exist");
 			}
 
 			@Override

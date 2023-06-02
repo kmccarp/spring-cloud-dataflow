@@ -23,71 +23,73 @@ public class SuccessOrFailure {
 
 	private Optional<String> optionalFailureMessage;
 
-    public SuccessOrFailure(Optional<String> optionalFailureMessage) {
+	public SuccessOrFailure(Optional<String> optionalFailureMessage) {
 		this.optionalFailureMessage = optionalFailureMessage;
 	}
 
 	public static SuccessOrFailure onResultOf(Attempt attempt) {
-        try {
-            return fromBoolean(attempt.attempt(), "Attempt to complete healthcheck failed");
-        } catch (Exception e) {
-            return fromException(e);
-        }
-    }
+		try {
+			return fromBoolean(attempt.attempt(), "Attempt to complete healthcheck failed");
+		} catch (Exception e) {
+			return fromException(e);
+		}
+	}
 
-    public SuccessOrFailure mapFailure(Function<String, String> mapper) {
-        if (this.succeeded()) {
-            return this;
-        } else {
-            return failure(mapper.apply(failureMessage()));
-        }
-    }
+	public SuccessOrFailure mapFailure(Function<String, String> mapper) {
+		if (this.succeeded()) {
+			return this;
+		}
+		else {
+			return failure(mapper.apply(failureMessage()));
+		}
+	}
 
-    protected Optional<String> optionalFailureMessage() {
-    	return optionalFailureMessage;
-    }
+	protected Optional<String> optionalFailureMessage() {
+		return optionalFailureMessage;
+	}
 
-    public static SuccessOrFailure success() {
-        return SuccessOrFailure.of(Optional.empty());
-    }
+	public static SuccessOrFailure success() {
+		return SuccessOrFailure.of(Optional.empty());
+	}
 
-    private static SuccessOrFailure of(Optional<String> empty) {
+	private static SuccessOrFailure of(Optional<String> empty) {
 		return new SuccessOrFailure(empty);
 	}
 
 	public static SuccessOrFailure failure(String message) {
-        return SuccessOrFailure.of(Optional.of(message));
-    }
+		return SuccessOrFailure.of(Optional.of(message));
+	}
 
-    public static SuccessOrFailure failureWithCondensedException(String message, Exception exception) {
-        return failure(message + ":\n" + Exceptions.condensedStacktraceFor(exception));
-    }
+	public static SuccessOrFailure failureWithCondensedException(String message, Exception exception) {
+		return failure(message + ":\n" + Exceptions.condensedStacktraceFor(exception));
+	}
 
-    public static SuccessOrFailure fromBoolean(boolean succeeded, String possibleFailureMessage) {
-        if (succeeded) {
-            return success();
-        } else {
-            return failure(possibleFailureMessage);
-        }
-    }
+	public static SuccessOrFailure fromBoolean(boolean succeeded, String possibleFailureMessage) {
+		if (succeeded) {
+			return success();
+		}
+		else {
+			return failure(possibleFailureMessage);
+		}
+	}
 
-    public boolean failed() {
-        return optionalFailureMessage().isPresent();
-    }
+	public boolean failed() {
+		return optionalFailureMessage().isPresent();
+	}
 
-    public boolean succeeded() {
-        return !failed();
-    }
+	public boolean succeeded() {
+		return !failed();
+	}
 
-    public String failureMessage() {
-        return optionalFailureMessage().get();
-    }
+	public String failureMessage() {
+		return optionalFailureMessage().get();
+	}
 
-    public Optional<String> toOptionalFailureMessage() {
-        return optionalFailureMessage();
-    }
+	public Optional<String> toOptionalFailureMessage() {
+		return optionalFailureMessage();
+	}
 
-    public static SuccessOrFailure fromException(Exception exception) {
-        return SuccessOrFailure.failure("Encountered an exception: " + ExceptionUtils.getStackTrace(exception));
-    }
+	public static SuccessOrFailure fromException(Exception exception) {
+		return SuccessOrFailure.failure("Encountered an exception: " + ExceptionUtils.getStackTrace(exception));
+	}
 }

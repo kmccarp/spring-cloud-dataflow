@@ -51,24 +51,31 @@ public class CurrentTaskExecutionsResource extends RepresentationModel {
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getType() {
 		return type;
 	}
+
 	public void setType(String type) {
 		this.type = type;
 	}
+
 	public int getMaximumTaskExecutions() {
 		return maximumTaskExecutions;
 	}
+
 	public void setMaximumTaskExecutions(int maximumTaskExecutions) {
 		this.maximumTaskExecutions = maximumTaskExecutions;
 	}
+
 	public int getRunningExecutionCount() {
 		return runningExecutionCount;
 	}
+
 	public void setRunningExecutionCount(int runningExecutionCount) {
 		this.runningExecutionCount = runningExecutionCount;
 	}
@@ -79,7 +86,7 @@ public class CurrentTaskExecutionsResource extends RepresentationModel {
 	 * @return CurrentTaskExecutionsResource to send to the client
 	 */
 	public static CurrentTaskExecutionsResource fromTaskExecutionInformation(
-		PlatformTaskExecutionInformation taskExecutionInformation) {
+PlatformTaskExecutionInformation taskExecutionInformation) {
 		CurrentTaskExecutionsResource resource = new CurrentTaskExecutionsResource();
 		resource.setName(taskExecutionInformation.getName());
 		resource.setType(taskExecutionInformation.getType());

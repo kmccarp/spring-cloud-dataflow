@@ -48,8 +48,8 @@ public enum AppBootSchemaVersion {
 
 	public static AppBootSchemaVersion fromBootVersion(String bootVersion) {
 		return Arrays.stream(AppBootSchemaVersion.values())
-				.filter((bv) -> bv.bootVersion.equals(bootVersion))
-				.findFirst().orElseThrow(() -> new IllegalArgumentException("Invalid AppBootSchemaVersion: " + bootVersion));
+	.filter((bv) -> bv.bootVersion.equals(bootVersion))
+	.findFirst().orElseThrow(() -> new IllegalArgumentException("Invalid AppBootSchemaVersion: " + bootVersion));
 	}
 
 	public String getBootVersion() {

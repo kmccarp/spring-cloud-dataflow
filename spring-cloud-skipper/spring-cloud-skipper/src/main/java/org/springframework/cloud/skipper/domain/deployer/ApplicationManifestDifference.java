@@ -42,11 +42,11 @@ public class ApplicationManifestDifference {
 
 	@JsonCreator
 	public ApplicationManifestDifference(@JsonProperty("applicationName") String applicationName,
-			@JsonProperty("apiAndKindDifference") PropertiesDiff apiAndKindDifference,
-			@JsonProperty("metadataDifference") PropertiesDiff metadataDifference,
-			@JsonProperty("resourceAndVersionDifference") PropertiesDiff resourceAndVersionDifference,
-			@JsonProperty("applicationPropertiesDifference") PropertiesDiff applicationPropertiesDifference,
-			@JsonProperty("deploymentPropertiesDifference") PropertiesDiff deploymentPropertiesDifference) {
+@JsonProperty("apiAndKindDifference") PropertiesDiff apiAndKindDifference,
+@JsonProperty("metadataDifference") PropertiesDiff metadataDifference,
+@JsonProperty("resourceAndVersionDifference") PropertiesDiff resourceAndVersionDifference,
+@JsonProperty("applicationPropertiesDifference") PropertiesDiff applicationPropertiesDifference,
+@JsonProperty("deploymentPropertiesDifference") PropertiesDiff deploymentPropertiesDifference) {
 		Assert.notNull(applicationName, "applicationName can not be null");
 		Assert.notNull(apiAndKindDifference, "apiAndKindDifference can not be null");
 		Assert.notNull(metadataDifference, "metadataDifference can not be null");
@@ -91,10 +91,10 @@ public class ApplicationManifestDifference {
 	 */
 	public boolean areEqual() {
 		return this.apiAndKindDifference.areEqual() &&
-				this.metadataDifference.areEqual() &&
-				this.resourceAndVersionDifference.areEqual() &&
-				this.applicationPropertiesDifference.areEqual() &&
-				this.deploymentPropertiesDifference.areEqual();
+	this.metadataDifference.areEqual() &&
+	this.resourceAndVersionDifference.areEqual() &&
+	this.applicationPropertiesDifference.areEqual() &&
+	this.deploymentPropertiesDifference.areEqual();
 	}
 
 }

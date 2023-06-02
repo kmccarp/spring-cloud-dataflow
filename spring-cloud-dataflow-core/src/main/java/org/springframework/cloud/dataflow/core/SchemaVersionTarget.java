@@ -94,6 +94,7 @@ public class SchemaVersionTarget {
 	public int hashCode() {
 		return name != null ? name.hashCode() : 0;
 	}
+
 	public static SchemaVersionTarget createDefault(AppBootSchemaVersion schemaVersion) {
 		return new SchemaVersionTarget(schemaVersion.name().toLowerCase(), schemaVersion, schemaVersion.name() + "_TASK_", schemaVersion.name() + "_BATCH_", null);
 	}
@@ -101,11 +102,11 @@ public class SchemaVersionTarget {
 	@Override
 	public String toString() {
 		return "SchemaVersionTarget{" +
-				"name='" + name + '\'' +
-				", schemaVersion=" + schemaVersion +
-				", taskPrefix='" + taskPrefix + '\'' +
-				", batchPrefix='" + batchPrefix + '\'' +
-				", datasource='" + datasource + '\'' +
-				'}';
+	"name='" + name + '\'' +
+	", schemaVersion=" + schemaVersion +
+	", taskPrefix='" + taskPrefix + '\'' +
+	", batchPrefix='" + batchPrefix + '\'' +
+	", datasource='" + datasource + '\'' +
+	'}';
 	}
 }

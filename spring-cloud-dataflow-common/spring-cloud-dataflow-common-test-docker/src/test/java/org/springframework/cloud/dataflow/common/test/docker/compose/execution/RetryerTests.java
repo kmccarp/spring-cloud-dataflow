@@ -35,7 +35,8 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RetryerTests {
-	@Mock private Retryer.RetryableDockerOperation<String> operation;
+	@Mock
+	private Retryer.RetryableDockerOperation<String> operation;
 	private final Retryer retryer = new Retryer(1, Duration.millis(0));
 
 	@Test
@@ -80,10 +81,10 @@ public class RetryerTests {
 	@Test
 	public void retry_the_operation_if_it_failed_once_and_return_the_result_of_the_next_successful_call() throws Exception {
 		when(operation.call()).thenAnswer(MockitoMultiAnswer.<String>of(
-				firstInvocation -> {
-					throw new DockerExecutionException();
-				},
-				secondInvocation -> "hola"
+	firstInvocation -> {
+		throw new DockerExecutionException();
+	},
+	secondInvocation -> "hola"
 		));
 
 		assertThat(retryer.runWithRetries(operation), is("hola"));
@@ -95,12 +96,12 @@ public class RetryerTests {
 		DockerExecutionException finalException = new DockerExecutionException();
 
 		when(operation.call()).thenAnswer(MockitoMultiAnswer.<String>of(
-				firstInvocation -> {
-					throw new DockerExecutionException();
-				},
-				secondInvocation -> {
-					throw finalException;
-				}
+	firstInvocation -> {
+		throw new DockerExecutionException();
+	},
+	secondInvocation -> {
+		throw finalException;
+	}
 		));
 
 		try {

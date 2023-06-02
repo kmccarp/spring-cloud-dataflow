@@ -30,95 +30,96 @@ import org.flywaydb.database.mysql.mariadb.MariaDBDatabaseType;
 
 public class MySQL57Database extends Database<MySQLConnection> {
 
-    private final MySQLDatabase delegateDatabase;
+	private final MySQLDatabase delegateDatabase;
 
-    public MySQL57Database(Configuration configuration, JdbcConnectionFactory jdbcConnectionFactory, StatementInterceptor statementInterceptor) {
-        this(configuration, jdbcConnectionFactory, statementInterceptor, new MySQLDatabase(configuration, jdbcConnectionFactory, statementInterceptor));
-    }
+	public MySQL57Database(Configuration configuration, JdbcConnectionFactory jdbcConnectionFactory, StatementInterceptor statementInterceptor) {
+		this(configuration, jdbcConnectionFactory, statementInterceptor, new MySQLDatabase(configuration, jdbcConnectionFactory, statementInterceptor));
+	}
 
-    protected MySQL57Database(Configuration configuration, JdbcConnectionFactory jdbcConnectionFactory, StatementInterceptor statementInterceptor, MySQLDatabase delegateDatabase) {
-        super(configuration, jdbcConnectionFactory, statementInterceptor);
-        this.delegateDatabase = delegateDatabase;
-    }
+	protected MySQL57Database(Configuration configuration, JdbcConnectionFactory jdbcConnectionFactory, StatementInterceptor statementInterceptor, MySQLDatabase delegateDatabase) {
+		super(configuration, jdbcConnectionFactory, statementInterceptor);
+		this.delegateDatabase = delegateDatabase;
+	}
 
-    @Override
-    public String getRawCreateScript(Table table, boolean baseline) {
-        return delegateDatabase.getRawCreateScript(table, baseline);
-    }
+	@Override
+	public String getRawCreateScript(Table table, boolean baseline) {
+		return delegateDatabase.getRawCreateScript(table, baseline);
+	}
 
-    @Override
-    protected MySQLConnection doGetConnection(Connection connection) {
-        return delegateDatabase.doGetConnection(connection);
-    }
+	@Override
+	protected MySQLConnection doGetConnection(Connection connection) {
+		return delegateDatabase.doGetConnection(connection);
+	}
 
-    @Override
-    protected MigrationVersion determineVersion() {
-        return delegateDatabase.determineVersion();
-    }
+	@Override
+	protected MigrationVersion determineVersion() {
+		return delegateDatabase.determineVersion();
+	}
 
-    @Override
-    public final void ensureSupported() {
-        ensureDatabaseIsRecentEnough("5.1");
-        if (databaseType instanceof MariaDBDatabaseType) {
-            ensureDatabaseNotOlderThanOtherwiseRecommendUpgradeToFlywayEdition("10.4", org.flywaydb.core.internal.license.Edition.ENTERPRISE);
-            recommendFlywayUpgradeIfNecessary("10.6");
-        } else {
-            ensureDatabaseNotOlderThanOtherwiseRecommendUpgradeToFlywayEdition("5.7", org.flywaydb.core.internal.license.Edition.ENTERPRISE);
-            recommendFlywayUpgradeIfNecessary("8.0");
-        }
-    }
+	@Override
+	public final void ensureSupported() {
+		ensureDatabaseIsRecentEnough("5.1");
+		if (databaseType instanceof MariaDBDatabaseType) {
+			ensureDatabaseNotOlderThanOtherwiseRecommendUpgradeToFlywayEdition("10.4", org.flywaydb.core.internal.license.Edition.ENTERPRISE);
+			recommendFlywayUpgradeIfNecessary("10.6");
+		}
+		else {
+			ensureDatabaseNotOlderThanOtherwiseRecommendUpgradeToFlywayEdition("5.7", org.flywaydb.core.internal.license.Edition.ENTERPRISE);
+			recommendFlywayUpgradeIfNecessary("8.0");
+		}
+	}
 
-    @Override
-    public void close() {
-        try {
-            super.close();
-        } finally {
-            delegateDatabase.close();
-        }
-    }
+	@Override
+	public void close() {
+		try {
+			super.close();
+		} finally {
+			delegateDatabase.close();
+		}
+	}
 
-    @Override
-    protected String doGetCurrentUser() throws SQLException {
-        return delegateDatabase.doGetCurrentUser();
-    }
+	@Override
+	protected String doGetCurrentUser() throws SQLException {
+		return delegateDatabase.doGetCurrentUser();
+	}
 
-    @Override
-    public boolean supportsDdlTransactions() {
-        return delegateDatabase.supportsDdlTransactions();
-    }
+	@Override
+	public boolean supportsDdlTransactions() {
+		return delegateDatabase.supportsDdlTransactions();
+	}
 
-    @Override
-    public boolean supportsChangingCurrentSchema() {
-        return delegateDatabase.supportsChangingCurrentSchema();
-    }
+	@Override
+	public boolean supportsChangingCurrentSchema() {
+		return delegateDatabase.supportsChangingCurrentSchema();
+	}
 
-    @Override
-    public String getBooleanTrue() {
-        return delegateDatabase.getBooleanTrue();
-    }
+	@Override
+	public String getBooleanTrue() {
+		return delegateDatabase.getBooleanTrue();
+	}
 
-    @Override
-    public String getBooleanFalse() {
-        return delegateDatabase.getBooleanFalse();
-    }
+	@Override
+	public String getBooleanFalse() {
+		return delegateDatabase.getBooleanFalse();
+	}
 
-    @Override
-    public String getOpenQuote() {
-        return delegateDatabase.getOpenQuote();
-    }
+	@Override
+	public String getOpenQuote() {
+		return delegateDatabase.getOpenQuote();
+	}
 
-    @Override
-    public String getCloseQuote() {
-        return delegateDatabase.getCloseQuote();
-    }
+	@Override
+	public String getCloseQuote() {
+		return delegateDatabase.getCloseQuote();
+	}
 
-    @Override
-    public boolean catalogIsSchema() {
-        return delegateDatabase.catalogIsSchema();
-    }
+	@Override
+	public boolean catalogIsSchema() {
+		return delegateDatabase.catalogIsSchema();
+	}
 
-    @Override
-    public boolean useSingleConnection() {
-        return delegateDatabase.useSingleConnection();
-    }
+	@Override
+	public boolean useSingleConnection() {
+		return delegateDatabase.useSingleConnection();
+	}
 }

@@ -69,7 +69,7 @@ public class DropAuthorizationHeaderRequestRedirectStrategy extends DefaultRedir
 
 	@Override
 	public HttpUriRequest getRedirect(final HttpRequest request, final HttpResponse response,
-			final HttpContext context) throws ProtocolException {
+final HttpContext context) throws ProtocolException {
 
 		HttpUriRequest httpUriRequest = super.getRedirect(request, response, context);
 
@@ -79,7 +79,7 @@ public class DropAuthorizationHeaderRequestRedirectStrategy extends DefaultRedir
 		if (StringUtils.isNoneEmpty(query) && query.contains(AMZ_CREDENTIAL)) {
 			final String method = request.getRequestLine().getMethod();
 			if (StringUtils.isNoneEmpty(method)
-					&& (method.equalsIgnoreCase(HttpHead.METHOD_NAME) || method.equalsIgnoreCase(HttpGet.METHOD_NAME))) {
+		&& (method.equalsIgnoreCase(HttpHead.METHOD_NAME) || method.equalsIgnoreCase(HttpGet.METHOD_NAME))) {
 				return new DropAuthorizationHeaderHttpRequestBase(httpUriRequest.getURI(), method);
 			}
 		}
@@ -88,13 +88,13 @@ public class DropAuthorizationHeaderRequestRedirectStrategy extends DefaultRedir
 		if (request.getRequestLine().getUri().contains(AZURECR_URI_SUFFIX)) {
 			final String method = request.getRequestLine().getMethod();
 			if (StringUtils.isNoneEmpty(method)
-					&& (method.equalsIgnoreCase(HttpHead.METHOD_NAME) || method.equalsIgnoreCase(HttpGet.METHOD_NAME))) {
+		&& (method.equalsIgnoreCase(HttpHead.METHOD_NAME) || method.equalsIgnoreCase(HttpGet.METHOD_NAME))) {
 				return new DropAuthorizationHeaderHttpRequestBase(httpUriRequest.getURI(), method) {
 					// drop headers only for the Basic Auth and leve  them unchanged for OAuth2!
 					@Override
 					protected boolean isDropHeader(String name, String value) {
 						return name.equalsIgnoreCase(AUTHORIZATION_HEADER) && StringUtils.isNoneEmpty(value)
-								&& value.contains(BASIC_AUTH);
+					&& value.contains(BASIC_AUTH);
 					}
 				};
 			}
@@ -152,8 +152,8 @@ public class DropAuthorizationHeaderRequestRedirectStrategy extends DefaultRedir
 		@Override
 		public void setHeaders(Header[] headers) {
 			Header[] filteredHeaders = Arrays.stream(headers)
-					.filter(header -> !isDropHeader(header))
-					.toArray(Header[]::new);
+		.filter(header -> !isDropHeader(header))
+		.toArray(Header[]::new);
 			super.setHeaders(filteredHeaders);
 		}
 

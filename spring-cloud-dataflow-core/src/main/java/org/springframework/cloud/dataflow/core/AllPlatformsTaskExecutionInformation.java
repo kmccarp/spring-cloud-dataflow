@@ -38,17 +38,17 @@ public class AllPlatformsTaskExecutionInformation {
 	private List<PlatformTaskExecutionInformation> buildTaskExecutionInformation(List<TaskPlatform> taskPlatforms) {
 		taskExecutionInformation = new ArrayList<>();
 		taskPlatforms.forEach(taskPlatform -> {
-		taskPlatform.getLaunchers().forEach(launcher -> {
-			TaskLauncher taskLauncher = launcher.getTaskLauncher();
-			taskExecutionInformation.add(
-				new PlatformTaskExecutionInformation(launcher.getName(),
-					launcher.getType(), taskLauncher.getMaximumConcurrentTasks(),
-					taskLauncher.getRunningTaskExecutionCount()));
+			taskPlatform.getLaunchers().forEach(launcher -> {
+				TaskLauncher taskLauncher = launcher.getTaskLauncher();
+				taskExecutionInformation.add(
+			new PlatformTaskExecutionInformation(launcher.getName(),
+		launcher.getType(), taskLauncher.getMaximumConcurrentTasks(),
+		taskLauncher.getRunningTaskExecutionCount()));
 			});
 		});
 
 		Collections.sort(taskExecutionInformation,
-			Comparator.comparing(PlatformTaskExecutionInformation::getType)
+	Comparator.comparing(PlatformTaskExecutionInformation::getType)
 		);
 
 		return taskExecutionInformation;

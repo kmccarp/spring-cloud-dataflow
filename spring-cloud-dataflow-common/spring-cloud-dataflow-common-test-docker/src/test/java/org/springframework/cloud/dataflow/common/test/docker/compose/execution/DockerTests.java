@@ -31,59 +31,59 @@ import static org.mockito.Mockito.when;
 
 public class DockerTests {
 
-    private final DockerExecutable executor = mock(DockerExecutable.class);
-    private final Docker docker = new Docker(executor);
+	private final DockerExecutable executor = mock(DockerExecutable.class);
+	private final Docker docker = new Docker(executor);
 
-    private final Process executedProcess = mock(Process.class);
+	private final Process executedProcess = mock(Process.class);
 
-    @Before
-    public void before() throws IOException {
-        when(executor.execute(any())).thenReturn(executedProcess);
-        when(executedProcess.exitValue()).thenReturn(0);
-    }
+	@Before
+	public void before() throws IOException {
+		when(executor.execute(any())).thenReturn(executedProcess);
+		when(executedProcess.exitValue()).thenReturn(0);
+	}
 
-    @Test
-    public void call_docker_rm_with_force_flag_on_rm() throws IOException, InterruptedException {
-        when(executedProcess.getInputStream()).thenReturn(toInputStream(""));
+	@Test
+	public void call_docker_rm_with_force_flag_on_rm() throws IOException, InterruptedException {
+		when(executedProcess.getInputStream()).thenReturn(toInputStream(""));
 
-        docker.rm("testContainer");
+		docker.rm("testContainer");
 
-        verify(executor).execute("rm", "-f", "testContainer");
-    }
+		verify(executor).execute("rm", "-f", "testContainer");
+	}
 
-    @Test
-    public void call_docker_network_ls() throws IOException, InterruptedException {
-        String lsOutput = "0.0.0.0:7000->7000/tcp";
-        when(executedProcess.getInputStream()).thenReturn(toInputStream(lsOutput));
+	@Test
+	public void call_docker_network_ls() throws IOException, InterruptedException {
+		String lsOutput = "0.0.0.0:7000->7000/tcp";
+		when(executedProcess.getInputStream()).thenReturn(toInputStream(lsOutput));
 
-        assertThat(docker.listNetworks(), is(lsOutput));
+		assertThat(docker.listNetworks(), is(lsOutput));
 
-        verify(executor).execute("network", "ls");
-    }
+		verify(executor).execute("network", "ls");
+	}
 
-    @Test
-    public void call_docker_network_prune() throws IOException, InterruptedException {
-        String lsOutput = "0.0.0.0:7000->7000/tcp";
-        when(executedProcess.getInputStream()).thenReturn(toInputStream(lsOutput));
+	@Test
+	public void call_docker_network_prune() throws IOException, InterruptedException {
+		String lsOutput = "0.0.0.0:7000->7000/tcp";
+		when(executedProcess.getInputStream()).thenReturn(toInputStream(lsOutput));
 
-        assertThat(docker.pruneNetworks(), is(lsOutput));
+		assertThat(docker.pruneNetworks(), is(lsOutput));
 
-        verify(executor).execute("network", "prune", "--force");
-    }
+		verify(executor).execute("network", "prune", "--force");
+	}
 
-    @Test
-    public void understand_old_version_format() throws IOException, InterruptedException {
-        when(executedProcess.getInputStream()).thenReturn(toInputStream("Docker version 1.7.2"));
+	@Test
+	public void understand_old_version_format() throws IOException, InterruptedException {
+		when(executedProcess.getInputStream()).thenReturn(toInputStream("Docker version 1.7.2"));
 
-        Version version = docker.configuredVersion();
-        assertThat(version, is(Version.valueOf("1.7.2")));
-    }
+		Version version = docker.configuredVersion();
+		assertThat(version, is(Version.valueOf("1.7.2")));
+	}
 
-    @Test
-    public void understand_new_version_format() throws IOException, InterruptedException {
-        when(executedProcess.getInputStream()).thenReturn(toInputStream("Docker version 17.03.1-ce"));
+	@Test
+	public void understand_new_version_format() throws IOException, InterruptedException {
+		when(executedProcess.getInputStream()).thenReturn(toInputStream("Docker version 17.03.1-ce"));
 
-        Version version = docker.configuredVersion();
-        assertThat(version, is(Version.valueOf("17.3.1")));
-    }
+		Version version = docker.configuredVersion();
+		assertThat(version, is(Version.valueOf("17.3.1")));
+	}
 }

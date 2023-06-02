@@ -38,21 +38,20 @@ import org.springframework.cloud.dataflow.registry.service.AppRegistryService;
  * @author Mark Fisher
  * @author Oleg Zhurakousky
  */
-class ConfigurationPropertyNameAfterDashDashRecoveryStrategy
-		extends StacktraceFingerprintingRecoveryStrategy<CheckPointedParseException> {
+class ConfigurationPropertyNameAfterDashDashRecoveryStrategyextends StacktraceFingerprintingRecoveryStrategy<CheckPointedParseException> {
 
 	private final ProposalsCollectorSupportUtils collectorSupport;
 
 	ConfigurationPropertyNameAfterDashDashRecoveryStrategy(AppRegistryService appRegistry,
-			ApplicationConfigurationMetadataResolver metadataResolver,
-			StreamDefinitionService streamDefinitionService) {
+ApplicationConfigurationMetadataResolver metadataResolver,
+StreamDefinitionService streamDefinitionService) {
 		super(CheckPointedParseException.class, streamDefinitionService, "file --", "file | foo --");
 		this.collectorSupport = new ProposalsCollectorSupportUtils(appRegistry, metadataResolver);
 	}
 
 	@Override
 	public void addProposals(String dsl, CheckPointedParseException exception, int detailLevel,
-			List<CompletionProposal> collector) {
+List<CompletionProposal> collector) {
 
 		String safe = exception.getExpressionStringUntilCheckpoint();
 		StreamDefinition streamDefinition = new StreamDefinition("__dummy", safe);
@@ -60,7 +59,7 @@ class ConfigurationPropertyNameAfterDashDashRecoveryStrategy
 		StreamAppDefinition lastApp = StreamDefinitionServiceUtils.getDeploymentOrderIterator(streamAppDefinitions).next();
 
 		AppRegistration appRegistration = this.collectorSupport.findAppRegistration(lastApp.getName(),
-				CompletionUtils.determinePotentialTypes(lastApp, streamAppDefinitions.size() > 1));
+	CompletionUtils.determinePotentialTypes(lastApp, streamAppDefinitions.size() > 1));
 
 		if (appRegistration != null) {
 			Set<String> alreadyPresentOptions = new HashSet<>(lastApp.getProperties().keySet());

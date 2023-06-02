@@ -219,7 +219,7 @@ public class Tokens {
 		}
 		if (t.kind != expectedKind) {
 			raiseException(t.startPos, DSLMessage.NOT_EXPECTED_TOKEN, expectedKind.toString().toLowerCase(),
-					(t.data == null) ? new String(t.getKind().tokenChars).toLowerCase() : t.data);
+		(t.data == null) ? new String(t.getKind().tokenChars).toLowerCase() : t.data);
 		}
 		return t;
 	}
@@ -275,7 +275,7 @@ public class Tokens {
 	 */
 	public void raiseException(int position, DSLMessage message, Object... inserts) {
 		throw new CheckPointedParseException(expression, position, this.position, lastGoodPosition, tokenStream,
-				message, inserts);
+	message, inserts);
 	}
 
 	/**

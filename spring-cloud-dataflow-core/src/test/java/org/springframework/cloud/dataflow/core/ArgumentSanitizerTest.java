@@ -31,8 +31,8 @@ public class ArgumentSanitizerTest {
 
 	private ArgumentSanitizer sanitizer;
 
-	private static final String[] keys = { "password", "secret", "key", "token", ".*credentials.*",
-			"vcap_services", "url" };
+	private static final String[] keys = {"password", "secret", "key", "token", ".*credentials.*",
+"vcap_services", "url"};
 
 	@Before
 	public void before() {
@@ -60,7 +60,7 @@ public class ArgumentSanitizerTest {
 		Assert.assertEquals(keys.length, sanitizedArguments.size());
 
 		int order = 0;
-		for(String sanitizedString : sanitizedArguments) {
+		for (String sanitizedString : sanitizedArguments) {
 			Assert.assertEquals("--" + keys[order] + "=******", sanitizedString);
 			order++;
 		}

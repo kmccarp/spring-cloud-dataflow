@@ -149,10 +149,10 @@ public class ContainerRegistryProperties {
 	@Override
 	public String toString() {
 		return "ContainerRegistryProperties{" +
-				"defaultRegistryHost='" + defaultRegistryHost + '\'' +
-				", defaultRepositoryTag='" + defaultRepositoryTag + '\'' +
-				", officialRepositoryNamespace='" + officialRepositoryNamespace + '\'' +
-				", registryConfigurations=" + registryConfigurations +
-				'}';
+	"defaultRegistryHost='" + defaultRegistryHost + '\'' +
+	", defaultRepositoryTag='" + defaultRepositoryTag + '\'' +
+	", officialRepositoryNamespace='" + officialRepositoryNamespace + '\'' +
+	", registryConfigurations=" + registryConfigurations +
+	'}';
 	}
 }

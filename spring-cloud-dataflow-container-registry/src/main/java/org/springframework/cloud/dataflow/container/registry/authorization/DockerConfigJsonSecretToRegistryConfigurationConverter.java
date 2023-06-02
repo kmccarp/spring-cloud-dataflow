@@ -63,12 +63,12 @@ public class DockerConfigJsonSecretToRegistryConfigurationConverter implements C
 	private final boolean replaceDefaultDockerRegistryServer;
 
 	public DockerConfigJsonSecretToRegistryConfigurationConverter(ContainerRegistryProperties properties,
-			ContainerImageRestTemplateFactory containerImageRestTemplate) {
+ContainerImageRestTemplateFactory containerImageRestTemplate) {
 
 		this.replaceDefaultDockerRegistryServer = properties.isReplaceDefaultDockerRegistryServer();
 		// Retrieve registry configurations, explicitly declared via properties.
 		this.httpProxyPerHost = properties.getRegistryConfigurations().entrySet().stream()
-				.collect(Collectors.toMap(e -> e.getValue().getRegistryHost(), e -> e.getValue().isUseHttpProxy()));
+	.collect(Collectors.toMap(e -> e.getValue().getRegistryHost(), e -> e.getValue().isUseHttpProxy()));
 		this.containerImageRestTemplate = containerImageRestTemplate;
 	}
 
@@ -100,7 +100,7 @@ public class DockerConfigJsonSecretToRegistryConfigurationConverter implements C
 					rc.setSecret((String) registryMap.get("password"));
 
 					Optional<String> tokenAccessUrl = getDockerTokenServiceUri(rc.getRegistryHost(),
-							true, this.httpProxyPerHost.getOrDefault(rc.getRegistryHost(), false));
+				true, this.httpProxyPerHost.getOrDefault(rc.getRegistryHost(), false));
 
 					if (tokenAccessUrl.isPresent()) {
 						rc.setAuthorizationType(ContainerRegistryConfiguration.AuthorizationType.dockeroauth2);
@@ -144,8 +144,8 @@ public class DockerConfigJsonSecretToRegistryConfigurationConverter implements C
 	 */
 	private String replaceDefaultDockerRegistryServerUrl(String dockerConfigJsonRegistryHost) {
 		return (this.replaceDefaultDockerRegistryServer && (DOCKER_IO.equals(dockerConfigJsonRegistryHost)
-				|| HTTPS_INDEX_DOCKER_IO_V_1.equals(dockerConfigJsonRegistryHost))) ?
-				REGISTRY_1_DOCKER_IO : dockerConfigJsonRegistryHost;
+	|| HTTPS_INDEX_DOCKER_IO_V_1.equals(dockerConfigJsonRegistryHost))) ?
+	REGISTRY_1_DOCKER_IO : dockerConfigJsonRegistryHost;
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class DockerConfigJsonSecretToRegistryConfigurationConverter implements C
 			Integer port = null;
 			if (registryHost.contains(":")) {
 				int colon = registryHost.lastIndexOf(":");
-				String portString = registryHost.substring(colon+1);
+				String portString = registryHost.substring(colon + 1);
 				try {
 					int intPort = Integer.parseInt(portString);
 					if (Integer.toString(intPort).equals(portString) && intPort > 0 && intPort < 32767) {
@@ -197,7 +197,7 @@ public class DockerConfigJsonSecretToRegistryConfigurationConverter implements C
 				return Optional.empty();
 			}
 			if (httpError.getResponseHeaders() == null
-					|| !httpError.getResponseHeaders().containsKey(HttpHeaders.WWW_AUTHENTICATE)) {
+		|| !httpError.getResponseHeaders().containsKey(HttpHeaders.WWW_AUTHENTICATE)) {
 				return Optional.empty();
 			}
 
@@ -210,18 +210,18 @@ public class DockerConfigJsonSecretToRegistryConfigurationConverter implements C
 
 			// Extract the "Bearer realm" and "service" attributes from the Www-Authenticate value
 			Map<String, String> wwwAuthenticateAttributes = Stream.of(wwwAuthenticate.get(0).split(","))
-					.map(s -> s.split("="))
-					.collect(Collectors.toMap(b -> b[0], b -> b[1]));
+		.map(s -> s.split("="))
+		.collect(Collectors.toMap(b -> b[0], b -> b[1]));
 
 			if (CollectionUtils.isEmpty(wwwAuthenticateAttributes)
-					|| !wwwAuthenticateAttributes.containsKey(BEARER_REALM_ATTRIBUTE)
-					|| !wwwAuthenticateAttributes.containsKey(SERVICE_ATTRIBUTE)) {
+		|| !wwwAuthenticateAttributes.containsKey(BEARER_REALM_ATTRIBUTE)
+		|| !wwwAuthenticateAttributes.containsKey(SERVICE_ATTRIBUTE)) {
 				logger.warn("Invalid Www-Authenticate: {} for container registry {}", wwwAuthenticate, registryHost);
 				return Optional.empty();
 			}
 
 			String tokenServiceUri = String.format("%s?service=%s&scope=repository:{repository}:pull",
-					wwwAuthenticateAttributes.get(BEARER_REALM_ATTRIBUTE), wwwAuthenticateAttributes.get(SERVICE_ATTRIBUTE));
+		wwwAuthenticateAttributes.get(BEARER_REALM_ATTRIBUTE), wwwAuthenticateAttributes.get(SERVICE_ATTRIBUTE));
 
 			// remove redundant quotes.
 			tokenServiceUri = tokenServiceUri.replaceAll("\"", "");

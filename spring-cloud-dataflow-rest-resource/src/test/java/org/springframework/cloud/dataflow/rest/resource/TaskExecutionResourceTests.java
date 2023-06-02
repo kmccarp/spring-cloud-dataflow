@@ -45,20 +45,20 @@ import static org.junit.Assert.assertNull;
 public class TaskExecutionResourceTests {
 
 	@Test
-	public void testTaskExecutionStatusWithNoTaskExecutionSet()  {
+	public void testTaskExecutionStatusWithNoTaskExecutionSet() {
 		final TaskExecutionResource taskExecutionResource = new TaskExecutionResource();
 		assertEquals(TaskExecutionStatus.UNKNOWN, taskExecutionResource.getTaskExecutionStatus());
 	}
 
 	@Test
-	public void testTaskExecutionStatusWithNoStartTime()  {
+	public void testTaskExecutionStatusWithNoStartTime() {
 		final TaskExecution taskExecution = new TaskExecution();
 		final TaskExecutionResource taskExecutionResource = new TaskExecutionResource(taskExecution, null);
 		assertEquals(TaskExecutionStatus.UNKNOWN, taskExecutionResource.getTaskExecutionStatus());
 	}
 
 	@Test
-	public void testTaskExecutionStatusWithRunningTaskExecution()  {
+	public void testTaskExecutionStatusWithRunningTaskExecution() {
 		final TaskExecution taskExecution = new TaskExecution();
 		taskExecution.setStartTime(new Date());
 		final TaskExecutionResource taskExecutionResource = new TaskExecutionResource(taskExecution, null);
@@ -67,14 +67,14 @@ public class TaskExecutionResourceTests {
 	}
 
 	@Test
-	public void testTaskExecutionStatusWithSuccessfulTaskExecution()  {
+	public void testTaskExecutionStatusWithSuccessfulTaskExecution() {
 		final TaskExecution taskExecution = getDefaultTaskExecution();
 		final TaskExecutionResource taskExecutionResource = new TaskExecutionResource(taskExecution, null);
 		assertEquals(TaskExecutionStatus.COMPLETE, taskExecutionResource.getTaskExecutionStatus());
 	}
 
 	@Test
-	public void testCTRExecutionStatusWithSuccessfulJobExecution()  {
+	public void testCTRExecutionStatusWithSuccessfulJobExecution() {
 		final TaskExecution taskExecution = getDefaultTaskExecution();
 		JobExecution jobExecution = new JobExecution(1L);
 		jobExecution.setExitStatus(ExitStatus.COMPLETED);
@@ -84,7 +84,7 @@ public class TaskExecutionResourceTests {
 	}
 
 	@Test
-	public void testCTRExecutionStatusWithFailedJobExecution()  {
+	public void testCTRExecutionStatusWithFailedJobExecution() {
 		final TaskExecution taskExecution = new TaskExecution();
 		taskExecution.setStartTime(new Date());
 		taskExecution.setEndTime(new Date());
@@ -97,7 +97,7 @@ public class TaskExecutionResourceTests {
 	}
 
 	@Test
-	public void testTaskExecutionStatusWithFailedTaskExecution()  {
+	public void testTaskExecutionStatusWithFailedTaskExecution() {
 		final TaskExecution taskExecution = new TaskExecution();
 		taskExecution.setStartTime(new Date());
 		taskExecution.setEndTime(new Date());
@@ -107,7 +107,7 @@ public class TaskExecutionResourceTests {
 	}
 
 	@Test
-	public void testTaskExecutionForTaskExecutionRel() throws Exception{
+	public void testTaskExecutionForTaskExecutionRel() throws Exception {
 		final TaskExecution taskExecution = getDefaultTaskExecution();
 		TaskManifest taskManifest = new TaskManifest();
 		taskManifest.setPlatformName("testplatform");

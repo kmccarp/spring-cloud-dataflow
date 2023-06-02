@@ -58,8 +58,8 @@ public class ConflictingContainerRemovingDockerCompose extends DelegatingDockerC
 				}
 
 				log.debug("docker-compose up failed due to container name conflicts (container names: {}). "
-								+ "Removing containers and attempting docker-compose up again (attempt {}).",
-						conflictingContainerNames, currRetryAttempt + 1);
+			+ "Removing containers and attempting docker-compose up again (attempt {}).",
+			conflictingContainerNames, currRetryAttempt + 1);
 				removeContainers(conflictingContainerNames);
 			}
 		}

@@ -25,106 +25,106 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.connection.
 import org.springframework.cloud.dataflow.common.test.docker.compose.connection.Ports;
 
 abstract class DelegatingDockerCompose implements DockerCompose {
-    private final DockerCompose dockerCompose;
+	private final DockerCompose dockerCompose;
 
-    protected DelegatingDockerCompose(DockerCompose dockerCompose) {
-        this.dockerCompose = dockerCompose;
-    }
+	protected DelegatingDockerCompose(DockerCompose dockerCompose) {
+		this.dockerCompose = dockerCompose;
+	}
 
-    @Override
-    public void pull() throws IOException, InterruptedException {
-        dockerCompose.pull();
-    }
+	@Override
+	public void pull() throws IOException, InterruptedException {
+		dockerCompose.pull();
+	}
 
-    @Override
-    public void build() throws IOException, InterruptedException {
-        dockerCompose.build();
-    }
+	@Override
+	public void build() throws IOException, InterruptedException {
+		dockerCompose.build();
+	}
 
-    @Override
-    public void up() throws IOException, InterruptedException {
-        dockerCompose.up();
-    }
+	@Override
+	public void up() throws IOException, InterruptedException {
+		dockerCompose.up();
+	}
 
-    @Override
-    public void down() throws IOException, InterruptedException {
-        dockerCompose.down();
-    }
+	@Override
+	public void down() throws IOException, InterruptedException {
+		dockerCompose.down();
+	}
 
-    @Override
-    public void kill() throws IOException, InterruptedException {
-        dockerCompose.kill();
-    }
+	@Override
+	public void kill() throws IOException, InterruptedException {
+		dockerCompose.kill();
+	}
 
-    @Override
-    public void rm() throws IOException, InterruptedException {
-        dockerCompose.rm();
-    }
+	@Override
+	public void rm() throws IOException, InterruptedException {
+		dockerCompose.rm();
+	}
 
-    @Override
-    public void up(Container container) throws IOException, InterruptedException {
-        dockerCompose.up(container);
-    }
+	@Override
+	public void up(Container container) throws IOException, InterruptedException {
+		dockerCompose.up(container);
+	}
 
-    @Override
-    public void start(Container container) throws IOException, InterruptedException {
-        dockerCompose.start(container);
-    }
+	@Override
+	public void start(Container container) throws IOException, InterruptedException {
+		dockerCompose.start(container);
+	}
 
-    @Override
-    public void stop(Container container) throws IOException, InterruptedException {
-        dockerCompose.stop(container);
-    }
+	@Override
+	public void stop(Container container) throws IOException, InterruptedException {
+		dockerCompose.stop(container);
+	}
 
-    @Override
-    public void kill(Container container) throws IOException, InterruptedException {
-        dockerCompose.kill(container);
-    }
+	@Override
+	public void kill(Container container) throws IOException, InterruptedException {
+		dockerCompose.kill(container);
+	}
 
-    @Override
-    public String exec(DockerComposeExecOption dockerComposeExecOption, String containerName,
-            DockerComposeExecArgument dockerComposeExecArgument) throws IOException, InterruptedException {
-        return dockerCompose.exec(dockerComposeExecOption, containerName, dockerComposeExecArgument);
-    }
+	@Override
+	public String exec(DockerComposeExecOption dockerComposeExecOption, String containerName,
+DockerComposeExecArgument dockerComposeExecArgument) throws IOException, InterruptedException {
+		return dockerCompose.exec(dockerComposeExecOption, containerName, dockerComposeExecArgument);
+	}
 
-    @Override
-    public String run(DockerComposeRunOption dockerComposeRunOption, String containerName,
-            DockerComposeRunArgument dockerComposeRunArgument) throws IOException, InterruptedException {
-        return dockerCompose.run(dockerComposeRunOption, containerName, dockerComposeRunArgument);
-    }
+	@Override
+	public String run(DockerComposeRunOption dockerComposeRunOption, String containerName,
+DockerComposeRunArgument dockerComposeRunArgument) throws IOException, InterruptedException {
+		return dockerCompose.run(dockerComposeRunOption, containerName, dockerComposeRunArgument);
+	}
 
-    @Override
-    public List<ContainerName> ps() throws IOException, InterruptedException {
-        return dockerCompose.ps();
-    }
+	@Override
+	public List<ContainerName> ps() throws IOException, InterruptedException {
+		return dockerCompose.ps();
+	}
 
-    @Override
-    public Optional<String> id(Container container) throws IOException, InterruptedException {
-        return dockerCompose.id(container);
-    }
+	@Override
+	public Optional<String> id(Container container) throws IOException, InterruptedException {
+		return dockerCompose.id(container);
+	}
 
-    @Override
-    public String config() throws IOException, InterruptedException {
-        return dockerCompose.config();
-    }
+	@Override
+	public String config() throws IOException, InterruptedException {
+		return dockerCompose.config();
+	}
 
-    @Override
-    public List<String> services() throws IOException, InterruptedException {
-        return dockerCompose.services();
-    }
+	@Override
+	public List<String> services() throws IOException, InterruptedException {
+		return dockerCompose.services();
+	}
 
-    @Override
-    public boolean writeLogs(String container, OutputStream output) throws IOException {
-        return dockerCompose.writeLogs(container, output);
-    }
+	@Override
+	public boolean writeLogs(String container, OutputStream output) throws IOException {
+		return dockerCompose.writeLogs(container, output);
+	}
 
-    @Override
-    public Ports ports(String service) throws IOException, InterruptedException {
-        return dockerCompose.ports(service);
-    }
+	@Override
+	public Ports ports(String service) throws IOException, InterruptedException {
+		return dockerCompose.ports(service);
+	}
 
-    protected final DockerCompose getDockerCompose() {
-        return dockerCompose;
-    }
+	protected final DockerCompose getDockerCompose() {
+		return dockerCompose;
+	}
 
 }

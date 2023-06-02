@@ -52,12 +52,12 @@ public class CustomPlainOAuth2UserService implements OAuth2UserService<OAuth2Use
 		log.debug("AccessToken: {}", accessToken.getTokenValue());
 
 		final Set<GrantedAuthority> mappedAuthorities = this.authorityMapper.mapScopesToAuthorities(
-				userRequest.getClientRegistration().getRegistrationId(), accessToken.getScopes(),
-				accessToken.getTokenValue());
+	userRequest.getClientRegistration().getRegistrationId(), accessToken.getScopes(),
+	accessToken.getTokenValue());
 		final String userNameAttributeName = userRequest.getClientRegistration()
-				.getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
+	.getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 		final OAuth2User oauth2UserToReturn = new DefaultOAuth2User(mappedAuthorities, oauth2User.getAttributes(),
-				userNameAttributeName);
+	userNameAttributeName);
 		return oauth2UserToReturn;
 	}
 }

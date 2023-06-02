@@ -34,8 +34,8 @@ public class DockerComposeExecArgument {
 		return new DockerComposeExecArgument(arguments);
 	}
 
-    public static DockerComposeExecArgument arguments(String... arguments) {
-        return DockerComposeExecArgument.of(Arrays.asList(arguments));
+	public static DockerComposeExecArgument arguments(String... arguments) {
+		return DockerComposeExecArgument.of(Arrays.asList(arguments));
 	}
 
 	@Override
@@ -54,11 +54,12 @@ public class DockerComposeExecArgument {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-			DockerComposeExecArgument other = (DockerComposeExecArgument) obj;
+		DockerComposeExecArgument other = (DockerComposeExecArgument) obj;
 		if (arguments == null) {
 			if (other.arguments != null)
 				return false;
-		} else if (!arguments.equals(other.arguments))
+		}
+		else if (!arguments.equals(other.arguments))
 			return false;
 		return true;
 	}

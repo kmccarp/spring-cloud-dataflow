@@ -74,8 +74,8 @@ public class AuditServiceUtils {
 	}
 
 	public Map<String, Object> convertStreamDefinitionToAuditData(
-			String streamDefinition,
-			Map<String, String> deploymentProperties) {
+String streamDefinition,
+Map<String, String> deploymentProperties) {
 
 		final Map<String, Object> auditedData = new HashMap<>(2);
 		auditedData.put(STREAM_DEFINITION_DSL_TEXT, streamDefinition);
@@ -86,7 +86,7 @@ public class AuditServiceUtils {
 	public Map<String, Object> convertScheduleRequestToAuditData(ScheduleRequest scheduleRequest) {
 		Assert.notNull(scheduleRequest, "scheduleRequest must not be null");
 		Assert.hasText(scheduleRequest.getScheduleName(),
-				"The scheduleName of the scheduleRequest must not be null or empty");
+	"The scheduleName of the scheduleRequest must not be null or empty");
 		Assert.notNull(scheduleRequest.getDefinition(), "The task definition of the scheduleRequest must not be null");
 
 		final Map<String, Object> auditedData = new HashMap<>(3);
@@ -94,17 +94,17 @@ public class AuditServiceUtils {
 
 		if (scheduleRequest.getDefinition().getProperties() != null) {
 			auditedData.put(TASK_DEFINITION_PROPERTIES,
-					argumentSanitizer.sanitizeProperties(scheduleRequest.getDefinition().getProperties()));
+		argumentSanitizer.sanitizeProperties(scheduleRequest.getDefinition().getProperties()));
 		}
 
 		if (scheduleRequest.getDeploymentProperties() != null) {
 			auditedData.put(DEPLOYMENT_PROPERTIES,
-					argumentSanitizer.sanitizeProperties(scheduleRequest.getDeploymentProperties()));
+		argumentSanitizer.sanitizeProperties(scheduleRequest.getDeploymentProperties()));
 		}
 
 		if (scheduleRequest.getCommandlineArguments() != null) {
 			auditedData.put(COMMANDLINE_ARGUMENTS,
-					argumentSanitizer.sanitizeArguments(scheduleRequest.getCommandlineArguments()));
+		argumentSanitizer.sanitizeArguments(scheduleRequest.getCommandlineArguments()));
 		}
 		return auditedData;
 	}

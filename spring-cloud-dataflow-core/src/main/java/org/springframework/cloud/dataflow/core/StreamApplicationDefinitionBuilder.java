@@ -74,7 +74,7 @@ class StreamApplicationDefinitionBuilder {
 		for (int m = appNodes.size() - 1; m >= 0; m--) {
 			AppNode appNode = appNodes.get(m);
 			StreamAppDefinition.Builder builder = (Builder) new StreamAppDefinition.Builder()
-					.setRegisteredAppName(appNode.getName()).setLabel(appNode.getLabelName());
+		.setRegisteredAppName(appNode.getName()).setLabel(appNode.getLabelName());
 			if (appNode.hasArguments()) {
 				ArgumentNode[] arguments = appNode.getArguments();
 				for (ArgumentNode argument : arguments) {
@@ -121,12 +121,12 @@ class StreamApplicationDefinitionBuilder {
 			if (!appNode.isUnboundStreamApp()) {
 				if (m > 0) {
 					builder.setProperty(BindingPropertyKeys.INPUT_DESTINATION,
-							String.format("%s.%s", streamName, appNodes.get(m - 1).getLabelName()));
+				String.format("%s.%s", streamName, appNodes.get(m - 1).getLabelName()));
 					builder.setProperty(BindingPropertyKeys.INPUT_GROUP, streamName);
 				}
 				if (m < appNodes.size() - 1) {
 					builder.setProperty(BindingPropertyKeys.OUTPUT_DESTINATION,
-							String.format("%s.%s", streamName, appNode.getLabelName()));
+				String.format("%s.%s", streamName, appNode.getLabelName()));
 					builder.setProperty(BindingPropertyKeys.OUTPUT_REQUIRED_GROUPS, streamName);
 				}
 			}
@@ -148,7 +148,7 @@ class StreamApplicationDefinitionBuilder {
 		}
 		if (sinkDestination != null) {
 			builders.getFirst().setProperty(BindingPropertyKeys.OUTPUT_DESTINATION,
-					sinkDestination.getDestinationName());
+		sinkDestination.getDestinationName());
 		}
 		List<StreamAppDefinition> streamAppDefinitions = new ArrayList<>(builders.size());
 		for (StreamAppDefinition.Builder builder : builders) {

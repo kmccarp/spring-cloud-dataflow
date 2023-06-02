@@ -29,7 +29,7 @@ public class ContainerRegistryRequest {
 	private final RestTemplate restTemplate;
 
 	public ContainerRegistryRequest(ContainerImage containerImage,
-			ContainerRegistryConfiguration registryConf, HttpHeaders authHttpHeaders, RestTemplate requestRestTemplate) {
+ContainerRegistryConfiguration registryConf, HttpHeaders authHttpHeaders, RestTemplate requestRestTemplate) {
 		this.containerImage = containerImage;
 		this.registryConf = registryConf;
 		this.authHttpHeaders = authHttpHeaders;
@@ -37,7 +37,7 @@ public class ContainerRegistryRequest {
 	}
 
 	public ContainerRegistryRequest(
-			ContainerRegistryConfiguration registryConf, HttpHeaders authHttpHeaders, RestTemplate requestRestTemplate) {
+ContainerRegistryConfiguration registryConf, HttpHeaders authHttpHeaders, RestTemplate requestRestTemplate) {
 		this.registryConf = registryConf;
 		this.authHttpHeaders = authHttpHeaders;
 		this.restTemplate = requestRestTemplate;

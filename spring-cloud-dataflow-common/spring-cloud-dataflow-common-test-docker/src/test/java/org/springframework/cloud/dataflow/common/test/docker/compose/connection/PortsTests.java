@@ -47,7 +47,7 @@ public class PortsTests {
 
 	@Test
 	public void
-			result_in_single_port_with_ip_other_than_localhost_when_there_is_single_tcp_port_mapping() {
+result_in_single_port_with_ip_other_than_localhost_when_there_is_single_tcp_port_mapping() {
 		String psOutput = "10.0.1.2:1234->2345/tcp";
 		Ports ports = Ports.parseFromDockerComposePs(psOutput, LOCALHOST_IP);
 		Ports expected = new Ports(Arrays.asList(new DockerPort("10.0.1.2", 1234, 2345)));
@@ -59,7 +59,7 @@ public class PortsTests {
 		String psOutput = "0.0.0.0:5432->5432/tcp, 0.0.0.0:5433->5432/tcp";
 		Ports ports = Ports.parseFromDockerComposePs(psOutput, LOCALHOST_IP);
 		Ports expected = new Ports(Arrays.asList(new DockerPort(LOCALHOST_IP, 5432, 5432),
-												new DockerPort(LOCALHOST_IP, 5433, 5432)));
+	new DockerPort(LOCALHOST_IP, 5433, 5432)));
 		assertThat(ports, is(expected));
 	}
 
@@ -74,10 +74,10 @@ public class PortsTests {
 	@Test
 	public void parse_actual_docker_compose_output() {
 		String psOutput =
-				  "       Name                      Command               State                                         Ports                                        \n"
-				+ "-------------------------------------------------------------------------------------------------------------------------------------------------\n"
-				+ "postgres_postgres_1   /bin/sh -c /usr/local/bin/ ...   Up      0.0.0.0:8880->8880/tcp, 8881/tcp, 8882/tcp, 8883/tcp, 8884/tcp, 8885/tcp, 8886/tcp \n"
-				+ "";
+	"       Name                      Command               State                                         Ports                                        \n"
++ "-------------------------------------------------------------------------------------------------------------------------------------------------\n"
++ "postgres_postgres_1   /bin/sh -c /usr/local/bin/ ...   Up      0.0.0.0:8880->8880/tcp, 8881/tcp, 8882/tcp, 8883/tcp, 8884/tcp, 8885/tcp, 8886/tcp \n"
++ "";
 		Ports ports = Ports.parseFromDockerComposePs(psOutput, LOCALHOST_IP);
 		Ports expected = new Ports(Arrays.asList(new DockerPort(LOCALHOST_IP, 8880, 8880)));
 		assertThat(ports, is(expected));
@@ -90,8 +90,8 @@ public class PortsTests {
 		// assertThrows(expectedType, executable)
 
 		IllegalStateException thrown = assertThrows(IllegalStateException.class,
-				() -> Ports.parseFromDockerComposePs("", ""),
-				"Expected Ports.parseFromDockerComposePs to throw, but it didn't");
+	() -> Ports.parseFromDockerComposePs("", ""),
+	"Expected Ports.parseFromDockerComposePs to throw, but it didn't");
 		assertThat(thrown.getMessage()).contains("No container found");
 	}
 }

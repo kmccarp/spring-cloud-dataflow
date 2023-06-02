@@ -33,12 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Corneil du Plessis
  */
-@SpringBootApplication(exclude = {
-		MetricsAutoConfiguration.class,
-		ManagementWebSecurityAutoConfiguration.class,
-		SecurityAutoConfiguration.class,
-		UserDetailsServiceAutoConfiguration.class,
-		SessionAutoConfiguration.class
+@SpringBootApplication(exclude = {MetricsAutoConfiguration.class,ManagementWebSecurityAutoConfiguration.class,SecurityAutoConfiguration.class,UserDetailsServiceAutoConfiguration.class,SessionAutoConfiguration.class
 })
 
 @Import({CommonSecurityAutoConfiguration.class, TestOAuthSecurityConfiguration.class})

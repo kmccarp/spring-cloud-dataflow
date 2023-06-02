@@ -56,7 +56,7 @@ public class CompletionUtils {
 	 * context of code completion.
 	 */
 	static ApplicationType[] determinePotentialTypes(StreamAppDefinition appDefinition,
-			boolean multipleAppsInStreamDefinition) {
+boolean multipleAppsInStreamDefinition) {
 		ApplicationType[] result = null;
 		Set<String> properties = appDefinition.getProperties().keySet();
 		if (properties.contains(BindingPropertyKeys.INPUT_DESTINATION)) {
@@ -66,19 +66,19 @@ public class CompletionUtils {
 			// with a sink (could be an unfinished "source | processor | processor"
 			// stream)
 			if (properties.contains(BindingPropertyKeys.OUTPUT_DESTINATION)) {
-				result = new ApplicationType[] { ApplicationType.processor };
+				result = new ApplicationType[]{ApplicationType.processor};
 			}
 			else {
-				result = new ApplicationType[] { ApplicationType.processor, ApplicationType.sink };
+				result = new ApplicationType[]{ApplicationType.processor, ApplicationType.sink};
 			}
 		}
 		else {
 			// Multiple apps and no binding properties indicates unbound app sequence (a,b,c)
 			if (multipleAppsInStreamDefinition) {
-				result = new ApplicationType[] { ApplicationType.app };
+				result = new ApplicationType[]{ApplicationType.app};
 			}
 			else {
-				result = new ApplicationType[] { ApplicationType.source, ApplicationType.app };
+				result = new ApplicationType[]{ApplicationType.source, ApplicationType.app};
 			}
 		}
 		return result;
@@ -123,10 +123,11 @@ public class CompletionUtils {
 	 * (which are tested on their short name).
 	 */
 	static boolean isMatchingProperty(String propertyName, ConfigurationMetadataProperty property,
-			List<ConfigurationMetadataProperty> visibleProps) {
+List<ConfigurationMetadataProperty> visibleProps) {
 		if (property.getId().equals(propertyName)) {
 			return true; // For any prop
-		} // Handle special case of short form for visible properties
+		}
+		// Handle special case of short form for visible properties
 		else {
 			for (ConfigurationMetadataProperty visible : visibleProps) {
 				if (property.getId().equals(visible.getId())) { // prop#equals() not implemented

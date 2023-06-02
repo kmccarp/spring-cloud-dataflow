@@ -40,13 +40,13 @@ class AddAppOptionsTaskExpansionStrategy implements TaskExpansionStrategy {
 	private final ProposalsCollectorSupportUtils collectorSupport;
 
 	public AddAppOptionsTaskExpansionStrategy(AppRegistryService appRegistry,
-			ApplicationConfigurationMetadataResolver metadataResolver) {
+ApplicationConfigurationMetadataResolver metadataResolver) {
 		this.collectorSupport = new ProposalsCollectorSupportUtils(appRegistry, metadataResolver);
 	}
 
 	@Override
 	public boolean addProposals(String text, TaskDefinition taskDefinition, int detailLevel,
-			List<CompletionProposal> collector) {
+List<CompletionProposal> collector) {
 		String appName = taskDefinition.getRegisteredAppName();
 
 		AppRegistration appRegistration = this.collectorSupport.findAppRegistration(appName, ApplicationType.task);

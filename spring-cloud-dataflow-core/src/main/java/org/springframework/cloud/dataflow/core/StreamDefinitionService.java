@@ -30,13 +30,13 @@ import org.springframework.cloud.dataflow.core.dsl.StreamNode;
 public interface StreamDefinitionService {
 
 	public final static List<String> dataFlowAddedProperties = Arrays.asList(
-			DataFlowPropertyKeys.STREAM_APP_TYPE,
-			DataFlowPropertyKeys.STREAM_APP_LABEL,
-			DataFlowPropertyKeys.STREAM_NAME,
-			BindingPropertyKeys.INPUT_GROUP,
-			BindingPropertyKeys.OUTPUT_REQUIRED_GROUPS,
-			BindingPropertyKeys.OUTPUT_DESTINATION,
-			BindingPropertyKeys.INPUT_DESTINATION);
+DataFlowPropertyKeys.STREAM_APP_TYPE,
+DataFlowPropertyKeys.STREAM_APP_LABEL,
+DataFlowPropertyKeys.STREAM_NAME,
+BindingPropertyKeys.INPUT_GROUP,
+BindingPropertyKeys.OUTPUT_REQUIRED_GROUPS,
+BindingPropertyKeys.OUTPUT_DESTINATION,
+BindingPropertyKeys.INPUT_DESTINATION);
 
 	/**
 	 * Parse the given stream definition and return the AST representation of the stream DSL in {@link StreamNode}.

@@ -79,7 +79,7 @@ public class TaskParser extends AppParser {
 		TaskNode taskNode = new TaskNode(taskName, taskDefinition, sequences, inAppMode);
 		if (getTokens().hasNext()) {
 			getTokens().raiseException(getTokens().peek().startPos, DSLMessage.TASK_MORE_INPUT,
-					toString(getTokens().next()));
+		toString(getTokens().next()));
 		}
 		if (validate) {
 			TaskValidatorVisitor validator = new TaskValidatorVisitor();
@@ -193,7 +193,7 @@ public class TaskParser extends AppParser {
 		Token name = eat();
 		if (!name.isKind(TokenKind.IDENTIFIER)) {
 			getTokens().raiseException(name.startPos, DSLMessage.EXPECTED_APPNAME,
-					name.data != null ? name.data : new String(name.getKind().tokenChars));
+		name.data != null ? name.data : new String(name.getKind().tokenChars));
 		}
 		getTokens().checkpoint();
 		ArgumentNode[] arguments = (inAppMode ? maybeEatAppArgs() : null);
@@ -259,7 +259,7 @@ public class TaskParser extends AppParser {
 			}
 			transitionOn = peek();
 			if (transitionOn == null || (transitionOn.getKind() != TokenKind.IDENTIFIER
-					&& transitionOn.getKind() != TokenKind.LITERAL_STRING && transitionOn.getKind() != TokenKind.STAR)) {
+		&& transitionOn.getKind() != TokenKind.LITERAL_STRING && transitionOn.getKind() != TokenKind.STAR)) {
 				break;
 			}
 			eat();
@@ -284,7 +284,7 @@ public class TaskParser extends AppParser {
 				}
 				catch (NumberFormatException nfe) {
 					getTokens().raiseException(transitionOn.startPos,
-							DSLMessage.TASK_UNQUOTED_TRANSITION_CHECK_MUST_BE_NUMBER, t.getStatusToCheck());
+				DSLMessage.TASK_UNQUOTED_TRANSITION_CHECK_MUST_BE_NUMBER, t.getStatusToCheck());
 				}
 			}
 			transitions.add(t);

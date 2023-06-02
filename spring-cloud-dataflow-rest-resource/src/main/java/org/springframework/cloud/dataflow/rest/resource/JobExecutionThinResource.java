@@ -109,9 +109,9 @@ public class JobExecutionThinResource extends RepresentationModel<JobExecutionTh
 		this.executionId = jobExecution.getId();
 		this.jobId = jobExecution.getJobId();
 		this.stepExecutionCount = taskJobExecution.getStepExecutionCount();
-		this.jobParameters =converter.getProperties(jobExecution.getJobParameters());
+		this.jobParameters = converter.getProperties(jobExecution.getJobParameters());
 		this.jobParametersString = fromJobParameters(
-				this.argumentSanitizer.sanitizeJobParameters(jobExecution.getJobParameters()));
+	this.argumentSanitizer.sanitizeJobParameters(jobExecution.getJobParameters()));
 		this.defined = taskJobExecution.isTaskDefined();
 		JobInstance jobInstance = jobExecution.getJobInstance();
 		this.status = taskJobExecution.getJobExecution().getStatus();

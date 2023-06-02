@@ -16,32 +16,32 @@
 package org.springframework.cloud.dataflow.common.test.docker.compose.connection;
 
 public enum State {
-    DOWN, PAUSED, UNHEALTHY, HEALTHY;
+	DOWN, PAUSED, UNHEALTHY, HEALTHY;
 
-    /**
-     * Returns true if the container is up, unpaused and healthy.
-     *
-     * @return true if the container is up, unpaused and healthy
-     */
-    public boolean isHealthy() {
-        return this == HEALTHY;
-    }
+	/**
+	* Returns true if the container is up, unpaused and healthy.
+	*
+	* @return true if the container is up, unpaused and healthy
+	*/
+	public boolean isHealthy() {
+		return this == HEALTHY;
+	}
 
-    /**
-     * Returns true if the container is up but not necessarily unpaused or healthy.
-     *
-     * @return true if the container is up but not necessarily unpaused or healthy
-     */
-    public boolean isUp() {
-        return this != DOWN;
-    }
+	/**
+	* Returns true if the container is up but not necessarily unpaused or healthy.
+	*
+	* @return true if the container is up but not necessarily unpaused or healthy
+	*/
+	public boolean isUp() {
+		return this != DOWN;
+	}
 
-    /**
-     * Returns true if the container is paused.
-     *
-     * @return true if the container is paused
-     */
-    public boolean isPaused() {
-        return this == PAUSED;
-    }
+	/**
+	* Returns true if the container is paused.
+	*
+	* @return true if the container is paused
+	*/
+	public boolean isPaused() {
+		return this == PAUSED;
+	}
 }

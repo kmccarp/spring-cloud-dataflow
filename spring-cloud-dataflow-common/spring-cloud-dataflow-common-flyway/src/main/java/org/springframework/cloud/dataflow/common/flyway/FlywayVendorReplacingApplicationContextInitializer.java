@@ -41,8 +41,7 @@ import org.springframework.core.env.MapPropertySource;
  *
  * @author Chris Bono
  */
-public class FlywayVendorReplacingApplicationContextInitializer implements
-		ApplicationContextInitializer<ConfigurableApplicationContext>, Ordered {
+public class FlywayVendorReplacingApplicationContextInitializer implementsApplicationContextInitializer<ConfigurableApplicationContext>, Ordered {
 
 	private final Logger log = LoggerFactory.getLogger(FlywayVendorReplacingApplicationContextInitializer.class);
 

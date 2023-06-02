@@ -24,11 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration(proxyBeanMethods = false)
-@AutoConfigureBefore({
-		SecurityAutoConfiguration.class,
-		ManagementWebSecurityAutoConfiguration.class,
-		OAuth2ClientAutoConfiguration.class,
-		OAuth2ResourceServerAutoConfiguration.class})
+@AutoConfigureBefore({SecurityAutoConfiguration.class,ManagementWebSecurityAutoConfiguration.class,OAuth2ClientAutoConfiguration.class,OAuth2ResourceServerAutoConfiguration.class})
 @Import({IgnoreAllSecurityConfiguration.class, OAuthSecurityConfiguration.class})
 public class CommonSecurityAutoConfiguration {
 }

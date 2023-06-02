@@ -28,7 +28,7 @@ import org.springframework.batch.core.JobInstance;
  * @author Gary Russell
  * @since 1.0
  */
-@JsonIgnoreProperties({ "instanceId" })
+@JsonIgnoreProperties({"instanceId"})
 public abstract class JobInstanceJacksonMixIn {
 
 	JobInstanceJacksonMixIn(@JsonProperty("id") Long id, @JsonProperty("jobName") String jobName) {

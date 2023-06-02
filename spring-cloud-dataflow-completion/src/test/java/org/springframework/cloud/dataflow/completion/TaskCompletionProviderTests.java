@@ -46,8 +46,7 @@ import static org.junit.Assert.assertThat;
  */
 @SuppressWarnings("unchecked")
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { CompletionConfiguration.class, CompletionTestsMocks.class }, properties = {
-		"spring.main.allow-bean-definition-overriding=true" })
+@SpringBootTest(classes = {CompletionConfiguration.class, CompletionTestsMocks.class}, properties = {"spring.main.allow-bean-definition-overriding=true"})
 public class TaskCompletionProviderTests {
 
 	@Autowired
@@ -72,24 +71,24 @@ public class TaskCompletionProviderTests {
 	// basic<TAB> => basic --foo=, etc
 	public void testValidTaskDefinitionShouldReturnAppOptions() {
 		assertThat(completionProvider.complete("basic ", 1),
-				hasItems(Proposals.proposalThat(is("basic --expression=")), Proposals.proposalThat(is("basic --expresso="))));
+	hasItems(Proposals.proposalThat(is("basic --expression=")), Proposals.proposalThat(is("basic --expresso="))));
 		// Same as above, no final space
 		assertThat(completionProvider.complete("basic", 1),
-				hasItems(Proposals.proposalThat(is("basic --expression=")), Proposals.proposalThat(is("basic --expresso="))));
+	hasItems(Proposals.proposalThat(is("basic --expression=")), Proposals.proposalThat(is("basic --expresso="))));
 	}
 
 	@Test
 	// file | filter -<TAB> => file | filter --foo,etc
 	public void testOneDashShouldReturnTwoDashes() {
 		assertThat(completionProvider.complete("basic -", 1),
-				hasItems(Proposals.proposalThat(is("basic --expression=")), Proposals.proposalThat(is("basic --expresso="))));
+	hasItems(Proposals.proposalThat(is("basic --expression=")), Proposals.proposalThat(is("basic --expresso="))));
 	}
 
 	@Test
 	// basic --<TAB> => basic --foo,etc
 	public void testTwoDashesShouldReturnOptions() {
 		assertThat(completionProvider.complete("basic --", 1),
-				hasItems(Proposals.proposalThat(is("basic --expression=")), Proposals.proposalThat(is("basic --expresso="))));
+	hasItems(Proposals.proposalThat(is("basic --expression=")), Proposals.proposalThat(is("basic --expresso="))));
 	}
 
 	@Test
@@ -108,14 +107,14 @@ public class TaskCompletionProviderTests {
 	// plum --use-ssl=<TAB> => propose true|false
 	public void testValueHintForBooleans() {
 		assertThat(completionProvider.complete("plum --use-ssl=", 1),
-				hasItems(Proposals.proposalThat(is("plum --use-ssl=true")), Proposals.proposalThat(is("plum --use-ssl=false"))));
+	hasItems(Proposals.proposalThat(is("plum --use-ssl=true")), Proposals.proposalThat(is("plum --use-ssl=false"))));
 	}
 
 	@Test
 	// basic --enum-value=<TAB> => propose enum values
 	public void testValueHintForEnums() {
 		assertThat(completionProvider.complete("basic --expresso=", 1),
-				hasItems(Proposals.proposalThat(is("basic --expresso=SINGLE")), Proposals.proposalThat(is("basic --expresso=DOUBLE"))));
+	hasItems(Proposals.proposalThat(is("basic --expresso=SINGLE")), Proposals.proposalThat(is("basic --expresso=DOUBLE"))));
 	}
 
 	@Test
@@ -136,6 +135,6 @@ public class TaskCompletionProviderTests {
 	@Test
 	public void testClosedSetValuesShouldBeExclusive() {
 		assertThat(completionProvider.complete("basic --expresso=s", 1),
-				not(hasItems(Proposals.proposalThat(startsWith("basic --expresso=s --fooble")))));
+	not(hasItems(Proposals.proposalThat(startsWith("basic --expresso=s --fooble")))));
 	}
 }

@@ -17,5 +17,5 @@ package org.springframework.cloud.dataflow.common.test.docker.compose.connection
 
 @FunctionalInterface
 public interface HealthCheck<T> {
-    SuccessOrFailure isHealthy(T target);
+	SuccessOrFailure isHealthy(T target);
 }

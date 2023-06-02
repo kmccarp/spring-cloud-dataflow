@@ -32,15 +32,15 @@ public class DockerComposeExecutable implements Executable {
 	private static final Logger log = LoggerFactory.getLogger(DockerComposeExecutable.class);
 
 	private static final DockerCommandLocations DOCKER_COMPOSE_LOCATIONS = new DockerCommandLocations(
-			System.getenv("DOCKER_COMPOSE_LOCATION"),
-			"/usr/local/bin/docker-compose",
-			"/usr/bin/docker-compose"
+System.getenv("DOCKER_COMPOSE_LOCATION"),
+"/usr/local/bin/docker-compose",
+"/usr/bin/docker-compose"
 	);
 
 	private static String defaultDockerComposePath() {
 		String pathToUse = DOCKER_COMPOSE_LOCATIONS.preferredLocation()
-				.orElseThrow(() -> new IllegalStateException(
-						"Could not find docker-compose, looked in: " + DOCKER_COMPOSE_LOCATIONS));
+	.orElseThrow(() -> new IllegalStateException(
+"Could not find docker-compose, looked in: " + DOCKER_COMPOSE_LOCATIONS));
 
 		log.debug("Using docker-compose found at " + pathToUse);
 
@@ -120,9 +120,9 @@ public class DockerComposeExecutable implements Executable {
 
 		log.debug("execute:{}", args);
 		return dockerConfiguration().configuredDockerComposeProcess()
-				.command(args)
-				.redirectErrorStream(true)
-				.start();
+	.command(args)
+	.redirectErrorStream(true)
+	.start();
 	}
 
 	public static Builder builder() {

@@ -63,14 +63,14 @@ public class Command {
 	public static ErrorHandler throwingOnError() {
 		return (exitCode, output, commandName, commands) -> {
 			String message =
-					constructNonZeroExitErrorMessage(exitCode, commandName, commands) + "\nThe output was:\n" + output;
+		constructNonZeroExitErrorMessage(exitCode, commandName, commands) + "\nThe output was:\n" + output;
 			throw new DockerExecutionException(message);
 		};
 	}
 
 	private static String constructNonZeroExitErrorMessage(int exitCode, String commandName, String... commands) {
 		return "'" + commandName + " " + Arrays.stream(commands).collect(joining(" ")) + "' returned exit code "
-				+ exitCode;
+	+ exitCode;
 	}
 
 	private ProcessResult run(String... commands) throws IOException, InterruptedException {
@@ -78,7 +78,7 @@ public class Command {
 
 		ExecutorService exec = newSingleThreadExecutor();
 		Future<String> outputProcessing = exec
-				.submit(() -> processOutputFrom(process));
+	.submit(() -> processOutputFrom(process));
 
 		String output = waitForResultFrom(outputProcessing);
 
@@ -90,8 +90,8 @@ public class Command {
 
 	private String processOutputFrom(Process process) {
 		return asReader(process.getInputStream()).lines()
-				.peek(logConsumer)
-				.collect(joining(System.lineSeparator()));
+	.peek(logConsumer)
+	.collect(joining(System.lineSeparator()));
 	}
 
 	private static String waitForResultFrom(Future<String> outputProcessing) {

@@ -90,7 +90,7 @@ public class CompletionProposal {
 		 */
 		public CompletionProposal withSeparateTokens(String suffix, String explanation) {
 			return new CompletionProposal(
-					(start.endsWith(" ") || start.isEmpty()) ? start + suffix : start + " " + suffix, explanation);
+		(start.endsWith(" ") || start.isEmpty()) ? start + suffix : start + " " + suffix, explanation);
 		}
 
 		/**

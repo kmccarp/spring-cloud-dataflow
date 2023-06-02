@@ -37,7 +37,7 @@ abstract class DataFlowAppDefinition {
 	 * The name of the registered app.
 	 */
 	private volatile String registeredAppName;
-	
+
 	/**
 	 * The {@link ApplicationType}
 	 */
@@ -135,8 +135,8 @@ abstract class DataFlowAppDefinition {
 	@Override
 	public String toString() {
 		return "DataFlowAppDefinition [name=" + getName()
-				+ ", type=" + getApplicationType()+", registeredAppName=" + getRegisteredAppName()
-				+ ", properties=" + this.appDefinition.getProperties() + "]";
+	+ ", type=" + getApplicationType() + ", registeredAppName=" + getRegisteredAppName()
+	+ ", properties=" + this.appDefinition.getProperties() + "]";
 	}
 
 }

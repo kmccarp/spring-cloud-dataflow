@@ -62,8 +62,8 @@ public class DockerMachine implements DockerConfiguration {
 		Optional<DockerType> dockerType = DockerType.getFirstValidDockerTypeForEnvironment(systemEnv);
 		if (!dockerType.isPresent()) {
 			log.debug(
-					"Failed to determine Docker type (daemon or remote) based on current environment. "
-							+ "Proceeding with {} as the type.", FALLBACK_DOCKER_TYPE);
+		"Failed to determine Docker type (daemon or remote) based on current environment. "
+	+ "Proceeding with {} as the type.", FALLBACK_DOCKER_TYPE);
 		}
 
 		return new LocalBuilder(dockerType.orElse(FALLBACK_DOCKER_TYPE), systemEnv);
@@ -115,7 +115,8 @@ public class DockerMachine implements DockerConfiguration {
 		private final Map<String, String> dockerEnvironment = new HashMap<>();
 		private Map<String, String> additionalEnvironment = new HashMap<>();
 
-		private RemoteBuilder() {}
+		private RemoteBuilder() {
+		}
 
 		public RemoteBuilder host(String hostname) {
 			dockerEnvironment.put(DOCKER_HOST, hostname);

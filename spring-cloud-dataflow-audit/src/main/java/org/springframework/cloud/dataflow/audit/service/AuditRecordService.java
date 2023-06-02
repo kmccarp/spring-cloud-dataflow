@@ -54,11 +54,11 @@ public interface AuditRecordService {
 	 * @return newly created AuditRecord
 	 */
 	AuditRecord populateAndSaveAuditRecord(
-			AuditOperationType auditOperationType,
-			AuditActionType auditActionType,
-			String correlationId,
-			String data,
-			String platformName);
+AuditOperationType auditOperationType,
+AuditActionType auditActionType,
+String correlationId,
+String data,
+String platformName);
 
 	/**
 	 * Similar to
@@ -76,9 +76,9 @@ public interface AuditRecordService {
 	 * @return newly created AuditRecord
 	 */
 	AuditRecord populateAndSaveAuditRecordUsingMapData(
-			AuditOperationType auditOperationType, AuditActionType auditActionType,
-			String correlationId,
-			Map<String, Object> data, String platformName);
+AuditOperationType auditOperationType, AuditActionType auditActionType,
+String correlationId,
+Map<String, Object> data, String platformName);
 
 	/**
 	 * Allows for querying of {@link AuditRecord}s.
@@ -95,11 +95,11 @@ public interface AuditRecordService {
 	 * @return a {@link Page} of {@link AuditRecord}s
 	 */
 	Page<AuditRecord> findAuditRecordByAuditOperationTypeAndAuditActionTypeAndDate(
-			Pageable pageable,
-			AuditActionType[] actions,
-			AuditOperationType[] operations,
-			Instant fromDate,
-			Instant toDate);
+Pageable pageable,
+AuditActionType[] actions,
+AuditOperationType[] operations,
+Instant fromDate,
+Instant toDate);
 
 	/**
 	 * Find a single {@link AuditRecord} by providing a mandatory id.

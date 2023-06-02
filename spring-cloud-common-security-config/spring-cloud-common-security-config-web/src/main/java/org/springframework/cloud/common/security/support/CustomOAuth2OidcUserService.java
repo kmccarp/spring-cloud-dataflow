@@ -54,8 +54,8 @@ public class CustomOAuth2OidcUserService implements OAuth2UserService<OidcUserRe
 		final OidcUser oidcUser = delegate.loadUser(userRequest);
 		final OAuth2AccessToken accessToken = userRequest.getAccessToken();
 		final Set<GrantedAuthority> mappedAuthorities1 = this.authorityMapper.mapScopesToAuthorities(
-				userRequest.getClientRegistration().getRegistrationId(), accessToken.getScopes(),
-				accessToken.getTokenValue());
+	userRequest.getClientRegistration().getRegistrationId(), accessToken.getScopes(),
+	accessToken.getTokenValue());
 
 		List<String> roleClaims = oidcUser.getClaimAsStringList("groups");
 		if (roleClaims == null) {
@@ -66,10 +66,10 @@ public class CustomOAuth2OidcUserService implements OAuth2UserService<OidcUserRe
 		}
 		log.debug("roleClaims: {}", roleClaims);
 		Set<GrantedAuthority> mappedAuthorities2 = this.authorityMapper
-				.mapClaimsToAuthorities(userRequest.getClientRegistration().getRegistrationId(), roleClaims);
+	.mapClaimsToAuthorities(userRequest.getClientRegistration().getRegistrationId(), roleClaims);
 
 		final String userNameAttributeName = userRequest.getClientRegistration()
-				.getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
+	.getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 
 		log.debug("AccessToken: {}", accessToken.getTokenValue());
 
@@ -81,8 +81,9 @@ public class CustomOAuth2OidcUserService implements OAuth2UserService<OidcUserRe
 
 		if (StringUtils.hasText(userNameAttributeName)) {
 			oidcUserToReturn = new DefaultOidcUser(mappedAuthorities, userRequest.getIdToken(), oidcUser.getUserInfo(),
-					userNameAttributeName);
-		} else {
+		userNameAttributeName);
+		}
+		else {
 			oidcUserToReturn = new DefaultOidcUser(mappedAuthorities, userRequest.getIdToken(), oidcUser.getUserInfo());
 		}
 		return oidcUserToReturn;

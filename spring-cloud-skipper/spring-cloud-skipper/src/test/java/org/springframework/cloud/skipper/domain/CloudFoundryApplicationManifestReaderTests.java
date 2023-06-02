@@ -34,10 +34,10 @@ public class CloudFoundryApplicationManifestReaderTests {
 	@Test
 	public void readTests() throws IOException {
 		String manifestYaml = StreamUtils.copyToString(
-				TestResourceUtils.qualifiedResource(getClass(), "manifest1.yml").getInputStream(),
-				Charset.defaultCharset());
+	TestResourceUtils.qualifiedResource(getClass(), "manifest1.yml").getInputStream(),
+	Charset.defaultCharset());
 		List<CloudFoundryApplicationSkipperManifest> applicationSpecList = this.applicationManifestReader
-				.read(manifestYaml);
+	.read(manifestYaml);
 
 		assertThat(applicationSpecList).hasSize(1);
 		assertThat(applicationSpecList.get(0) instanceof CloudFoundryApplicationSkipperManifest).isTrue();
@@ -67,10 +67,10 @@ public class CloudFoundryApplicationManifestReaderTests {
 	@Test
 	public void readListAlternativeFormat() throws IOException {
 		String manifestYaml = StreamUtils.copyToString(
-				TestResourceUtils.qualifiedResource(getClass(), "manifest2.yml").getInputStream(),
-				Charset.defaultCharset());
+	TestResourceUtils.qualifiedResource(getClass(), "manifest2.yml").getInputStream(),
+	Charset.defaultCharset());
 		List<CloudFoundryApplicationSkipperManifest> applicationSpecList = this.applicationManifestReader
-				.read(manifestYaml);
+	.read(manifestYaml);
 
 		assertThat(applicationSpecList).hasSize(1);
 		assertThat(applicationSpecList.get(0) instanceof CloudFoundryApplicationSkipperManifest).isTrue();

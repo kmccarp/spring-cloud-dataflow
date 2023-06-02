@@ -38,82 +38,91 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommandTests {
-    @Mock private Process executedProcess;
-    @Mock private DockerComposeExecutable dockerComposeExecutable;
-    @Mock private ErrorHandler errorHandler;
-    private Command dockerComposeCommand;
-    private final List<String> consumedLogLines = new ArrayList<>();
-    private final Consumer<String> logConsumer = s -> consumedLogLines.add(s);
+	@Mock
+	private Process executedProcess;
+	@Mock
+	private DockerComposeExecutable dockerComposeExecutable;
+	@Mock
+	private ErrorHandler errorHandler;
+	private Command dockerComposeCommand;
+	private final List<String> consumedLogLines = new ArrayList<>();
+	private final Consumer<String> logConsumer = s -> consumedLogLines.add(s);
 
-    @Before
-    public void before() throws IOException {
-        when(dockerComposeExecutable.execute(any())).thenReturn(executedProcess);
-        dockerComposeCommand = new Command(dockerComposeExecutable, logConsumer);
+	@Before
+	public void before() throws IOException {
+		when(dockerComposeExecutable.execute(any())).thenReturn(executedProcess);
+		dockerComposeCommand = new Command(dockerComposeExecutable, logConsumer);
 
-        givenTheUnderlyingProcessHasOutput("");
-        givenTheUnderlyingProcessTerminatesWithAnExitCodeOf(0);
-    }
+		givenTheUnderlyingProcessHasOutput("");
+		givenTheUnderlyingProcessTerminatesWithAnExitCodeOf(0);
+	}
 
-    @Test public void
-    invoke_error_handler_when_exit_code_of_the_executed_process_is_non_0() throws IOException, InterruptedException {
-        int expectedExitCode = 1;
-        givenTheUnderlyingProcessTerminatesWithAnExitCodeOf(expectedExitCode);
-        dockerComposeCommand.execute(errorHandler, "rm", "-f");
+	@Test
+	public void
+invoke_error_handler_when_exit_code_of_the_executed_process_is_non_0() throws IOException, InterruptedException {
+		int expectedExitCode = 1;
+		givenTheUnderlyingProcessTerminatesWithAnExitCodeOf(expectedExitCode);
+		dockerComposeCommand.execute(errorHandler, "rm", "-f");
 
-        verify(errorHandler).handle(expectedExitCode, "", "docker-compose", "rm", "-f");
-    }
+		verify(errorHandler).handle(expectedExitCode, "", "docker-compose", "rm", "-f");
+	}
 
-    @Test public void
-    not_invoke_error_handler_when_exit_code_of_the_executed_process_is_0() throws IOException, InterruptedException {
-        dockerComposeCommand.execute(errorHandler, "rm", "-f");
+	@Test
+	public void
+not_invoke_error_handler_when_exit_code_of_the_executed_process_is_0() throws IOException, InterruptedException {
+		dockerComposeCommand.execute(errorHandler, "rm", "-f");
 
-        verifyNoMoreInteractions(errorHandler);
-    }
+		verifyNoMoreInteractions(errorHandler);
+	}
 
-    @Test public void
-    return_output_when_exit_code_of_the_executed_process_is_non_0() throws IOException, InterruptedException {
-        String expectedOutput = "test output";
-        givenTheUnderlyingProcessTerminatesWithAnExitCodeOf(1);
-        givenTheUnderlyingProcessHasOutput(expectedOutput);
-        String commandOutput = dockerComposeCommand.execute(errorHandler, "rm", "-f");
+	@Test
+	public void
+return_output_when_exit_code_of_the_executed_process_is_non_0() throws IOException, InterruptedException {
+		String expectedOutput = "test output";
+		givenTheUnderlyingProcessTerminatesWithAnExitCodeOf(1);
+		givenTheUnderlyingProcessHasOutput(expectedOutput);
+		String commandOutput = dockerComposeCommand.execute(errorHandler, "rm", "-f");
 
-        assertThat(commandOutput, is(expectedOutput));
-    }
+		assertThat(commandOutput, is(expectedOutput));
+	}
 
-    @Test public void
-    return_output_when_exit_code_of_the_executed_process_is_0() throws IOException, InterruptedException {
-        String expectedOutput = "test output";
-        givenTheUnderlyingProcessHasOutput(expectedOutput);
-        String commandOutput = dockerComposeCommand.execute(errorHandler, "rm", "-f");
+	@Test
+	public void
+return_output_when_exit_code_of_the_executed_process_is_0() throws IOException, InterruptedException {
+		String expectedOutput = "test output";
+		givenTheUnderlyingProcessHasOutput(expectedOutput);
+		String commandOutput = dockerComposeCommand.execute(errorHandler, "rm", "-f");
 
-        assertThat(commandOutput, is(expectedOutput));
-    }
+		assertThat(commandOutput, is(expectedOutput));
+	}
 
-    @Test public void
-    give_the_output_to_the_specified_consumer_as_it_is_available() throws IOException, InterruptedException {
-        givenTheUnderlyingProcessHasOutput("line 1\nline 2");
+	@Test
+	public void
+give_the_output_to_the_specified_consumer_as_it_is_available() throws IOException, InterruptedException {
+		givenTheUnderlyingProcessHasOutput("line 1\nline 2");
 
-        dockerComposeCommand.execute(errorHandler, "rm", "-f");
+		dockerComposeCommand.execute(errorHandler, "rm", "-f");
 
-        assertThat(consumedLogLines, contains("line 1", "line 2"));
-    }
+		assertThat(consumedLogLines, contains("line 1", "line 2"));
+	}
 
-    // flaky test: https://circleci.com/gh/palantir/docker-compose-rule/378, 370, 367, 366
-    @Ignore
-    @Test public void
-    not_create_long_lived_threads_after_execution() throws IOException, InterruptedException {
-        int preThreadCount = Thread.getAllStackTraces().entrySet().size();
-        dockerComposeCommand.execute(errorHandler, "rm", "-f");
-        int postThreadCount = Thread.getAllStackTraces().entrySet().size();
-        assertThat("command thread pool has exited", preThreadCount == postThreadCount);
-    }
+	// flaky test: https://circleci.com/gh/palantir/docker-compose-rule/378, 370, 367, 366
+	@Ignore
+	@Test
+	public void
+not_create_long_lived_threads_after_execution() throws IOException, InterruptedException {
+		int preThreadCount = Thread.getAllStackTraces().entrySet().size();
+		dockerComposeCommand.execute(errorHandler, "rm", "-f");
+		int postThreadCount = Thread.getAllStackTraces().entrySet().size();
+		assertThat("command thread pool has exited", preThreadCount == postThreadCount);
+	}
 
-    private void givenTheUnderlyingProcessHasOutput(String output) {
-        when(executedProcess.getInputStream()).thenReturn(toInputStream(output));
-    }
+	private void givenTheUnderlyingProcessHasOutput(String output) {
+		when(executedProcess.getInputStream()).thenReturn(toInputStream(output));
+	}
 
-    private void givenTheUnderlyingProcessTerminatesWithAnExitCodeOf(int exitCode) {
-        when(executedProcess.exitValue()).thenReturn(exitCode);
-    }
+	private void givenTheUnderlyingProcessTerminatesWithAnExitCodeOf(int exitCode) {
+		when(executedProcess.exitValue()).thenReturn(exitCode);
+	}
 
 }

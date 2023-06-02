@@ -143,7 +143,7 @@ public class AppRegistration extends AbstractEntity implements Comparable<AppReg
 	 * @param bootVersion The bootVersion of the application.
 	 */
 	public AppRegistration(String name, ApplicationType type, String version, URI uri, URI metadataUri, AppBootSchemaVersion bootVersion) {
-		this(name,type,version,uri,metadataUri);
+		this(name, type, version, uri, metadataUri);
 		this.bootVersion = bootVersion;
 	}
 
@@ -226,9 +226,9 @@ public class AppRegistration extends AbstractEntity implements Comparable<AppReg
 	@Override
 	public String toString() {
 		return "AppRegistration{" + "name='" + this.getName() + '\'' + ", type='" + this.getType()
-				+ '\'' + ", version='" + this.getVersion() + '\'' + ", uri=" + this.getUri()
-				+ ", metadataUri=" + this.getMetadataUri() +
-				", bootVersion=\'" + this.getBootVersion().getBootVersion() + '}';
+	+ '\'' + ", version='" + this.getVersion() + '\'' + ", uri=" + this.getUri()
+	+ ", metadataUri=" + this.getMetadataUri() +
+	", bootVersion=\'" + this.getBootVersion().getBootVersion() + '}';
 	}
 
 	@Override
@@ -257,7 +257,7 @@ public class AppRegistration extends AbstractEntity implements Comparable<AppReg
 		AppRegistration appRegistration = (AppRegistration) o;
 		// field comparison
 		return this.getName().equals(appRegistration.getName())
-				&& this.getType().equals(appRegistration.getType());
+	&& this.getType().equals(appRegistration.getType());
 	}
 
 

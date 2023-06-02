@@ -58,26 +58,11 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfigurationMetadataResolverAutoConfigurationTest.TestConfig.class)
-@TestPropertySource(properties = {
-		".dockerconfigjson={\"auths\":{\"demo.repository.io\":{\"username\":\"testuser\",\"password\":\"testpassword\",\"auth\":\"YWRtaW46SGFyYm9yMTIzNDU=\"}" +
-				",\"demo2.repository.io\":{\"username\":\"testuser\",\"password\":\"testpassword\",\"auth\":\"YWRtaW46SGFyYm9yMTIzNDU=\"}}}",
-		"spring.cloud.dataflow.container.registry-configurations[demorepositoryio].registry-host=demo.repository.io",
-		"spring.cloud.dataflow.container.registry-configurations[demorepositoryio].disable-ssl-verification=true",
-
-		"spring.cloud.dataflow.container.registry-configurations[demorepositoryio2].registry-host=demo2.repository.io",
-		"spring.cloud.dataflow.container.registry-configurations[demorepositoryio2].disable-ssl-verification=true",
-		"spring.cloud.dataflow.container.registry-configurations[demorepositoryio2].use-http-proxy=true",
-
-		"spring.cloud.dataflow.container.registry-configurations[goharbor].registry-host=demo.goharbor.io",
-		"spring.cloud.dataflow.container.registry-configurations[goharbor].authorization-type=dockeroauth2",
-		"spring.cloud.dataflow.container.registry-configurations[goharbor].user=admin",
-		"spring.cloud.dataflow.container.registry-configurations[goharbor].secret=Harbor12345",
-
-		"spring.cloud.dataflow.container.registry-configurations[goharbor2].registry-host=demo2.goharbor.io",
-		"spring.cloud.dataflow.container.registry-configurations[goharbor2].authorization-type=dockeroauth2",
-		"spring.cloud.dataflow.container.registry-configurations[goharbor2].user=admin",
-		"spring.cloud.dataflow.container.registry-configurations[goharbor2].secret=Harbor12345",
-		"spring.cloud.dataflow.container.registry-configurations[goharbor2].use-http-proxy=true"
+@TestPropertySource(properties = {".dockerconfigjson={\"auths\":{\"demo.repository.io\":{\"username\":\"testuser\",\"password\":\"testpassword\",\"auth\":\"YWRtaW46SGFyYm9yMTIzNDU=\"}" +
+				",\"demo2.repository.io\":{\"username\":\"testuser\",\"password\":\"testpassword\",\"auth\":\"YWRtaW46SGFyYm9yMTIzNDU=\"}}}","spring.cloud.dataflow.container.registry-configurations[demorepositoryio].registry-host=demo.repository.io","spring.cloud.dataflow.container.registry-configurations[demorepositoryio].disable-ssl-verification=true",
+"spring.cloud.dataflow.container.registry-configurations[demorepositoryio2].registry-host=demo2.repository.io","spring.cloud.dataflow.container.registry-configurations[demorepositoryio2].disable-ssl-verification=true","spring.cloud.dataflow.container.registry-configurations[demorepositoryio2].use-http-proxy=true",
+"spring.cloud.dataflow.container.registry-configurations[goharbor].registry-host=demo.goharbor.io","spring.cloud.dataflow.container.registry-configurations[goharbor].authorization-type=dockeroauth2","spring.cloud.dataflow.container.registry-configurations[goharbor].user=admin","spring.cloud.dataflow.container.registry-configurations[goharbor].secret=Harbor12345",
+"spring.cloud.dataflow.container.registry-configurations[goharbor2].registry-host=demo2.goharbor.io","spring.cloud.dataflow.container.registry-configurations[goharbor2].authorization-type=dockeroauth2","spring.cloud.dataflow.container.registry-configurations[goharbor2].user=admin","spring.cloud.dataflow.container.registry-configurations[goharbor2].secret=Harbor12345","spring.cloud.dataflow.container.registry-configurations[goharbor2].use-http-proxy=true"
 })
 public class ApplicationConfigurationMetadataResolverAutoConfigurationTest {
 
@@ -117,11 +102,11 @@ public class ApplicationConfigurationMetadataResolverAutoConfigurationTest {
 		assertThat(secretConf.getUser()).isEqualTo("testuser");
 		assertThat(secretConf.getSecret()).isEqualTo("testpassword");
 		assertThat(secretConf.isDisableSslVerification())
-				.describedAs("The explicit disable-ssl-verification=true property should augment the .dockerconfigjson based config")
-				.isTrue();
+	.describedAs("The explicit disable-ssl-verification=true property should augment the .dockerconfigjson based config")
+	.isTrue();
 		assertThat(secretConf.getExtra()).isNotEmpty();
 		assertThat(secretConf.getExtra().get(DockerOAuth2RegistryAuthorizer.DOCKER_REGISTRY_AUTH_URI_KEY))
-				.isEqualTo("https://demo.repository.io/service/token?service=demo-registry&scope=repository:{repository}:pull");
+	.isEqualTo("https://demo.repository.io/service/token?service=demo-registry&scope=repository:{repository}:pull");
 
 		ContainerRegistryConfiguration secretConf2 = registryConfigurationMap.get("demo2.repository.io");
 		assertThat(secretConf2).isNotNull();
@@ -130,11 +115,11 @@ public class ApplicationConfigurationMetadataResolverAutoConfigurationTest {
 		assertThat(secretConf2.getUser()).isEqualTo("testuser");
 		assertThat(secretConf2.getSecret()).isEqualTo("testpassword");
 		assertThat(secretConf2.isDisableSslVerification())
-				.describedAs("The explicit disable-ssl-verification=true property should augment the .dockerconfigjson based config")
-				.isTrue();
+	.describedAs("The explicit disable-ssl-verification=true property should augment the .dockerconfigjson based config")
+	.isTrue();
 		assertThat(secretConf2.getExtra()).isNotEmpty();
 		assertThat(secretConf2.getExtra().get(DockerOAuth2RegistryAuthorizer.DOCKER_REGISTRY_AUTH_URI_KEY))
-				.isEqualTo("https://demo2.repository.io/service/token?service=demo-registry&scope=repository:{repository}:pull");
+	.isEqualTo("https://demo2.repository.io/service/token?service=demo-registry&scope=repository:{repository}:pull");
 
 		ContainerRegistryConfiguration goharborConf = registryConfigurationMap.get("demo.goharbor.io");
 		assertThat(goharborConf).isNotNull();
@@ -145,7 +130,7 @@ public class ApplicationConfigurationMetadataResolverAutoConfigurationTest {
 		assertThat(goharborConf.isDisableSslVerification()).isFalse();
 		assertThat(goharborConf.getExtra()).isNotEmpty();
 		assertThat(goharborConf.getExtra().get(DockerOAuth2RegistryAuthorizer.DOCKER_REGISTRY_AUTH_URI_KEY))
-				.isEqualTo("https://demo.goharbor.io/service/token?service=demo-registry2&scope=repository:{repository}:pull");
+	.isEqualTo("https://demo.goharbor.io/service/token?service=demo-registry2&scope=repository:{repository}:pull");
 
 
 		ContainerRegistryConfiguration goharborConf2 = registryConfigurationMap.get("demo2.goharbor.io");
@@ -157,7 +142,7 @@ public class ApplicationConfigurationMetadataResolverAutoConfigurationTest {
 		assertThat(goharborConf2.isDisableSslVerification()).isFalse();
 		assertThat(goharborConf2.getExtra()).isNotEmpty();
 		assertThat(goharborConf2.getExtra().get(DockerOAuth2RegistryAuthorizer.DOCKER_REGISTRY_AUTH_URI_KEY))
-				.isEqualTo("https://demo2.goharbor.io/service/token?service=demo-registry2&scope=repository:{repository}:pull");
+	.isEqualTo("https://demo2.goharbor.io/service/token?service=demo-registry2&scope=repository:{repository}:pull");
 	}
 
 	@Test
@@ -168,18 +153,18 @@ public class ApplicationConfigurationMetadataResolverAutoConfigurationTest {
 
 		// Determine the OAuth2 token service entry point.
 		verify(noSslVerificationContainerRestTemplate)
-				.exchange(eq(new URI("https://demo.goharbor.io/v2/")), eq(HttpMethod.GET), any(), eq(Map.class));
+	.exchange(eq(new URI("https://demo.goharbor.io/v2/")), eq(HttpMethod.GET), any(), eq(Map.class));
 
 		// Get authorization token
 		verify(containerRestTemplate).exchange(
-				eq(new URI("https://demo.goharbor.io/service/token?service=demo-registry2&scope=repository:test/image:pull")),
-				eq(HttpMethod.GET), any(), eq(Map.class));
+	eq(new URI("https://demo.goharbor.io/service/token?service=demo-registry2&scope=repository:test/image:pull")),
+	eq(HttpMethod.GET), any(), eq(Map.class));
 		// Get Manifest
 		verify(containerRestTemplate).exchange(eq(new URI("https://demo.goharbor.io/v2/test/image/manifests/1.0.0")),
-				eq(HttpMethod.GET), any(), eq(Map.class));
+	eq(HttpMethod.GET), any(), eq(Map.class));
 		// Get Blobs
 		verify(containerRestTemplate).exchange(eq(new URI("https://demo.goharbor.io/v2/test/image/blobs/test_digest")),
-				eq(HttpMethod.GET), any(), eq(Map.class));
+	eq(HttpMethod.GET), any(), eq(Map.class));
 	}
 
 	@Test
@@ -190,30 +175,30 @@ public class ApplicationConfigurationMetadataResolverAutoConfigurationTest {
 
 		// Determine the OAuth2 token service entry point.
 		verify(noSslVerificationContainerRestTemplate)
-				.exchange(eq(new URI("https://demo.repository.io/v2/")), eq(HttpMethod.GET), any(), eq(Map.class));
+	.exchange(eq(new URI("https://demo.repository.io/v2/")), eq(HttpMethod.GET), any(), eq(Map.class));
 
 		// Get authorization token
 		verify(noSslVerificationContainerRestTemplate).exchange(
-				eq(new URI("https://demo.repository.io/service/token?service=demo-registry&scope=repository:disabledssl/image:pull")),
-				eq(HttpMethod.GET), any(), eq(Map.class));
+	eq(new URI("https://demo.repository.io/service/token?service=demo-registry&scope=repository:disabledssl/image:pull")),
+	eq(HttpMethod.GET), any(), eq(Map.class));
 		// Get Manifest
 		verify(noSslVerificationContainerRestTemplate).exchange(eq(new URI("https://demo.repository.io/v2/disabledssl/image/manifests/1.0.0")),
-				eq(HttpMethod.GET), any(), eq(Map.class));
+	eq(HttpMethod.GET), any(), eq(Map.class));
 		// Get Blobs
 		verify(noSslVerificationContainerRestTemplate).exchange(eq(new URI("https://demo.repository.io/v2/disabledssl/image/blobs/test_digest")),
-				eq(HttpMethod.GET), any(), eq(Map.class));
+	eq(HttpMethod.GET), any(), eq(Map.class));
 	}
 
-	@ImportAutoConfiguration({ ContainerRegistryAutoConfiguration.class, ApplicationConfigurationMetadataResolverAutoConfiguration.class })
+	@ImportAutoConfiguration({ContainerRegistryAutoConfiguration.class, ApplicationConfigurationMetadataResolverAutoConfiguration.class})
 	static class TestConfig {
 
 		@Bean
 		@ConditionalOnMissingBean(name = "containerImageRestTemplateFactory")
 		public ContainerImageRestTemplateFactory containerImageRestTemplateFactory(
-				@Qualifier("noSslVerificationContainerRestTemplate") RestTemplate noSslVerificationContainerRestTemplate,
-				@Qualifier("noSslVerificationContainerRestTemplateWithHttpProxy") RestTemplate noSslVerificationContainerRestTemplateWithHttpProxy,
-				@Qualifier("containerRestTemplate") RestTemplate containerRestTemplate,
-				@Qualifier("containerRestTemplateWithHttpProxy") RestTemplate containerRestTemplateWithHttpProxy) {
+	@Qualifier("noSslVerificationContainerRestTemplate") RestTemplate noSslVerificationContainerRestTemplate,
+	@Qualifier("noSslVerificationContainerRestTemplateWithHttpProxy") RestTemplate noSslVerificationContainerRestTemplateWithHttpProxy,
+	@Qualifier("containerRestTemplate") RestTemplate containerRestTemplate,
+	@Qualifier("containerRestTemplateWithHttpProxy") RestTemplate containerRestTemplateWithHttpProxy) {
 			ContainerImageRestTemplateFactory containerImageRestTemplateFactory = Mockito.mock(ContainerImageRestTemplateFactory.class);
 			when(containerImageRestTemplateFactory.getContainerRestTemplate(eq(true), eq(false))).thenReturn(noSslVerificationContainerRestTemplate);
 			when(containerImageRestTemplateFactory.getContainerRestTemplate(eq(true), eq(true))).thenReturn(noSslVerificationContainerRestTemplateWithHttpProxy);
@@ -230,38 +215,38 @@ public class ApplicationConfigurationMetadataResolverAutoConfigurationTest {
 			HttpHeaders authenticateHeader = new HttpHeaders();
 			authenticateHeader.add("Www-Authenticate", "Bearer realm=\"https://demo.repository.io/service/token\",service=\"demo-registry\",scope=\"registry:category:pull\"");
 			HttpClientErrorException httpClientErrorException =
-					HttpClientErrorException.create(HttpStatus.UNAUTHORIZED, "", authenticateHeader, new byte[0], null);
+		HttpClientErrorException.create(HttpStatus.UNAUTHORIZED, "", authenticateHeader, new byte[0], null);
 
 			when(restTemplate.exchange(eq(new URI("https://demo.repository.io/v2/")),
-					eq(HttpMethod.GET), any(), eq(Map.class))).thenThrow(httpClientErrorException);
+		eq(HttpMethod.GET), any(), eq(Map.class))).thenThrow(httpClientErrorException);
 
 
 			when(restTemplate
-					.exchange(
-							eq(new URI("https://demo.repository.io/service/token?service=demo-registry&scope=repository:disabledssl/image:pull")),
-							eq(HttpMethod.GET), any(), eq(Map.class)))
-					.thenReturn(new ResponseEntity<>(Collections.singletonMap("token", "my_token_999"), HttpStatus.OK));
+		.exchange(
+	eq(new URI("https://demo.repository.io/service/token?service=demo-registry&scope=repository:disabledssl/image:pull")),
+	eq(HttpMethod.GET), any(), eq(Map.class)))
+		.thenReturn(new ResponseEntity<>(Collections.singletonMap("token", "my_token_999"), HttpStatus.OK));
 
 			when(restTemplate
-					.exchange(
-							eq(new URI("https://demo.repository.io/v2/disabledssl/image/manifests/1.0.0")),
-							eq(HttpMethod.GET), any(), eq(Map.class)))
-					.thenReturn(new ResponseEntity<>(Collections.singletonMap("config", Collections.singletonMap("digest", "test_digest")), HttpStatus.OK));
+		.exchange(
+	eq(new URI("https://demo.repository.io/v2/disabledssl/image/manifests/1.0.0")),
+	eq(HttpMethod.GET), any(), eq(Map.class)))
+		.thenReturn(new ResponseEntity<>(Collections.singletonMap("config", Collections.singletonMap("digest", "test_digest")), HttpStatus.OK));
 
 			when(restTemplate
-					.exchange(
-							eq(new URI("https://demo.repository.io/v2/disabledssl/image/blobs/test_digest")),
-							eq(HttpMethod.GET), any(), eq(Map.class)))
-					.thenReturn(new ResponseEntity<>(blobValue(), HttpStatus.OK));
+		.exchange(
+	eq(new URI("https://demo.repository.io/v2/disabledssl/image/blobs/test_digest")),
+	eq(HttpMethod.GET), any(), eq(Map.class)))
+		.thenReturn(new ResponseEntity<>(blobValue(), HttpStatus.OK));
 
 			// demo.goharbor.io
 			HttpHeaders authenticateHeader2 = new HttpHeaders();
 			authenticateHeader2.add("Www-Authenticate", "Bearer realm=\"https://demo.goharbor.io/service/token\",service=\"demo-registry2\",scope=\"registry:category:pull\"");
 			HttpClientErrorException httpClientErrorException2 =
-					HttpClientErrorException.create(HttpStatus.UNAUTHORIZED, "", authenticateHeader2, new byte[0], null);
+		HttpClientErrorException.create(HttpStatus.UNAUTHORIZED, "", authenticateHeader2, new byte[0], null);
 
 			when(restTemplate.exchange(eq(new URI("https://demo.goharbor.io/v2/")),
-					eq(HttpMethod.GET), any(), eq(Map.class))).thenThrow(httpClientErrorException2);
+		eq(HttpMethod.GET), any(), eq(Map.class))).thenThrow(httpClientErrorException2);
 
 			return restTemplate;
 		}
@@ -271,22 +256,22 @@ public class ApplicationConfigurationMetadataResolverAutoConfigurationTest {
 			RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
 
 			when(restTemplate
-					.exchange(
-							eq(new URI("https://demo.goharbor.io/service/token?service=demo-registry2&scope=repository:test/image:pull")),
-							eq(HttpMethod.GET), any(), eq(Map.class)))
-					.thenReturn(new ResponseEntity<>(Collections.singletonMap("token", "my_token_999"), HttpStatus.OK));
+		.exchange(
+	eq(new URI("https://demo.goharbor.io/service/token?service=demo-registry2&scope=repository:test/image:pull")),
+	eq(HttpMethod.GET), any(), eq(Map.class)))
+		.thenReturn(new ResponseEntity<>(Collections.singletonMap("token", "my_token_999"), HttpStatus.OK));
 
 			when(restTemplate
-					.exchange(
-							eq(new URI("https://demo.goharbor.io/v2/test/image/manifests/1.0.0")),
-							eq(HttpMethod.GET), any(), eq(Map.class)))
-					.thenReturn(new ResponseEntity<>(Collections.singletonMap("config", Collections.singletonMap("digest", "test_digest")), HttpStatus.OK));
+		.exchange(
+	eq(new URI("https://demo.goharbor.io/v2/test/image/manifests/1.0.0")),
+	eq(HttpMethod.GET), any(), eq(Map.class)))
+		.thenReturn(new ResponseEntity<>(Collections.singletonMap("config", Collections.singletonMap("digest", "test_digest")), HttpStatus.OK));
 
 			when(restTemplate
-					.exchange(
-							eq(new URI("https://demo.goharbor.io/v2/test/image/blobs/test_digest")),
-							eq(HttpMethod.GET), any(), eq(Map.class)))
-					.thenReturn(new ResponseEntity<>(blobValue(), HttpStatus.OK));
+		.exchange(
+	eq(new URI("https://demo.goharbor.io/v2/test/image/blobs/test_digest")),
+	eq(HttpMethod.GET), any(), eq(Map.class)))
+		.thenReturn(new ResponseEntity<>(blobValue(), HttpStatus.OK));
 
 			return restTemplate;
 		}
@@ -296,22 +281,22 @@ public class ApplicationConfigurationMetadataResolverAutoConfigurationTest {
 			RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
 
 			when(restTemplate
-					.exchange(
-							eq(new URI("https://demo2.goharbor.io/service/token?service=demo-registry2&scope=repository:test/image:pull")),
-							eq(HttpMethod.GET), any(), eq(Map.class)))
-					.thenReturn(new ResponseEntity<>(Collections.singletonMap("token", "my_token_999"), HttpStatus.OK));
+		.exchange(
+	eq(new URI("https://demo2.goharbor.io/service/token?service=demo-registry2&scope=repository:test/image:pull")),
+	eq(HttpMethod.GET), any(), eq(Map.class)))
+		.thenReturn(new ResponseEntity<>(Collections.singletonMap("token", "my_token_999"), HttpStatus.OK));
 
 			when(restTemplate
-					.exchange(
-							eq(new URI("https://demo2.goharbor.io/v2/test/image/manifests/1.0.0")),
-							eq(HttpMethod.GET), any(), eq(Map.class)))
-					.thenReturn(new ResponseEntity<>(Collections.singletonMap("config", Collections.singletonMap("digest", "test_digest")), HttpStatus.OK));
+		.exchange(
+	eq(new URI("https://demo2.goharbor.io/v2/test/image/manifests/1.0.0")),
+	eq(HttpMethod.GET), any(), eq(Map.class)))
+		.thenReturn(new ResponseEntity<>(Collections.singletonMap("config", Collections.singletonMap("digest", "test_digest")), HttpStatus.OK));
 
 			when(restTemplate
-					.exchange(
-							eq(new URI("https://demo2.goharbor.io/v2/test/image/blobs/test_digest")),
-							eq(HttpMethod.GET), any(), eq(Map.class)))
-					.thenReturn(new ResponseEntity<>(blobValue(), HttpStatus.OK));
+		.exchange(
+	eq(new URI("https://demo2.goharbor.io/v2/test/image/blobs/test_digest")),
+	eq(HttpMethod.GET), any(), eq(Map.class)))
+		.thenReturn(new ResponseEntity<>(blobValue(), HttpStatus.OK));
 
 			return restTemplate;
 		}
@@ -324,38 +309,38 @@ public class ApplicationConfigurationMetadataResolverAutoConfigurationTest {
 			HttpHeaders authenticateHeader = new HttpHeaders();
 			authenticateHeader.add("Www-Authenticate", "Bearer realm=\"https://demo2.repository.io/service/token\",service=\"demo-registry\",scope=\"registry:category:pull\"");
 			HttpClientErrorException httpClientErrorException =
-					HttpClientErrorException.create(HttpStatus.UNAUTHORIZED, "", authenticateHeader, new byte[0], null);
+		HttpClientErrorException.create(HttpStatus.UNAUTHORIZED, "", authenticateHeader, new byte[0], null);
 
 			when(restTemplate.exchange(eq(new URI("https://demo2.repository.io/v2/")),
-					eq(HttpMethod.GET), any(), eq(Map.class))).thenThrow(httpClientErrorException);
+		eq(HttpMethod.GET), any(), eq(Map.class))).thenThrow(httpClientErrorException);
 
 
 			when(restTemplate
-					.exchange(
-							eq(new URI("https://demo2.repository.io/service/token?service=demo-registry&scope=repository:disabledssl/image:pull")),
-							eq(HttpMethod.GET), any(), eq(Map.class)))
-					.thenReturn(new ResponseEntity<>(Collections.singletonMap("token", "my_token_999"), HttpStatus.OK));
+		.exchange(
+	eq(new URI("https://demo2.repository.io/service/token?service=demo-registry&scope=repository:disabledssl/image:pull")),
+	eq(HttpMethod.GET), any(), eq(Map.class)))
+		.thenReturn(new ResponseEntity<>(Collections.singletonMap("token", "my_token_999"), HttpStatus.OK));
 
 			when(restTemplate
-					.exchange(
-							eq(new URI("https://demo2.repository.io/v2/disabledssl/image/manifests/1.0.0")),
-							eq(HttpMethod.GET), any(), eq(Map.class)))
-					.thenReturn(new ResponseEntity<>(Collections.singletonMap("config", Collections.singletonMap("digest", "test_digest")), HttpStatus.OK));
+		.exchange(
+	eq(new URI("https://demo2.repository.io/v2/disabledssl/image/manifests/1.0.0")),
+	eq(HttpMethod.GET), any(), eq(Map.class)))
+		.thenReturn(new ResponseEntity<>(Collections.singletonMap("config", Collections.singletonMap("digest", "test_digest")), HttpStatus.OK));
 
 			when(restTemplate
-					.exchange(
-							eq(new URI("https://demo2.repository.io/v2/disabledssl/image/blobs/test_digest")),
-							eq(HttpMethod.GET), any(), eq(Map.class)))
-					.thenReturn(new ResponseEntity<>(blobValue(), HttpStatus.OK));
+		.exchange(
+	eq(new URI("https://demo2.repository.io/v2/disabledssl/image/blobs/test_digest")),
+	eq(HttpMethod.GET), any(), eq(Map.class)))
+		.thenReturn(new ResponseEntity<>(blobValue(), HttpStatus.OK));
 
 			// demo.goharbor.io
 			HttpHeaders authenticateHeader2 = new HttpHeaders();
 			authenticateHeader2.add("Www-Authenticate", "Bearer realm=\"https://demo2.goharbor.io/service/token\",service=\"demo-registry2\",scope=\"registry:category:pull\"");
 			HttpClientErrorException httpClientErrorException2 =
-					HttpClientErrorException.create(HttpStatus.UNAUTHORIZED, "", authenticateHeader2, new byte[0], null);
+		HttpClientErrorException.create(HttpStatus.UNAUTHORIZED, "", authenticateHeader2, new byte[0], null);
 
 			when(restTemplate.exchange(eq(new URI("https://demo2.goharbor.io/v2/")),
-					eq(HttpMethod.GET), any(), eq(Map.class))).thenThrow(httpClientErrorException2);
+		eq(HttpMethod.GET), any(), eq(Map.class))).thenThrow(httpClientErrorException2);
 
 			return restTemplate;
 		}

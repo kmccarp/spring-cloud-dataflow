@@ -47,7 +47,7 @@ public class StreamAppDefinition extends DataFlowAppDefinition {
 	 * @param properties app properties; may be {@code null}
 	 */
 	public StreamAppDefinition(String registeredAppName, String label, ApplicationType applicationType, String streamName,
-			Map<String, String> properties) {
+Map<String, String> properties) {
 		super(registeredAppName, label, applicationType, properties);
 		Assert.notNull(streamName, "stream name must not be null");
 		this.streamName = streamName;
@@ -91,8 +91,8 @@ public class StreamAppDefinition extends DataFlowAppDefinition {
 	@Override
 	public String toString() {
 		return "StreamAppDefinition [streamName=" + streamName + ", name=" + this.appDefinition.getName()
-				+ ", type=" + getApplicationType()+", registeredAppName=" + getRegisteredAppName()
-				+ ", properties=" + this.appDefinition.getProperties() + "]";
+	+ ", type=" + getApplicationType() + ", registeredAppName=" + getRegisteredAppName()
+	+ ", properties=" + this.appDefinition.getProperties() + "]";
 	}
 
 	/**
@@ -115,12 +115,12 @@ public class StreamAppDefinition extends DataFlowAppDefinition {
 		 * @see DataFlowAppDefinition#registeredAppName
 		 */
 		private String registeredAppName;
-		
+
 		/**
 		 * @see ApplicationType
 		 */
 		private ApplicationType applicationType;
-		
+
 		/**
 		 * @see AppDefinition#getName()
 		 */
@@ -138,8 +138,8 @@ public class StreamAppDefinition extends DataFlowAppDefinition {
 		public static Builder from(StreamAppDefinition definition) {
 			Builder builder = new Builder();
 			builder.setStreamName(definition.getStreamName()).setRegisteredAppName(definition.getRegisteredAppName())
-					.setApplicationType(definition.getApplicationType())
-					.setLabel(definition.getName()).addProperties(definition.getProperties());
+		.setApplicationType(definition.getApplicationType())
+		.setLabel(definition.getName()).addProperties(definition.getProperties());
 			return builder;
 		}
 
@@ -170,7 +170,7 @@ public class StreamAppDefinition extends DataFlowAppDefinition {
 		public ApplicationType getApplicationType() {
 			return applicationType;
 		}
-		
+
 		/**
 		 * Set the {@link ApplicationType} for this application.
 		 * 

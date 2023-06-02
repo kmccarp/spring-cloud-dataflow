@@ -39,10 +39,10 @@ public class SpringCloudDeployerApplicationManifestReaderTests {
 	@Test
 	public void readTests() throws IOException {
 		String manifestYaml = StreamUtils.copyToString(
-				TestResourceUtils.qualifiedResource(getClass(), "manifest.yml").getInputStream(),
-				Charset.defaultCharset());
+	TestResourceUtils.qualifiedResource(getClass(), "manifest.yml").getInputStream(),
+	Charset.defaultCharset());
 		List<SpringCloudDeployerApplicationManifest> applicationSpecList = this.applicationManifestReader
-				.read(manifestYaml);
+	.read(manifestYaml);
 
 		assertThat(applicationSpecList).hasSize(2);
 		assertThat(applicationSpecList.get(0) instanceof SpringCloudDeployerApplicationManifest).isTrue();
@@ -54,10 +54,10 @@ public class SpringCloudDeployerApplicationManifestReaderTests {
 	@Test
 	public void testNonMatchingManifestReader() throws IOException {
 		String manifestYaml = StreamUtils.copyToString(
-				TestResourceUtils.qualifiedResource(getClass(), "erroneous-manifest.yml").getInputStream(),
-				Charset.defaultCharset());
+	TestResourceUtils.qualifiedResource(getClass(), "erroneous-manifest.yml").getInputStream(),
+	Charset.defaultCharset());
 		List<SpringCloudDeployerApplicationManifest> applicationSpecList = this.applicationManifestReader
-				.read(manifestYaml);
+	.read(manifestYaml);
 		assertThat(applicationSpecList.isEmpty()).isTrue();
 	}
 
@@ -80,14 +80,14 @@ public class SpringCloudDeployerApplicationManifestReaderTests {
 		assertApiAndKind(applicationSpec);
 		Map<String, String> metadata = applicationSpec.getMetadata();
 		assertThat(metadata).containsEntry("name", "time-source")
-				.containsEntry("count", "5")
-				.containsEntry("type", "source");
+	.containsEntry("count", "5")
+	.containsEntry("type", "source");
 		SpringCloudDeployerApplicationSpec spec = applicationSpec.getSpec();
 		assertThat(spec.getResource())
-				.isEqualTo("maven://org.springframework.cloud.stream.app:time-source-rabbit:1.2.0.RELEASE");
+	.isEqualTo("maven://org.springframework.cloud.stream.app:time-source-rabbit:1.2.0.RELEASE");
 		assertThat(spec.getResourceMetadata())
-				.isEqualTo(
-						"maven://org.springframework.cloud.stream.app:time-source-rabbit:jar:metadata:1.2.0.RELEASE");
+	.isEqualTo(
+"maven://org.springframework.cloud.stream.app:time-source-rabbit:jar:metadata:1.2.0.RELEASE");
 		assertThat(spec.getApplicationProperties()).hasSize(1);
 		assertThat(spec.getApplicationProperties()).containsEntry("log.level", "DEBUG");
 
@@ -101,13 +101,13 @@ public class SpringCloudDeployerApplicationManifestReaderTests {
 		assertApiAndKind(applicationSpec);
 		Map<String, String> metadata = applicationSpec.getMetadata();
 		assertThat(metadata).containsEntry("name", "log-sink")
-				.containsEntry("count", "2")
-				.containsEntry("type", "sink");
+	.containsEntry("count", "2")
+	.containsEntry("type", "sink");
 		SpringCloudDeployerApplicationSpec spec = applicationSpec.getSpec();
 		assertThat(spec.getResource())
-				.isEqualTo("maven://org.springframework.cloud.stream.app:log-sink-rabbit:1.2.0.RELEASE");
+	.isEqualTo("maven://org.springframework.cloud.stream.app:log-sink-rabbit:1.2.0.RELEASE");
 		assertThat(spec.getResourceMetadata())
-				.isEqualTo("maven://org.springframework.cloud.stream.app:log-sink-rabbit:jar:metadata:1.2.0.RELEASE");
+	.isEqualTo("maven://org.springframework.cloud.stream.app:log-sink-rabbit:jar:metadata:1.2.0.RELEASE");
 		assertThat(spec.getApplicationProperties()).hasSize(2);
 		assertThat(spec.getApplicationProperties()).containsEntry("log.level", "INFO");
 		assertThat(spec.getApplicationProperties()).containsEntry("log.expression", "hello baby");

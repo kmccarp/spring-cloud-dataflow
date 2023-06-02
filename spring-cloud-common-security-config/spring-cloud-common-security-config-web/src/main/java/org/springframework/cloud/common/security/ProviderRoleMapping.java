@@ -64,7 +64,7 @@ public class ProviderRoleMapping {
 	/**
 	 * Sets whether or not to treat OAuth scopes as URIs during the role mapping.
 	 * When set to {@code true} the OAuth scope will be treated as a URI and the leading part will be ignored (eg. 'api://dataflow-server/dataflow.create' will result in 'dataflow.create').
-     * When set to {@code false} the OAuth scope will be used as-is. This is useful in cases where the scope is not a URI and contains '/' leading characters.
+	* When set to {@code false} the OAuth scope will be used as-is. This is useful in cases where the scope is not a URI and contains '/' leading characters.
 	 *
 	 * @param parseOauthScopePathParts whether or not to treat OAuth scopes as URIs during the role mapping
 	 */
@@ -111,7 +111,7 @@ public class ProviderRoleMapping {
 		return roleMappings;
 	}
 
-	public ProviderRoleMapping addRoleMapping(String oauthScope, String roleName)  {
+	public ProviderRoleMapping addRoleMapping(String oauthScope, String roleName) {
 		this.roleMappings.put(oauthScope, roleName);
 		return this;
 	}
@@ -176,10 +176,10 @@ public class ProviderRoleMapping {
 
 		if (!unmappedRoles.isEmpty()) {
 			throw new IllegalArgumentException(
-				String.format("The following %s %s not mapped: %s.",
-					unmappedRoles.size(),
-					unmappedRoles.size() > 1 ? "roles are" : "role is",
-					StringUtils.collectionToDelimitedString(unmappedRoles, ", ")));
+		String.format("The following %s %s not mapped: %s.",
+	unmappedRoles.size(),
+	unmappedRoles.size() > 1 ? "roles are" : "role is",
+	StringUtils.collectionToDelimitedString(unmappedRoles, ", ")));
 		}
 
 		return groupMappings;
@@ -224,10 +224,10 @@ public class ProviderRoleMapping {
 
 		if (!unmappedRoles.isEmpty()) {
 			throw new IllegalArgumentException(
-				String.format("The following %s %s not mapped: %s.",
-					unmappedRoles.size(),
-					unmappedRoles.size() > 1 ? "roles are" : "role is",
-					StringUtils.collectionToDelimitedString(unmappedRoles, ", ")));
+		String.format("The following %s %s not mapped: %s.",
+	unmappedRoles.size(),
+	unmappedRoles.size() > 1 ? "roles are" : "role is",
+	StringUtils.collectionToDelimitedString(unmappedRoles, ", ")));
 		}
 
 		return roleMappings;

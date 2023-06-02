@@ -45,7 +45,7 @@ import org.springframework.util.StringUtils;
  * @author Ilayaperumal Gopinathan
  */
 @Configuration
-@EnableConfigurationProperties({ ContainerRegistryProperties.class })
+@EnableConfigurationProperties({ContainerRegistryProperties.class})
 public class ContainerRegistryAutoConfiguration {
 
 	private static final Logger logger = LoggerFactory.getLogger(ContainerRegistryAutoConfiguration.class);
@@ -73,79 +73,77 @@ public class ContainerRegistryAutoConfiguration {
 	@Bean
 	public ContainerImageParser containerImageParser(ContainerRegistryProperties properties) {
 		return new ContainerImageParser(properties.getDefaultRegistryHost(),
-				properties.getDefaultRepositoryTag(), properties.getOfficialRepositoryNamespace());
+	properties.getDefaultRepositoryTag(), properties.getOfficialRepositoryNamespace());
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
 	public ContainerRegistryService containerRegistryService(
-			ContainerImageRestTemplateFactory containerImageRestTemplateFactory,
-			ContainerImageParser containerImageParser,
-			Map<String, ContainerRegistryConfiguration> registryConfigurationMap,
-			List<RegistryAuthorizer> registryAuthorizers) {
+ContainerImageRestTemplateFactory containerImageRestTemplateFactory,
+ContainerImageParser containerImageParser,
+Map<String, ContainerRegistryConfiguration> registryConfigurationMap,
+List<RegistryAuthorizer> registryAuthorizers) {
 		return new ContainerRegistryService(containerImageRestTemplateFactory,
-				containerImageParser, registryConfigurationMap, registryAuthorizers);
+	containerImageParser, registryConfigurationMap, registryAuthorizers);
 	}
 
 	@Bean
 	public Map<String, ContainerRegistryConfiguration> registryConfigurationMap(ContainerRegistryProperties properties,
-			@Value("${.dockerconfigjson:#{null}}") String dockerConfigJsonSecret,
-			DockerConfigJsonSecretToRegistryConfigurationConverter secretToRegistryConfigurationConverter) {
+@Value("${.dockerconfigjson:#{null}}") String dockerConfigJsonSecret,
+DockerConfigJsonSecretToRegistryConfigurationConverter secretToRegistryConfigurationConverter) {
 
 		// Retrieve registry configurations, explicitly declared via properties.
 		Map<String, ContainerRegistryConfiguration> registryConfigurationMap =
-				properties.getRegistryConfigurations().entrySet().stream()
-						.collect(Collectors.toMap(e -> e.getValue().getRegistryHost(), Map.Entry::getValue));
+	properties.getRegistryConfigurations().entrySet().stream()
+.collect(Collectors.toMap(e -> e.getValue().getRegistryHost(), Map.Entry::getValue));
 
 		// For dockeroauth2 configuration that doesn't have the Docker OAuth2 Access Token entrypoint set explicitly,
 		// use the secretToRegistryConfigurationConverter.getDockerTokenServiceUri() to retrieve the entrypoint.
 		registryConfigurationMap.values().stream()
-				.filter(rc -> rc.getAuthorizationType()
-						== ContainerRegistryConfiguration.AuthorizationType.dockeroauth2)
-				.filter(rc -> !rc.getExtra().containsKey(DockerOAuth2RegistryAuthorizer.DOCKER_REGISTRY_AUTH_URI_KEY))
-				.forEach(rc -> secretToRegistryConfigurationConverter.getDockerTokenServiceUri(rc.getRegistryHost(),
-						true, rc.isUseHttpProxy())
-						.ifPresent(tokenServiceUri -> rc.getExtra().put(
-								DockerOAuth2RegistryAuthorizer.DOCKER_REGISTRY_AUTH_URI_KEY,
-								tokenServiceUri)));
+	.filter(rc -> rc.getAuthorizationType()
+== ContainerRegistryConfiguration.AuthorizationType.dockeroauth2)
+	.filter(rc -> !rc.getExtra().containsKey(DockerOAuth2RegistryAuthorizer.DOCKER_REGISTRY_AUTH_URI_KEY))
+	.forEach(rc -> secretToRegistryConfigurationConverter.getDockerTokenServiceUri(rc.getRegistryHost(),
+true, rc.isUseHttpProxy())
+.ifPresent(tokenServiceUri -> rc.getExtra().put(DockerOAuth2RegistryAuthorizer.DOCKER_REGISTRY_AUTH_URI_KEY,tokenServiceUri)));
 
 		if (!StringUtils.isEmpty(dockerConfigJsonSecret)) {
 			// Retrieve registry configurations from mounted kubernetes Secret.
 			Map<String, ContainerRegistryConfiguration> secretsRegistryConfigurationMap
-					= secretToRegistryConfigurationConverter.convert(dockerConfigJsonSecret);
+		= secretToRegistryConfigurationConverter.convert(dockerConfigJsonSecret);
 
 			if (!CollectionUtils.isEmpty(secretsRegistryConfigurationMap)) {
 				// Merge the Secret and the Property based registry configurations.
 				// The properties values when set has precedence over the Secret retrieved one. Later allow to override
 				// some of the Secret properties or set the disableSslVerification for secret based configs.
 				registryConfigurationMap = Stream.concat(
-						secretsRegistryConfigurationMap.entrySet().stream(),
-						registryConfigurationMap.entrySet().stream())
-						.collect(Collectors.toMap(
-								Map.Entry::getKey,
-								Map.Entry::getValue,
-								(secretConf, propConf) -> {
-									ContainerRegistryConfiguration rc = new ContainerRegistryConfiguration();
-									rc.setRegistryHost(secretConf.getRegistryHost());
-									rc.setUser(StringUtils.hasText(propConf.getUser()) ?
-											propConf.getUser() :
-											secretConf.getUser());
-									rc.setSecret(StringUtils.hasText(propConf.getSecret()) ?
-											propConf.getSecret() :
-											secretConf.getSecret());
-									rc.setAuthorizationType(propConf.getAuthorizationType() != null ?
-											propConf.getAuthorizationType() :
-											secretConf.getAuthorizationType());
-									rc.setManifestMediaType(StringUtils.hasText(propConf.getManifestMediaType()) ?
-											propConf.getManifestMediaType() :
-											secretConf.getManifestMediaType());
-									rc.setDisableSslVerification(propConf.isDisableSslVerification());
-									rc.setUseHttpProxy(propConf.isUseHttpProxy());
-									rc.getExtra().putAll(secretConf.getExtra());
-									rc.getExtra().putAll(propConf.getExtra());
-									return rc;
-								}
-						));
+			secretsRegistryConfigurationMap.entrySet().stream(),
+			registryConfigurationMap.entrySet().stream())
+			.collect(Collectors.toMap(
+		Map.Entry::getKey,
+		Map.Entry::getValue,
+		(secretConf, propConf) -> {
+			ContainerRegistryConfiguration rc = new ContainerRegistryConfiguration();
+			rc.setRegistryHost(secretConf.getRegistryHost());
+			rc.setUser(StringUtils.hasText(propConf.getUser()) ?
+		propConf.getUser() :
+		secretConf.getUser());
+			rc.setSecret(StringUtils.hasText(propConf.getSecret()) ?
+		propConf.getSecret() :
+		secretConf.getSecret());
+			rc.setAuthorizationType(propConf.getAuthorizationType() != null ?
+		propConf.getAuthorizationType() :
+		secretConf.getAuthorizationType());
+			rc.setManifestMediaType(StringUtils.hasText(propConf.getManifestMediaType()) ?
+		propConf.getManifestMediaType() :
+		secretConf.getManifestMediaType());
+			rc.setDisableSslVerification(propConf.isDisableSslVerification());
+			rc.setUseHttpProxy(propConf.isUseHttpProxy());
+			rc.getExtra().putAll(secretConf.getExtra());
+			rc.getExtra().putAll(propConf.getExtra());
+			return rc;
+		}
+			));
 			}
 		}
 
@@ -156,8 +154,8 @@ public class ContainerRegistryAutoConfiguration {
 
 	@Bean
 	public DockerConfigJsonSecretToRegistryConfigurationConverter secretToRegistryConfigurationConverter(
-			ContainerRegistryProperties properties,
-			ContainerImageRestTemplateFactory containerImageRestTemplate) {
+ContainerRegistryProperties properties,
+ContainerImageRestTemplateFactory containerImageRestTemplate) {
 		return new DockerConfigJsonSecretToRegistryConfigurationConverter(properties, containerImageRestTemplate);
 	}
 

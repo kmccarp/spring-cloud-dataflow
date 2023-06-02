@@ -63,7 +63,7 @@ public enum CoreSecurityRoles {
 	 */
 	public static String[] getAllRolesAsStringArray() {
 		return Arrays.stream(CoreSecurityRoles.values()).map(CoreSecurityRoles::getKey)
-				.toArray(size -> new String[size]);
+	.toArray(size -> new String[size]);
 	}
 
 	public String getKey() {

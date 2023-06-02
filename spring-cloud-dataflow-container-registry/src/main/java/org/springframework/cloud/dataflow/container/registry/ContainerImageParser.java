@@ -86,8 +86,8 @@ public class ContainerImageParser {
 
 	public ContainerImageParser() {
 		this(ContainerRegistryProperties.DOCKER_HUB_HOST,
-				ContainerRegistryProperties.DEFAULT_TAG,
-				ContainerRegistryProperties.DEFAULT_OFFICIAL_REPO_NAMESPACE);
+	ContainerRegistryProperties.DEFAULT_TAG,
+	ContainerRegistryProperties.DEFAULT_OFFICIAL_REPO_NAMESPACE);
 	}
 
 	public ContainerImageParser(String defaultRegistryHost, String defaultTag, String officialRepoName) {
@@ -110,7 +110,7 @@ public class ContainerImageParser {
 		// Registry Host
 		String[] hostAndPortSplit = registryHost.split(PORT_SEPARATOR);
 		Assert.isTrue(hostAndPortSplit.length > 0 && hostAndPortSplit.length <= 2,
-				"Invalid registry host address: " + registryHost);
+	"Invalid registry host address: " + registryHost);
 		containerImageName.setHostname(hostAndPortSplit[0]);
 
 		if (hostAndPortSplit.length == 2) { // has a port section
@@ -125,13 +125,14 @@ public class ContainerImageParser {
 		if (repositoryNameAndTag.contains(DIGEST_SEPARATOR)) {
 			String[] repositoryNameAndDigestSplit = repositoryNameAndTag.split(DIGEST_SEPARATOR);
 			Assert.isTrue(repositoryNameAndDigestSplit.length > 0 && repositoryNameAndDigestSplit.length <= 2,
-					"Invalid repository name: " + repositoryNameAndTag);
+		"Invalid repository name: " + repositoryNameAndTag);
 			containerImageName.setRepositoryName(repositoryNameAndDigestSplit[0]);
 			containerImageName.setRepositoryDigest(repositoryNameAndDigestSplit[1]);
-		} else {
+		}
+		else {
 			String[] repositoryNameAndTagSplit = repositoryNameAndTag.split(TAG_SEPARATOR);
 			Assert.isTrue(repositoryNameAndTagSplit.length > 0 && repositoryNameAndTagSplit.length <= 2,
-					"Invalid repository name: " + repositoryNameAndTag);
+		"Invalid repository name: " + repositoryNameAndTag);
 			containerImageName.setRepositoryName(repositoryNameAndTagSplit[0]);
 
 			String repositoryTag = (repositoryNameAndTagSplit.length == 2) ? repositoryNameAndTagSplit[1] : this.defaultTag;
@@ -164,7 +165,7 @@ public class ContainerImageParser {
 		String remainder;
 		int i = imageName.indexOf(SLASH_SEPARATOR);
 		if ((i == -1) || (!(imageName.substring(0, i).contains(PERIOD_SEPARATOR) || imageName.substring(0, i).contains(PORT_SEPARATOR))
-				&& !imageName.substring(0, i).equals(LOCALHOST_DOMAIN))) {
+	&& !imageName.substring(0, i).equals(LOCALHOST_DOMAIN))) {
 			// No registry host detected use the default host!
 			registryHost = this.defaultRegistryHost;
 			remainder = imageName;
@@ -183,6 +184,6 @@ public class ContainerImageParser {
 			remainder = this.officialRepositoryNamespace + SLASH_SEPARATOR + remainder;
 		}
 
-		return new String[] { registryHost, remainder };
+		return new String[]{registryHost, remainder};
 	}
 }

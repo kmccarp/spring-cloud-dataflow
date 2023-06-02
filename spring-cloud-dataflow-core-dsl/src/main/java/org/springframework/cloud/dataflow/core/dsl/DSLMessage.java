@@ -63,26 +63,23 @@ public enum DSLMessage {
 	MISSING_VALUE_FOR_VARIABLE(Kind.ERROR, 125, "no value specified for variable ''{0}'' when using substream"), //
 	VARIABLE_NOT_TERMINATED(Kind.ERROR, 126, "unable to find variable terminator ''}'' in argument ''{0}''"), //
 	AMBIGUOUS_APP_NAME(Kind.ERROR, 129,
-			"ambiguous app name ''{0}'' in stream named ''{1}'', appears at both position {2} and {3}"), //
+"ambiguous app name ''{0}'' in stream named ''{1}'', appears at both position {2} and {3}"), //
 	CANNOT_USE_COMPOSEDAPP_HERE_AS_IT_DEFINES_SOURCE_DESTINATION(Kind.ERROR, 135,
-			"cannot use composed app ''{0}'' here because it defines a source destination"), //
+"cannot use composed app ''{0}'' here because it defines a source destination"), //
 	CANNOT_USE_COMPOSEDAPP_HERE_AS_IT_DEFINES_SINK_DESTINATION(Kind.ERROR, 136,
-			"cannot use composed app ''{0}'' here because it defines a sink destination"), //
+"cannot use composed app ''{0}'' here because it defines a sink destination"), //
 	CANNOT_USE_COMPOSEDAPP_HERE_ALREADY_HAS_SOURCE_DESTINATION(Kind.ERROR, 137,
-			"cannot use composed app ''{0}'' here, both that composed app and this stream define a source "
-					+ "destination"), //
+"cannot use composed app ''{0}'' here, both that composed app and this stream define a source "+ "destination"), //
 	CANNOT_USE_COMPOSEDAPP_HERE_ALREADY_HAS_SINK_DESTINATION(Kind.ERROR, 138,
-			"cannot use composed app ''{0}'' here, both that composed app and this stream define a sink destination"), //
+"cannot use composed app ''{0}'' here, both that composed app and this stream define a sink destination"), //
 	EXPECTED_DESTINATION_PREFIX(Kind.ERROR, 133, "Expected destination prefix but found ''{0}''"), //
 	NO_WHITESPACE_IN_DESTINATION_DEFINITION(Kind.ERROR, 139,
-			"no whitespace allowed between components in a destination " + "name"), //
+"no whitespace allowed between components in a destination " + "name"), //
 	NO_WHITESPACE_BETWEEN_LABEL_NAME_AND_COLON(Kind.ERROR, 140, "no whitespace allowed between label name and colon"), //
 	DUPLICATE_LABEL(Kind.ERROR, 143,
-			"label ''{0}'' should be unique but app ''{1}'' (at position {2}) and app ''{3}'' (at position {4}) both "
-					+ "use it"), //
+"label ''{0}'' should be unique but app ''{1}'' (at position {2}) and app ''{3}'' (at position {4}) both "+ "use it"), //
 	APP_REFERENCE_NOT_UNIQUE(Kind.ERROR, 144,
-			"reference to ''{0}'' is not unique in the target stream ''{1}'', please label the relevant app and use "
-					+ "the label, or use a suffix index to indicate which occurrence of the app, e.g. ''{0}.0''"), //
+"reference to ''{0}'' is not unique in the target stream ''{1}'', please label the relevant app and use "+ "the label, or use a suffix index to indicate which occurrence of the app, e.g. ''{0}.0''"), //
 	NO_WHITESPACE_IN_DOTTED_NAME(Kind.ERROR, 145, "no whitespace is allowed between dot and components of a name"),
 	DESTINATIONS_UNSUPPORTED_HERE(Kind.ERROR, 146, "a destination is not supported in this kind of definition"), //
 	EXPECTED_WHITESPACE_AFTER_LABEL_COLON(Kind.ERROR, 147, "whitespace is expected after an app label"), //
@@ -93,24 +90,24 @@ public enum DSLMessage {
 	TASK_HYPHEN_EXPECTED_USE_FOR_TRANSITION(Kind.ERROR, 152, "expected '->' and not just the hyphen"), //
 	TASK_MISSING_TRANSITION_ARROW(Kind.ERROR, 153, "expected '->' to follow state when specifying transition"), //
 	TASK_UNQUOTED_TRANSITION_CHECK_MUST_BE_NUMBER(Kind.ERROR, 154,
-			"transition conditions must be quoted literals, " + "numerics or '*' but ''{0}'' is not"), //
+"transition conditions must be quoted literals, " + "numerics or '*' but ''{0}'' is not"), //
 	TASK_NO_LABELS_ON_PARENS(Kind.ERROR, 155, "labels cannot be specified on parenthesized groups"), //
 	NO_DOUBLE_LABELS(Kind.ERROR, 156, "multiple labels are not supported"), //
 	TASK_ARROW_SHOULD_BE_PRECEDED_BY_CODE(Kind.ERROR, 157,
-			"transition arrow must be preceeded by the exit code that " + "should drive the transition"), //
+"transition arrow must be preceeded by the exit code that " + "should drive the transition"), //
 	TASK_VALIDATION_SECONDARY_SEQUENCES_MUST_BE_NAMED(Kind.ERROR, 158,
-			"secondary sequences must have labels or are " + "unreachable"), //
+"secondary sequences must have labels or are " + "unreachable"), //
 	TASK_VALIDATION_DUPLICATE_LABEL(Kind.ERROR, 159, "this label has already been defined"), //
 	TASK_VALIDATION_TRANSITION_TARGET_LABEL_UNDEFINED(Kind.ERROR, 160, "transition specifies an undefined label"), //
 	TASK_ELEMENT_IN_COMPOSED_DEFINITION_DOES_NOT_EXIST(Kind.ERROR, 161, "task in composed task definition does not exist"), //
 	TASK_UNEXPECTED_DATA(Kind.ERROR, 162, "unexpected data in task definition ''{0}''"), //
 	TASK_MORE_INPUT(Kind.ERROR, 163, "after parsing a valid task, there is still more data: ''{0}''"), //
 	TASK_VALIDATION_LABEL_CLASHES_WITH_TASKAPP_NAME(Kind.ERROR, 164,
-			"the label clashes with an existing unlabeled task " + "application name"), //
+"the label clashes with an existing unlabeled task " + "application name"), //
 	TASK_VALIDATION_APP_NAME_CLASHES_WITH_LABEL(Kind.ERROR, 165, "the app name clashes with an existing label"), //
 	TASK_VALIDATION_APP_NAME_ALREADY_IN_USE(Kind.ERROR, 166, "duplicate app name. Use a label to ensure uniqueness"), //
 	TASK_VALIDATION_SPLIT_WITH_ONE_FLOW(Kind.ERROR, 167,
-			"unnecessary use of split construct when only one flow to execute" + " in parallel"), //
+"unnecessary use of split construct when only one flow to execute" + " in parallel"), //
 	TASK_ARGUMENTS_NOT_ALLOWED_UNLESS_IN_APP_MODE(Kind.ERROR, 168, "arguments not allowed unless parser is in app mode"), //
 	DONT_MIX_PIPE_AND_DOUBLEPIPE(Kind.ERROR, 169, "do not mix '|' and '||' when specifying a list of applications"), //
 	DONT_USE_DOUBLEPIPE_WITH_CHANNELS(Kind.ERROR, 170, "do not use '||' between source/processor/sink apps in a stream, use '|'"), //

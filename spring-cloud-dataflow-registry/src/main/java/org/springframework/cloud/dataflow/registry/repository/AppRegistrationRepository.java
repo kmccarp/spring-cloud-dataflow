@@ -30,8 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Ilayaperumal Gopinathan
  */
 @Transactional
-public interface AppRegistrationRepository
-		extends KeyValueRepository<AppRegistration, Long>, AppRegistrationRepositoryCustom {
+public interface AppRegistrationRepositoryextends KeyValueRepository<AppRegistration, Long>, AppRegistrationRepositoryCustom {
 
 	AppRegistration findAppRegistrationByNameAndTypeAndVersion(String name, ApplicationType type, String version);
 

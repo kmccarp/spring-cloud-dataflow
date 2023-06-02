@@ -31,9 +31,9 @@ public class DockerForMacHostsIssue {
 
 	private static final String REDIRECT_LINE = "127.0.0.1 localunixsocket\n";
 	private static final String WARNING_MESSAGE = "\n\n **** WARNING: Your tests may be slow ****\n"
-			+ "Please add the following line to /etc/hosts:\n    "
-			+ REDIRECT_LINE
-			+ "\nFor more information, see https://github.com/docker/compose/issues/3419#issuecomment-221793401\n\n";
++ "Please add the following line to /etc/hosts:\n    "
++ REDIRECT_LINE
++ "\nFor more information, see https://github.com/docker/compose/issues/3419#issuecomment-221793401\n\n";
 	private static volatile boolean checkPerformed = false;
 
 	@SuppressWarnings("checkstyle:BanSystemErr")
@@ -64,5 +64,6 @@ public class DockerForMacHostsIssue {
 		issueWarning();
 	}
 
-	private DockerForMacHostsIssue() {}
+	private DockerForMacHostsIssue() {
+	}
 }

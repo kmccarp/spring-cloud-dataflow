@@ -17,10 +17,10 @@ package org.springframework.cloud.dataflow.common.test.docker.compose.configurat
 
 public class DaemonHostIpResolver implements HostIpResolver {
 
-    public static final String LOCALHOST = "127.0.0.1";
+	public static final String LOCALHOST = "127.0.0.1";
 
-    @Override
-    public String resolveIp(String dockerHost) {
-        return LOCALHOST;
-    }
+	@Override
+	public String resolveIp(String dockerHost) {
+		return LOCALHOST;
+	}
 }

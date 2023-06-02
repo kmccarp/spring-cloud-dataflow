@@ -34,7 +34,7 @@ public class StreamNode extends AstNode {
 	protected SinkDestinationNode sinkDestinationNode;
 
 	public StreamNode(String streamText, String streamName, List<AppNode> appNodes,
-			SourceDestinationNode sourceDestinationNode, SinkDestinationNode sinkDestinationNode) {
+SourceDestinationNode sourceDestinationNode, SinkDestinationNode sinkDestinationNode) {
 		super(appNodes.get(0).getStartPos(), appNodes.get(appNodes.size() - 1).getEndPos());
 		this.streamText = streamText;
 		this.streamName = streamName;

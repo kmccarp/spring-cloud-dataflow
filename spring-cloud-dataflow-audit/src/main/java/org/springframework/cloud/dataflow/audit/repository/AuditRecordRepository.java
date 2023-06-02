@@ -30,8 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 @Repository
-public interface AuditRecordRepository
-		extends KeyValueRepository<AuditRecord, Long>, AuditRecordRepositoryCustom {
+public interface AuditRecordRepositoryextends KeyValueRepository<AuditRecord, Long>, AuditRecordRepositoryCustom {
 
 	@Override
 	<S extends AuditRecord> S save(S s);

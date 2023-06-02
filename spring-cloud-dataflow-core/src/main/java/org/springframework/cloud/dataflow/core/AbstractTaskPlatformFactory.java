@@ -33,7 +33,7 @@ public abstract class AbstractTaskPlatformFactory<P extends AbstractPlatformProp
 
 	protected final String platformType;
 
-	protected AbstractTaskPlatformFactory(P platformProperties, String platformType){
+	protected AbstractTaskPlatformFactory(P platformProperties, String platformType) {
 		this.platformProperties = platformProperties;
 		this.platformType = platformType;
 	}
@@ -52,7 +52,7 @@ public abstract class AbstractTaskPlatformFactory<P extends AbstractPlatformProp
 			}
 			catch (Exception e) {
 				logger.error("{} platform account [{}] could not be registered: {}",
-					platformType, account, e);
+			platformType, account, e);
 				throw new IllegalStateException(e.getMessage(), e);
 			}
 		}

@@ -117,7 +117,7 @@ public abstract class StacktraceFingerprintingRecoveryStrategy<E extends Excepti
 		StackTraceElement[] stackTrace = exception.getStackTrace();
 		for (StackTraceElement frame : fingerPrint) {
 			if (frame.getClassName().contains("StreamParser")
-					&& (frame.getMethodName().equals("<init>") || frame.getMethodName().equals("parse"))) {
+		&& (frame.getMethodName().equals("<init>") || frame.getMethodName().equals("parse"))) {
 				return true;
 			}
 			if (!stackTrace[i++].equals(frame)) {

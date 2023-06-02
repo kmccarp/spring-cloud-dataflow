@@ -32,9 +32,9 @@ public class AppNode extends AstNode {
 	protected LabelNode label;
 
 	protected ArgumentNode[] arguments;
-	
+
 	protected boolean isUnboundStreamApp = true;
-	
+
 	public AppNode(LabelNode label, String appName, int startPos, int endPos, ArgumentNode[] arguments) {
 		super(startPos, endPos);
 		this.label = label;
@@ -127,7 +127,7 @@ public class AppNode extends AstNode {
 	public void setUnboundStreamApp(boolean b) {
 		isUnboundStreamApp = b;
 	}
-	
+
 	public boolean isUnboundStreamApp() {
 		return isUnboundStreamApp;
 	}

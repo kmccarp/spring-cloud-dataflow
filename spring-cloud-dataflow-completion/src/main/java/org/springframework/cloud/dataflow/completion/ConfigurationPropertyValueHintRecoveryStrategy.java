@@ -39,8 +39,7 @@ import org.springframework.cloud.dataflow.registry.service.AppRegistryService;
  * @author Mark Fisher
  * @author Oleg Zhurakousky
  */
-public class ConfigurationPropertyValueHintRecoveryStrategy
-		extends StacktraceFingerprintingRecoveryStrategy<CheckPointedParseException> {
+public class ConfigurationPropertyValueHintRecoveryStrategyextends StacktraceFingerprintingRecoveryStrategy<CheckPointedParseException> {
 
 	private final ProposalsCollectorSupportUtils collectorSupport;
 
@@ -48,15 +47,15 @@ public class ConfigurationPropertyValueHintRecoveryStrategy
 	private ValueHintProvider[] valueHintProviders = new ValueHintProvider[0];
 
 	ConfigurationPropertyValueHintRecoveryStrategy(AppRegistryService appRegistry,
-			ApplicationConfigurationMetadataResolver metadataResolver,
-			StreamDefinitionService streamDefinitionService) {
-		super(CheckPointedParseException.class, streamDefinitionService,"foo --bar=", "foo | wizz --bar=");
+ApplicationConfigurationMetadataResolver metadataResolver,
+StreamDefinitionService streamDefinitionService) {
+		super(CheckPointedParseException.class, streamDefinitionService, "foo --bar=", "foo | wizz --bar=");
 		this.collectorSupport = new ProposalsCollectorSupportUtils(appRegistry, metadataResolver);
 	}
 
 	@Override
 	public void addProposals(String dsl, CheckPointedParseException exception, int detailLevel,
-			List<CompletionProposal> collector) {
+List<CompletionProposal> collector) {
 
 		String propertyName = recoverPropertyName(exception);
 
@@ -73,7 +72,7 @@ public class ConfigurationPropertyValueHintRecoveryStrategy
 		LinkedList<StreamAppDefinition> streamAppDefinitions = this.streamDefinitionService.getAppDefinitions(streamDefinition);
 		StreamAppDefinition lastApp = StreamDefinitionServiceUtils.getDeploymentOrderIterator(streamAppDefinitions).next();
 		return this.collectorSupport.findAppRegistration(lastApp.getName(),
-				CompletionUtils.determinePotentialTypes(lastApp, streamAppDefinitions.size() > 1));
+	CompletionUtils.determinePotentialTypes(lastApp, streamAppDefinitions.size() > 1));
 	}
 
 	private String recoverPropertyName(CheckPointedParseException exception) {

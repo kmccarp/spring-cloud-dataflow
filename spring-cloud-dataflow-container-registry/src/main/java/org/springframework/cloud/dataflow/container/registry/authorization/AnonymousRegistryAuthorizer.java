@@ -35,17 +35,17 @@ public class AnonymousRegistryAuthorizer implements RegistryAuthorizer {
 
 	@Override
 	public HttpHeaders getAuthorizationHeaders(ContainerRegistryConfiguration registryConfiguration,
-			Map<String, String> configProperties) {
+Map<String, String> configProperties) {
 
 		Assert.isTrue(registryConfiguration.getAuthorizationType() == this.getType(),
-				"Incorrect type: " + registryConfiguration.getAuthorizationType());
+	"Incorrect type: " + registryConfiguration.getAuthorizationType());
 
 		return new HttpHeaders();
 	}
 
 	@Override
 	public HttpHeaders getAuthorizationHeaders(ContainerImage containerImage,
-			ContainerRegistryConfiguration registryConfiguration) {
+ContainerRegistryConfiguration registryConfiguration) {
 
 		return getAuthorizationHeaders(registryConfiguration, null);
 	}

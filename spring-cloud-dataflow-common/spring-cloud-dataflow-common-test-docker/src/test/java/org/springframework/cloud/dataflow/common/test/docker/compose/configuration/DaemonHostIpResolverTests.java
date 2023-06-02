@@ -24,19 +24,19 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.configurati
 
 public class DaemonHostIpResolverTests {
 
-    @Test
-    public void return_local_host_with_null() {
-        assertThat(new DaemonHostIpResolver().resolveIp(null), is(LOCALHOST));
-    }
+	@Test
+	public void return_local_host_with_null() {
+		assertThat(new DaemonHostIpResolver().resolveIp(null), is(LOCALHOST));
+	}
 
-    @Test
-    public void return_local_host_with_blank() {
-        assertThat(new DaemonHostIpResolver().resolveIp(""), is(LOCALHOST));
-    }
+	@Test
+	public void return_local_host_with_blank() {
+		assertThat(new DaemonHostIpResolver().resolveIp(""), is(LOCALHOST));
+	}
 
-    @Test
-    public void return_local_host_with_arbitrary() {
-        assertThat(new DaemonHostIpResolver().resolveIp("arbitrary"), is(LOCALHOST));
-    }
+	@Test
+	public void return_local_host_with_arbitrary() {
+		assertThat(new DaemonHostIpResolver().resolveIp("arbitrary"), is(LOCALHOST));
+	}
 
 }

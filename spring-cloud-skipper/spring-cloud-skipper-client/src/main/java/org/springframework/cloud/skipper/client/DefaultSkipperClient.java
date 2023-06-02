@@ -100,7 +100,7 @@ public class DefaultSkipperClient implements SkipperClient {
 	@Override
 	public Template getSpringCloudDeployerApplicationTemplate() {
 		org.springframework.core.io.Resource resource = new ClassPathResource(
-				"/org/springframework/cloud/skipper/io/generic-template.yml");
+	"/org/springframework/cloud/skipper/io/generic-template.yml");
 		String genericTempateData = null;
 		try {
 			genericTempateData = StreamUtils.copyToString(resource.getInputStream(), Charset.defaultCharset());
@@ -128,115 +128,122 @@ public class DefaultSkipperClient implements SkipperClient {
 	@Override
 	public Info status(String releaseName) {
 		ParameterizedTypeReference<Info> typeReference =
-				new ParameterizedTypeReference<Info>() { };
+	new ParameterizedTypeReference<Info>() {
+	};
 		Map<String, String> uriVariables = new HashMap<String, String>();
 		uriVariables.put("releaseName", releaseName);
 
 		ResponseEntity<Info> resourceResponseEntity =
-				restTemplate.exchange(baseUri + "/release/status/{releaseName}",
-						HttpMethod.GET,
-						null,
-						typeReference,
-						uriVariables);
+	restTemplate.exchange(baseUri + "/release/status/{releaseName}",
+HttpMethod.GET,
+null,
+typeReference,
+uriVariables);
 		return resourceResponseEntity.getBody();
 	}
 
 	@Override
 	public Map<String, Info> statuses(String... releaseNames) {
 		ParameterizedTypeReference<Map<String, Info>> typeReference =
-			new ParameterizedTypeReference<Map<String, Info>>() { };
+	new ParameterizedTypeReference<Map<String, Info>>() {
+	};
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUri + "/release/statuses");
 		builder.queryParam("names", StringUtils.arrayToCommaDelimitedString(releaseNames));
 
 		ResponseEntity<Map<String, Info>> responseEntity =
-				restTemplate.exchange(builder.toUriString(),
-						HttpMethod.GET,
-						null,
-						typeReference);
+	restTemplate.exchange(builder.toUriString(),
+HttpMethod.GET,
+null,
+typeReference);
 		return responseEntity.getBody();
 	}
 
 	@Override
 	public Map<String, Map<String, DeploymentState>> states(String... releaseNames) {
 		ParameterizedTypeReference<Map<String, Map<String, DeploymentState>>> typeReference =
-				new ParameterizedTypeReference<Map<String, Map<String, DeploymentState>>>() { };
+	new ParameterizedTypeReference<Map<String, Map<String, DeploymentState>>>() {
+	};
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUri + "/release/states");
 		builder.queryParam("names", StringUtils.arrayToCommaDelimitedString(releaseNames));
 
 		ResponseEntity<Map<String, Map<String, DeploymentState>>> responseEntity =
-				restTemplate.exchange(builder.toUriString(),
-						HttpMethod.GET,
-						null,
-						typeReference);
+	restTemplate.exchange(builder.toUriString(),
+HttpMethod.GET,
+null,
+typeReference);
 		return responseEntity.getBody();
 	}
 
 	@Override
 	public Info status(String releaseName, int releaseVersion) {
 		ParameterizedTypeReference<Info> typeReference =
-				new ParameterizedTypeReference<Info>() { };
+	new ParameterizedTypeReference<Info>() {
+	};
 		Map<String, String> uriVariables = new HashMap<String, String>();
 		uriVariables.put("releaseName", releaseName);
 		uriVariables.put("releaseVersion", Integer.toString(releaseVersion));
 		ResponseEntity<Info> resourceResponseEntity =
-				restTemplate.exchange(baseUri + "/release/status/{releaseName}/{releaseVersion}",
-						HttpMethod.GET,
-						null,
-						typeReference,
-						uriVariables);
+	restTemplate.exchange(baseUri + "/release/status/{releaseName}/{releaseVersion}",
+HttpMethod.GET,
+null,
+typeReference,
+uriVariables);
 		return resourceResponseEntity.getBody();
 	}
 
 	@Override
 	public LogInfo getLog(String releaseName) {
 		ParameterizedTypeReference<LogInfo> typeReference =
-				new ParameterizedTypeReference<LogInfo>() { };
+	new ParameterizedTypeReference<LogInfo>() {
+	};
 		Map<String, String> uriVariables = new HashMap<String, String>();
 		uriVariables.put("releaseName", releaseName);
 
 		ResponseEntity<LogInfo> resourceResponseEntity =
-				restTemplate.exchange(baseUri + "/release/logs/{releaseName}",
-						HttpMethod.GET,
-						null,
-						typeReference,
-						uriVariables);
+	restTemplate.exchange(baseUri + "/release/logs/{releaseName}",
+HttpMethod.GET,
+null,
+typeReference,
+uriVariables);
 		return resourceResponseEntity.getBody();
 	}
 
 	@Override
 	public LogInfo getLog(String releaseName, String appName) {
 		ParameterizedTypeReference<LogInfo> typeReference =
-				new ParameterizedTypeReference<LogInfo>() { };
+	new ParameterizedTypeReference<LogInfo>() {
+	};
 		Map<String, String> uriVariables = new HashMap<String, String>();
 		uriVariables.put("releaseName", releaseName);
 		uriVariables.put("appName", appName);
 
 		ResponseEntity<LogInfo> resourceResponseEntity =
-				restTemplate.exchange(baseUri + "/release/logs/{releaseName}/{appName}",
-						HttpMethod.GET,
-						null,
-						typeReference,
-						uriVariables);
+	restTemplate.exchange(baseUri + "/release/logs/{releaseName}/{appName}",
+HttpMethod.GET,
+null,
+typeReference,
+uriVariables);
 		return resourceResponseEntity.getBody();
 	}
 
 	@Override
 	public Release scale(String releaseName, ScaleRequest scaleRequest) {
 		ParameterizedTypeReference<Release> typeReference =
-				new ParameterizedTypeReference<Release>() { };
+	new ParameterizedTypeReference<Release>() {
+	};
 
 		Map<String, String> uriVariables = new HashMap<String, String>();
 		uriVariables.put("releaseName", releaseName);
 
 		HttpEntity<ScaleRequest> httpEntity = new HttpEntity<>(scaleRequest);
 		ResponseEntity<Release> resourceResponseEntity =
-				restTemplate.exchange(baseUri + "/release/scale/{releaseName}",
-						HttpMethod.POST,
-						httpEntity,
-						typeReference,
-						uriVariables);
+	restTemplate.exchange(baseUri + "/release/scale/{releaseName}",
+HttpMethod.POST,
+httpEntity,
+typeReference,
+uriVariables);
 		return resourceResponseEntity.getBody();
 	}
 
@@ -249,12 +256,12 @@ public class DefaultSkipperClient implements SkipperClient {
 		uriVariables.put("appId", appId);
 
 		ResponseEntity<String> resourceResponseEntity =
-				restTemplate.exchange(
-						baseUri + "/release/actuator/{releaseName}/{appName}/{appId}?endpoint=" + endpoint,
-						HttpMethod.GET,
-						null,
-						String.class,
-						uriVariables);
+	restTemplate.exchange(
+baseUri + "/release/actuator/{releaseName}/{appName}/{appId}?endpoint=" + endpoint,
+HttpMethod.GET,
+null,
+String.class,
+uriVariables);
 
 		return resourceResponseEntity.getBody();
 	}
@@ -268,11 +275,11 @@ public class DefaultSkipperClient implements SkipperClient {
 
 		HttpEntity<ActuatorPostRequest> httpEntity = new HttpEntity<>(request);
 		ResponseEntity<?> resourceResponseEntity =
-				restTemplate.exchange(baseUri + "/release/actuator/{releaseName}/{appName}/{appId}",
-						HttpMethod.POST,
-						httpEntity,
-						Object.class,
-						uriVariables);
+	restTemplate.exchange(baseUri + "/release/actuator/{releaseName}/{appName}/{appId}",
+HttpMethod.POST,
+httpEntity,
+Object.class,
+uriVariables);
 
 		return resourceResponseEntity.getBody();
 	}
@@ -280,38 +287,41 @@ public class DefaultSkipperClient implements SkipperClient {
 	@Override
 	public String manifest(String releaseName) {
 		ParameterizedTypeReference<Manifest> typeReference =
-				new ParameterizedTypeReference<Manifest>() { };
+	new ParameterizedTypeReference<Manifest>() {
+	};
 		Map<String, String> uriVariables = new HashMap<String, String>();
 		uriVariables.put("releaseName", releaseName);
 		ResponseEntity<Manifest> resourceResponseEntity =
-				restTemplate.exchange(baseUri + "/release/manifest/{releaseName}",
-						HttpMethod.GET,
-						null,
-						typeReference,
-						uriVariables);
+	restTemplate.exchange(baseUri + "/release/manifest/{releaseName}",
+HttpMethod.GET,
+null,
+typeReference,
+uriVariables);
 		return resourceResponseEntity.getBody().getData();
 	}
 
 	@Override
 	public String manifest(String releaseName, int releaseVersion) {
 		ParameterizedTypeReference<Manifest> typeReference =
-				new ParameterizedTypeReference<Manifest>() { };
+	new ParameterizedTypeReference<Manifest>() {
+	};
 		Map<String, String> uriVariables = new HashMap<String, String>();
 		uriVariables.put("releaseName", releaseName);
 		uriVariables.put("releaseVersion", Integer.toString(releaseVersion));
 		ResponseEntity<Manifest> resourceResponseEntity =
-				restTemplate.exchange(baseUri + "/release/manifest/{releaseName}/{releaseVersion}",
-						HttpMethod.GET,
-						null,
-						typeReference,
-						uriVariables);
+	restTemplate.exchange(baseUri + "/release/manifest/{releaseName}/{releaseVersion}",
+HttpMethod.GET,
+null,
+typeReference,
+uriVariables);
 		return resourceResponseEntity.getBody().getData();
 	}
 
 	@Override
 	public Collection<PackageMetadata> search(String name, boolean details) {
 		ParameterizedTypeReference<HateoasResponseWrapper<PackageMetadatasResponseWrapper>> typeReference =
-				new ParameterizedTypeReference<HateoasResponseWrapper<PackageMetadatasResponseWrapper>>() { };
+	new ParameterizedTypeReference<HateoasResponseWrapper<PackageMetadatasResponseWrapper>>() {
+	};
 		Map<String, String> uriVariables = new HashMap<String, String>();
 		uriVariables.put("size", "2000");
 		String url = baseUri + "/packageMetadata";
@@ -328,11 +338,11 @@ public class DefaultSkipperClient implements SkipperClient {
 		}
 
 		ResponseEntity<HateoasResponseWrapper<PackageMetadatasResponseWrapper>> resourceResponseEntity =
-				restTemplate.exchange(builder.toUriString(),
-						HttpMethod.GET,
-						null,
-						typeReference,
-						uriVariables);
+	restTemplate.exchange(builder.toUriString(),
+HttpMethod.GET,
+null,
+typeReference,
+uriVariables);
 		PackageMetadatasResponseWrapper embedded = resourceResponseEntity.getBody().getEmbedded();
 		if (embedded != null) {
 			return embedded.getPackageMetadata();
@@ -344,12 +354,13 @@ public class DefaultSkipperClient implements SkipperClient {
 
 	public Release install(InstallRequest installRequest) {
 		ParameterizedTypeReference<Release> typeReference =
-				new ParameterizedTypeReference<Release>() { };
+	new ParameterizedTypeReference<Release>() {
+	};
 		String url = String.format("%s/%s/%s", baseUri, "package", "install");
 
 		HttpEntity<InstallRequest> httpEntity = new HttpEntity<>(installRequest);
 		ResponseEntity<Release> resourceResponseEntity =
-				restTemplate.exchange(url, HttpMethod.POST, httpEntity, typeReference);
+	restTemplate.exchange(url, HttpMethod.POST, httpEntity, typeReference);
 		return resourceResponseEntity.getBody();
 	}
 
@@ -383,12 +394,13 @@ public class DefaultSkipperClient implements SkipperClient {
 	@Override
 	public Release rollback(RollbackRequest rollbackRequest) {
 		ParameterizedTypeReference<Release> typeReference =
-				new ParameterizedTypeReference<Release>() { };
+	new ParameterizedTypeReference<Release>() {
+	};
 		String url = String.format("%s/%s/%s", baseUri, "release", "rollback");
 
 		HttpEntity<RollbackRequest> httpEntity = new HttpEntity<>(rollbackRequest);
 		ResponseEntity<Release> resourceResponseEntity =
-				restTemplate.exchange(url, HttpMethod.POST, httpEntity, typeReference);
+	restTemplate.exchange(url, HttpMethod.POST, httpEntity, typeReference);
 		return resourceResponseEntity.getBody();
 	}
 
@@ -400,7 +412,8 @@ public class DefaultSkipperClient implements SkipperClient {
 	@Override
 	public List<Release> list(String releaseNameLike) {
 		ParameterizedTypeReference<HateoasResponseWrapper<ReleasesResponseWrapper>> typeReference =
-			new ParameterizedTypeReference<HateoasResponseWrapper<ReleasesResponseWrapper>>() { };
+	new ParameterizedTypeReference<HateoasResponseWrapper<ReleasesResponseWrapper>>() {
+	};
 		String url;
 		if (StringUtils.hasText(releaseNameLike)) {
 			url = String.format("%s/%s/%s/%s", baseUri, "release", "list", releaseNameLike);
@@ -409,7 +422,7 @@ public class DefaultSkipperClient implements SkipperClient {
 			url = String.format("%s/%s/%s", baseUri, "release", "list");
 		}
 		ReleasesResponseWrapper embedded = this.restTemplate
-				.exchange(url, HttpMethod.GET, null, typeReference, new HashMap<>()).getBody().getEmbedded();
+	.exchange(url, HttpMethod.GET, null, typeReference, new HashMap<>()).getBody().getEmbedded();
 		if (embedded != null && embedded.getReleases() != null) {
 			return embedded.getReleases().stream().collect(Collectors.toList());
 		}
@@ -421,16 +434,17 @@ public class DefaultSkipperClient implements SkipperClient {
 	@Override
 	public Collection<Release> history(String releaseName) {
 		ParameterizedTypeReference<HateoasResponseWrapper<ReleasesResponseWrapper>> typeReference =
-			new ParameterizedTypeReference<HateoasResponseWrapper<ReleasesResponseWrapper>>() { };
+	new ParameterizedTypeReference<HateoasResponseWrapper<ReleasesResponseWrapper>>() {
+	};
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUri);
 		builder.pathSegment("releases", "search", "findByNameIgnoreCaseContainingOrderByNameAscVersionDesc");
 		builder.queryParam("name", releaseName);
 
 		ResponseEntity<HateoasResponseWrapper<ReleasesResponseWrapper>> resourceResponseEntity =
-				restTemplate.exchange(builder.toUriString(),
-						HttpMethod.GET,
-						null,
-						typeReference);
+	restTemplate.exchange(builder.toUriString(),
+HttpMethod.GET,
+null,
+typeReference);
 		ReleasesResponseWrapper embedded = resourceResponseEntity.getBody().getEmbedded();
 		if (embedded != null) {
 			return embedded.getReleases();
@@ -443,15 +457,16 @@ public class DefaultSkipperClient implements SkipperClient {
 	@Override
 	public Collection<Repository> listRepositories() {
 		ParameterizedTypeReference<HateoasResponseWrapper<RepositoriesResponseWrapper>> typeReference =
-				new ParameterizedTypeReference<HateoasResponseWrapper<RepositoriesResponseWrapper>>() { };
+	new ParameterizedTypeReference<HateoasResponseWrapper<RepositoriesResponseWrapper>>() {
+	};
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUri + "/repositories");
 		builder.queryParam("size", "2000");
 
 		ResponseEntity<HateoasResponseWrapper<RepositoriesResponseWrapper>> resourceResponseEntity =
-				restTemplate.exchange(builder.toUriString(),
-						HttpMethod.GET,
-						null,
-						typeReference);
+	restTemplate.exchange(builder.toUriString(),
+HttpMethod.GET,
+null,
+typeReference);
 		RepositoriesResponseWrapper embedded = resourceResponseEntity.getBody().getEmbedded();
 		if (embedded != null) {
 			return embedded.getRepositories();
@@ -464,15 +479,16 @@ public class DefaultSkipperClient implements SkipperClient {
 	@Override
 	public Collection<Deployer> listDeployers() {
 		ParameterizedTypeReference<HateoasResponseWrapper<DeployersResponseWrapper>> typeReference =
-				new ParameterizedTypeReference<HateoasResponseWrapper<DeployersResponseWrapper>>() { };
+	new ParameterizedTypeReference<HateoasResponseWrapper<DeployersResponseWrapper>>() {
+	};
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUri + "/deployers");
 		builder.queryParam("size", "2000");
 
 		ResponseEntity<HateoasResponseWrapper<DeployersResponseWrapper>> resourceResponseEntity =
-				restTemplate.exchange(builder.toUriString(),
-						HttpMethod.GET,
-						null,
-						typeReference);
+	restTemplate.exchange(builder.toUriString(),
+HttpMethod.GET,
+null,
+typeReference);
 		DeployersResponseWrapper embedded = resourceResponseEntity.getBody().getEmbedded();
 		if (embedded != null) {
 			return embedded.getDeployers();
@@ -485,13 +501,14 @@ public class DefaultSkipperClient implements SkipperClient {
 	@Override
 	public PackageMetadata upload(UploadRequest uploadRequest) {
 		ParameterizedTypeReference<PackageMetadata> typeReference =
-				new ParameterizedTypeReference<PackageMetadata>() { };
+	new ParameterizedTypeReference<PackageMetadata>() {
+	};
 		String url = String.format("%s/%s/%s", baseUri, "package", "upload");
 		log.debug("Uploading package {}-{} to repository {}.", uploadRequest.getName(), uploadRequest.getVersion(),
-				uploadRequest.getRepoName());
+	uploadRequest.getRepoName());
 		HttpEntity<UploadRequest> httpEntity = new HttpEntity<>(uploadRequest);
 		ResponseEntity<PackageMetadata> resourceResponseEntity =
-				restTemplate.exchange(url, HttpMethod.POST, httpEntity, typeReference);
+	restTemplate.exchange(url, HttpMethod.POST, httpEntity, typeReference);
 		PackageMetadata packageMetadata = resourceResponseEntity.getBody();
 		return packageMetadata;
 	}

@@ -30,7 +30,7 @@ import org.springframework.batch.core.StepExecution;
  * @author Gunnar Hillert
  * @since 1.0
  */
-@JsonIgnoreProperties({ "jobExecution" })
+@JsonIgnoreProperties({"jobExecution"})
 public abstract class StepExecutionJacksonMixIn {
 
 	@JsonCreator

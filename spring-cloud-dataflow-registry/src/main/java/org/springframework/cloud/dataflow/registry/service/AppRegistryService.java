@@ -221,5 +221,5 @@ public interface AppRegistryService {
 	 * pagination.
 	 */
 	Page<AppRegistration> findAllByTypeAndNameIsLikeAndVersionAndDefaultVersion(@Nullable ApplicationType type,
-			@Nullable String name, @Nullable String version, boolean defaultVersion, Pageable pageable);
+@Nullable String name, @Nullable String version, boolean defaultVersion, Pageable pageable);
 }

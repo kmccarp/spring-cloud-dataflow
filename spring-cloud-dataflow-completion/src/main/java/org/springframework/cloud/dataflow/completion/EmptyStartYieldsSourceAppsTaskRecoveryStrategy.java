@@ -30,8 +30,7 @@ import org.springframework.cloud.dataflow.registry.service.AppRegistryService;
  * @author Mark Fisher
  * @author Andy Clement
  */
-class EmptyStartYieldsSourceAppsTaskRecoveryStrategy
-		extends StacktraceFingerprintingTaskRecoveryStrategy<CheckPointedParseException> {
+class EmptyStartYieldsSourceAppsTaskRecoveryStrategyextends StacktraceFingerprintingTaskRecoveryStrategy<CheckPointedParseException> {
 
 	private final AppRegistryService registry;
 
@@ -42,7 +41,7 @@ class EmptyStartYieldsSourceAppsTaskRecoveryStrategy
 
 	@Override
 	public void addProposals(String dsl, CheckPointedParseException exception, int detailLevel,
-			List<CompletionProposal> proposals) {
+List<CompletionProposal> proposals) {
 		CompletionProposal.Factory completionFactory = CompletionProposal.expanding(dsl);
 		for (AppRegistration app : this.registry.findAll()) {
 			if (app.getType() == ApplicationType.task) {

@@ -59,7 +59,7 @@ import static org.mockito.Mockito.mock;
 public class CompletionTestsMocks {
 
 	private static final File ROOT = new File("src/test/resources",
-			CompletionTestsMocks.class.getPackage().getName().replace('.', '/') + "/apps");
+CompletionTestsMocks.class.getPackage().getName().replace('.', '/') + "/apps");
 
 	private static final FileFilter FILTER = pathname -> pathname.isDirectory() && pathname.getName().matches(".+-.+");
 
@@ -73,8 +73,8 @@ public class CompletionTestsMocks {
 	public AppRegistryService appRegistry() {
 
 		return new DefaultAppRegistryService(mock(AppRegistrationRepository.class),
-				new AppResourceCommon(new MavenProperties(), new FileSystemResourceLoader()),
-				mock(DefaultAuditRecordService.class)) {
+	new AppResourceCommon(new MavenProperties(), new FileSystemResourceLoader()),
+	mock(DefaultAuditRecordService.class)) {
 
 			@Override
 			public boolean appExist(String name, ApplicationType type) {
@@ -133,6 +133,6 @@ public class CompletionTestsMocks {
 	@Bean
 	public ApplicationConfigurationMetadataResolver metadataResolver(ContainerImageMetadataResolver containerImageMetadataResolver) {
 		return new BootApplicationConfigurationMetadataResolver(
-				CompletionTestsMocks.class.getClassLoader(), containerImageMetadataResolver);
+	CompletionTestsMocks.class.getClassLoader(), containerImageMetadataResolver);
 	}
 }

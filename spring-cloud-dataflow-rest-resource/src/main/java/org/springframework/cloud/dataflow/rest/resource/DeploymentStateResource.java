@@ -33,7 +33,7 @@ public enum DeploymentStateResource {
 	DEPLOYED("deployed", "Deployed", "The stream has been successfully deployed"),
 	UNDEPLOYED("undeployed", "Undeployed", "The app or group is known to the system, but is not currently deployed"),
 	PARTIAL("partial", "Partial",
-			"In the case of multiple apps, some have successfully deployed, while others have " + "not"),
+"In the case of multiple apps, some have successfully deployed, while others have " + "not"),
 	FAILED("failed", "Failed", "All apps have failed deployment"),
 	ERROR("error", "Error", "A system error occurred trying to determine deployment status"),
 	UNKNOWN("unknown", "Unknown", "The app or group deployment is not known to the system");

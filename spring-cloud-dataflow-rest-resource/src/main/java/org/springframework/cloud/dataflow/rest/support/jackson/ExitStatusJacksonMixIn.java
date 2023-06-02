@@ -31,7 +31,7 @@ import org.springframework.batch.core.ExitStatus;
 public abstract class ExitStatusJacksonMixIn {
 
 	ExitStatusJacksonMixIn(@JsonProperty("exitCode") String exitCode,
-			@JsonProperty("exitDescription") String exitDescription) {
+@JsonProperty("exitDescription") String exitDescription) {
 	}
 
 	@JsonProperty

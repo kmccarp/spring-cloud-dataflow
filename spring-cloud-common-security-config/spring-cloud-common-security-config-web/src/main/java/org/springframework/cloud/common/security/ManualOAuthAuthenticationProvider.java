@@ -53,15 +53,15 @@ public class ManualOAuthAuthenticationProvider implements AuthenticationProvider
 	private final String providerId;
 
 	public ManualOAuthAuthenticationProvider(
-			OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> oAuth2PasswordTokenResponseClient,
-			ClientRegistrationRepository clientRegistrationRepository,
-			OpaqueTokenIntrospector opaqueTokenIntrospector,
-			String providerId) {
+OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> oAuth2PasswordTokenResponseClient,
+ClientRegistrationRepository clientRegistrationRepository,
+OpaqueTokenIntrospector opaqueTokenIntrospector,
+String providerId) {
 
 		this.oAuth2PasswordTokenResponseClient = oAuth2PasswordTokenResponseClient;
 		this.clientRegistrationRepository = clientRegistrationRepository;
 		this.authenticationProvider =
-				new OpaqueTokenAuthenticationProvider(opaqueTokenIntrospector);
+	new OpaqueTokenAuthenticationProvider(opaqueTokenIntrospector);
 		this.providerId = providerId;
 	}
 
@@ -83,9 +83,9 @@ public class ManualOAuthAuthenticationProvider implements AuthenticationProvider
 		}
 		catch (OAuth2AuthorizationException e) {
 			if (e.getCause() instanceof ResourceAccessException) {
-					final String errorMessage = String.format(
-						"While authenticating user '%s': " + "Unable to access accessTokenUri '%s'.", username,
-						accessTokenUri);
+				final String errorMessage = String.format(
+			"While authenticating user '%s': " + "Unable to access accessTokenUri '%s'.", username,
+			accessTokenUri);
 				logger.error(errorMessage + " Error message: {}.", e.getCause().getMessage());
 				throw new AuthenticationServiceException(errorMessage, e);
 			}

@@ -19,16 +19,16 @@ import java.util.Map;
 
 public interface EnvironmentValidator {
 
-    /**
-     * Validates that the entries in the provided map are valid for the current environment.
-     * The provided map represents the environment variables that should be used for the
-     * process, where the keys are the environment variable names and the values are the values.
-     * If the validator determines the state represented by the map is invalid (either because
-     * required values are missing or forbidden values are present), the method should throw
-     * an exception.
-     *
-     * @param dockerEnvironment A map representing the docker environment
-     */
-    void validateEnvironmentVariables(Map<String, String> dockerEnvironment);
+	/**
+	* Validates that the entries in the provided map are valid for the current environment.
+	* The provided map represents the environment variables that should be used for the
+	* process, where the keys are the environment variable names and the values are the values.
+	* If the validator determines the state represented by the map is invalid (either because
+	* required values are missing or forbidden values are present), the method should throw
+	* an exception.
+	*
+	* @param dockerEnvironment A map representing the docker environment
+	*/
+	void validateEnvironmentVariables(Map<String, String> dockerEnvironment);
 
 }

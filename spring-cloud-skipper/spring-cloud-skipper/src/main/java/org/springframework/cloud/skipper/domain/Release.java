@@ -56,7 +56,7 @@ public class Release extends AbstractEntity {
 
 	private int version;
 
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_release_info"))
 	private Info info;
 
@@ -78,7 +78,7 @@ public class Release extends AbstractEntity {
 	@Lob
 	private String configValuesString;
 
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_release_manifest"))
 	private Manifest manifest;
 

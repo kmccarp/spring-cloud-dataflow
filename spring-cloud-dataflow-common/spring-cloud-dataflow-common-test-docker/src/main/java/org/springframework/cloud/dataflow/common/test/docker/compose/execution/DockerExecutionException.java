@@ -16,10 +16,10 @@
 package org.springframework.cloud.dataflow.common.test.docker.compose.execution;
 
 public class DockerExecutionException extends RuntimeException {
-    public DockerExecutionException() {
-    }
+	public DockerExecutionException() {
+	}
 
-    public DockerExecutionException(String message) {
-        super(message);
-    }
+	public DockerExecutionException(String message) {
+		super(message);
+	}
 }

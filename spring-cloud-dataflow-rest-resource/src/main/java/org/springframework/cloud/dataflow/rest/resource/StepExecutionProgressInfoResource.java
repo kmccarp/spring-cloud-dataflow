@@ -55,7 +55,7 @@ public class StepExecutionProgressInfoResource extends RepresentationModel<StepE
 	 * @param duration the duration of the step in milliseconds
 	 */
 	public StepExecutionProgressInfoResource(StepExecution stepExecution, StepExecutionHistory stepExecutionHistory,
-			double percentageComplete, boolean isFinished, double duration) {
+double percentageComplete, boolean isFinished, double duration) {
 
 		Assert.notNull(stepExecution, "stepExecution must not be null.");
 		Assert.notNull(stepExecutionHistory, "stepExecution must not be null.");

@@ -53,23 +53,23 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 public class DefaultSkipperClientTests {
 
 	private final String ERROR1 = "{\"timestamp\":1508161424577," +
-			"\"status\":404," +
-			"\"error\":\"Not Found\"," +
-			"\"exception\":\"org.springframework.cloud.skipper.ReleaseNotFoundException\"," +
-			"\"message\":\"Release not found\",\"path\":\"/api/status/mylog\",\"releaseName\":\"mylog\"}";
+"\"status\":404," +
+"\"error\":\"Not Found\"," +
+"\"exception\":\"org.springframework.cloud.skipper.ReleaseNotFoundException\"," +
+"\"message\":\"Release not found\",\"path\":\"/api/status/mylog\",\"releaseName\":\"mylog\"}";
 
 	private final String ERROR2 = "{\"timestamp\":1508161424577," +
-			"\"status\":404," +
-			"\"error\":\"Not Found\"," +
-			"\"exception\":\"org.springframework.cloud.skipper.SkipperException\"," +
-			"\"message\":\"Some skipper message\",\"path\":\"/api/status/mylog\"}";
+"\"status\":404," +
+"\"error\":\"Not Found\"," +
+"\"exception\":\"org.springframework.cloud.skipper.SkipperException\"," +
+"\"message\":\"Some skipper message\",\"path\":\"/api/status/mylog\"}";
 
 	private final String ERROR3 = "{\"timestamp\":1508161424577," +
-			"\"status\":409," +
-			"\"error\":\"Conflict\"," +
-			"\"exception\":\"org.springframework.cloud.skipper.PackageDeleteException\"," +
-			"\"message\":\"Can't delete package: [package1] because is used by deployed releases: [release2]\"," +
-			"\"path\":\"/api/status/mylog\",\"releaseName\":\"mylog\"}";
+"\"status\":409," +
+"\"error\":\"Conflict\"," +
+"\"exception\":\"org.springframework.cloud.skipper.PackageDeleteException\"," +
+"\"message\":\"Can't delete package: [package1] because is used by deployed releases: [release2]\"," +
+"\"path\":\"/api/status/mylog\",\"releaseName\":\"mylog\"}";
 
 	@Test
 	public void genericTemplateTest() {
@@ -101,7 +101,7 @@ public class DefaultSkipperClientTests {
 
 		MockRestServiceServer mockServer = MockRestServiceServer.bindTo(restTemplate).build();
 		mockServer.expect(requestTo("/release/status/mylog"))
-				.andRespond(withStatus(HttpStatus.NOT_FOUND).body(ERROR1).contentType(MediaType.APPLICATION_JSON));
+	.andRespond(withStatus(HttpStatus.NOT_FOUND).body(ERROR1).contentType(MediaType.APPLICATION_JSON));
 
 		skipperClient.status("mylog");
 	}
@@ -114,7 +114,7 @@ public class DefaultSkipperClientTests {
 
 		MockRestServiceServer mockServer = MockRestServiceServer.bindTo(restTemplate).build();
 		mockServer.expect(requestTo("/release/status/mylog"))
-				.andRespond(withStatus(HttpStatus.NOT_FOUND).body(ERROR2).contentType(MediaType.APPLICATION_JSON));
+	.andRespond(withStatus(HttpStatus.NOT_FOUND).body(ERROR2).contentType(MediaType.APPLICATION_JSON));
 
 		skipperClient.status("mylog");
 	}
@@ -135,11 +135,11 @@ public class DefaultSkipperClientTests {
 		SkipperClient skipperClient = new DefaultSkipperClient("", restTemplate);
 
 		final MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-				MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
+	MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
 		MockRestServiceServer mockServer = MockRestServiceServer.bindTo(restTemplate).build();
 		mockServer.expect(requestTo("/release/release1" + (deletePackage ? "/package" : "")))
-				.andRespond(withStatus(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON));
+	.andRespond(withStatus(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON));
 
 		skipperClient.delete("release1", deletePackage);
 	}
@@ -152,7 +152,7 @@ public class DefaultSkipperClientTests {
 
 		MockRestServiceServer mockServer = MockRestServiceServer.bindTo(restTemplate).build();
 		mockServer.expect(requestTo("/release/release1/package"))
-				.andRespond(withStatus(HttpStatus.CONFLICT).body(ERROR3).contentType(MediaType.APPLICATION_JSON));
+	.andRespond(withStatus(HttpStatus.CONFLICT).body(ERROR3).contentType(MediaType.APPLICATION_JSON));
 		skipperClient.delete("release1", true);
 	}
 
@@ -191,9 +191,9 @@ public class DefaultSkipperClientTests {
 
 		MockRestServiceServer mockServer = MockRestServiceServer.bindTo(restTemplate).build();
 		mockServer
-			.expect(requestTo("/release/scale/mylog"))
-			.andExpect(content().json("{\"scale\":[{\"name\":\"app\",\"count\":2,\"properties\":{}}]}"))
-			.andRespond(withSuccess("{}", MediaType.APPLICATION_JSON));
+	.expect(requestTo("/release/scale/mylog"))
+	.andExpect(content().json("{\"scale\":[{\"name\":\"app\",\"count\":2,\"properties\":{}}]}"))
+	.andRespond(withSuccess("{}", MediaType.APPLICATION_JSON));
 
 		ScaleRequest scaleRequest = ScaleRequest.of("app", 2);
 		Release release = skipperClient.scale("mylog", scaleRequest);
@@ -221,13 +221,13 @@ public class DefaultSkipperClientTests {
 
 		MockRestServiceServer mockServer = MockRestServiceServer.bindTo(restTemplate).build();
 		mockServer
-				.expect(requestTo("/release/actuator/tiktok/log/tiktok-log-0?endpoint=/foo/bar"))
-				.andExpect(queryParam("endpoint","/foo/bar"))
-				.andRespond(withSuccess("{\"foo\":\"bar\"}", MediaType.APPLICATION_JSON));
+	.expect(requestTo("/release/actuator/tiktok/log/tiktok-log-0?endpoint=/foo/bar"))
+	.andExpect(queryParam("endpoint", "/foo/bar"))
+	.andRespond(withSuccess("{\"foo\":\"bar\"}", MediaType.APPLICATION_JSON));
 
 
 		String response = skipperClient.getFromActuator(
-				"tiktok","log", "tiktok-log-0","/foo/bar");
+	"tiktok", "log", "tiktok-log-0", "/foo/bar");
 		assertThat(response).isEqualTo("{\"foo\":\"bar\"}");
 	}
 
@@ -236,16 +236,16 @@ public class DefaultSkipperClientTests {
 		RestTemplate restTemplate = new RestTemplate();
 		SkipperClient skipperClient = new DefaultSkipperClient("", restTemplate);
 		ActuatorPostRequest actuatorPostRequest = ActuatorPostRequest.of("/bindings/input",
-				Collections.singletonMap("state","STOPPED"));
+	Collections.singletonMap("state", "STOPPED"));
 		MockRestServiceServer mockServer = MockRestServiceServer.bindTo(restTemplate).build();
 		mockServer
-				.expect(requestTo("/release/actuator/tiktok/log/tiktok-log-0"))
-				.andExpect(content().json(
-						"{\"endpoint\":\"/bindings/input\",\"body\":{\"state\":\"STOPPED\"}}"))
-				.andRespond(withSuccess());
+	.expect(requestTo("/release/actuator/tiktok/log/tiktok-log-0"))
+	.andExpect(content().json(
+"{\"endpoint\":\"/bindings/input\",\"body\":{\"state\":\"STOPPED\"}}"))
+	.andRespond(withSuccess());
 
 		//Don't care about the response here.
 		skipperClient.postToActuator(
-				"tiktok","log", "tiktok-log-0", actuatorPostRequest);
+	"tiktok", "log", "tiktok-log-0", actuatorPostRequest);
 	}
 }

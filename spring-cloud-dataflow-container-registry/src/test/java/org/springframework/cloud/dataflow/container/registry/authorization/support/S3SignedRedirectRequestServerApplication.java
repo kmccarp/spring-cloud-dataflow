@@ -25,8 +25,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 @SpringBootApplication
 public class S3SignedRedirectRequestServerApplication {
 
-    public static void main(String[] args) {
-        new SpringApplicationBuilder(S3SignedRedirectRequestServerApplication.class)
-                .run("--server.port=9999");
-    }
+	public static void main(String[] args) {
+		new SpringApplicationBuilder(S3SignedRedirectRequestServerApplication.class)
+	.run("--server.port=9999");
+	}
 }

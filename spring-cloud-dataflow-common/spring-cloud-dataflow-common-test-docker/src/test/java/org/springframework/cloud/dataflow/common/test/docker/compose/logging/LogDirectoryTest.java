@@ -28,11 +28,11 @@ public class LogDirectoryTest {
 //    @Rule
 //    public final EnvironmentVariables variablesRule = new EnvironmentVariables();
 
-    @Test
-    public void gradleDockerLogsDirectory_should_use_class_simple_name() {
-        String directory = LogDirectory.gradleDockerLogsDirectory(SomeTestClass.class);
-        assertThat(directory, is("build/dockerLogs/SomeTestClass"));
-    }
+	@Test
+	public void gradleDockerLogsDirectory_should_use_class_simple_name() {
+		String directory = LogDirectory.gradleDockerLogsDirectory(SomeTestClass.class);
+		assertThat(directory, is("build/dockerLogs/SomeTestClass"));
+	}
 
 //    @Test
 //    public void circleAwareLogDirectory_should_match_gradleDockerLogsDirectory_by_default() {
@@ -57,5 +57,6 @@ public class LogDirectoryTest {
 //        assertThat(directory, is("/tmp/circle-artifacts.123456/dockerLogs/some-path"));
 //    }
 
-    private static class SomeTestClass {}
+	private static class SomeTestClass {
+	}
 }

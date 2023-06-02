@@ -60,15 +60,15 @@ public class StreamDefinitionTests {
 		assertEquals("ticktock", log.getProperties().get(BindingPropertyKeys.INPUT_GROUP));
 		assertFalse(log.getProperties().containsKey(BindingPropertyKeys.OUTPUT_DESTINATION));
 	}
-	
+
 	@Test
 	public void testLongRunningNonStreamApps() {
-		StreamDefinition sd = new StreamDefinition("something","aaa");
+		StreamDefinition sd = new StreamDefinition("something", "aaa");
 		assertEquals(ApplicationType.app, this.streamDefinitionService.getAppDefinitions(sd).get(0).getApplicationType());
-		sd = new StreamDefinition("something","aaa|| bbb");
+		sd = new StreamDefinition("something", "aaa|| bbb");
 		assertEquals(ApplicationType.app, this.streamDefinitionService.getAppDefinitions(sd).get(0).getApplicationType());
 		assertEquals(ApplicationType.app, this.streamDefinitionService.getAppDefinitions(sd).get(1).getApplicationType());
-		sd = new StreamDefinition("something","aaa --aaa=bbb || bbb");
+		sd = new StreamDefinition("something", "aaa --aaa=bbb || bbb");
 		assertEquals(ApplicationType.app, this.streamDefinitionService.getAppDefinitions(sd).get(0).getApplicationType());
 		assertEquals(ApplicationType.app, this.streamDefinitionService.getAppDefinitions(sd).get(1).getApplicationType());
 	}
@@ -96,7 +96,7 @@ public class StreamDefinitionTests {
 	@Test
 	public void quotesInParams() {
 		StreamDefinition streamDefinition = new StreamDefinition("test",
-				"foo --bar='payload.matches(''hello'')' | " + "file");
+	"foo --bar='payload.matches(''hello'')' | " + "file");
 		List<StreamAppDefinition> requests = this.streamDefinitionService.getAppDefinitions(streamDefinition);
 		assertEquals(2, requests.size());
 		StreamAppDefinition source = requests.get(0);
@@ -110,7 +110,7 @@ public class StreamDefinitionTests {
 	@Test
 	public void quotesInParams2() {
 		StreamDefinition streamDefinition = new StreamDefinition("test",
-				"http --port=9700 | filter --expression=payload.matches('hello world') | file");
+	"http --port=9700 | filter --expression=payload.matches('hello world') | file");
 		List<StreamAppDefinition> requests = this.streamDefinitionService.getAppDefinitions(streamDefinition);
 		assertEquals(3, requests.size());
 		StreamAppDefinition filter = requests.get(1);
@@ -199,7 +199,7 @@ public class StreamDefinitionTests {
 		}
 		catch (ParseException expected) {
 			assertThat(expected.getMessage(),
-					containsString("A destination is not supported in this kind of definition"));
+		containsString("A destination is not supported in this kind of definition"));
 			assertThat(expected.getPosition(), is(0));
 		}
 		try {
@@ -207,7 +207,7 @@ public class StreamDefinitionTests {
 		}
 		catch (ParseException expected) {
 			assertThat(expected.getMessage(),
-					containsString("A destination is not supported in this kind of definition"));
+		containsString("A destination is not supported in this kind of definition"));
 			assertThat(expected.getPosition(), is(13));
 		}
 	}

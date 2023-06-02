@@ -52,7 +52,7 @@ public class OAuth2TokenUtilsServiceTests {
 		assertThatThrownBy(() -> {
 			oAuth2TokenUtilsService.getAccessTokenOfAuthenticatedUser();
 		}).isInstanceOf(IllegalStateException.class).hasMessageContaining(
-				"Cannot retrieve the authentication object from the SecurityContext. Are you authenticated?");
+	"Cannot retrieve the authentication object from the SecurityContext. Are you authenticated?");
 	}
 
 	@Test
@@ -82,7 +82,7 @@ public class OAuth2TokenUtilsServiceTests {
 		assertThatThrownBy(() -> {
 			oAuth2TokenUtilsService.getAccessTokenOfAuthenticatedUser();
 		}).isInstanceOf(IllegalStateException.class)
-				.hasMessageContaining("The retrieved principalName must not be null or empty.");
+	.hasMessageContaining("The retrieved principalName must not be null or empty.");
 		SecurityContextHolder.getContext().setAuthentication(null);
 	}
 
@@ -99,7 +99,7 @@ public class OAuth2TokenUtilsServiceTests {
 		assertThatThrownBy(() -> {
 			oAuth2TokenUtilsService.getAccessTokenOfAuthenticatedUser();
 		}).isInstanceOf(IllegalStateException.class)
-				.hasMessageContaining("The retrieved clientRegistrationId must not be null or empty.");
+	.hasMessageContaining("The retrieved clientRegistrationId must not be null or empty.");
 		SecurityContextHolder.getContext().setAuthentication(null);
 	}
 
@@ -117,7 +117,7 @@ public class OAuth2TokenUtilsServiceTests {
 		assertThatThrownBy(() -> {
 			oauth2TokenUtilsService.getAccessTokenOfAuthenticatedUser();
 		}).isInstanceOf(IllegalStateException.class).hasMessageContaining(
-				"No oauth2AuthorizedClient returned for clientRegistrationId 'CID' and principalName 'my-username'.");
+	"No oauth2AuthorizedClient returned for clientRegistrationId 'CID' and principalName 'my-username'.");
 		SecurityContextHolder.getContext().setAuthentication(null);
 	}
 
@@ -138,16 +138,16 @@ public class OAuth2TokenUtilsServiceTests {
 
 	private OAuth2AuthorizedClient getOAuth2AuthorizedClient() {
 		final ClientRegistration clientRegistration = ClientRegistration
-				.withRegistrationId("uaa")
-				.clientId("clientId")
-				.clientSecret("clientSecret")
-				.redirectUri("blubba")
-				.authorizationUri("blubba")
-				.tokenUri("blubba")
-				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-				.build();
-			final OAuth2AccessToken accessToken = new OAuth2AccessToken(TokenType.BEARER, "foo-bar-123-token", Instant.now(), Instant.now().plusMillis(100000));
-			final OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(clientRegistration, "my-username", accessToken);
+	.withRegistrationId("uaa")
+	.clientId("clientId")
+	.clientSecret("clientSecret")
+	.redirectUri("blubba")
+	.authorizationUri("blubba")
+	.tokenUri("blubba")
+	.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+	.build();
+		final OAuth2AccessToken accessToken = new OAuth2AccessToken(TokenType.BEARER, "foo-bar-123-token", Instant.now(), Instant.now().plusMillis(100000));
+		final OAuth2AuthorizedClient authorizedClient = new OAuth2AuthorizedClient(clientRegistration, "my-username", accessToken);
 		return authorizedClient;
 	}
 

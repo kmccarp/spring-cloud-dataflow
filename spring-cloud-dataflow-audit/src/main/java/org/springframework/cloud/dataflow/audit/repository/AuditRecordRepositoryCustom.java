@@ -47,5 +47,5 @@ public interface AuditRecordRepositoryCustom {
 	 * @return a {@link Page} of {@link AuditRecord}s
 	 */
 	Page<AuditRecord> findByActionTypeAndOperationTypeAndDate(AuditOperationType[] operations,
-			AuditActionType[] actions, Instant fromDate, Instant toDate, Pageable pageable);
+AuditActionType[] actions, Instant fromDate, Instant toDate, Pageable pageable);
 }

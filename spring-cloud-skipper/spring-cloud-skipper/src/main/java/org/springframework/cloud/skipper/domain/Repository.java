@@ -30,8 +30,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-@Table(name = "SkipperRepository", uniqueConstraints = @UniqueConstraint(name = "uk_repository", columnNames = {
-		"name" }), indexes = @Index(name = "idx_repo_name", columnList = "name"))
+@Table(name = "SkipperRepository", uniqueConstraints = @UniqueConstraint(name = "uk_repository", columnNames = {"name"}), indexes = @Index(name = "idx_repo_name", columnList = "name"))
 public class Repository extends AbstractEntity {
 
 	/**
@@ -125,9 +124,9 @@ public class Repository extends AbstractEntity {
 	@Override
 	public String toString() {
 		return "Repository{" +
-				"name='" + name + '\'' +
-				", url='" + url + '\'' +
-				", local=" + local +
-				'}';
+	"name='" + name + '\'' +
+	", url='" + url + '\'' +
+	", local=" + local +
+	'}';
 	}
 }

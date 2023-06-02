@@ -62,8 +62,8 @@ public class DefaultAuthoritiesMapperTests {
 
 		assertThat(authorities).hasSize(7);
 		assertThat(authorities.stream().map(authority -> authority.getAuthority()).collect(Collectors.toList()))
-				.containsExactlyInAnyOrder("ROLE_MANAGE", "ROLE_CREATE", "ROLE_VIEW", "ROLE_DEPLOY", "ROLE_MODIFY",
-						"ROLE_SCHEDULE", "ROLE_DESTROY");
+	.containsExactlyInAnyOrder("ROLE_MANAGE", "ROLE_CREATE", "ROLE_VIEW", "ROLE_DEPLOY", "ROLE_MODIFY",
+"ROLE_SCHEDULE", "ROLE_DESTROY");
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class DefaultAuthoritiesMapperTests {
 
 		assertThat(authorities).hasSize(3);
 		assertThat(authorities.stream().map(authority -> authority.getAuthority()).collect(Collectors.toList()))
-				.containsExactlyInAnyOrder("ROLE_MANAGE", "ROLE_CREATE", "ROLE_VIEW");
+	.containsExactlyInAnyOrder("ROLE_MANAGE", "ROLE_CREATE", "ROLE_VIEW");
 	}
 
 	@Test
@@ -89,7 +89,7 @@ public class DefaultAuthoritiesMapperTests {
 		assertThatThrownBy(() -> {
 			new DefaultAuthoritiesMapper("uaa", roleMapping);
 		}).isInstanceOf(IllegalArgumentException.class).hasMessageContaining(
-				"The following 6 roles are not mapped: CREATE, DEPLOY, DESTROY, MODIFY, SCHEDULE, VIEW.");
+	"The following 6 roles are not mapped: CREATE, DEPLOY, DESTROY, MODIFY, SCHEDULE, VIEW.");
 	}
 
 	@Test
@@ -118,12 +118,12 @@ public class DefaultAuthoritiesMapperTests {
 
 		DefaultAuthoritiesMapper defaultAuthoritiesMapper = new DefaultAuthoritiesMapper("uaa", providerRoleMapping);
 		Collection<? extends GrantedAuthority> authorities = defaultAuthoritiesMapper.mapScopesToAuthorities("uaa",
-				scopes, null);
+	scopes, null);
 
 		assertThat(authorities).hasSize(7);
 		assertThat(authorities.stream().map(authority -> authority.getAuthority()).collect(Collectors.toList()))
-				.containsExactlyInAnyOrder("ROLE_CREATE", "ROLE_DEPLOY", "ROLE_DESTROY", "ROLE_MANAGE", "ROLE_MODIFY",
-						"ROLE_SCHEDULE", "ROLE_VIEW");
+	.containsExactlyInAnyOrder("ROLE_CREATE", "ROLE_DEPLOY", "ROLE_DESTROY", "ROLE_MANAGE", "ROLE_MODIFY",
+"ROLE_SCHEDULE", "ROLE_VIEW");
 	}
 
 	@Test
@@ -138,11 +138,11 @@ public class DefaultAuthoritiesMapperTests {
 
 		DefaultAuthoritiesMapper defaultAuthoritiesExtractor = new DefaultAuthoritiesMapper("uaa", providerRoleMapping);
 		Collection<? extends GrantedAuthority> authorities = defaultAuthoritiesExtractor.mapScopesToAuthorities("uaa",
-				scopes, null);
+	scopes, null);
 
 		assertThat(authorities).hasSize(3);
 		assertThat(authorities.stream().map(authority -> authority.getAuthority()).collect(Collectors.toList()))
-				.containsExactlyInAnyOrder("ROLE_MANAGE", "ROLE_CREATE", "ROLE_VIEW");
+	.containsExactlyInAnyOrder("ROLE_MANAGE", "ROLE_CREATE", "ROLE_VIEW");
 	}
 
 	@Test
@@ -154,12 +154,12 @@ public class DefaultAuthoritiesMapperTests {
 
 		DefaultAuthoritiesMapper defaultAuthoritiesExtractor = new DefaultAuthoritiesMapper("uaa", false);
 		Collection<? extends GrantedAuthority> authorities = defaultAuthoritiesExtractor.mapScopesToAuthorities("uaa",
-				scopes, null);
+	scopes, null);
 
 		assertThat(authorities).hasSize(7);
 		assertThat(authorities.stream().map(authority -> authority.getAuthority()).collect(Collectors.toList()))
-				.containsExactlyInAnyOrder("ROLE_CREATE", "ROLE_DEPLOY", "ROLE_DESTROY", "ROLE_MANAGE", "ROLE_MODIFY",
-						"ROLE_SCHEDULE", "ROLE_VIEW");
+	.containsExactlyInAnyOrder("ROLE_CREATE", "ROLE_DEPLOY", "ROLE_DESTROY", "ROLE_MANAGE", "ROLE_MODIFY",
+"ROLE_SCHEDULE", "ROLE_VIEW");
 	}
 
 	@Test
@@ -170,11 +170,11 @@ public class DefaultAuthoritiesMapperTests {
 
 		DefaultAuthoritiesMapper defaultAuthoritiesExtractor = new DefaultAuthoritiesMapper("uaa", true);
 		Collection<? extends GrantedAuthority> authorities = defaultAuthoritiesExtractor.mapScopesToAuthorities("uaa",
-				scopes, null);
+	scopes, null);
 
 		assertThat(authorities).hasSize(2);
 		assertThat(authorities.stream().map(authority -> authority.getAuthority()).collect(Collectors.toList()))
-				.containsExactlyInAnyOrder("ROLE_CREATE", "ROLE_VIEW");
+	.containsExactlyInAnyOrder("ROLE_CREATE", "ROLE_VIEW");
 	}
 
 	@Test
@@ -194,12 +194,12 @@ public class DefaultAuthoritiesMapperTests {
 
 		DefaultAuthoritiesMapper defaultAuthoritiesExtractor = new DefaultAuthoritiesMapper("uaa", true, roleMappings);
 		Collection<? extends GrantedAuthority> authorities = defaultAuthoritiesExtractor.mapScopesToAuthorities("uaa",
-				scopes, null);
+	scopes, null);
 
 		assertThat(authorities).hasSize(7);
 		assertThat(authorities.stream().map(authority -> authority.getAuthority()).collect(Collectors.toList()))
-				.containsExactlyInAnyOrder("ROLE_CREATE", "ROLE_DEPLOY", "ROLE_DESTROY", "ROLE_MANAGE", "ROLE_MODIFY",
-						"ROLE_SCHEDULE", "ROLE_VIEW");
+	.containsExactlyInAnyOrder("ROLE_CREATE", "ROLE_DEPLOY", "ROLE_DESTROY", "ROLE_MANAGE", "ROLE_MODIFY",
+"ROLE_SCHEDULE", "ROLE_VIEW");
 	}
 
 	@Test
@@ -219,12 +219,12 @@ public class DefaultAuthoritiesMapperTests {
 
 		DefaultAuthoritiesMapper defaultAuthoritiesExtractor = new DefaultAuthoritiesMapper("uaa", true, roleMappings);
 		Collection<? extends GrantedAuthority> authorities = defaultAuthoritiesExtractor.mapScopesToAuthorities("uaa",
-				scopes, null);
+	scopes, null);
 
 		assertThat(authorities).hasSize(7);
 		assertThat(authorities.stream().map(authority -> authority.getAuthority()).collect(Collectors.toList()))
-				.containsExactlyInAnyOrder("ROLE_CREATE", "ROLE_DEPLOY", "ROLE_DESTROY", "ROLE_MANAGE", "ROLE_MODIFY",
-						"ROLE_SCHEDULE", "ROLE_VIEW");
+	.containsExactlyInAnyOrder("ROLE_CREATE", "ROLE_DEPLOY", "ROLE_DESTROY", "ROLE_MANAGE", "ROLE_MODIFY",
+"ROLE_SCHEDULE", "ROLE_VIEW");
 	}
 
 	@Test
@@ -254,11 +254,11 @@ public class DefaultAuthoritiesMapperTests {
 
 		DefaultAuthoritiesMapper defaultAuthoritiesMapper = new DefaultAuthoritiesMapper("uaa", providerRoleMapping);
 		Collection<? extends GrantedAuthority> authorities = defaultAuthoritiesMapper.mapScopesToAuthorities("uaa",
-				scopes, null);
+	scopes, null);
 
 		assertThat(authorities).hasSize(7);
 		assertThat(authorities.stream().map(authority -> authority.getAuthority()).collect(Collectors.toList()))
-				.containsExactlyInAnyOrder("ROLE_CREATE", "ROLE_DEPLOY", "ROLE_DESTROY", "ROLE_MANAGE", "ROLE_MODIFY",
-						"ROLE_SCHEDULE", "ROLE_VIEW");
+	.containsExactlyInAnyOrder("ROLE_CREATE", "ROLE_DEPLOY", "ROLE_DESTROY", "ROLE_MANAGE", "ROLE_MODIFY",
+"ROLE_SCHEDULE", "ROLE_VIEW");
 	}
 }

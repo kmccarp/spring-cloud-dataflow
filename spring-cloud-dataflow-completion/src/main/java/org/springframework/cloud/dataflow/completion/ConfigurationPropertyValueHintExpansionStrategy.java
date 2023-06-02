@@ -51,18 +51,18 @@ public class ConfigurationPropertyValueHintExpansionStrategy implements Expansio
 	private ValueHintProvider[] valueHintProviders = new ValueHintProvider[0];
 
 	ConfigurationPropertyValueHintExpansionStrategy(AppRegistryService appRegistry,
-			ApplicationConfigurationMetadataResolver metadataResolver,
-			StreamDefinitionService streamDefinitionService) {
+ApplicationConfigurationMetadataResolver metadataResolver,
+StreamDefinitionService streamDefinitionService) {
 		this.collectorSupport = new ProposalsCollectorSupportUtils(appRegistry, metadataResolver);
 		this.streamDefinitionService = streamDefinitionService;
 	}
 
 	@Override
 	public boolean addProposals(String text, StreamDefinition streamDefinition, int detailLevel,
-			List<CompletionProposal> collector) {
+List<CompletionProposal> collector) {
 		LinkedList<StreamAppDefinition> streamAppDefinitions = this.streamDefinitionService.getAppDefinitions(streamDefinition);
 		Set<String> propertyNames = new HashSet<>(
-				StreamDefinitionServiceUtils.getDeploymentOrderIterator(streamAppDefinitions).next().getProperties().keySet());
+	StreamDefinitionServiceUtils.getDeploymentOrderIterator(streamAppDefinitions).next().getProperties().keySet());
 		propertyNames.removeAll(CompletionUtils.IMPLICIT_PARAMETER_NAMES);
 		if (text.endsWith(" ") || propertyNames.isEmpty()) {
 			return false;
@@ -74,7 +74,7 @@ public class ConfigurationPropertyValueHintExpansionStrategy implements Expansio
 		String alreadyTyped = lastApp.getProperties().get(propertyName);
 
 		AppRegistration lastAppRegistration = this.collectorSupport.findAppRegistration(lastApp.getName(),
-				CompletionUtils.determinePotentialTypes(lastApp, streamAppDefinitions.size() > 1));
+	CompletionUtils.determinePotentialTypes(lastApp, streamAppDefinitions.size() > 1));
 		if (lastAppRegistration != null) {
 			return this.collectorSupport.addAlreadyTypedValueHintsProposals(text, lastAppRegistration, collector, propertyName, valueHintProviders, alreadyTyped);
 		}

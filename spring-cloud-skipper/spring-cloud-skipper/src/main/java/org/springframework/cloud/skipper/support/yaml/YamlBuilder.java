@@ -102,7 +102,7 @@ class YamlBuilder {
 			if (listItems.isEmpty() && mapEntries.isEmpty()) {
 				if (scalars.size() > 1) {
 					status.addWarning("Multiple values " + scalars + " assigned to '" + path.toPropString()
-							+ "'. Values will be merged into a yaml sequence node.");
+				+ "'. Values will be merged into a yaml sequence node.");
 					return scalars;
 				}
 				else {
@@ -117,15 +117,15 @@ class YamlBuilder {
 				else {
 					if (!mapEntries.isEmpty()) {
 						status.addError("Direct assignment '" + path.toPropString() + "=" + scalars.get(0)
-								+ "' can not be combined " + "with sub-property assignment '" + path.toPropString()
-								+ "." + mapEntries.keySet().iterator().next() + "...'. "
-								+ "Direct assignment will be dropped!");
+					+ "' can not be combined " + "with sub-property assignment '" + path.toPropString()
+					+ "." + mapEntries.keySet().iterator().next() + "...'. "
+					+ "Direct assignment will be dropped!");
 					}
 					else {
 						status.addError("Direct assignment '" + path.toPropString() + "=" + scalars.get(0)
-								+ "' can not be combined " + "with sequence assignment '" + path.toPropString() + "["
-								+ listItems.keySet().iterator().next() + "]...' "
-								+ "Direct assignments will be dropped!");
+					+ "' can not be combined " + "with sequence assignment '" + path.toPropString() + "["
+					+ listItems.keySet().iterator().next() + "]...' "
+					+ "Direct assignments will be dropped!");
 					}
 					scalars.clear();
 				}
@@ -133,8 +133,8 @@ class YamlBuilder {
 		}
 		if (!listItems.isEmpty() && !mapEntries.isEmpty()) {
 			status.addWarning("'" + path.toPropString()
-					+ "' has some entries that look like list items and others that look like map entries. "
-					+ "All these entries will be treated as map entries");
+		+ "' has some entries that look like list items and others that look like map entries. "
+		+ "All these entries will be treated as map entries");
 			for (Entry<Integer, YamlBuilder> listItem : listItems.entrySet()) {
 				mapEntries.put(listItem.getKey().toString(), listItem.getValue());
 			}
@@ -142,7 +142,7 @@ class YamlBuilder {
 		}
 		if (!listItems.isEmpty()) {
 			return listItems.values().stream().map(childBuilder -> childBuilder.build())
-					.collect(Collectors.toList());
+		.collect(Collectors.toList());
 		}
 		else {
 			TreeMap<String, Object> map = new TreeMap<>();

@@ -51,10 +51,10 @@ public class AppBootSchemaVersionTests {
 
 	@ParameterizedTest
 	@NullAndEmptySource
-	@ValueSource(strings = { "Boot2", "boot2", "BOOT2", "foo", "Boot3", "boot3", "BOOT3" })
+	@ValueSource(strings = {"Boot2", "boot2", "BOOT2", "foo", "Boot3", "boot3", "BOOT3"})
 	void fromBootVersionWithInvalidValues(String invalidBootVersion) {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> AppBootSchemaVersion.fromBootVersion(invalidBootVersion))
-				.withMessage("Invalid AppBootSchemaVersion: %s", invalidBootVersion);
+	.isThrownBy(() -> AppBootSchemaVersion.fromBootVersion(invalidBootVersion))
+	.withMessage("Invalid AppBootSchemaVersion: %s", invalidBootVersion);
 	}
 }

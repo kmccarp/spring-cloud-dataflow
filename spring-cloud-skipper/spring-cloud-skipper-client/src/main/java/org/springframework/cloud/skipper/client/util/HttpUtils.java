@@ -44,7 +44,7 @@ public class HttpUtils {
 		}
 		catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException e) {
 			throw new IllegalStateException(
-					"Unexpected exception while building the certificate-ignoring SSLContext" + ".", e);
+		"Unexpected exception while building the certificate-ignoring SSLContext" + ".", e);
 		}
 	}
 }

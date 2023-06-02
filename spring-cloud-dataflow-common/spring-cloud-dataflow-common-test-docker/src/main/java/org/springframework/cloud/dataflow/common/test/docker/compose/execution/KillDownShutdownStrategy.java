@@ -29,17 +29,17 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.configurati
  */
 public class KillDownShutdownStrategy implements ShutdownStrategy {
 
-    private static final Logger log = LoggerFactory.getLogger(KillDownShutdownStrategy.class);
+	private static final Logger log = LoggerFactory.getLogger(KillDownShutdownStrategy.class);
 
-    @Override
-    public void shutdown(DockerCompose dockerCompose, Docker docker)
-            throws IOException, InterruptedException {
-        log.debug("Killing docker-compose cluster");
-        dockerCompose.kill();
-        log.debug("Downing docker-compose cluster");
-        dockerCompose.down();
-        log.debug("docker-compose cluster killed");
-        docker.pruneNetworks();
-        log.debug("Networks pruned");
-    }
+	@Override
+	public void shutdown(DockerCompose dockerCompose, Docker docker)
+throws IOException, InterruptedException {
+		log.debug("Killing docker-compose cluster");
+		dockerCompose.kill();
+		log.debug("Downing docker-compose cluster");
+		dockerCompose.down();
+		log.debug("docker-compose cluster killed");
+		docker.pruneNetworks();
+		log.debug("Networks pruned");
+	}
 }

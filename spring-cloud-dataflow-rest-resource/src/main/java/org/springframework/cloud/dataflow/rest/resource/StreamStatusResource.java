@@ -46,7 +46,7 @@ public class StreamStatusResource extends RepresentationModel<StreamStatusResour
 				if (instances != null && instances.iterator().hasNext()) {
 					AppInstanceStatusResource instance = instances.iterator().next();
 					if (instance != null && instance.getAttributes() != null
-							&& instance.getAttributes().containsKey(StreamRuntimePropertyKeys.ATTRIBUTE_SKIPPER_RELEASE_VERSION)) {
+				&& instance.getAttributes().containsKey(StreamRuntimePropertyKeys.ATTRIBUTE_SKIPPER_RELEASE_VERSION)) {
 						String releaseVersion = instance.getAttributes().get(StreamRuntimePropertyKeys.ATTRIBUTE_SKIPPER_RELEASE_VERSION);
 						if (releaseVersion != null) {
 							return releaseVersion;

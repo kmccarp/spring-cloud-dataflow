@@ -50,9 +50,9 @@ public final class MappingJwtGrantedAuthoritiesConverter implements Converter<Jw
 	private static final String DEFAULT_AUTHORITY_PREFIX = "SCOPE_";
 
 	private static final Collection<String> WELL_KNOWN_SCOPES_CLAIM_NAMES =
-			Arrays.asList("scope", "scp");
+Arrays.asList("scope", "scp");
 	private static final Collection<String> WELL_KNOWN_GROUPS_CLAIM_NAMES =
-			Arrays.asList("groups", "roles");
+Arrays.asList("groups", "roles");
 
 	private String authorityPrefix = DEFAULT_AUTHORITY_PREFIX;
 
@@ -72,21 +72,21 @@ public final class MappingJwtGrantedAuthoritiesConverter implements Converter<Jw
 	public Collection<GrantedAuthority> convert(Jwt jwt) {
 		log.debug("JWT: {}", jwt.getTokenValue());
 		Set<GrantedAuthority> collect = getAuthorities(jwt).stream()
-			.flatMap(authority -> {
-				if (roleAuthoritiesMapping.isEmpty() && groupAuthoritiesMapping.isEmpty()) {
-					return Stream.of(authority);
-				}
-				Stream<String> s1 = roleAuthoritiesMapping.entrySet().stream()
-					.filter(entry -> entry.getValue().equals(authority))
-					.map(entry -> entry.getKey()).distinct();
-				Stream<String> s2 = groupAuthoritiesMapping.entrySet().stream()
-					.filter(entry -> entry.getValue().equals(authority))
-					.map(entry -> entry.getKey()).distinct();
-				return Stream.concat(s1, s2);
-			})
-			.distinct()
-			.map(authority -> new SimpleGrantedAuthority(this.authorityPrefix + authority))
-			.collect(Collectors.toSet());
+	.flatMap(authority -> {
+		if (roleAuthoritiesMapping.isEmpty() && groupAuthoritiesMapping.isEmpty()) {
+			return Stream.of(authority);
+		}
+		Stream<String> s1 = roleAuthoritiesMapping.entrySet().stream()
+	.filter(entry -> entry.getValue().equals(authority))
+	.map(entry -> entry.getKey()).distinct();
+		Stream<String> s2 = groupAuthoritiesMapping.entrySet().stream()
+	.filter(entry -> entry.getValue().equals(authority))
+	.map(entry -> entry.getKey()).distinct();
+		return Stream.concat(s1, s2);
+	})
+	.distinct()
+	.map(authority -> new SimpleGrantedAuthority(this.authorityPrefix + authority))
+	.collect(Collectors.toSet());
 		log.debug("JWT granted: {}", collect);
 		return collect;
 	}
@@ -188,9 +188,9 @@ public final class MappingJwtGrantedAuthoritiesConverter implements Converter<Jw
 		List<String> claimAsStringList = new ArrayList<>();
 		if (claimAsStringList1 != null) {
 			List<String> collect = claimAsStringList1.stream()
-				.flatMap(c -> Arrays.stream(c.split(" ")))
-				.filter(c -> StringUtils.hasText(c))
-				.collect(Collectors.toList());
+		.flatMap(c -> Arrays.stream(c.split(" ")))
+		.filter(c -> StringUtils.hasText(c))
+		.collect(Collectors.toList());
 			claimAsStringList.addAll(collect);
 		}
 		if (claimAsStringList2 != null) {

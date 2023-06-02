@@ -30,40 +30,40 @@ import org.springframework.util.SocketUtils;
  */
 public class S3SignedRedirectRequestServerResource extends ExternalResource {
 
-    private static final Logger logger = LoggerFactory.getLogger(S3SignedRedirectRequestServerResource.class);
+	private static final Logger logger = LoggerFactory.getLogger(S3SignedRedirectRequestServerResource.class);
 
-    private int s3SignedRedirectServerPort;
+	private int s3SignedRedirectServerPort;
 
-    private ConfigurableApplicationContext application;
+	private ConfigurableApplicationContext application;
 
-    public S3SignedRedirectRequestServerResource() {
-        super();
-    }
+	public S3SignedRedirectRequestServerResource() {
+		super();
+	}
 
-    @Override
-    protected void before() throws Throwable {
+	@Override
+	protected void before() throws Throwable {
 
-        this.s3SignedRedirectServerPort = SocketUtils.findAvailableTcpPort();
+		this.s3SignedRedirectServerPort = SocketUtils.findAvailableTcpPort();
 
-        logger.info("Setting S3 Signed Redirect Server port to " + this.s3SignedRedirectServerPort);
+		logger.info("Setting S3 Signed Redirect Server port to " + this.s3SignedRedirectServerPort);
 
-        // Docker requires HTTPS.  Generated ssl keypair as follows:
-        // `keytool -genkeypair -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore s3redirectrequestserver.p12 -validity 1000000`
-        this.application = new SpringApplicationBuilder(S3SignedRedirectRequestServerApplication.class).build()
-                .run("--server.port=" + s3SignedRedirectServerPort,
-                        "--server.ssl.key-store=classpath:s3redirectrequestserver.p12",
-                        "--server.ssl.key-store-password=foobar");
-        logger.info("S3 Signed Redirect Server Server is UP!");
-    }
+		// Docker requires HTTPS.  Generated ssl keypair as follows:
+		// `keytool -genkeypair -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore s3redirectrequestserver.p12 -validity 1000000`
+		this.application = new SpringApplicationBuilder(S3SignedRedirectRequestServerApplication.class).build()
+	.run("--server.port=" + s3SignedRedirectServerPort,
+"--server.ssl.key-store=classpath:s3redirectrequestserver.p12",
+"--server.ssl.key-store-password=foobar");
+		logger.info("S3 Signed Redirect Server Server is UP!");
+	}
 
-    @Override
-    protected void after() {
-        application.stop();
-    }
+	@Override
+	protected void after() {
+		application.stop();
+	}
 
-    public int getS3SignedRedirectServerPort() {
-        return s3SignedRedirectServerPort;
-    }
+	public int getS3SignedRedirectServerPort() {
+		return s3SignedRedirectServerPort;
+	}
 
 
 }

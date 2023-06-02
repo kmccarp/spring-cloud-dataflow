@@ -49,6 +49,6 @@ public interface ExpansionStrategy {
 	 * text
 	 */
 	boolean addProposals(String text, StreamDefinition streamDefinition, int detailLevel,
-			List<CompletionProposal> collector);
+List<CompletionProposal> collector);
 
 }

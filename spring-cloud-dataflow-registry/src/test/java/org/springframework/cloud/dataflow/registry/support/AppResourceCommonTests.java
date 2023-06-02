@@ -54,8 +54,8 @@ public class AppResourceCommonTests {
 	@Test
 	public void testInvalidUrlResourceWithoutVersion() throws Exception {
 		assertThat(appResourceCommon.getUrlResourceWithoutVersion(
-				new UrlResource("https://repo.spring.io/release/org/springframework/cloud/stream/app/file-sink-rabbit/1.2.0.RELEASE/file-sink-rabbit-1.2.0.RELEASE.jar")))
-				.isEqualTo("https://repo.spring.io/release/org/springframework/cloud/stream/app/file-sink-rabbit/1.2.0.RELEASE/file-sink-rabbit");
+	new UrlResource("https://repo.spring.io/release/org/springframework/cloud/stream/app/file-sink-rabbit/1.2.0.RELEASE/file-sink-rabbit-1.2.0.RELEASE.jar")))
+	.isEqualTo("https://repo.spring.io/release/org/springframework/cloud/stream/app/file-sink-rabbit/1.2.0.RELEASE/file-sink-rabbit");
 	}
 
 	@Test
@@ -78,8 +78,8 @@ public class AppResourceCommonTests {
 		}
 		catch (IllegalArgumentException iae) {
 			assertThat(iae.getMessage().equals("Invalid URI schema for resource: " +
-					"springcloud/polyglot-python-processor:0.1 Expected URI schema prefix like file://, " +
-					"http:// or classpath:// but got none"));
+		"springcloud/polyglot-python-processor:0.1 Expected URI schema prefix like file://, " +
+		"http:// or classpath:// but got none"));
 		}
 	}
 
@@ -188,14 +188,14 @@ public class AppResourceCommonTests {
 	@Test
 	public void testGetResourceWithoutVersion() {
 		assertThat(appResourceCommon.getResourceWithoutVersion(
-				MavenResource.parse("org.springframework.cloud.stream.app:aggregate-counter-sink-rabbit:war:exec:1.3.0.RELEASE")))
-				.isEqualTo("maven://org.springframework.cloud.stream.app:aggregate-counter-sink-rabbit:war:exec");
+	MavenResource.parse("org.springframework.cloud.stream.app:aggregate-counter-sink-rabbit:war:exec:1.3.0.RELEASE")))
+	.isEqualTo("maven://org.springframework.cloud.stream.app:aggregate-counter-sink-rabbit:war:exec");
 		assertThat(appResourceCommon.getResourceWithoutVersion(
-				MavenResource.parse("org.springframework.cloud.stream.app:aggregate-counter-sink-rabbit::exec:1.3.0.RELEASE")))
-				.isEqualTo("maven://org.springframework.cloud.stream.app:aggregate-counter-sink-rabbit:jar:exec");
+	MavenResource.parse("org.springframework.cloud.stream.app:aggregate-counter-sink-rabbit::exec:1.3.0.RELEASE")))
+	.isEqualTo("maven://org.springframework.cloud.stream.app:aggregate-counter-sink-rabbit:jar:exec");
 		assertThat(appResourceCommon.getResourceWithoutVersion(
-				MavenResource.parse("org.springframework.cloud.stream.app:aggregate-counter-sink-rabbit:1.3.0.RELEASE")))
-				.isEqualTo("maven://org.springframework.cloud.stream.app:aggregate-counter-sink-rabbit:jar");
+	MavenResource.parse("org.springframework.cloud.stream.app:aggregate-counter-sink-rabbit:1.3.0.RELEASE")))
+	.isEqualTo("maven://org.springframework.cloud.stream.app:aggregate-counter-sink-rabbit:jar");
 	}
 
 	@Test

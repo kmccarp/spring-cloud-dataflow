@@ -40,15 +40,15 @@ public class UpdateStreamRequest {
 
 	public UpdateStreamRequest() {
 	}
-	
+
 
 	public UpdateStreamRequest(String releaseName, PackageIdentifier packageIdentifier,
-			Map<String, String> updateProperties) {
+Map<String, String> updateProperties) {
 		this(releaseName, packageIdentifier, updateProperties, false, null);
 	}
 
 	public UpdateStreamRequest(String releaseName, PackageIdentifier packageIdentifier,
-			Map<String, String> updateProperties, boolean force, List<String> appNames) {
+Map<String, String> updateProperties, boolean force, List<String> appNames) {
 		this.releaseName = releaseName;
 		this.packageIdentifier = packageIdentifier;
 		this.updateProperties = updateProperties;
@@ -99,11 +99,11 @@ public class UpdateStreamRequest {
 	@Override
 	public String toString() {
 		return "UpdateStreamRequest{" +
-				"releaseName='" + releaseName + '\'' +
-				", packageIdentifier=" + packageIdentifier +
-				", updateProperties=" + updateProperties +
-				", force=" + this.force +
-				", appNames=" + this.appNames +
-				'}';
+	"releaseName='" + releaseName + '\'' +
+	", packageIdentifier=" + packageIdentifier +
+	", updateProperties=" + updateProperties +
+	", force=" + this.force +
+	", appNames=" + this.appNames +
+	'}';
 	}
 }

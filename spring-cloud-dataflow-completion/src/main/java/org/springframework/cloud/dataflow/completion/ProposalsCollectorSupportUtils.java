@@ -50,7 +50,7 @@ class ProposalsCollectorSupportUtils {
 		this.metadataResolver = metadataResolver;
 	}
 
-	void addPropertiesProposals(String text, String startsWith, AppRegistration appRegistration, Set<String> alreadyPresentOptions, List<CompletionProposal> collector, int detailLevel){
+	void addPropertiesProposals(String text, String startsWith, AppRegistration appRegistration, Set<String> alreadyPresentOptions, List<CompletionProposal> collector, int detailLevel) {
 		Resource metadataResource = appRegistry.getAppMetadataResource(appRegistration);
 		// For visible properties, use their simple name
 		if (metadataResource != null) {
@@ -59,7 +59,7 @@ class ProposalsCollectorSupportUtils {
 				String name = property.getName();
 				if (!alreadyPresentOptions.contains(name) && name.startsWith(startsWith)) {
 					collector.add(proposals
-							.withSeparateTokens("--" + property.getName() + "=", property.getShortDescription()));
+				.withSeparateTokens("--" + property.getName() + "=", property.getShortDescription()));
 				}
 			}
 			// For other properties (including visible in full form), use their id
@@ -68,14 +68,14 @@ class ProposalsCollectorSupportUtils {
 					String id = property.getId();
 					if (!alreadyPresentOptions.contains(id) && id.startsWith(startsWith)) {
 						collector.add(proposals
-								.withSeparateTokens("--" + property.getId() + "=", property.getShortDescription()));
+					.withSeparateTokens("--" + property.getId() + "=", property.getShortDescription()));
 					}
 				}
 			}
 		}
 	}
 
-	void addValueHintsProposals(final String dsl, AppRegistration appRegistration, final List<CompletionProposal> collector, final String propertyName, final ValueHintProvider[] valueHintProviders){
+	void addValueHintsProposals(final String dsl, AppRegistration appRegistration, final List<CompletionProposal> collector, final String propertyName, final ValueHintProvider[] valueHintProviders) {
 		final Resource metadataResource = this.appRegistry.getAppMetadataResource(appRegistration);
 		if (metadataResource != null) {
 			final URLClassLoader classLoader = metadataResolver.createAppClassLoader(metadataResource);
@@ -87,7 +87,7 @@ class ProposalsCollectorSupportUtils {
 						for (ValueHintProvider valueHintProvider : valueHintProviders) {
 							for (ValueHint valueHint : valueHintProvider.generateValueHints(property, classLoader)) {
 								collector.add(proposals.withSuffix(String.valueOf(valueHint.getValue()),
-										valueHint.getShortDescription()));
+							valueHint.getShortDescription()));
 							}
 						}
 					}
@@ -97,14 +97,15 @@ class ProposalsCollectorSupportUtils {
 		}
 	}
 
-	boolean addAlreadyTypedValueHintsProposals(final String text, AppRegistration appRegistration, final List<CompletionProposal> collector, final String propertyName, final ValueHintProvider[] valueHintProviders, final String alreadyTyped){
+	boolean addAlreadyTypedValueHintsProposals(final String text, AppRegistration appRegistration, final List<CompletionProposal> collector, final String propertyName, final ValueHintProvider[] valueHintProviders, final String alreadyTyped) {
 		final Resource metadataResource = this.appRegistry.getAppMetadataResource(appRegistration);
 		boolean result = false;
 		if (metadataResource == null) {
 			result = false;
-		} else {
+		}
+		else {
 			final URLClassLoader classLoader = metadataResolver.createAppClassLoader(metadataResource);
-			result =  this.doWithClassLoader(classLoader, () -> {
+			result = this.doWithClassLoader(classLoader, () -> {
 				CompletionProposal.Factory proposals = CompletionProposal.expanding(text);
 				List<ConfigurationMetadataProperty> allProps = metadataResolver.listProperties(metadataResource, true);
 				List<ConfigurationMetadataProperty> visibleProps = metadataResolver.listProperties(metadataResource);
@@ -119,7 +120,7 @@ class ProposalsCollectorSupportUtils {
 								String candidate = String.valueOf(valueHint.getValue());
 								if (!candidate.equals(alreadyTyped) && candidate.startsWith(alreadyTyped)) {
 									collector.add(proposals.withSuffix(candidate.substring(alreadyTyped.length()),
-											valueHint.getShortDescription()));
+								valueHint.getShortDescription()));
 								}
 							}
 							if (!valueHints.isEmpty() && valueHintProvider.isExclusive(property)) {
@@ -134,7 +135,7 @@ class ProposalsCollectorSupportUtils {
 		return result;
 	}
 
-	AppRegistration findAppRegistration(String appName, ApplicationType... appTypes){
+	AppRegistration findAppRegistration(String appName, ApplicationType... appTypes) {
 		AppRegistration lastAppRegistration = null;
 		for (ApplicationType appType : appTypes) {
 			lastAppRegistration = this.appRegistry.find(appName, appType);
@@ -145,7 +146,7 @@ class ProposalsCollectorSupportUtils {
 		return null;
 	}
 
-	static String computeStartsWith(CheckPointedParseException exception){
+	static String computeStartsWith(CheckPointedParseException exception) {
 		List<Token> tokens = exception.getTokens();
 		int tokenPointer = tokens.size() - 1;
 		while (!tokens.get(tokenPointer - 1).isKind(TokenKind.DOUBLE_MINUS)) {

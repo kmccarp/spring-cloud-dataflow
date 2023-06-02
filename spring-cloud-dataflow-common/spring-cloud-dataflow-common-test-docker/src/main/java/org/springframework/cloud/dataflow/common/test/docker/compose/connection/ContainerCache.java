@@ -27,22 +27,22 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.execution.D
 
 public class ContainerCache {
 
-    private final Map<String, Container> containers = new HashMap<>();
-    private final Docker docker;
-    private final DockerCompose dockerCompose;
+	private final Map<String, Container> containers = new HashMap<>();
+	private final Docker docker;
+	private final DockerCompose dockerCompose;
 
-    public ContainerCache(Docker docker, DockerCompose dockerCompose) {
-        this.docker = docker;
-        this.dockerCompose = dockerCompose;
-    }
+	public ContainerCache(Docker docker, DockerCompose dockerCompose) {
+		this.docker = docker;
+		this.dockerCompose = dockerCompose;
+	}
 
-    public Container container(String containerName) {
-        containers.putIfAbsent(containerName, new Container(containerName, docker, dockerCompose));
-        return containers.get(containerName);
-    }
+	public Container container(String containerName) {
+		containers.putIfAbsent(containerName, new Container(containerName, docker, dockerCompose));
+		return containers.get(containerName);
+	}
 
-    public Set<Container> containers() throws IOException, InterruptedException {
-        return dockerCompose.services().stream().map(this::container).collect(toSet());
-    }
+	public Set<Container> containers() throws IOException, InterruptedException {
+		return dockerCompose.services().stream().map(this::container).collect(toSet());
+	}
 
 }

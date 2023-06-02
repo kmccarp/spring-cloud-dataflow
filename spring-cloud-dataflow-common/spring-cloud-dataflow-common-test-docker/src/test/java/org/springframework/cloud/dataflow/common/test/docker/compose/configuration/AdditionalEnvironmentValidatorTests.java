@@ -27,18 +27,18 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.configurati
 
 public class AdditionalEnvironmentValidatorTests {
 
-   @Rule
-   public ExpectedException exception = ExpectedException.none();
+	@Rule
+	public ExpectedException exception = ExpectedException.none();
 
 	@Test
 	public void throw_exception_when_additional_environment_variables_contain_docker_variables() {
 		Map<String, String> variables = new HashMap<>();
 		variables.put("DOCKER_HOST", "tcp://some-host:2376");
 		variables.put("SOME_VARIABLE", "Some Value");
-	   exception.expect(IllegalStateException.class);
-	   exception.expectMessage("The following variables");
-	   exception.expectMessage("DOCKER_HOST");
-	   exception.expectMessage("cannot exist in your additional environment");
+		exception.expect(IllegalStateException.class);
+		exception.expectMessage("The following variables");
+		exception.expectMessage("DOCKER_HOST");
+		exception.expectMessage("cannot exist in your additional environment");
 		AdditionalEnvironmentValidator.validate(variables);
 	}
 

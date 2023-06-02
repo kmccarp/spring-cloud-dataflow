@@ -52,9 +52,9 @@ public class AppStatusResource extends RepresentationModel<AppStatusResource> {
 		if (this.instances != null && this.instances.iterator().hasNext()) {
 			AppInstanceStatusResource instance = this.instances.iterator().next();
 			return (instance != null && instance.getAttributes() != null &&
-					StringUtils.hasText(instance.getAttributes().get(StreamRuntimePropertyKeys.ATTRIBUTE_SKIPPER_APPLICATION_NAME))) ?
-					instance.getAttributes().get(StreamRuntimePropertyKeys.ATTRIBUTE_SKIPPER_APPLICATION_NAME) :
-					NO_INSTANCES;
+		StringUtils.hasText(instance.getAttributes().get(StreamRuntimePropertyKeys.ATTRIBUTE_SKIPPER_APPLICATION_NAME))) ?
+		instance.getAttributes().get(StreamRuntimePropertyKeys.ATTRIBUTE_SKIPPER_APPLICATION_NAME) :
+		NO_INSTANCES;
 		}
 		return NO_INSTANCES;
 	}

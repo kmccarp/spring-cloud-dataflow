@@ -53,7 +53,7 @@ public class SqlCommandsRunner {
 				command.handle(jdbcTemplate, connection);
 			}
 			else {
-				if(!ObjectUtils.isEmpty(command.getSuppressedErrorCodes())) {
+				if (!ObjectUtils.isEmpty(command.getSuppressedErrorCodes())) {
 					jdbcTemplate.setExceptionTranslator(new SuppressSQLErrorCodesTranslator(command.getSuppressedErrorCodes()));
 				}
 				try {

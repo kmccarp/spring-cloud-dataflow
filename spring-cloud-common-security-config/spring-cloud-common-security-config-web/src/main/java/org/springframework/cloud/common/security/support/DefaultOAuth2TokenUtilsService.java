@@ -94,8 +94,8 @@ public class DefaultOAuth2TokenUtilsService implements OAuth2TokenUtilsService {
 
 		if (oauth2AuthorizedClient == null) {
 			throw new IllegalStateException(String.format(
-				"No oauth2AuthorizedClient returned for clientRegistrationId '%s' and principalName '%s'.",
-				clientRegistrationId, principalName));
+		"No oauth2AuthorizedClient returned for clientRegistrationId '%s' and principalName '%s'.",
+		clientRegistrationId, principalName));
 		}
 		return oauth2AuthorizedClient;
 	}
@@ -104,7 +104,7 @@ public class DefaultOAuth2TokenUtilsService implements OAuth2TokenUtilsService {
 	public void removeAuthorizedClient(OAuth2AuthorizedClient auth2AuthorizedClient) {
 		Assert.notNull(auth2AuthorizedClient, "The auth2AuthorizedClient must not be null.");
 		this.oauth2AuthorizedClientService.removeAuthorizedClient(
-			auth2AuthorizedClient.getClientRegistration().getRegistrationId(),
-			auth2AuthorizedClient.getPrincipalName());
+	auth2AuthorizedClient.getClientRegistration().getRegistrationId(),
+	auth2AuthorizedClient.getPrincipalName());
 	}
 }

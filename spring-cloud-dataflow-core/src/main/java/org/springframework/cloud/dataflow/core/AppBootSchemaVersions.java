@@ -53,8 +53,8 @@ public class AppBootSchemaVersions {
 	@Override
 	public String toString() {
 		return "AppBootSchemaVersions{" +
-				"defaultSchemaVersion=" + defaultSchemaVersion +
-				", versions=" + versions +
-				'}';
+	"defaultSchemaVersion=" + defaultSchemaVersion +
+	", versions=" + versions +
+	'}';
 	}
 }

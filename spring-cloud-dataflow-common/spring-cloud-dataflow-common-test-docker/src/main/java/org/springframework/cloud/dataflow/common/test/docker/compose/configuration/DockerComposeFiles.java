@@ -38,25 +38,26 @@ public class DockerComposeFiles {
 
 	public static DockerComposeFiles from(String... dockerComposeFilenames) {
 		List<File> dockerComposeFiles = Arrays.asList(dockerComposeFilenames).stream()
-			.map(fileName -> {
-				Path path = null;
-				if (fileName.startsWith("classpath:")) {
-					URL resourceUrl = ClassLoader.getSystemResource(fileName.substring(10));
-					if (resourceUrl == null) {
-						throw new IllegalArgumentException("Can't find resource " + fileName);
-					}
-					try {
-						path = Paths.get(resourceUrl.toURI());
-					} catch (Exception e) {
-						throw new IllegalArgumentException("Can't find resource " + fileName, e);
-					}
-				} else {
-					path = Paths.get(fileName);
-				}
-				return path;
-			})
-			.map(path -> path.toFile())
-			.collect(toList());
+	.map(fileName -> {
+		Path path = null;
+		if (fileName.startsWith("classpath:")) {
+			URL resourceUrl = ClassLoader.getSystemResource(fileName.substring(10));
+			if (resourceUrl == null) {
+				throw new IllegalArgumentException("Can't find resource " + fileName);
+			}
+			try {
+				path = Paths.get(resourceUrl.toURI());
+			} catch (Exception e) {
+				throw new IllegalArgumentException("Can't find resource " + fileName, e);
+			}
+		}
+		else {
+			path = Paths.get(fileName);
+		}
+		return path;
+	})
+	.map(path -> path.toFile())
+	.collect(toList());
 		validateAtLeastOneComposeFileSpecified(dockerComposeFiles);
 		validateComposeFilesExist(dockerComposeFiles);
 		return new DockerComposeFiles(dockerComposeFiles);
@@ -64,8 +65,8 @@ public class DockerComposeFiles {
 
 	public static DockerComposeFiles fromxx(String... dockerComposeFilenames) {
 		List<File> dockerComposeFiles = Arrays.asList(dockerComposeFilenames).stream()
-			.map(File::new)
-			.collect(toList());
+	.map(File::new)
+	.collect(toList());
 		validateAtLeastOneComposeFileSpecified(dockerComposeFiles);
 		validateComposeFilesExist(dockerComposeFiles);
 		return new DockerComposeFiles(dockerComposeFiles);
@@ -73,10 +74,10 @@ public class DockerComposeFiles {
 
 	public List<String> constructComposeFileCommand() {
 		return dockerComposeFiles.stream()
-			.map(File::getAbsolutePath)
-			.map(f -> Arrays.asList("--file", f))
-			.flatMap(Collection::stream)
-			.collect(toList());
+	.map(File::getAbsolutePath)
+	.map(f -> Arrays.asList("--file", f))
+	.flatMap(Collection::stream)
+	.collect(toList());
 	}
 
 	private static void validateAtLeastOneComposeFileSpecified(List<File> dockerComposeFiles) {
@@ -85,11 +86,11 @@ public class DockerComposeFiles {
 
 	private static void validateComposeFilesExist(List<File> dockerComposeFiles) {
 		List<File> missingFiles = dockerComposeFiles.stream()
-			.filter(f -> !f.exists())
-			.collect(toList());
+	.filter(f -> !f.exists())
+	.collect(toList());
 		String errorMessage = missingFiles.stream()
-			.map(File::getAbsolutePath)
-			.collect(joining(", ", "The following docker-compose files: ", " do not exist."));
+	.map(File::getAbsolutePath)
+	.collect(joining(", ", "The following docker-compose files: ", " do not exist."));
 		Assert.state(missingFiles.isEmpty(), errorMessage);
 	}
 }

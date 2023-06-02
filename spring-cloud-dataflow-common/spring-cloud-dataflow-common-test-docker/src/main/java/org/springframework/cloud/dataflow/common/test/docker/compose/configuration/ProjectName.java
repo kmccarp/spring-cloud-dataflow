@@ -41,7 +41,7 @@ public class ProjectName {
 	protected void validate() {
 		Assert.state(projectName().trim().length() > 0, "ProjectName must not be blank.");
 		Assert.state(validCharacters(),
-				"ProjectName '" + projectName() + "' not allowed, please use lowercase letters and numbers only.");
+	"ProjectName '" + projectName() + "' not allowed, please use lowercase letters and numbers only.");
 	}
 
 	// Only allows strings that docker-compose-cli would not modify

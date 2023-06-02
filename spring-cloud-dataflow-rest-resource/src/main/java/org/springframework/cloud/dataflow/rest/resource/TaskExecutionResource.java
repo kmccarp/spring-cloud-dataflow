@@ -147,19 +147,19 @@ public class TaskExecutionResource extends RepresentationModel<TaskExecutionReso
 		}
 		else {
 			this.jobExecutionIds = Collections
-					.unmodifiableList(new ArrayList<>(taskJobExecutionRel.getJobExecutionIds()));
+		.unmodifiableList(new ArrayList<>(taskJobExecutionRel.getJobExecutionIds()));
 		}
 		if (taskJobExecutionRel.getTaskManifest() != null) {
 			this.resourceUrl = taskJobExecutionRel.getTaskManifest().getTaskDeploymentRequest().getResource().toString();
 			this.appProperties = taskJobExecutionRel.getTaskManifest().getTaskDeploymentRequest().getDefinition().getProperties();
 			this.deploymentProperties = taskJobExecutionRel.getTaskManifest().getTaskDeploymentRequest().getDeploymentProperties();
 		}
-		if(taskJobExecutionRel.getTaskManifest() != null) {
+		if (taskJobExecutionRel.getTaskManifest() != null) {
 			this.platformName = taskJobExecutionRel.getTaskManifest().getPlatformName();
 		}
 		this.composedTaskJobExecutionStatus = (taskJobExecutionRel.getComposedTaskJobExecution() != null) ?
-				taskJobExecutionRel.getComposedTaskJobExecution().getJobExecution().getExitStatus().getExitCode() :
-				null;
+	taskJobExecutionRel.getComposedTaskJobExecution().getJobExecution().getExitStatus().getExitCode() :
+	null;
 	}
 
 	/**
@@ -181,8 +181,8 @@ public class TaskExecutionResource extends RepresentationModel<TaskExecutionReso
 		this.errorMessage = taskExecution.getErrorMessage();
 		this.externalExecutionId = taskExecution.getExternalExecutionId();
 		this.composedTaskJobExecutionStatus = (composedTaskJobExecution != null) ?
-				composedTaskJobExecution.getJobExecution().getExitStatus().getExitCode() :
-				null;
+	composedTaskJobExecution.getJobExecution().getExitStatus().getExitCode() :
+	null;
 	}
 
 	/**
@@ -209,8 +209,8 @@ public class TaskExecutionResource extends RepresentationModel<TaskExecutionReso
 		this.appProperties = taskManifest.getTaskDeploymentRequest().getDefinition().getProperties();
 		this.deploymentProperties = taskManifest.getTaskDeploymentRequest().getDeploymentProperties();
 		this.composedTaskJobExecutionStatus = (composedTaskJobExecution != null) ?
-				composedTaskJobExecution.getJobExecution().getExitStatus().getExitCode() :
-				null;
+	composedTaskJobExecution.getJobExecution().getExitStatus().getExitCode() :
+	null;
 	}
 
 	public long getExecutionId() {
@@ -312,13 +312,13 @@ public class TaskExecutionResource extends RepresentationModel<TaskExecutionReso
 		else {
 			if (this.composedTaskJobExecutionStatus != null) {
 				return (this.composedTaskJobExecutionStatus.equals("ABANDONED") ||
-						this.composedTaskJobExecutionStatus.equals("FAILED") ||
-						this.composedTaskJobExecutionStatus.equals("STOPPED")) ?
-						TaskExecutionStatus.ERROR : TaskExecutionStatus.COMPLETE;
+			this.composedTaskJobExecutionStatus.equals("FAILED") ||
+			this.composedTaskJobExecutionStatus.equals("STOPPED")) ?
+			TaskExecutionStatus.ERROR : TaskExecutionStatus.COMPLETE;
 			}
 
 			return (this.exitCode == null) ? TaskExecutionStatus.RUNNING :
-					((this.exitCode == 0) ? TaskExecutionStatus.COMPLETE : TaskExecutionStatus.ERROR);
+		((this.exitCode == 0) ? TaskExecutionStatus.COMPLETE : TaskExecutionStatus.ERROR);
 		}
 	}
 

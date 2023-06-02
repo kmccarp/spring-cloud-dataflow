@@ -32,14 +32,14 @@ public class TaskDefinitionToDslConverterTests {
 	@Test
 	public void testTaskDsl() {
 		assertEquals("foo --prop2=value2 --prop1=value1",
-				new TaskDefinitionToDslConverter().toDsl(new TaskDefinition("myTask", "foo --prop1=value1 --prop2=value2")));
+	new TaskDefinitionToDslConverter().toDsl(new TaskDefinition("myTask", "foo --prop1=value1 --prop2=value2")));
 	}
 
 	@Test
 	public void testExclusionOfDataFlowAddedProperties() {
 
 		List<String> dataFlowAddedProperties = Arrays.asList(
-				TaskDefinition.SPRING_CLOUD_TASK_NAME);
+	TaskDefinition.SPRING_CLOUD_TASK_NAME);
 
 		for (String key : dataFlowAddedProperties) {
 			String dslText = "foo --" + key + "=boza";
@@ -48,7 +48,7 @@ public class TaskDefinitionToDslConverterTests {
 			TaskDefinition taskDefinition = new TaskDefinition("streamName", dslText);
 
 			assertEquals("foo",
-					new TaskDefinitionToDslConverter().toDsl(taskDefinition));
+		new TaskDefinitionToDslConverter().toDsl(taskDefinition));
 		}
 	}
 
@@ -59,30 +59,30 @@ public class TaskDefinitionToDslConverterTests {
 
 		TaskDefinition fooTask = TaskDefinition.TaskDefinitionBuilder.from(taskDefinition)
 
-				.setProperty("p1", "a b")
-				.setProperty("p2", "'c d'")
-				.setProperty("p3", "ef")
-				.setProperty("p4", "'i' 'j'")
-				.setProperty("p5", "\"k l\"")
-				.build();
+	.setProperty("p1", "a b")
+	.setProperty("p2", "'c d'")
+	.setProperty("p3", "ef")
+	.setProperty("p4", "'i' 'j'")
+	.setProperty("p5", "\"k l\"")
+	.build();
 
 		assertEquals("foo --p1='a b' --p2=\"'c d'\" --p3=ef --p4=\"'i' 'j'\" --p5=\"k l\"",
-				new TaskDefinitionToDslConverter().toDsl(fooTask));
+	new TaskDefinitionToDslConverter().toDsl(fooTask));
 	}
 
 	@Test
 	public void autoQuotesOnStarProperties() {
 
 		TaskDefinition taskDefinition = new TaskDefinition("fooTask", "jdbc-mssql --cron='/10 * * * * *' " +
-				"--max-messages=-1 --password='******' --query='UPDATE top (100) ASSURANCE SET assurance_flag = 1 " +
-				"OUTPUT Inserted.* WHERE assurance_flag IS NULL' " +
-				"--url='jdbc:sqlserver://db:1433;encrypt=false&databaseName=Spring' --username='*****'");
+	"--max-messages=-1 --password='******' --query='UPDATE top (100) ASSURANCE SET assurance_flag = 1 " +
+	"OUTPUT Inserted.* WHERE assurance_flag IS NULL' " +
+	"--url='jdbc:sqlserver://db:1433;encrypt=false&databaseName=Spring' --username='*****'");
 
 		assertEquals("jdbc-mssql --cron='/10 * * * * *' " +
-						"--max-messages=-1 --password='******' --query='UPDATE top (100) ASSURANCE SET assurance_flag = 1 " +
-						"OUTPUT Inserted.* WHERE assurance_flag IS NULL' " +
-						"--url='jdbc:sqlserver://db:1433;encrypt=false&databaseName=Spring' --username='*****'",
-				new TaskDefinitionToDslConverter().toDsl(taskDefinition));
+	"--max-messages=-1 --password='******' --query='UPDATE top (100) ASSURANCE SET assurance_flag = 1 " +
+	"OUTPUT Inserted.* WHERE assurance_flag IS NULL' " +
+	"--url='jdbc:sqlserver://db:1433;encrypt=false&databaseName=Spring' --username='*****'",
+	new TaskDefinitionToDslConverter().toDsl(taskDefinition));
 
 	}
 

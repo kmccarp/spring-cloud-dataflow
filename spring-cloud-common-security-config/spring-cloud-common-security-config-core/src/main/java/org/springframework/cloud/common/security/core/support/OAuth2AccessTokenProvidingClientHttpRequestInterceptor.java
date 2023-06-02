@@ -52,14 +52,14 @@ public class OAuth2AccessTokenProvidingClientHttpRequestInterceptor implements C
 
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
-			throws IOException {
+throws IOException {
 
 		final String tokenToUse;
 
 		if (this.staticOauthAccessToken != null) {
 			tokenToUse = this.staticOauthAccessToken;
 		}
-		else if (this.oauth2TokenUtilsService != null){
+		else if (this.oauth2TokenUtilsService != null) {
 			tokenToUse = this.oauth2TokenUtilsService.getAccessTokenOfAuthenticatedUser();
 		}
 		else {

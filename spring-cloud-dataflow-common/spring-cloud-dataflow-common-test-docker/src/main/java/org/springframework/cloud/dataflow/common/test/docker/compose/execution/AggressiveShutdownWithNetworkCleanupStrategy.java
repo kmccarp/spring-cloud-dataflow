@@ -32,37 +32,37 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.connection.
 @Deprecated
 public class AggressiveShutdownWithNetworkCleanupStrategy implements ShutdownStrategy {
 
-    private static final Logger log = LoggerFactory.getLogger(AggressiveShutdownWithNetworkCleanupStrategy.class);
+	private static final Logger log = LoggerFactory.getLogger(AggressiveShutdownWithNetworkCleanupStrategy.class);
 
-    @Override
-    public void shutdown(DockerCompose dockerCompose, Docker docker) throws IOException, InterruptedException {
-        List<ContainerName> runningContainers = dockerCompose.ps();
+	@Override
+	public void shutdown(DockerCompose dockerCompose, Docker docker) throws IOException, InterruptedException {
+		List<ContainerName> runningContainers = dockerCompose.ps();
 
-        log.info("Shutting down {}", runningContainers.stream().map(ContainerName::semanticName).collect(toList()));
-        removeContainersCatchingErrors(docker, runningContainers);
-        removeNetworks(dockerCompose, docker);
+		log.info("Shutting down {}", runningContainers.stream().map(ContainerName::semanticName).collect(toList()));
+		removeContainersCatchingErrors(docker, runningContainers);
+		removeNetworks(dockerCompose, docker);
 
-    }
+	}
 
-    private static void removeContainersCatchingErrors(Docker docker, List<ContainerName> runningContainers) throws IOException, InterruptedException {
-        try {
-            removeContainers(docker, runningContainers);
-        } catch (DockerExecutionException exception) {
-            log.error("Error while trying to remove containers: {}", exception.getMessage());
-        }
-    }
+	private static void removeContainersCatchingErrors(Docker docker, List<ContainerName> runningContainers) throws IOException, InterruptedException {
+		try {
+			removeContainers(docker, runningContainers);
+		} catch (DockerExecutionException exception) {
+			log.error("Error while trying to remove containers: {}", exception.getMessage());
+		}
+	}
 
-    private static void removeContainers(Docker docker, List<ContainerName> running) throws IOException, InterruptedException {
-        List<String> rawContainerNames = running.stream()
-                .map(ContainerName::rawName)
-                .collect(toList());
+	private static void removeContainers(Docker docker, List<ContainerName> running) throws IOException, InterruptedException {
+		List<String> rawContainerNames = running.stream()
+	.map(ContainerName::rawName)
+	.collect(toList());
 
-        docker.rm(rawContainerNames);
-        log.debug("Finished shutdown");
-    }
+		docker.rm(rawContainerNames);
+		log.debug("Finished shutdown");
+	}
 
-    private static void removeNetworks(DockerCompose dockerCompose, Docker docker) throws IOException, InterruptedException {
-        dockerCompose.down();
-        docker.pruneNetworks();
-    }
+	private static void removeNetworks(DockerCompose dockerCompose, Docker docker) throws IOException, InterruptedException {
+		dockerCompose.down();
+		docker.pruneNetworks();
+	}
 }

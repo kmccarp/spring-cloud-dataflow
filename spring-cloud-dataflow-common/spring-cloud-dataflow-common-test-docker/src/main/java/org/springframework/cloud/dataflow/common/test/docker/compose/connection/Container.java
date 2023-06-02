@@ -83,7 +83,7 @@ public class Container {
 				return SuccessOrFailure.failure("Internal port " + internalPort + " is not listening in container " + containerName);
 			}
 			return port.isHttpRespondingSuccessfully(urlFunction, andCheckStatus)
-					.mapFailure(failureMessage -> internalPort + " does not have a http response from " + urlFunction.apply(port) + ":\n" + failureMessage);
+		.mapFailure(failureMessage -> internalPort + " does not have a http response from " + urlFunction.apply(port) + ":\n" + failureMessage);
 		} catch (Exception e) {
 			return SuccessOrFailure.fromException(e);
 		}
@@ -91,18 +91,18 @@ public class Container {
 
 	public DockerPort portMappedExternallyTo(int externalPort) {
 		return portMappings.get()
-						   .stream()
-						   .filter(port -> port.getExternalPort() == externalPort)
-						   .findFirst()
-						   .orElseThrow(() -> new IllegalArgumentException("No port mapped externally to '" + externalPort + "' for container '" + containerName + "'"));
+	.stream()
+	.filter(port -> port.getExternalPort() == externalPort)
+	.findFirst()
+	.orElseThrow(() -> new IllegalArgumentException("No port mapped externally to '" + externalPort + "' for container '" + containerName + "'"));
 	}
 
 	public DockerPort port(int internalPort) {
 		return portMappings.get()
-						   .stream()
-						   .filter(port -> port.getInternalPort() == internalPort)
-						   .findFirst()
-						   .orElseThrow(() -> new IllegalArgumentException("No internal port '" + internalPort + "' for container '" + containerName + "': " + portMappings));
+	.stream()
+	.filter(port -> port.getInternalPort() == internalPort)
+	.findFirst()
+	.orElseThrow(() -> new IllegalArgumentException("No internal port '" + internalPort + "' for container '" + containerName + "': " + portMappings));
 	}
 
 	public void start() throws IOException, InterruptedException {
@@ -166,9 +166,9 @@ public class Container {
 
 	public SuccessOrFailure areAllPortsOpen() {
 		List<Integer> unavaliablePorts = portMappings.get().stream()
-				.filter(port -> !port.isListeningNow())
-				.map(DockerPort::getInternalPort)
-				.collect(Collectors.toList());
+	.filter(port -> !port.isListeningNow())
+	.map(DockerPort::getInternalPort)
+	.collect(Collectors.toList());
 
 		boolean allPortsOpen = unavaliablePorts.isEmpty();
 		String failureMessage = "The following ports failed to open: " + unavaliablePorts;

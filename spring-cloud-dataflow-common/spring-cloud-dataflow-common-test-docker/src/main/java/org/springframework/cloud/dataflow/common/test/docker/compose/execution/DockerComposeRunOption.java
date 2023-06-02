@@ -30,9 +30,9 @@ public class DockerComposeRunOption {
 		return options;
 	}
 
-    public static DockerComposeRunOption options(String... options) {
-        return DockerComposeRunOption.of(Arrays.asList(options));
-    }
+	public static DockerComposeRunOption options(String... options) {
+		return DockerComposeRunOption.of(Arrays.asList(options));
+	}
 
 	private static DockerComposeRunOption of(List<String> asList) {
 		return new DockerComposeRunOption(asList);
@@ -55,11 +55,12 @@ public class DockerComposeRunOption {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-			DockerComposeRunOption other = (DockerComposeRunOption) obj;
+		DockerComposeRunOption other = (DockerComposeRunOption) obj;
 		if (options == null) {
 			if (other.options != null)
 				return false;
-		} else if (!options.equals(other.options))
+		}
+		else if (!options.equals(other.options))
 			return false;
 		return true;
 	}

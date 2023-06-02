@@ -16,5 +16,5 @@
 package org.springframework.cloud.dataflow.common.test.docker.compose.execution;
 
 public interface DockerConfiguration {
-    ProcessBuilder configuredDockerComposeProcess();
+	ProcessBuilder configuredDockerComposeProcess();
 }

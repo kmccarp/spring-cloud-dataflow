@@ -32,7 +32,7 @@ public abstract class AbstractDefinitionAppStatusResource<T extends Representati
 	private String dsl;
 	private String description;
 
-	Map<String,String> appStatuses;
+	Map<String, String> appStatuses;
 
 	protected AbstractDefinitionAppStatusResource() {
 	}

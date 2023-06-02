@@ -38,40 +38,40 @@ public class YamlConverterTests {
 	@Test
 	public void conversionWithListItems() throws Exception {
 		doConversionTest(
-				"some.thing[0].a=first-a\n" +
-				"some.thing[0].b=first-b\n" +
-				"some.thing[1].a=second-a\n" +
-				"some.thing[1].b=second-b\n",
-				// ==>
-				"some:\n" +
-				"  thing:\n" +
-				"  - a: first-a\n" +
-				"    b: first-b\n" +
-				"  - a: second-a\n" +
-				"    b: second-b\n"
+	"some.thing[0].a=first-a\n" +
+"some.thing[0].b=first-b\n" +
+"some.thing[1].a=second-a\n" +
+"some.thing[1].b=second-b\n",
+	// ==>
+	"some:\n" +
+"  thing:\n" +
+"  - a: first-a\n" +
+"    b: first-b\n" +
+"  - a: second-a\n" +
+"    b: second-b\n"
 		);
 	}
 
 	@Test
 	public void deepKeys1() throws Exception {
 		doConversionTest(
-				"hi.this.is.same=xxx.yyy\n",
-				// ==>
-				"hi:\n" +
-				"  this:\n" +
-				"    is:\n" +
-				"      same: xxx.yyy\n"
+	"hi.this.is.same=xxx.yyy\n",
+	// ==>
+	"hi:\n" +
+"  this:\n" +
+"    is:\n" +
+"      same: xxx.yyy\n"
 		);
 
 		Map<String, String> input = new HashMap<String, String>();
 		input.put("hi.this.is.same", "xxx.yyy");
 		doMapConversionTest(
-				input,
-				// ==>
-				"hi:\n" +
-				"  this:\n" +
-				"    is:\n" +
-				"      same: xxx.yyy\n"
+	input,
+	// ==>
+	"hi:\n" +
+"  this:\n" +
+"    is:\n" +
+"      same: xxx.yyy\n"
 		);
 
 	}
@@ -79,32 +79,32 @@ public class YamlConverterTests {
 	@Test
 	public void deepKeys2() throws Exception {
 		doConversionTest(
-				"bye.this.is.same=xxx.yyy\n" +
-				"hi.this.is.same=xxx.yyy\n",
-				// ==>
-				"bye:\n" +
-				"  this:\n" +
-				"    is:\n" +
-				"      same: xxx.yyy\n" +
-				"hi:\n" +
-				"  this:\n" +
-				"    is:\n" +
-				"      same: xxx.yyy\n"
+	"bye.this.is.same=xxx.yyy\n" +
+"hi.this.is.same=xxx.yyy\n",
+	// ==>
+	"bye:\n" +
+"  this:\n" +
+"    is:\n" +
+"      same: xxx.yyy\n" +
+"hi:\n" +
+"  this:\n" +
+"    is:\n" +
+"      same: xxx.yyy\n"
 		);
 		Map<String, String> input = new HashMap<String, String>();
 		input.put("bye.this.is.same", "xxx.yyy");
 		input.put("hi.this.is.same", "xxx.yyy");
 		doMapConversionTest(
-				input,
-				// ==>
-				"bye:\n" +
-				"  this:\n" +
-				"    is:\n" +
-				"      same: xxx.yyy\n" +
-				"hi:\n" +
-				"  this:\n" +
-				"    is:\n" +
-				"      same: xxx.yyy\n"
+	input,
+	// ==>
+	"bye:\n" +
+"  this:\n" +
+"    is:\n" +
+"      same: xxx.yyy\n" +
+"hi:\n" +
+"  this:\n" +
+"    is:\n" +
+"      same: xxx.yyy\n"
 		);
 	}
 
@@ -115,10 +115,10 @@ public class YamlConverterTests {
 		do_hasComments_test("    \t!comment");
 		String yaml = do_hasComments_test("    #!comment");
 		assertYaml(yaml,
-				"other:\n" +
-				"  property: othervalue\n" +
-				"some:\n" +
-				"  property: somevalue\n"
+	"other:\n" +
+"  property: othervalue\n" +
+"some:\n" +
+"  property: somevalue\n"
 		);
 	}
 
@@ -129,12 +129,12 @@ public class YamlConverterTests {
 	@Test
 	public void almostHasComments() throws Exception {
 		doConversionTest(
-			"my.hello=Good morning!\n" +
-			"my.goodbye=See ya # later\n",
-			// ==>
-			"my:\n" +
-			"  goodbye: 'See ya # later'\n" +
-			"  hello: Good morning!\n"
+	"my.hello=Good morning!\n" +
+"my.goodbye=See ya # later\n",
+	// ==>
+	"my:\n" +
+"  goodbye: 'See ya # later'\n" +
+"  hello: Good morning!\n"
 		);
 	}
 
@@ -142,29 +142,29 @@ public class YamlConverterTests {
 	@Test
 	public void simpleConversion() throws Exception {
 		doConversionTest(
-				"some.thing=vvvv\n" +
-				"some.other.thing=blah\n",
-				// ==>
-				"some:\n" +
-				"  other:\n" +
-				"    thing: blah\n" +
-				"  thing: vvvv\n"
+	"some.thing=vvvv\n" +
+"some.other.thing=blah\n",
+	// ==>
+	"some:\n" +
+"  other:\n" +
+"    thing: blah\n" +
+"  thing: vvvv\n"
 		);
 	}
 
 	@Test
 	public void emptyFileConversion() throws Exception {
 		doConversionTest(
-				"",
-				// ==>
-				""
+	"",
+	// ==>
+	""
 		);
 	}
 
 	@Test
 	public void unusualName() throws Exception {
 		File input = createFile("no-extension",
-				"server.port: 6789"
+	"server.port: 6789"
 		);
 		YamlConversionResult result = YamlConverter.builder().file(input).build().convert();
 		assertOkStatus(result.getStatus());
@@ -175,231 +175,231 @@ public class YamlConverterTests {
 	@Test
 	public void multipleAssignmentProblem() throws Exception {
 		do_conversionTest(
-				"some.property=something\n" +
-				"some.property=something-else",
-				// ==>
-				"some:\n" +
-				"  property: something-else\n",
-				(status) -> {
-					assertThat(status.getSeverity()).isEqualTo(0);
-				}
+	"some.property=something\n" +
+"some.property=something-else",
+	// ==>
+	"some:\n" +
+"  property: something-else\n",
+	(status) -> {
+		assertThat(status.getSeverity()).isEqualTo(0);
+	}
 		);
 	}
 
 	@Test
 	public void scalarAndMapConflict() throws Exception {
 		do_conversionTest(
-				"some.property=a-scalar\n" +
-				"some.property.sub=sub-value",
-				// ==>
-				"some:\n" +
-				"  property:\n" +
-				"    sub: sub-value\n",
-				(status) -> {
-					assertStatus(status, YamlConversionStatus.ERROR,
-							"Direct assignment 'some.property=a-scalar' can not be combined with sub-property assignment 'some.property.sub...'");
-				}
+	"some.property=a-scalar\n" +
+"some.property.sub=sub-value",
+	// ==>
+	"some:\n" +
+"  property:\n" +
+"    sub: sub-value\n",
+	(status) -> {
+		assertStatus(status, YamlConversionStatus.ERROR,
+	"Direct assignment 'some.property=a-scalar' can not be combined with sub-property assignment 'some.property.sub...'");
+	}
 		);
 	}
 
 	@Test
 	public void scalarAndMapConflictFlatten() throws Exception {
 		do_conversionTest(
-				Mode.FLATTEN,
-				"some.property=a-scalar\n" +
-				"some.property.sub=sub-value",
-				// ==>
-				"some:\n" +
-				"  property: a-scalar\n" +
-				"  property.sub: sub-value\n",
-				(status) -> {
-					assertThat(status.getSeverity()).isEqualTo(0);
-				}
+	Mode.FLATTEN,
+	"some.property=a-scalar\n" +
+"some.property.sub=sub-value",
+	// ==>
+	"some:\n" +
+"  property: a-scalar\n" +
+"  property.sub: sub-value\n",
+	(status) -> {
+		assertThat(status.getSeverity()).isEqualTo(0);
+	}
 		);
 	}
 
 	@Test
 	public void forceFlatten() throws Exception {
 		do_conversionTest(
-				Mode.FLATTEN,
-				Arrays.asList("some.property"),
-				"some.property.sub1.sub2=sub-value",
-				// ==>
-				"some:\n" +
-				"  property:\n" +
-				"    sub1.sub2: sub-value\n",
-				(status) -> {
-					assertThat(status.getSeverity()).isEqualTo(0);
-				}
+	Mode.FLATTEN,
+	Arrays.asList("some.property"),
+	"some.property.sub1.sub2=sub-value",
+	// ==>
+	"some:\n" +
+"  property:\n" +
+"    sub1.sub2: sub-value\n",
+	(status) -> {
+		assertThat(status.getSeverity()).isEqualTo(0);
+	}
 		);
 	}
 
 	@Test
 	public void forceFlattenMulti() throws Exception {
 		do_conversionTest(
-				Mode.FLATTEN,
-				Arrays.asList("some.property"),
-				"some.property.sub1.sub2=sub-value1\n" +
-				"some.property.sub3.sub4=sub-value2",
-				// ==>
-				"some:\n" +
-				"  property:\n" +
-				"    sub1.sub2: sub-value1\n" +
-				"    sub3.sub4: sub-value2\n",
-				(status) -> {
-					assertThat(status.getSeverity()).isEqualTo(0);
-				}
+	Mode.FLATTEN,
+	Arrays.asList("some.property"),
+	"some.property.sub1.sub2=sub-value1\n" +
+"some.property.sub3.sub4=sub-value2",
+	// ==>
+	"some:\n" +
+"  property:\n" +
+"    sub1.sub2: sub-value1\n" +
+"    sub3.sub4: sub-value2\n",
+	(status) -> {
+		assertThat(status.getSeverity()).isEqualTo(0);
+	}
 		);
 	}
 
 	@Test
 	public void forceFlattenMultiUseRegex() throws Exception {
 		do_conversionTest(
-				Mode.FLATTEN,
-				Arrays.asList("[a-z]*2\\.property"),
-				"some1.property.sub1.sub2=sub-value1\n" +
-				"some1.property.sub3.sub4=sub-value2\n" +
-				"some2.property.sub5.sub6=sub-value1\n" +
-				"some2.property.sub7.sub8=sub-value2",
-				// ==>
-				"some1:\n" +
-				"  property:\n" +
-				"    sub1:\n" +
-				"      sub2: sub-value1\n" +
-				"    sub3:\n" +
-				"      sub4: sub-value2\n" +
-				"some2:\n" +
-				"  property:\n" +
-				"    sub5.sub6: sub-value1\n" +
-				"    sub7.sub8: sub-value2\n",
-				(status) -> {
-					assertThat(status.getSeverity()).isEqualTo(0);
-				}
+	Mode.FLATTEN,
+	Arrays.asList("[a-z]*2\\.property"),
+	"some1.property.sub1.sub2=sub-value1\n" +
+"some1.property.sub3.sub4=sub-value2\n" +
+"some2.property.sub5.sub6=sub-value1\n" +
+"some2.property.sub7.sub8=sub-value2",
+	// ==>
+	"some1:\n" +
+"  property:\n" +
+"    sub1:\n" +
+"      sub2: sub-value1\n" +
+"    sub3:\n" +
+"      sub4: sub-value2\n" +
+"some2:\n" +
+"  property:\n" +
+"    sub5.sub6: sub-value1\n" +
+"    sub7.sub8: sub-value2\n",
+	(status) -> {
+		assertThat(status.getSeverity()).isEqualTo(0);
+	}
 		);
 	}
 
 	@Test
 	public void scalarAndMapConflictDeepFlatten() throws Exception {
 		do_conversionTest(
-				Mode.FLATTEN,
-				"log4j.appender.stdout=org.apache.log4j.ConsoleAppender\n" +
-				"log4j.appender.stdout.Target:System.out\n" +
-				"log4j.appender.stdout.layout:org.apache.log4j.PatternLayout\n" +
-				"log4j.appender.stdout.layout.ConversionPattern:%d{ABSOLUTE} %5p %c{1}:%L - %m%n\n" +
-				"log4j.rootLogger:INFO, stdout\n" +
-				"log4j.logger.org.hibernate:DEBUG\n" +
-				"log4j.logger.org.hibernate.type:ALL\n",
-				// ==>
-				"log4j:\n" +
-				"  appender:\n" +
-				"    stdout: org.apache.log4j.ConsoleAppender\n" +
-				"    stdout.Target: System.out\n" +
-				"    stdout.layout: org.apache.log4j.PatternLayout\n" +
-				"    stdout.layout.ConversionPattern: '%d{ABSOLUTE} %5p %c{1}:%L - %m%n'\n" +
-				"  logger:\n" +
-				"    org:\n" +
-				"      hibernate: DEBUG\n" +
-				"      hibernate.type: ALL\n" +
-				"  rootLogger: INFO, stdout\n",
-				(status) -> {
-					assertThat(status.getSeverity()).isEqualTo(0);
-				}
+	Mode.FLATTEN,
+	"log4j.appender.stdout=org.apache.log4j.ConsoleAppender\n" +
+"log4j.appender.stdout.Target:System.out\n" +
+"log4j.appender.stdout.layout:org.apache.log4j.PatternLayout\n" +
+"log4j.appender.stdout.layout.ConversionPattern:%d{ABSOLUTE} %5p %c{1}:%L - %m%n\n" +
+"log4j.rootLogger:INFO, stdout\n" +
+"log4j.logger.org.hibernate:DEBUG\n" +
+"log4j.logger.org.hibernate.type:ALL\n",
+	// ==>
+	"log4j:\n" +
+"  appender:\n" +
+"    stdout: org.apache.log4j.ConsoleAppender\n" +
+"    stdout.Target: System.out\n" +
+"    stdout.layout: org.apache.log4j.PatternLayout\n" +
+"    stdout.layout.ConversionPattern: '%d{ABSOLUTE} %5p %c{1}:%L - %m%n'\n" +
+"  logger:\n" +
+"    org:\n" +
+"      hibernate: DEBUG\n" +
+"      hibernate.type: ALL\n" +
+"  rootLogger: INFO, stdout\n",
+	(status) -> {
+		assertThat(status.getSeverity()).isEqualTo(0);
+	}
 		);
 	}
 
 	@Test
 	public void scalarAndMapConflictDeepFlatten2() throws Exception {
 		do_conversionTest(
-				Mode.FLATTEN,
-				"log4j.appender.stdout=org.apache.log4j.ConsoleAppender\n" +
-				"log4j.appender.stdout.Target:System.out\n" +
-				"log4j.appender.stdout.layout:org.apache.log4j.PatternLayout\n" +
-				"log4j.appender.stdout.layout.ConversionPattern:%d{ABSOLUTE} %5p %c{1}:%L - %m%n\n" +
-				"\n" +
-				"log4j.rootLogger:INFO, stdout\n" +
-				"\n" +
-				"log4j.logger.org.hibernate:DEBUG\n" +
-				"\n" +
-				"log4j.logger.org.hibernate.type:ALL\n" +
-				"\n",
-				// ==>
-				"log4j:\n" +
-				"  appender:\n" +
-				"    stdout: org.apache.log4j.ConsoleAppender\n" +
-				"    stdout.Target: System.out\n" +
-				"    stdout.layout: org.apache.log4j.PatternLayout\n" +
-				"    stdout.layout.ConversionPattern: '%d{ABSOLUTE} %5p %c{1}:%L - %m%n'\n" +
-				"  logger:\n" +
-				"    org:\n" +
-				"      hibernate: DEBUG\n" +
-				"      hibernate.type: ALL\n" +
-				"  rootLogger: INFO, stdout\n",
-				(status) -> {
-					assertThat(status.getSeverity()).isEqualTo(0);
-				}
+	Mode.FLATTEN,
+	"log4j.appender.stdout=org.apache.log4j.ConsoleAppender\n" +
+"log4j.appender.stdout.Target:System.out\n" +
+"log4j.appender.stdout.layout:org.apache.log4j.PatternLayout\n" +
+"log4j.appender.stdout.layout.ConversionPattern:%d{ABSOLUTE} %5p %c{1}:%L - %m%n\n" +
+"\n" +
+"log4j.rootLogger:INFO, stdout\n" +
+"\n" +
+"log4j.logger.org.hibernate:DEBUG\n" +
+"\n" +
+"log4j.logger.org.hibernate.type:ALL\n" +
+"\n",
+	// ==>
+	"log4j:\n" +
+"  appender:\n" +
+"    stdout: org.apache.log4j.ConsoleAppender\n" +
+"    stdout.Target: System.out\n" +
+"    stdout.layout: org.apache.log4j.PatternLayout\n" +
+"    stdout.layout.ConversionPattern: '%d{ABSOLUTE} %5p %c{1}:%L - %m%n'\n" +
+"  logger:\n" +
+"    org:\n" +
+"      hibernate: DEBUG\n" +
+"      hibernate.type: ALL\n" +
+"  rootLogger: INFO, stdout\n",
+	(status) -> {
+		assertThat(status.getSeverity()).isEqualTo(0);
+	}
 		);
 	}
 
 	@Test
 	public void scalarAndSequenceConflict() throws Exception {
 		do_conversionTest(
-				"some.property=a-scalar\n" +
-				"some.property[0]=zero\n" +
-				"some.property[1]=one\n",
-				// ==>
-				"some:\n" +
-				"  property:\n" +
-				"  - zero\n" +
-				"  - one\n",
-				(status) -> {
-					assertStatus(status, YamlConversionStatus.ERROR,
-							"Direct assignment 'some.property=a-scalar' can not be combined with sequence assignment 'some.property[0]...'");
-				}
+	"some.property=a-scalar\n" +
+"some.property[0]=zero\n" +
+"some.property[1]=one\n",
+	// ==>
+	"some:\n" +
+"  property:\n" +
+"  - zero\n" +
+"  - one\n",
+	(status) -> {
+		assertStatus(status, YamlConversionStatus.ERROR,
+	"Direct assignment 'some.property=a-scalar' can not be combined with sequence assignment 'some.property[0]...'");
+	}
 		);
 	}
 
 	@Test
 	public void mapAndSequenceConflict() throws Exception {
 		do_conversionTest(
-				"some.property.abc=val1\n" +
-				"some.property.def=val2\n" +
-				"some.property[0]=zero\n" +
-				"some.property[1]=one\n",
-				// ==>
-				"some:\n" +
-				"  property:\n" +
-				"    '0': zero\n" +
-				"    '1': one\n" +
-				"    abc: val1\n" +
-				"    def: val2\n",
-				(status) -> {
-					assertStatus(status, YamlConversionStatus.WARNING,
-							"'some.property' has some entries that look like list items and others that look like map entries");
-				}
+	"some.property.abc=val1\n" +
+"some.property.def=val2\n" +
+"some.property[0]=zero\n" +
+"some.property[1]=one\n",
+	// ==>
+	"some:\n" +
+"  property:\n" +
+"    '0': zero\n" +
+"    '1': one\n" +
+"    abc: val1\n" +
+"    def: val2\n",
+	(status) -> {
+		assertStatus(status, YamlConversionStatus.WARNING,
+	"'some.property' has some entries that look like list items and others that look like map entries");
+	}
 		);
 	}
 
 	@Test
 	public void scalarAndMapAndSequenceConflict() throws Exception {
 		do_conversionTest(
-				"some.property=a-scalar\n" +
-				"some.property.abc=val1\n" +
-				"some.property.def=val2\n" +
-				"some.property[0]=zero\n" +
-				"some.property[1]=one\n",
-				// ==>
-				"some:\n" +
-				"  property:\n" +
-				"    '0': zero\n" +
-				"    '1': one\n" +
-				"    abc: val1\n" +
-				"    def: val2\n",
-				(status) -> {
-					assertStatus(status, YamlConversionStatus.ERROR,
-							"Direct assignment 'some.property=a-scalar' can not be combined with sub-property assignment 'some.property.abc...'. ");
-					assertStatus(status, YamlConversionStatus.ERROR,
-							"'some.property' has some entries that look like list items and others that look like map entries");
-				}
+	"some.property=a-scalar\n" +
+"some.property.abc=val1\n" +
+"some.property.def=val2\n" +
+"some.property[0]=zero\n" +
+"some.property[1]=one\n",
+	// ==>
+	"some:\n" +
+"  property:\n" +
+"    '0': zero\n" +
+"    '1': one\n" +
+"    abc: val1\n" +
+"    def: val2\n",
+	(status) -> {
+		assertStatus(status, YamlConversionStatus.ERROR,
+	"Direct assignment 'some.property=a-scalar' can not be combined with sub-property assignment 'some.property.abc...'. ");
+		assertStatus(status, YamlConversionStatus.ERROR,
+	"'some.property' has some entries that look like list items and others that look like map entries");
+	}
 		);
 	}
 
@@ -458,9 +458,9 @@ public class YamlConverterTests {
 
 	private String do_hasComments_test(String comment) throws Exception {
 		File propsFile = createFile("application.properties",
-				"some.property=somevalue\n" +
-				comment + "\n" +
-				"other.property=othervalue"
+	"some.property=somevalue\n" +
+comment + "\n" +
+"other.property=othervalue"
 		);
 		YamlConversionResult result = YamlConverter.builder().file(propsFile).build().convert();
 		assertStatus(result.getStatus(), YamlConversionStatus.WARNING, "has comments, which will be lost");

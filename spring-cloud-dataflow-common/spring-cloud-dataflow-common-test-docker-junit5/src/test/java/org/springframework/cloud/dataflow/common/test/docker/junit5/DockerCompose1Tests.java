@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 
 @DockerCompose(locations = {"src/test/resources/docker-compose-1.yml"})
-public class DockerCompose1Tests  {
+public class DockerCompose1Tests {
 
 	@Test
 	public void testCompose(DockerComposeInfo dockerComposeInfo) throws IOException, InterruptedException {
@@ -37,9 +37,9 @@ public class DockerCompose1Tests  {
 			dockerComposeInfo.id("").getRule().containers().container("testservice2").state();
 		});
 		assertThat(thrown)
-				.isInstanceOf(DockerExecutionException.class)
-				.hasNoCause();
+	.isInstanceOf(DockerExecutionException.class)
+	.hasNoCause();
 		assertThat(thrown).message()
-				.containsIgnoringCase("No such service: testservice2");
+	.containsIgnoringCase("No such service: testservice2");
 	}
 }

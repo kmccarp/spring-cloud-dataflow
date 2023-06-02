@@ -26,54 +26,54 @@ public class Cluster {
 	private final String ip;
 	private final ContainerCache containerCache;
 
-    public Cluster(String ip, ContainerCache containerCache) {
+	public Cluster(String ip, ContainerCache containerCache) {
 		this.ip = ip;
 		this.containerCache = containerCache;
 	}
 
-    public String ip() {
-    	return ip;
-    }
+	public String ip() {
+		return ip;
+	}
 
-    public ContainerCache containerCache() {
-    	return containerCache;
-    }
+	public ContainerCache containerCache() {
+		return containerCache;
+	}
 
-    public Container container(String name) {
-        return containerCache().container(name);
-    }
+	public Container container(String name) {
+		return containerCache().container(name);
+	}
 
-    public List<Container> containers(List<String> containerNames) {
-        return containerNames.stream()
-                .map(this::container)
-                .collect(toList());
-    }
+	public List<Container> containers(List<String> containerNames) {
+		return containerNames.stream()
+	.map(this::container)
+	.collect(toList());
+	}
 
-    public Set<Container> allContainers() throws IOException, InterruptedException {
-        return containerCache().containers();
-    }
+	public Set<Container> allContainers() throws IOException, InterruptedException {
+		return containerCache().containers();
+	}
 
 	public static Builder builder() {
-    	return new Builder();
-    }
+		return new Builder();
+	}
 
-    public static class Builder {
+	public static class Builder {
 
-    	private String ip;
-    	private ContainerCache containerCache;
+		private String ip;
+		private ContainerCache containerCache;
 
-    	public Builder ip(String ip) {
-    		this.ip = ip;
-    		return this;
-    	}
+		public Builder ip(String ip) {
+			this.ip = ip;
+			return this;
+		}
 
-    	public Builder containerCache(ContainerCache containerCache) {
-    		this.containerCache = containerCache;
-    		return this;
-    	}
+		public Builder containerCache(ContainerCache containerCache) {
+			this.containerCache = containerCache;
+			return this;
+		}
 
-    	public Cluster build() {
-    		return new Cluster(ip, containerCache);
-    	}
-    }
+		public Cluster build() {
+			return new Cluster(ip, containerCache);
+		}
+	}
 }

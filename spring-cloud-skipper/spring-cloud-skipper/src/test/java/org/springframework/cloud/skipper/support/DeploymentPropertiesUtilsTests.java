@@ -39,7 +39,7 @@ public class DeploymentPropertiesUtilsTests {
 	@Test
 	public void testDeploymentPropertiesParsing() {
 		Map<String, String> props = DeploymentPropertiesUtils.parse("app.foo.bar=v, app.foo.wizz=v2  , deployer.foo"
-				+ ".pot=fern, app.other.key = value  , deployer.other.cow = meww");
+	+ ".pot=fern, app.other.key = value  , deployer.other.cow = meww");
 
 		assertThat(props).containsEntry("app.foo.bar", "v");
 		assertThat(props).containsEntry("app.other.key", "value");
@@ -95,7 +95,7 @@ public class DeploymentPropertiesUtilsTests {
 	@Test
 	public void testLongDeploymentPropertyValues() {
 		Map<String, String> props = DeploymentPropertiesUtils
-				.parse("app.foo.bar=FoooooooooooooooooooooBar,app.foo" + ".bar2=FoooooooooooooooooooooBar");
+	.parse("app.foo.bar=FoooooooooooooooooooooBar,app.foo" + ".bar2=FoooooooooooooooooooooBar");
 		assertThat(props).containsEntry("app.foo.bar", "FoooooooooooooooooooooBar");
 		props = DeploymentPropertiesUtils.parse("app.foo.bar=FooooooooooooooooooooooooooooooooooooooooooooooooooooBar");
 		assertThat(props).containsEntry("app.foo.bar", "FooooooooooooooooooooooooooooooooooooooooooooooooooooBar");
@@ -103,19 +103,19 @@ public class DeploymentPropertiesUtilsTests {
 
 	@Test
 	public void testCommandLineParamsParsing() {
-		assertArrays(new String[] { "--format=yyyy-MM-dd" }, new String[] { "--format=yyyy-MM-dd" });
-		assertArrays(new String[] { "'--format=yyyy-MM-dd HH:mm:ss.SSS'" },
-				new String[] { "--format=yyyy-MM-dd HH:mm:ss" + ".SSS" });
-		assertArrays(new String[] { "\"--format=yyyy-MM-dd HH:mm:ss.SSS\"" },
-				new String[] { "--format=yyyy-MM-dd HH:mm:ss" + ".SSS" });
-		assertArrays(new String[] { "--format='yyyy-MM-dd HH:mm:ss.SSS'" },
-				new String[] { "--format=yyyy-MM-dd HH:mm:ss" + ".SSS" });
-		assertArrays(new String[] { "--format=\"yyyy-MM-dd HH:mm:ss.SSS\"" },
-				new String[] { "--format=yyyy-MM-dd HH:mm:ss" + ".SSS" });
-		assertArrays(new String[] { "--foo1=bar1 --foo2=bar2" }, new String[] { "--foo1=bar1", "--foo2=bar2" });
-		assertArrays(new String[] { "--foo1=bar1", "--foo2=bar2" }, new String[] { "--foo1=bar1", "--foo2=bar2" });
-		assertArrays(new String[] { " --foo1=bar1 ", " --foo2=bar2 " }, new String[] { "--foo1=bar1", "--foo2=bar2" });
-		assertArrays(new String[] { "'--format=yyyy-MM-dd HH:mm:ss.SSS'", "--foo1=bar1" },
-				new String[] { "--format=yyyy-MM-dd HH:mm:ss.SSS", "--foo1=bar1" });
+		assertArrays(new String[]{"--format=yyyy-MM-dd"}, new String[]{"--format=yyyy-MM-dd"});
+		assertArrays(new String[]{"'--format=yyyy-MM-dd HH:mm:ss.SSS'"},
+	new String[]{"--format=yyyy-MM-dd HH:mm:ss" + ".SSS"});
+		assertArrays(new String[]{"\"--format=yyyy-MM-dd HH:mm:ss.SSS\""},
+	new String[]{"--format=yyyy-MM-dd HH:mm:ss" + ".SSS"});
+		assertArrays(new String[]{"--format='yyyy-MM-dd HH:mm:ss.SSS'"},
+	new String[]{"--format=yyyy-MM-dd HH:mm:ss" + ".SSS"});
+		assertArrays(new String[]{"--format=\"yyyy-MM-dd HH:mm:ss.SSS\""},
+	new String[]{"--format=yyyy-MM-dd HH:mm:ss" + ".SSS"});
+		assertArrays(new String[]{"--foo1=bar1 --foo2=bar2"}, new String[]{"--foo1=bar1", "--foo2=bar2"});
+		assertArrays(new String[]{"--foo1=bar1", "--foo2=bar2"}, new String[]{"--foo1=bar1", "--foo2=bar2"});
+		assertArrays(new String[]{" --foo1=bar1 ", " --foo2=bar2 "}, new String[]{"--foo1=bar1", "--foo2=bar2"});
+		assertArrays(new String[]{"'--format=yyyy-MM-dd HH:mm:ss.SSS'", "--foo1=bar1"},
+	new String[]{"--format=yyyy-MM-dd HH:mm:ss.SSS", "--foo1=bar1"});
 	}
 }

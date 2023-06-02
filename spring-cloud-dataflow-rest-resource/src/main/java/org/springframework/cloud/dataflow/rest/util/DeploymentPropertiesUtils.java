@@ -58,10 +58,10 @@ public final class DeploymentPropertiesUtils {
 	 * Pattern used for parsing a String of command-line arguments.
 	 */
 	private static final Pattern DEPLOYMENT_PARAMS_PATTERN = Pattern
-			.compile("(\\s(?=" + "([^\\\"']*[\\\"'][^\\\"']*[\\\"'])*[^\\\"']*$))");
+.compile("(\\s(?=" + "([^\\\"']*[\\\"'][^\\\"']*[\\\"'])*[^\\\"']*$))");
 
 
-	private static final String[] DEPLOYMENT_PROPERTIES_PREFIX ={"deployer", "app", "version", "scheduler", "spring.cloud.dataflow.task"};
+	private static final String[] DEPLOYMENT_PROPERTIES_PREFIX = {"deployer", "app", "version", "scheduler", "spring.cloud.dataflow.task"};
 
 	private DeploymentPropertiesUtils() {
 		// prevent instantiation
@@ -126,8 +126,8 @@ public final class DeploymentPropertiesUtils {
 				// we have a key/value pair having '=', or malformed first pair
 				if (!startsWithDeploymentPropertyPrefix(candidates[i])) {
 					throw new IllegalArgumentException(
-							"Only deployment property keys starting with 'app.' or 'scheduler' or 'deployer.'  or 'version.'" +
-									" allowed.");
+				"Only deployment property keys starting with 'app.' or 'scheduler' or 'deployer.'  or 'version.'" +
+			" allowed.");
 				}
 				pairs.add(candidates[i]);
 			}
@@ -157,16 +157,16 @@ public final class DeploymentPropertiesUtils {
 			// get raw candidates as simple comma split
 			String[] candidates = StringUtils.delimitedListToStringArray(s, delimiter);
 			for (int i = 0; i < candidates.length; i++) {
-				int elementsInQuotesIndex = findEndToken(candidates, i) +1;
+				int elementsInQuotesIndex = findEndToken(candidates, i) + 1;
 				if (elementsInQuotesIndex > -1) {
-					if(!candidates[i].equals("")) {
+					if (!candidates[i].equals("")) {
 						pairs.add(candidates[i]);
 					}
 					i++;
 					for (; i < elementsInQuotesIndex; i++) {
 						pairs.set(pairs.size() - 1, pairs.get(pairs.size() - 1) + delimiter + candidates[i]);
 					}
-					if(!(i < candidates.length)) {
+					if (!(i < candidates.length)) {
 						break;
 					}
 				}
@@ -181,9 +181,9 @@ public final class DeploymentPropertiesUtils {
 				}
 				else {
 					// we have a key/value pair having '=', or malformed first pair
-					if(!candidates[i].equals("")) {
+					if (!candidates[i].equals("")) {
 						int endToken = findEndToken(candidates, i);
-						if(endToken > -1) {
+						if (endToken > -1) {
 							pairs.add(candidates[i] + " " + candidates[endToken]);
 							i = endToken;
 						}
@@ -193,20 +193,20 @@ public final class DeploymentPropertiesUtils {
 					}
 				}
 			}
-			for(int i = 0; i < pairs.size(); i++) {
+			for (int i = 0; i < pairs.size(); i++) {
 				pairs.set(i, StringUtils.trimTrailingWhitespace(pairs.get(i)));
 			}
- 		}
+		}
 		return pairs;
 	}
 
 	private  static int findEndToken(String[] candidates, int currentPos) {
 		int result = -1;
-		if(!candidates[currentPos].contains("=\"")) {
+		if (!candidates[currentPos].contains("=\"")) {
 			return -1;
 		}
-		for(int i = currentPos; i < candidates.length; i++) {
-			if(candidates[i].endsWith("\"" )) {
+		for (int i = currentPos; i < candidates.length; i++) {
+			if (candidates[i].endsWith("\"")) {
 				result = i;
 				break;
 			}
@@ -216,7 +216,7 @@ public final class DeploymentPropertiesUtils {
 
 
 	private static boolean startsWithDeploymentPropertyPrefix(String candidate) {
-		for (String deploymentPropertyPrefix: DEPLOYMENT_PROPERTIES_PREFIX) {
+		for (String deploymentPropertyPrefix : DEPLOYMENT_PROPERTIES_PREFIX) {
 			if (StringUtils.hasText(candidate)) {
 				String prefix = candidate.trim().startsWith("--") ? candidate.trim().substring(2) : candidate.trim();
 				if (prefix.startsWith(deploymentPropertyPrefix)) {
@@ -238,34 +238,34 @@ public final class DeploymentPropertiesUtils {
 	 * @throws IOException if file loading errors
 	 */
 	public static Map<String, String> parseDeploymentProperties(String deploymentProperties, File propertiesFile,
-			int which) throws IOException {
+int which) throws IOException {
 		Map<String, String> propertiesToUse;
 		switch (which) {
-		case 0:
-			propertiesToUse = parse(deploymentProperties);
-			break;
-		case 1:
-			String extension = FilenameUtils.getExtension(propertiesFile.getName());
-			Properties props = null;
-			if (extension.equals("yaml") || extension.equals("yml")) {
-				YamlPropertiesFactoryBean yamlPropertiesFactoryBean = new YamlPropertiesFactoryBean();
-				yamlPropertiesFactoryBean.setResources(new FileSystemResource(propertiesFile));
-				yamlPropertiesFactoryBean.afterPropertiesSet();
-				props = yamlPropertiesFactoryBean.getObject();
-			}
-			else {
-				props = new Properties();
-				try (FileInputStream fis = new FileInputStream(propertiesFile)) {
-					props.load(fis);
+			case 0:
+				propertiesToUse = parse(deploymentProperties);
+				break;
+			case 1:
+				String extension = FilenameUtils.getExtension(propertiesFile.getName());
+				Properties props = null;
+				if (extension.equals("yaml") || extension.equals("yml")) {
+					YamlPropertiesFactoryBean yamlPropertiesFactoryBean = new YamlPropertiesFactoryBean();
+					yamlPropertiesFactoryBean.setResources(new FileSystemResource(propertiesFile));
+					yamlPropertiesFactoryBean.afterPropertiesSet();
+					props = yamlPropertiesFactoryBean.getObject();
 				}
-			}
-			propertiesToUse = convert(props);
-			break;
-		case -1: // Neither option specified
-			propertiesToUse = new HashMap<>(1);
-			break;
-		default:
-			throw new AssertionError();
+				else {
+					props = new Properties();
+					try (FileInputStream fis = new FileInputStream(propertiesFile)) {
+						props.load(fis);
+					}
+				}
+				propertiesToUse = convert(props);
+				break;
+			case -1: // Neither option specified
+				propertiesToUse = new HashMap<>(1);
+				break;
+			default:
+				throw new AssertionError();
 		}
 		return propertiesToUse;
 	}
@@ -284,9 +284,9 @@ public final class DeploymentPropertiesUtils {
 		for (Entry<String, String> property : properties.entrySet()) {
 			String key = property.getKey();
 			if (!key.startsWith("app.") && !key.startsWith("deployer.")
-					&& !key.startsWith("scheduler.") && !key.startsWith("version.")) {
+		&& !key.startsWith("scheduler.") && !key.startsWith("version.")) {
 				throw new IllegalArgumentException(
-						"Only deployment property keys starting with 'app.', 'deployer.' or, 'scheduler.' allowed, got '" + key + "'");
+			"Only deployment property keys starting with 'app.', 'deployer.' or, 'scheduler.' allowed, got '" + key + "'");
 			}
 		}
 	}
@@ -306,8 +306,8 @@ public final class DeploymentPropertiesUtils {
 			String key = property.getKey();
 			if (!key.startsWith("app.") && !key.startsWith("deployer.") && !key.startsWith("version.")) {
 				throw new IllegalArgumentException(
-						"Only deployment property keys starting with 'app.' or 'deployer.'  or 'version.'" +
-								" allowed, got '" + key + "'");
+			"Only deployment property keys starting with 'app.' or 'deployer.'  or 'version.'" +
+		" allowed, got '" + key + "'");
 			}
 		}
 	}
@@ -329,11 +329,9 @@ public final class DeploymentPropertiesUtils {
 
 		// Using a TreeMap makes sure wildcard entries appear before app specific ones
 		Map<String, String> result = new TreeMap<>(input).entrySet().stream()
-				.filter(kv -> kv.getKey().startsWith(wildcardPrefix) || kv.getKey().startsWith(appPrefix))
-				.collect(Collectors.toMap(kv -> kv.getKey().startsWith(wildcardPrefix)
-								? "spring.cloud.deployer." + kv.getKey().substring(wildcardLength)
-								: "spring.cloud.deployer." + kv.getKey().substring(appLength), kv -> kv.getValue(),
-						(fromWildcard, fromApp) -> fromApp));
+	.filter(kv -> kv.getKey().startsWith(wildcardPrefix) || kv.getKey().startsWith(appPrefix))
+	.collect(Collectors.toMap(kv -> kv.getKey().startsWith(wildcardPrefix)? "spring.cloud.deployer." + kv.getKey().substring(wildcardLength): "spring.cloud.deployer." + kv.getKey().substring(appLength), kv -> kv.getValue(),
+(fromWildcard, fromApp) -> fromApp));
 		logger.debug("extractAndQualifyDeployerProperties:{}", result);
 		return result;
 	}
@@ -356,16 +354,14 @@ public final class DeploymentPropertiesUtils {
 
 		// Using a TreeMap makes sure wildcard entries appear before app specific ones
 		Map<String, String> resultDeployer = new TreeMap<>(input).entrySet().stream()
-				.filter(kv -> kv.getKey().startsWith(wildcardPrefix) || kv.getKey().startsWith(appPrefix))
-				.collect(Collectors.toMap(kv -> kv.getKey().startsWith(wildcardPrefix)
-								? "spring.cloud.deployer." + kv.getKey().substring(wildcardLength)
-								: "spring.cloud.deployer." + kv.getKey().substring(appLength), kv -> kv.getValue(),
-						(fromWildcard, fromApp) -> fromApp));
+	.filter(kv -> kv.getKey().startsWith(wildcardPrefix) || kv.getKey().startsWith(appPrefix))
+	.collect(Collectors.toMap(kv -> kv.getKey().startsWith(wildcardPrefix)? "spring.cloud.deployer." + kv.getKey().substring(wildcardLength): "spring.cloud.deployer." + kv.getKey().substring(appLength), kv -> kv.getValue(),
+(fromWildcard, fromApp) -> fromApp));
 
 		Map<String, String> resultApp = new TreeMap<>(input).entrySet().stream()
-				.filter(kv -> !kv.getKey().startsWith(wildcardPrefix) && !kv.getKey().startsWith(appPrefix))
-				.collect(Collectors.toMap(kv -> kv.getKey(), kv -> kv.getValue(),
-						(fromWildcard, fromApp) -> fromApp));
+	.filter(kv -> !kv.getKey().startsWith(wildcardPrefix) && !kv.getKey().startsWith(appPrefix))
+	.collect(Collectors.toMap(kv -> kv.getKey(), kv -> kv.getValue(),
+(fromWildcard, fromApp) -> fromApp));
 
 		resultDeployer.putAll(resultApp);
 		logger.debug("qualifyDeployerProperties:{}", resultDeployer);

@@ -82,7 +82,7 @@ public class Graph {
 		}
 		for (Link l : links) {
 			s.append("[" + (l.getTransitionName() == null ? "" : l.getTransitionName() + ":") + l.from + "-" + l.to
-					+ "]");
+		+ "]");
 		}
 		return s.toString();
 	}
@@ -175,7 +175,7 @@ public class Graph {
 	 * outer split
 	 */
 	private void followLinks(StringBuilder graphText, List<Link> toFollow, Node nodeToTerminateFollow,
-			List<Node> unvisitedNodes, List<Link> unfollowedLinks, boolean inNestedSplit) {
+List<Node> unvisitedNodes, List<Link> unfollowedLinks, boolean inNestedSplit) {
 		while (toFollow.size() != 0) {
 			if (toFollow.size() > 1) { // SPLIT
 				if (!inNestedSplit && graphText.length() != 0) {
@@ -194,7 +194,7 @@ public class Graph {
 						Node endOfNestedSplit = nestedSplit.getKey();
 						List<Link> nestedSplitLinks = nestedSplit.getValue();
 						followLinks(graphText, nestedSplitLinks, endOfNestedSplit, unvisitedNodes, unfollowedLinks,
-								true);
+					true);
 						toFollow.removeAll(nestedSplitLinks);
 						graphText.append(" && ");
 						followNode(graphText, endOfNestedSplit, endOfSplit, unvisitedNodes, unfollowedLinks);
@@ -503,21 +503,21 @@ public class Graph {
 	}
 
 	private void followNode(StringBuilder graphText, Node node, Node nodeToFinishFollowingAt, List<Node> unvisitedNodes,
-			List<Link> unfollowedLinks) {
+List<Link> unfollowedLinks) {
 		List<Link> toFollow = findLinksFrom(node, false);
 		boolean singleSplitNecessary = false;
 		Node commonTarget = null;
-		if (toFollow.size()>1 && allTransitionsButOne(toFollow)) {
+		if (toFollow.size() > 1 && allTransitionsButOne(toFollow)) {
 			// This is checking for the situation in https://github.com/spring-cloud/spring-cloud-dataflow/issues/3263
 			// where a split node needs to be used to capture a node with branching outputs that wants to run
 			// something after any of those branches complete (if a split wasn't included here then after
 			// the transition nodes, the next step would be END on those branches)
 			try {
 				commonTarget = findEndOfSplit(sortNotTransitionLinkFirst(toFollow));
-				singleSplitNecessary = 
-					commonTarget != null && !commonTarget.name.equals("END") && 
-					// This checks we aren't already dealing with a split that targets the same thing
-					(nodeToFinishFollowingAt == null || !nodeToFinishFollowingAt.equals(commonTarget));
+				singleSplitNecessary =
+			commonTarget != null && !commonTarget.name.equals("END") &&
+		// This checks we aren't already dealing with a split that targets the same thing
+		(nodeToFinishFollowingAt == null || !nodeToFinishFollowingAt.equals(commonTarget));
 			} catch (IllegalStateException ise) {
 				// There is no common target
 			}
@@ -528,19 +528,21 @@ public class Graph {
 			printNode(graphText, node, unvisitedNodes);
 			printTransitions(graphText, unvisitedNodes, unfollowedLinks, toFollow, commonTarget);
 			graphText.append(">");
-		} else {
+		}
+		else {
 			printNode(graphText, node, unvisitedNodes);
 			printTransitions(graphText, unvisitedNodes, unfollowedLinks, toFollow, nodeToFinishFollowingAt);
 		}
 		followLinks(graphText, toFollow, nodeToFinishFollowingAt, unvisitedNodes, unfollowedLinks, false);
 	}
-	
+
 	List<Link> sortNotTransitionLinkFirst(List<Link> links) {
 		List<Link> result = new ArrayList<>();
-		for (Link l: links) {
+		for (Link l : links) {
 			if (l.hasTransitionSet()) {
-				result.add(0,l);
-			} else {
+				result.add(0, l);
+			}
+			else {
 				result.add(l);
 			}
 		}
@@ -549,23 +551,23 @@ public class Graph {
 
 	private boolean allTransitionsButOne(List<Link> links) {
 		int transitionCount = 0;
-		for (Link l: links) {
+		for (Link l : links) {
 			if (l.hasTransitionSet()) {
 				transitionCount++;
 			}
 		}
-		return (links.size()-transitionCount) == 1;
+		return (links.size() - transitionCount) == 1;
 	}
 
 	private void followLink(StringBuilder graphText, Link link, Node nodeToFinishFollowingAt, List<Node> unvisitedNodes,
-			List<Link> unfollowedLinks) {
+List<Link> unfollowedLinks) {
 		unfollowedLinks.remove(link);
 		followNode(graphText, findNodeById(link.to), nodeToFinishFollowingAt, unvisitedNodes, unfollowedLinks);
 	}
 
 	private void printTransitions(StringBuilder graphText, List<Node> unvisitedNodes, List<Link> unfollowedLinks,
-			List<Link> toFollow, Node nodeToFinishFollowingAt) {
-		for (Iterator<Link> iterator = toFollow.iterator(); iterator.hasNext();) {
+List<Link> toFollow, Node nodeToFinishFollowingAt) {
+		for (Iterator<Link> iterator = toFollow.iterator(); iterator.hasNext(); ) {
 			Link l = iterator.next();
 			if (l.hasTransitionSet()) {
 				// capture the target of this link as a simple transition
@@ -599,7 +601,7 @@ public class Graph {
 				// after this
 				List<Link> linksFromTheTransitionTarget = findLinksFrom(transitionTarget, false);
 				if (linksFromTheTransitionTarget.isEmpty()
-						|| allLinksTarget(linksFromTheTransitionTarget, nodeToFinishFollowingAt)) {
+			|| allLinksTarget(linksFromTheTransitionTarget, nodeToFinishFollowingAt)) {
 					unvisitedNodes.remove(transitionTarget);
 				}
 				iterator.remove();
@@ -642,8 +644,8 @@ public class Graph {
 		for (Link link : links) {
 			if (link.from.equals(n.id)) {
 				if ((!link.hasTransitionSet()
-						&& (includeThoseLeadingToEnd || !findNodeById(link.to).name.equals("END")))
-						|| (link.hasTransitionSet() && link.getTransitionName().equals("'*'"))) {
+			&& (includeThoseLeadingToEnd || !findNodeById(link.to).name.equals("END")))
+			|| (link.hasTransitionSet() && link.getTransitionName().equals("'*'"))) {
 					result.add(link);
 				}
 			}
@@ -661,7 +663,7 @@ public class Graph {
 			if (link.from.equals(n.id)) {
 				// Only include links to 'END' if there are properties on it
 				if (includeThoseLeadingToEnd
-						|| !(findNodeById(link.to).name.equals("END") && hasNoProperties(link))) {
+			|| !(findNodeById(link.to).name.equals("END") && hasNoProperties(link))) {
 					result.add(link);
 				}
 			}

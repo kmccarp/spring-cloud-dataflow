@@ -56,13 +56,13 @@ public class SecurityConfigUtils {
 	 * @return ExpressionUrlAuthorizationConfigurer
 	 */
 	public static ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry configureSimpleSecurity(
-			ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry security,
-			AuthorizationProperties authorizationProperties) {
+ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry security,
+AuthorizationProperties authorizationProperties) {
 		for (String rule : authorizationProperties.getRules()) {
 			Matcher matcher = AUTHORIZATION_RULE.matcher(rule);
 			Assert.isTrue(matcher.matches(),
-					String.format("Unable to parse security rule [%s], expected format is 'HTTP_METHOD ANT_PATTERN => "
-							+ "SECURITY_ATTRIBUTE(S)'", rule));
+		String.format("Unable to parse security rule [%s], expected format is 'HTTP_METHOD ANT_PATTERN => "
+	+ "SECURITY_ATTRIBUTE(S)'", rule));
 
 			HttpMethod method = HttpMethod.valueOf(matcher.group(1).trim());
 			String urlPattern = matcher.group(2).trim();

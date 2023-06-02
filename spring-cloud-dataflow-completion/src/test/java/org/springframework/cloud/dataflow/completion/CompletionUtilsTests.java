@@ -32,21 +32,21 @@ import static org.hamcrest.core.Is.is;
  */
 public class CompletionUtilsTests {
 
-	final StreamDefinitionService streamDefinitionService  = new DefaultStreamDefinitionService();
+	final StreamDefinitionService streamDefinitionService = new DefaultStreamDefinitionService();
 
 	@Test
 	public void testLabelQualification() {
 		StreamDefinition streamDefinition = new StreamDefinition("foo", "http | filter");
 		Assert.assertThat(CompletionUtils.maybeQualifyWithLabel("filter",
-				this.streamDefinitionService.getAppDefinitions(streamDefinition)), is("filter2: filter"));
+	this.streamDefinitionService.getAppDefinitions(streamDefinition)), is("filter2: filter"));
 
 		streamDefinition = new StreamDefinition("foo", "http | filter");
 		Assert.assertThat(CompletionUtils.maybeQualifyWithLabel("transform",
-				this.streamDefinitionService.getAppDefinitions(streamDefinition)), is("transform"));
+	this.streamDefinitionService.getAppDefinitions(streamDefinition)), is("transform"));
 
 		streamDefinition = new StreamDefinition("foo", "http | filter | filter2: filter");
 		Assert.assertThat(CompletionUtils.maybeQualifyWithLabel("filter",
-				this.streamDefinitionService.getAppDefinitions(streamDefinition)), is("filter3: filter"));
+	this.streamDefinitionService.getAppDefinitions(streamDefinition)), is("filter3: filter"));
 	}
 
 }

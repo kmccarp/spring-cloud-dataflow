@@ -32,8 +32,7 @@ import org.springframework.cloud.dataflow.registry.service.AppRegistryService;
  * @author Eric Bottard
  * @author Mark Fisher
  */
-public class AppsAfterPipeRecoveryStrategy
-		extends StacktraceFingerprintingRecoveryStrategy<CheckPointedParseException> {
+public class AppsAfterPipeRecoveryStrategyextends StacktraceFingerprintingRecoveryStrategy<CheckPointedParseException> {
 
 	private final AppRegistryService appRegistry;
 
@@ -44,10 +43,10 @@ public class AppsAfterPipeRecoveryStrategy
 
 	@Override
 	public void addProposals(String dsl, CheckPointedParseException exception, int detailLevel,
-			List<CompletionProposal> collector) {
+List<CompletionProposal> collector) {
 
 		StreamDefinition streamDefinition = new StreamDefinition("__dummy",
-				exception.getExpressionStringUntilCheckpoint());
+	exception.getExpressionStringUntilCheckpoint());
 
 		CompletionProposal.Factory proposals = CompletionProposal.expanding(dsl);
 
@@ -56,9 +55,9 @@ public class AppsAfterPipeRecoveryStrategy
 		for (AppRegistration appRegistration : appRegistry.findAll()) {
 			if (appRegistration.getType() == ApplicationType.processor || appRegistration.getType() == ApplicationType.sink) {
 				String expansion = CompletionUtils.maybeQualifyWithLabel(appRegistration.getName(),
-						this.streamDefinitionService.getAppDefinitions(streamDefinition));
+			this.streamDefinitionService.getAppDefinitions(streamDefinition));
 				collector.add(proposals.withSeparateTokens(expansion,
-						"Continue stream definition with a " + appRegistration.getType()));
+			"Continue stream definition with a " + appRegistration.getType()));
 			}
 		}
 	}

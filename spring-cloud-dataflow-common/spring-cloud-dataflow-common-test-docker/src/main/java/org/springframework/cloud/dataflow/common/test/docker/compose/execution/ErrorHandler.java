@@ -17,5 +17,5 @@ package org.springframework.cloud.dataflow.common.test.docker.compose.execution;
 
 @FunctionalInterface
 public interface ErrorHandler {
-    void handle(int exitCode, String output, String commandName, String... commands);
+	void handle(int exitCode, String output, String commandName, String... commands);
 }

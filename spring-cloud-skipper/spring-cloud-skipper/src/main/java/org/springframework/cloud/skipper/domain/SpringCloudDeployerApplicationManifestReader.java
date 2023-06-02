@@ -56,7 +56,7 @@ public class SpringCloudDeployerApplicationManifestReader implements SkipperMani
 			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			try {
 				MappingIterator<SpringCloudDeployerApplicationManifest> it = mapper.readerFor(
-						SpringCloudDeployerApplicationManifest.class).readValues(manifest);
+			SpringCloudDeployerApplicationManifest.class).readValues(manifest);
 				while (it.hasNextValue()) {
 					SpringCloudDeployerApplicationManifest appKind = it.next();
 					applicationSpecs.add(appKind);
@@ -65,12 +65,12 @@ public class SpringCloudDeployerApplicationManifestReader implements SkipperMani
 			catch (JsonMappingException e) {
 				logger.error("Can't parse Package's manifest YAML = " + manifest);
 				throw new SkipperException("JsonMappingException - Can't parse Package's manifest YAML = " + manifest,
-						e);
+			e);
 			}
 			catch (RuntimeJsonMappingException e) {
 				logger.error("Can't parse Package's manifest YAML = " + manifest);
 				throw new SkipperException("JsonMappingException - Can't parse Package's manifest YAML = " + manifest,
-						e);
+			e);
 			}
 			catch (IOException e) {
 				logger.error("Can't parse Package's manifest YAML = " + manifest);
@@ -95,8 +95,8 @@ public class SpringCloudDeployerApplicationManifestReader implements SkipperMani
 	}
 
 	public String[] getSupportedKinds() {
-		return new String[] {SkipperManifestKind.SpringBootApp.name(),
-				SkipperManifestKind.SpringCloudDeployerApplication.name()};
+		return new String[]{SkipperManifestKind.SpringBootApp.name(),
+	SkipperManifestKind.SpringCloudDeployerApplication.name()};
 	}
 
 	private boolean assertSupportedKind(Object object) {

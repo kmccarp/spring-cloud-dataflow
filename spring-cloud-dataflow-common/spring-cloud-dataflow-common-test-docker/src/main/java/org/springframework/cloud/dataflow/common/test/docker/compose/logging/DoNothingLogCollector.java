@@ -19,14 +19,14 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.execution.D
 
 public class DoNothingLogCollector implements LogCollector {
 
-    @Override
-    public void startCollecting(DockerCompose dockerCompose) {
+	@Override
+	public void startCollecting(DockerCompose dockerCompose) {
 
-    }
+	}
 
-    @Override
-    public void stopCollecting() {
+	@Override
+	public void stopCollecting() {
 
-    }
+	}
 
 }

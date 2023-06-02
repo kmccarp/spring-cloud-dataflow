@@ -31,7 +31,8 @@ public final class DockerComposeVersion {
 			if (Character.isDigit(value.charAt(0))) {
 				version = value;
 				break;
-			} else if (value.charAt(0) == 'v' && value.length() > 1 && Character.isDigit(value.charAt(1))) {
+			}
+			else if (value.charAt(0) == 'v' && value.length() > 1 && Character.isDigit(value.charAt(1))) {
 				version = value.substring(1);
 			}
 		}
@@ -39,7 +40,8 @@ public final class DockerComposeVersion {
 		for (int i = 0; i < version.length(); i++) {
 			if (version.charAt(i) >= '0' && version.charAt(i) <= '9' || version.charAt(i) == '.') {
 				builder.append(version.charAt(i));
-			} else {
+			}
+			else {
 				return Version.valueOf(builder.toString());
 			}
 		}

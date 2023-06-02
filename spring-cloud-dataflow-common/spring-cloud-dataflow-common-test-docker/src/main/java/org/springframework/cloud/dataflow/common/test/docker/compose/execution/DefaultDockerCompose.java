@@ -56,10 +56,10 @@ public class DefaultDockerCompose implements DockerCompose {
 
 	public DefaultDockerCompose(DockerComposeFiles dockerComposeFiles, DockerMachine dockerMachine, ProjectName projectName) {
 		this(DockerComposeExecutable.builder()
-				.dockerComposeFiles(dockerComposeFiles)
-				.dockerConfiguration(dockerMachine)
-				.projectName(projectName)
-				.build(), dockerMachine);
+	.dockerComposeFiles(dockerComposeFiles)
+	.dockerConfiguration(dockerMachine)
+	.projectName(projectName)
+	.build(), dockerMachine);
 	}
 
 	public DefaultDockerCompose(DockerComposeExecutable rawExecutable, DockerMachine dockerMachine) {
@@ -100,7 +100,7 @@ public class DefaultDockerCompose implements DockerCompose {
 
 	@Override
 	public void up(Container container) throws IOException, InterruptedException {
-		command.execute(Command.throwingOnError(), "up", "-d",  container.getContainerName());
+		command.execute(Command.throwingOnError(), "up", "-d", container.getContainerName());
 	}
 
 	@Override
@@ -120,7 +120,7 @@ public class DefaultDockerCompose implements DockerCompose {
 
 	@Override
 	public String exec(DockerComposeExecOption dockerComposeExecOption, String containerName,
-			DockerComposeExecArgument dockerComposeExecArgument) throws IOException, InterruptedException {
+DockerComposeExecArgument dockerComposeExecArgument) throws IOException, InterruptedException {
 		verifyDockerComposeVersionAtLeast(VERSION_1_7_0, "You need at least docker-compose 1.7 to run docker-compose exec");
 		String[] fullArgs = constructFullDockerComposeExecArguments(dockerComposeExecOption, containerName, dockerComposeExecArgument);
 		return command.execute(Command.throwingOnError(), fullArgs);
@@ -128,7 +128,7 @@ public class DefaultDockerCompose implements DockerCompose {
 
 	@Override
 	public String run(DockerComposeRunOption dockerComposeRunOption, String containerName,
-			DockerComposeRunArgument dockerComposeRunArgument) throws IOException, InterruptedException {
+DockerComposeRunArgument dockerComposeRunArgument) throws IOException, InterruptedException {
 		String[] fullArgs = constructFullDockerComposeRunArguments(dockerComposeRunOption, containerName, dockerComposeRunArgument);
 		return command.execute(Command.throwingOnError(), fullArgs);
 	}
@@ -143,7 +143,7 @@ public class DefaultDockerCompose implements DockerCompose {
 	}
 
 	private static String[] constructFullDockerComposeExecArguments(DockerComposeExecOption dockerComposeExecOption,
-			String containerName, DockerComposeExecArgument dockerComposeExecArgument) {
+String containerName, DockerComposeExecArgument dockerComposeExecArgument) {
 		// The "-T" option here disables pseudo-TTY allocation, which is not useful here since we are not using
 		// terminal features here (e.g. we are not sending ^C to kill the executed process).
 		// Disabling pseudo-TTY allocation means this will work on OS's that don't support TTY (i.e. Windows)
@@ -157,12 +157,12 @@ public class DefaultDockerCompose implements DockerCompose {
 	}
 
 	private static String[] constructFullDockerComposeRunArguments(DockerComposeRunOption dockerComposeRunOption,
-			String containerName, DockerComposeRunArgument dockerComposeRunArgument) {
-			List<String> fullArgs = new ArrayList<>();
-			fullArgs.add("run");
-			fullArgs.addAll(dockerComposeRunOption.options());
-			fullArgs.add(containerName);
-			fullArgs.addAll(dockerComposeRunArgument.arguments());
+String containerName, DockerComposeRunArgument dockerComposeRunArgument) {
+		List<String> fullArgs = new ArrayList<>();
+		fullArgs.add("run");
+		fullArgs.addAll(dockerComposeRunOption.options());
+		fullArgs.add(containerName);
+		fullArgs.addAll(dockerComposeRunArgument.arguments());
 		return fullArgs.toArray(new String[fullArgs.size()]);
 	}
 
@@ -196,9 +196,9 @@ public class DefaultDockerCompose implements DockerCompose {
 	public boolean writeLogs(String container, OutputStream output) throws IOException {
 		try {
 			Awaitility.await()
-					.pollInterval(50, TimeUnit.MILLISECONDS)
-					.atMost(LOG_WAIT_TIMEOUT.getMillis(), TimeUnit.MILLISECONDS)
-					.until(() -> exists(container));
+		.pollInterval(50, TimeUnit.MILLISECONDS)
+		.atMost(LOG_WAIT_TIMEOUT.getMillis(), TimeUnit.MILLISECONDS)
+		.until(() -> exists(container));
 			Process executedProcess = followLogs(container);
 			IOUtils.copy(executedProcess.getInputStream(), output);
 			executedProcess.waitFor(COMMAND_TIMEOUT.getMillis(), MILLISECONDS);

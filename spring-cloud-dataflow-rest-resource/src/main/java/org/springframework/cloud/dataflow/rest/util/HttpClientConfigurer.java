@@ -94,14 +94,14 @@ public class HttpClientConfigurer {
 		Assert.hasText(proxyUri.getScheme(), "The scheme component of the proxyUri must not be empty.");
 
 		httpClientBuilder
-			.setProxy(new HttpHost(proxyUri.getHost(), proxyUri.getPort(), proxyUri.getScheme()));
-		if (proxyUsername !=null && proxyPassword != null) {
+	.setProxy(new HttpHost(proxyUri.getHost(), proxyUri.getPort(), proxyUri.getScheme()));
+		if (proxyUsername != null && proxyPassword != null) {
 			final CredentialsProvider credentialsProvider = this.getOrInitializeCredentialsProvider();
 			credentialsProvider.setCredentials(
-				new AuthScope(proxyUri.getHost(), proxyUri.getPort()),
-				new UsernamePasswordCredentials(proxyUsername, proxyPassword));
+		new AuthScope(proxyUri.getHost(), proxyUri.getPort()),
+		new UsernamePasswordCredentials(proxyUsername, proxyPassword));
 			httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider)
-				.setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy());
+		.setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy());
 		}
 		return this;
 	}
@@ -140,7 +140,8 @@ public class HttpClientConfigurer {
 	public ClientHttpRequestFactory buildClientHttpRequestFactory() {
 		if (useBasicAuth && targetHost != null) {
 			return new PreemptiveBasicAuthHttpComponentsClientHttpRequestFactory(buildHttpClient(), targetHost);
-		} else {
+		}
+		else {
 			return new HttpComponentsClientHttpRequestFactory(buildHttpClient());
 		}
 	}

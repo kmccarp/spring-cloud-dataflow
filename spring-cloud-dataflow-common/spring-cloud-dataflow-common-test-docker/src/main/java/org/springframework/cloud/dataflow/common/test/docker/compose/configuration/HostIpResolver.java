@@ -17,6 +17,6 @@ package org.springframework.cloud.dataflow.common.test.docker.compose.configurat
 
 public interface HostIpResolver {
 
-    String resolveIp(String dockerHost);
+	String resolveIp(String dockerHost);
 
 }

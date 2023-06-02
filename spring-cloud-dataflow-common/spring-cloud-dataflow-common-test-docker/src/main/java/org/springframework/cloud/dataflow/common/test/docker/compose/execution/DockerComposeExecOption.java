@@ -31,16 +31,16 @@ public class DockerComposeExecOption {
 		return options;
 	}
 
-    public static DockerComposeExecOption options(String... options) {
-        return DockerComposeExecOption.of(Arrays.asList(options));
-    }
+	public static DockerComposeExecOption options(String... options) {
+		return DockerComposeExecOption.of(Arrays.asList(options));
+	}
 
-    private static DockerComposeExecOption of(List<String> asList) {
+	private static DockerComposeExecOption of(List<String> asList) {
 		return new DockerComposeExecOption(asList);
 	}
 
 	public static DockerComposeExecOption noOptions() {
-        return DockerComposeExecOption.of(Collections.emptyList());
+		return DockerComposeExecOption.of(Collections.emptyList());
 	}
 
 	@Override
@@ -59,11 +59,12 @@ public class DockerComposeExecOption {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-			DockerComposeExecOption other = (DockerComposeExecOption) obj;
+		DockerComposeExecOption other = (DockerComposeExecOption) obj;
 		if (options == null) {
 			if (other.options != null)
 				return false;
-		} else if (!options.equals(other.options))
+		}
+		else if (!options.equals(other.options))
 			return false;
 		return true;
 	}

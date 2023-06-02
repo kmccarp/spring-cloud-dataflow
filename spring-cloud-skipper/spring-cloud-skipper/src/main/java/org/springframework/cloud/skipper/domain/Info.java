@@ -34,7 +34,7 @@ import javax.persistence.Table;
 @Table(name = "SkipperInfo")
 public class Info extends AbstractEntity {
 
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_info_status"))
 	private Status status;
 

@@ -24,25 +24,26 @@ import java.util.stream.Stream;
 
 public class ContainerNames {
 
-    private ContainerNames() {}
+	private ContainerNames() {
+	}
 
-    public static List<ContainerName> parseFromDockerComposePs(String psOutput) {
-        String[] psHeadAndBody = psOutput.split("-+(\r|\n)+");
-        if (psHeadAndBody.length < 2) {
-            return emptyList();
-        }
+	public static List<ContainerName> parseFromDockerComposePs(String psOutput) {
+		String[] psHeadAndBody = psOutput.split("-+(\r|\n)+");
+		if (psHeadAndBody.length < 2) {
+			return emptyList();
+		}
 
-        String psBody = psHeadAndBody[1];
-        return psBodyLines(psBody)
-                .map(ContainerName::fromPsLine)
-                .collect(toList());
-    }
+		String psBody = psHeadAndBody[1];
+		return psBodyLines(psBody)
+	.map(ContainerName::fromPsLine)
+	.collect(toList());
+	}
 
-    private static Stream<String> psBodyLines(String psBody) {
-        String[] lines = psBody.split("(\r|\n)+");
-        return Arrays.stream(lines)
-                .map(String::trim)
-                .filter(line -> !line.isEmpty());
-    }
+	private static Stream<String> psBodyLines(String psBody) {
+		String[] lines = psBody.split("(\r|\n)+");
+		return Arrays.stream(lines)
+	.map(String::trim)
+	.filter(line -> !line.isEmpty());
+	}
 
 }

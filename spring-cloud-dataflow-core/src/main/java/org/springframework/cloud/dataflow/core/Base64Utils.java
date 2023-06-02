@@ -41,7 +41,7 @@ public class Base64Utils {
 		}
 		// need to use without padding as boot will remove '=' chars from keys
 		return PREFIX + new String(Base64.getEncoder().withoutPadding().encode(str.getBytes(DEFAULT_CHARSET)),
-				DEFAULT_CHARSET);
+	DEFAULT_CHARSET);
 	}
 
 	public static String decode(String str) {
@@ -50,7 +50,8 @@ public class Base64Utils {
 		}
 		if (str.startsWith(PREFIX)) {
 			return new String(Base64.getDecoder().decode(str.substring(PREFIX.length())), DEFAULT_CHARSET);
-		} else {
+		}
+		else {
 			return str;
 		}
 	}

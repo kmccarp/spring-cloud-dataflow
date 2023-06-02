@@ -44,7 +44,7 @@ public class OnOAuth2SecurityEnabled extends SpringBootCondition {
 
 	public static Map<String, String> getSubProperties(Environment environment, String keyPrefix) {
 		return Binder.get(environment)
-			.bind(keyPrefix, Bindable.mapOf(String.class, String.class))
-			.orElseGet(Collections::emptyMap);
+	.bind(keyPrefix, Bindable.mapOf(String.class, String.class))
+	.orElseGet(Collections::emptyMap);
 	}
 }

@@ -23,7 +23,7 @@ import org.flywaydb.database.mysql.mariadb.MariaDBDatabase;
 
 public class MariaDB57Database extends MySQL57Database {
 
-    public MariaDB57Database(Configuration configuration, JdbcConnectionFactory jdbcConnectionFactory, StatementInterceptor statementInterceptor) {
-        super(configuration, jdbcConnectionFactory, statementInterceptor, new MariaDBDatabase(configuration, jdbcConnectionFactory, statementInterceptor));
-    }
+	public MariaDB57Database(Configuration configuration, JdbcConnectionFactory jdbcConnectionFactory, StatementInterceptor statementInterceptor) {
+		super(configuration, jdbcConnectionFactory, statementInterceptor, new MariaDBDatabase(configuration, jdbcConnectionFactory, statementInterceptor));
+	}
 }

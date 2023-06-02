@@ -90,7 +90,7 @@ public class StreamParser extends AppParser {
 				String duplicate = node.getLabelName();
 				int previousIndex = new ArrayList<String>(alreadySeen.keySet()).indexOf(duplicate);
 				throw new ParseException(dsl, node.startPos, DSLMessage.DUPLICATE_LABEL, duplicate, previous.getName(),
-						previousIndex, node.getName(), m);
+			previousIndex, node.getName(), m);
 			}
 		}
 		Tokens tokens = getTokens();
@@ -153,16 +153,16 @@ public class StreamParser extends AppParser {
 			appNodes.add(bridgeAppNode);
 		}
 		else {
-			appNodes.addAll(eatAppList(sourceDestinationNode!=null));
+			appNodes.addAll(eatAppList(sourceDestinationNode != null));
 		}
 		SinkDestinationNode sinkDestinationNode = eatSinkDestination();
-		
+
 		// Further data is an error
 		if (tokens.hasNext()) {
 			Token t = tokens.peek();
 			DSLMessage errorMessage = DSLMessage.UNEXPECTED_DATA_AFTER_STREAMDEF;
 			if (!appNodes.isEmpty() && sinkDestinationNode == null
-					&& tokens.getTokenStream().get(tokens.position() - 1).isKind(TokenKind.GT)) {
+		&& tokens.getTokenStream().get(tokens.position() - 1).isKind(TokenKind.GT)) {
 				// Additional token where a destination is expected, but has no prefix
 				errorMessage = DSLMessage.EXPECTED_DESTINATION_PREFIX;
 			}
@@ -294,7 +294,7 @@ public class StreamParser extends AppParser {
 			return null;
 		}
 		if (t.kind == TokenKind.IDENTIFIER || t.kind == TokenKind.STAR || t.kind == TokenKind.SLASH
-				|| t.kind == TokenKind.HASH) {
+	|| t.kind == TokenKind.HASH) {
 			return t;
 		}
 		else {
@@ -332,7 +332,7 @@ public class StreamParser extends AppParser {
 			}
 			else {
 				tokens.raiseException(tokens.peek().startPos, DSLMessage.UNEXPECTED_DATA_IN_DESTINATION_NAME,
-						getTokenData(tokens.peek()));
+			getTokenData(tokens.peek()));
 			}
 		}
 		int startpos = token.startPos;
@@ -405,7 +405,7 @@ public class StreamParser extends AppParser {
 		if (isFollowedBySinkChannel && usedListDelimiter >= 0) {
 			tokens.raiseException(usedListDelimiter, DSLMessage.DONT_USE_DOUBLEPIPE_WITH_CHANNELS);
 		}
-		for (AppNode appNode: appNodes) {
+		for (AppNode appNode : appNodes) {
 			appNode.setUnboundStreamApp(!preceedingSourceChannelSpecified && !isFollowedBySinkChannel && (usedStreamDelimiter < 0));
 		}
 		return appNodes;
@@ -422,7 +422,7 @@ public class StreamParser extends AppParser {
 	}
 
 	protected StreamNode makeStreamNode(String streamText, String streamName, List<AppNode> appNodes,
-			SourceDestinationNode sourceDestinationNode, SinkDestinationNode sinkDestinationNode) {
+SourceDestinationNode sourceDestinationNode, SinkDestinationNode sinkDestinationNode) {
 		return new StreamNode(streamText, streamName, appNodes, sourceDestinationNode, sinkDestinationNode);
 	}
 

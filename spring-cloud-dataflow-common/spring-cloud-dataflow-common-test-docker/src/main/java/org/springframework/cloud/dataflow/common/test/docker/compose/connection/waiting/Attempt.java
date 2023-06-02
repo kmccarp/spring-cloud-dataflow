@@ -17,5 +17,5 @@ package org.springframework.cloud.dataflow.common.test.docker.compose.connection
 
 @FunctionalInterface
 public interface Attempt {
-    boolean attempt() throws Exception;
+	boolean attempt() throws Exception;
 }

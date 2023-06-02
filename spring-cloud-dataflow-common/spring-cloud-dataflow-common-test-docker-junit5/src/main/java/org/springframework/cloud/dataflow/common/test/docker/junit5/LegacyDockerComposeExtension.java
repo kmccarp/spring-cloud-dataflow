@@ -31,7 +31,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 public class LegacyDockerComposeExtension extends DockerComposeRule implements BeforeAllCallback, AfterAllCallback {
 
 	private LegacyDockerComposeExtension(DockerComposeFiles files, List<ClusterWait> clusterWaits,
-			LogCollector logCollector, DockerMachine machine, boolean pullOnStartup, ProjectName projectName) {
+LogCollector logCollector, DockerMachine machine, boolean pullOnStartup, ProjectName projectName) {
 		super(files, clusterWaits, logCollector, machine, pullOnStartup, projectName);
 	}
 
@@ -45,16 +45,16 @@ public class LegacyDockerComposeExtension extends DockerComposeRule implements B
 		before();
 	}
 
-    public static Builder builder() {
-        return new Builder();
-    }
+	public static Builder builder() {
+		return new Builder();
+	}
 
-	public static class Builder extends DockerComposeRule.Builder<Builder>  {
+	public static class Builder extends DockerComposeRule.Builder<Builder> {
 
 		@Override
 		public LegacyDockerComposeExtension build() {
 			return new LegacyDockerComposeExtension(files, clusterWaits, logCollector, machine, pullOnStartup,
-					projectName);
+		projectName);
 		}
 	}
 }

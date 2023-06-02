@@ -51,7 +51,7 @@ public class AuditRecordRepositoryImpl implements AuditRecordRepositoryCustom {
 
 	@Override
 	public Page<AuditRecord> findByActionTypeAndOperationTypeAndDate(AuditOperationType[] operations,
-			AuditActionType[] actions, Instant fromDate, Instant toDate, Pageable pageable) {
+AuditActionType[] actions, Instant fromDate, Instant toDate, Pageable pageable) {
 
 		final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		final CriteriaQuery<AuditRecord> query = cb.createQuery(AuditRecord.class);
@@ -129,7 +129,7 @@ public class AuditRecordRepositoryImpl implements AuditRecordRepositoryCustom {
 		}
 
 		final Long totalCount = entityManager.createQuery(countQuery)
-				  .getSingleResult();
+	.getSingleResult();
 
 		return new PageImpl<>(resultList, pageable, totalCount);
 	}

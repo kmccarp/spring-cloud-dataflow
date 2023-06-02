@@ -40,7 +40,7 @@ public class ComposedTaskRunnerVisitor extends TaskVisitor {
 	 * At end of split determine if the number of task apps in the split is greater than other splits.
 	 */
 	public void postVisit(SplitNode split) {
-		if(currentCount > highCount) {
+		if (currentCount > highCount) {
 			highCount = currentCount;
 		}
 	}

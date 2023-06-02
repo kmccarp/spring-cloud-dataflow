@@ -91,13 +91,13 @@ public class PackageReaderTests {
 		assertThat(metadata.getName()).isEqualTo("log");
 		assertThat(metadata.getVersion()).isEqualTo("2.0.0");
 		assertThat(metadata.getPackageSourceUrl())
-				.isEqualTo("https://github.com/spring-cloud-stream-app-starters/log/tree/v1.2.0.RELEASE");
+	.isEqualTo("https://github.com/spring-cloud-stream-app-starters/log/tree/v1.2.0.RELEASE");
 		assertThat(metadata.getPackageHomeUrl()).isEqualTo("https://cloud.spring.io/spring-cloud-stream-app-starters/");
 		Set<String> tagSet = convertToSet(metadata.getTags());
 		assertThat(tagSet).hasSize(2).contains("logging", "sink");
 		assertThat(metadata.getMaintainer()).isEqualTo("https://github.com/sobychacko");
 		assertThat(metadata.getDescription())
-				.isEqualTo("The log sink uses the application logger to output the data for inspection.");
+	.isEqualTo("The log sink uses the application logger to output the data for inspection.");
 	}
 
 	private void assertTimePackage(Package pkg) {
@@ -107,7 +107,7 @@ public class PackageReaderTests {
 		assertThat(metadata.getName()).isEqualTo("time");
 		assertThat(metadata.getVersion()).isEqualTo("2.0.0");
 		assertThat(metadata.getPackageSourceUrl())
-				.isEqualTo("https://github.com/spring-cloud-stream-app-starters/time/tree/v1.2.0.RELEASE");
+	.isEqualTo("https://github.com/spring-cloud-stream-app-starters/time/tree/v1.2.0.RELEASE");
 		assertThat(metadata.getPackageHomeUrl()).isEqualTo("https://cloud.spring.io/spring-cloud-stream-app-starters/");
 		Set<String> tagSet = convertToSet(metadata.getTags());
 		assertThat(tagSet).hasSize(2).contains("time", "source");
@@ -119,8 +119,8 @@ public class PackageReaderTests {
 		Set<String> initialSet = StringUtils.commaDelimitedListToSet(tags);
 
 		Set<String> setToReturn = initialSet.stream()
-				.map(StringUtils::trimAllWhitespace)
-				.collect(Collectors.toSet());
+	.map(StringUtils::trimAllWhitespace)
+	.collect(Collectors.toSet());
 
 		return setToReturn;
 	}

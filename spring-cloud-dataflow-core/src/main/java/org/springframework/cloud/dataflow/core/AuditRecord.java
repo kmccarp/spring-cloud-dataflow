@@ -150,6 +150,6 @@ public class AuditRecord {
 	@Override
 	public String toString() {
 		return "AuditRecord [id=" + id + ", createdOn=" + createdOn + ", auditAction=" + auditAction
-				+ ", auditOperation=" + auditOperation + ", platformName=" + platformName + "]";
+	+ ", auditOperation=" + auditOperation + ", platformName=" + platformName + "]";
 	}
 }

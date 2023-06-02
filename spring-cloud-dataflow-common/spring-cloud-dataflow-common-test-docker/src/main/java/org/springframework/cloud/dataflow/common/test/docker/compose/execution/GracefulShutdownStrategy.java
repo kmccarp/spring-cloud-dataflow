@@ -26,15 +26,15 @@ import org.springframework.cloud.dataflow.common.test.docker.compose.configurati
  */
 public class GracefulShutdownStrategy implements ShutdownStrategy {
 
-    private static final Logger log = LoggerFactory.getLogger(GracefulShutdownStrategy.class);
+	private static final Logger log = LoggerFactory.getLogger(GracefulShutdownStrategy.class);
 
-    @Override
-    public void shutdown(DockerCompose dockerCompose, Docker docker) throws IOException, InterruptedException {
-        log.debug("Killing docker-compose cluster");
-        dockerCompose.down();
-        dockerCompose.kill();
-        dockerCompose.rm();
-        docker.pruneNetworks();
-    }
+	@Override
+	public void shutdown(DockerCompose dockerCompose, Docker docker) throws IOException, InterruptedException {
+		log.debug("Killing docker-compose cluster");
+		dockerCompose.down();
+		dockerCompose.kill();
+		dockerCompose.rm();
+		docker.pruneNetworks();
+	}
 
 }

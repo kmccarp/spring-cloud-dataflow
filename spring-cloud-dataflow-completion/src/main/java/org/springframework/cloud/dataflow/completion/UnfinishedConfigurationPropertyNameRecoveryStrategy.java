@@ -38,16 +38,15 @@ import org.springframework.cloud.dataflow.registry.service.AppRegistryService;
  * @author Mark Fisher
  * @author Oleg Zhurakousky
  */
-public class UnfinishedConfigurationPropertyNameRecoveryStrategy
-		extends StacktraceFingerprintingRecoveryStrategy<CheckPointedParseException> {
+public class UnfinishedConfigurationPropertyNameRecoveryStrategyextends StacktraceFingerprintingRecoveryStrategy<CheckPointedParseException> {
 
 	private final ProposalsCollectorSupportUtils collectorSupport;
 
 	UnfinishedConfigurationPropertyNameRecoveryStrategy(AppRegistryService appRegistry,
-			ApplicationConfigurationMetadataResolver metadataResolver,
-			StreamDefinitionService streamDefinitionService) {
+ApplicationConfigurationMetadataResolver metadataResolver,
+StreamDefinitionService streamDefinitionService) {
 		super(CheckPointedParseException.class, streamDefinitionService, "file --foo", "file | bar --quick", "file --foo.",
-				"file | bar " + "--quick.");
+	"file | bar " + "--quick.");
 		this.collectorSupport = new ProposalsCollectorSupportUtils(appRegistry, metadataResolver);
 	}
 
@@ -60,7 +59,7 @@ public class UnfinishedConfigurationPropertyNameRecoveryStrategy
 		StreamAppDefinition lastApp = StreamDefinitionServiceUtils.getDeploymentOrderIterator(streamAppDefinitions).next();
 
 		AppRegistration appRegistration = this.collectorSupport.findAppRegistration(lastApp.getName(),
-				CompletionUtils.determinePotentialTypes(lastApp, streamAppDefinitions.size() > 1));
+	CompletionUtils.determinePotentialTypes(lastApp, streamAppDefinitions.size() > 1));
 		if (appRegistration != null) {
 			String startsWith = ProposalsCollectorSupportUtils.computeStartsWith(exception);
 			Set<String> alreadyPresentOptions = new HashSet<>(lastApp.getProperties().keySet());

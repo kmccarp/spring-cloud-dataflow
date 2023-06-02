@@ -57,7 +57,7 @@ public class ArgumentSanitizer {
 	private static final String REDACTION_STRING = "******";
 
 	private static final String[] KEYS_TO_SANITIZE = {"username", "password", "secret", "key", "token", ".*credentials.*",
-			"vcap_services", "url"};
+"vcap_services", "url"};
 
 	private final static TypeReference<Map<String, Object>> mapTypeReference = new TypeReference<Map<String, Object>>() {
 	};
@@ -145,7 +145,8 @@ public class ArgumentSanitizer {
 			String updatedKey = !jobParameter.isIdentifying() ? "-" + key : key;
 			if (jobParameter.getType().equals(JobParameter.ParameterType.STRING)) {
 				newJobParameters.put(updatedKey, new JobParameter(this.sanitize(key, jobParameter.toString())));
-			} else {
+			}
+			else {
 				newJobParameters.put(updatedKey, jobParameter);
 			}
 		});
@@ -168,7 +169,7 @@ public class ArgumentSanitizer {
 			if (node.properties != null) {
 				node.properties.keySet().stream().forEach(key -> {
 					node.properties.put(key,
-							DefinitionUtils.autoQuotes(sanitize(key, node.properties.get(key))));
+				DefinitionUtils.autoQuotes(sanitize(key, node.properties.get(key))));
 				});
 			}
 		});
@@ -233,10 +234,12 @@ public class ArgumentSanitizer {
 		for (Map.Entry<String, Object> entry : input.entrySet()) {
 			if (entry.getValue() instanceof String) {
 				result.put(entry.getKey(), sanitize(entry.getKey(), (String) entry.getValue()));
-			} else if (entry.getValue() instanceof Map) {
+			}
+			else if (entry.getValue() instanceof Map) {
 				Map<String, Object> map = (Map<String, Object>) entry.getValue();
 				result.put(entry.getKey(), sanitizeMap(map));
-			} else {
+			}
+			else {
 				result.put(entry.getKey(), entry.getValue());
 			}
 		}

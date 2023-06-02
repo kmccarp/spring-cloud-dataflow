@@ -52,41 +52,41 @@ public class DefaultContainerImageMetadataResolver implements ContainerImageMeta
 
 		if (manifest != null && !isNotNullMap(manifest.get("config"))) {
 			throw new ContainerRegistryException(
-					String.format("Image [%s] has incorrect or missing manifest config element: %s",
-							imageName, manifest.toString()));
+		String.format("Image [%s] has incorrect or missing manifest config element: %s",
+	imageName, manifest.toString()));
 		}
 		if (manifest != null) {
 			String configDigest = ((Map<String, String>) manifest.get("config")).get("digest");
 
 			if (!StringUtils.hasText(configDigest)) {
 				throw new ContainerRegistryException(
-						String.format("Missing or invalid Configuration Digest: [%s] for image [%s]", configDigest,
-								imageName));
+			String.format("Missing or invalid Configuration Digest: [%s] for image [%s]", configDigest,
+		imageName));
 			}
 
 			Map<String, Object> configBlobMap = this.containerRegistryService.getImageBlob(registryRequest, configDigest, Map.class);
 
 			if (configBlobMap == null) {
 				throw new ContainerRegistryException(
-						String.format("Failed to retrieve configuration json for image [%s] with digest [%s]",
-								imageName, configDigest));
+			String.format("Failed to retrieve configuration json for image [%s] with digest [%s]",
+		imageName, configDigest));
 			}
 
 			if (!isNotNullMap(configBlobMap.get("config"))) {
 				throw new ContainerRegistryException(
-						String.format(
-								"Configuration json for image [%s] with digest [%s] has incorrect Config Blog element",
-								imageName, configDigest));
+			String.format(
+		"Configuration json for image [%s] with digest [%s] has incorrect Config Blog element",
+		imageName, configDigest));
 			}
 
 			Map<String, Object> configElement = (Map<String, Object>) configBlobMap.get("config");
 
 			return isNotNullMap(configElement.get("Labels")) ?
-					(Map<String, String>) configElement.get("Labels") : Collections.emptyMap();
+		(Map<String, String>) configElement.get("Labels") : Collections.emptyMap();
 		}
 		else {
 			throw new ContainerRegistryException(
-					String.format("Image [%s] is missing manifest", imageName));
+		String.format("Image [%s] is missing manifest", imageName));
 		}
 	}
 

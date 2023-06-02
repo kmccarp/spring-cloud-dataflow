@@ -36,13 +36,12 @@ import org.springframework.cloud.dataflow.registry.service.AppRegistryService;
  * @author Andy Clement
  * @author Oleg Zhurakousky
  */
-public class UnfinishedConfigurationPropertyNameTaskRecoveryStrategy
-		extends StacktraceFingerprintingTaskRecoveryStrategy<CheckPointedParseException> {
+public class UnfinishedConfigurationPropertyNameTaskRecoveryStrategyextends StacktraceFingerprintingTaskRecoveryStrategy<CheckPointedParseException> {
 
 	private final ProposalsCollectorSupportUtils collectorSupport;
 
 	UnfinishedConfigurationPropertyNameTaskRecoveryStrategy(AppRegistryService appRegistry,
-			ApplicationConfigurationMetadataResolver metadataResolver) {
+ApplicationConfigurationMetadataResolver metadataResolver) {
 		super(CheckPointedParseException.class, "file --foo", "file --foo.");
 		this.collectorSupport = new ProposalsCollectorSupportUtils(appRegistry, metadataResolver);
 	}

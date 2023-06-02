@@ -43,7 +43,7 @@ public class SkipperClientConfiguration {
 	@Bean(name = SKIPPERCLIENT_RESTTEMPLATE_BEAN_NAME)
 	public RestTemplate skipperClientRestTemplate(RestTemplateBuilder restTemplateBuilder, ObjectMapper objectMapper) {
 		RestTemplate restTemplate = restTemplateBuilder
-				.errorHandler(new SkipperClientResponseErrorHandler(objectMapper)).build();
+	.errorHandler(new SkipperClientResponseErrorHandler(objectMapper)).build();
 		return validateRestTemplate(restTemplate);
 	}
 
@@ -63,7 +63,7 @@ public class SkipperClientConfiguration {
 
 		if (!containsMappingJackson2HttpMessageConverter) {
 			throw new IllegalArgumentException(
-					"The RestTemplate does not contain a required " + "MappingJackson2HttpMessageConverter.");
+		"The RestTemplate does not contain a required " + "MappingJackson2HttpMessageConverter.");
 		}
 		return restTemplate;
 	}

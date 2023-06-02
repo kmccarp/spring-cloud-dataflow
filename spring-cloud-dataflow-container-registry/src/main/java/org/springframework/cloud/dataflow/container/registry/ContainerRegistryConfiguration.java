@@ -197,14 +197,14 @@ public class ContainerRegistryConfiguration {
 	@Override
 	public String toString() {
 		return "ContainerRegistryConfiguration{" +
-				"registryHost='" + registryHost + '\'' +
-				", user='" + user + '\'' +
-				", secret='****'" + '\'' +
-				", authorizationType=" + authorizationType +
-				", manifestMediaType='" + manifestMediaType + '\'' +
-				", disableSslVerification='" + disableSslVerification + '\''
-				+", useHttpProxy='" + useHttpProxy + '\'' +
-				", extra=" + extra +
-				'}';
+	"registryHost='" + registryHost + '\'' +
+	", user='" + user + '\'' +
+	", secret='****'" + '\'' +
+	", authorizationType=" + authorizationType +
+	", manifestMediaType='" + manifestMediaType + '\'' +
+	", disableSslVerification='" + disableSslVerification + '\''
+	+ ", useHttpProxy='" + useHttpProxy + '\'' +
+	", extra=" + extra +
+	'}';
 	}
 }

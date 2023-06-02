@@ -134,13 +134,13 @@ public class ContainerImageRestTemplateFactory {
 		}
 		catch (Exception e) {
 			throw new ContainerRegistryException(
-					"Failed to create Container Image RestTemplate for disableSsl:"
-							+ skipSslVerification + ", httpProxy:" + withHttpProxy, e);
+		"Failed to create Container Image RestTemplate for disableSsl:"
+	+ skipSslVerification + ", httpProxy:" + withHttpProxy, e);
 		}
 	}
 
 	private RestTemplate createContainerRestTemplate(boolean skipSslVerification, boolean withHttpProxy)
-			throws NoSuchAlgorithmException, KeyManagementException {
+throws NoSuchAlgorithmException, KeyManagementException {
 
 		if (!skipSslVerification) {
 			// Create a RestTemplate that uses custom request factory
@@ -148,18 +148,18 @@ public class ContainerImageRestTemplateFactory {
 		}
 
 		// Trust manager that blindly trusts all SSL certificates.
-		TrustManager[] trustAllCerts = new TrustManager[] {
-				new X509TrustManager() {
-					public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-						return new X509Certificate[0];
-					}
+		TrustManager[] trustAllCerts = new TrustManager[]{
+	new X509TrustManager() {
+		public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+			return new X509Certificate[0];
+		}
 
-					public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-					}
+		public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
+		}
 
-					public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-					}
-				}
+		public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
+		}
+	}
 		};
 		SSLContext sslContext = SSLContext.getInstance("SSL");
 		// Install trust manager to SSL Context.
@@ -167,10 +167,10 @@ public class ContainerImageRestTemplateFactory {
 
 		// Create a RestTemplate that uses custom request factory
 		return initRestTemplate(
-				HttpClients.custom()
-						.setSSLContext(sslContext)
-						.setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE),
-				withHttpProxy);
+	HttpClients.custom()
+.setSSLContext(sslContext)
+.setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE),
+	withHttpProxy);
 	}
 
 	private RestTemplate initRestTemplate(HttpClientBuilder clientBuilder, boolean withHttpProxy) {
@@ -187,12 +187,9 @@ public class ContainerImageRestTemplateFactory {
 		}
 
 		HttpComponentsClientHttpRequestFactory customRequestFactory =
-				new HttpComponentsClientHttpRequestFactory(
-						clientBuilder
-								.setRedirectStrategy(new DropAuthorizationHeaderRequestRedirectStrategy())
-								// Azure redirects may contain double slashes and on default those are normilised
-								.setDefaultRequestConfig(RequestConfig.custom().setNormalizeUri(false).build())
-								.build());
+	new HttpComponentsClientHttpRequestFactory(
+clientBuilder.setRedirectStrategy(new DropAuthorizationHeaderRequestRedirectStrategy())
+								// Azure redirects may contain double slashes and on default those are normilised.setDefaultRequestConfig(RequestConfig.custom().setNormalizeUri(false).build()).build());
 
 		// DockerHub response's media-type is application/octet-stream although the content is in JSON.
 		// Similarly the Github CR response's media-type is always text/plain although the content is in JSON.
@@ -205,8 +202,8 @@ public class ContainerImageRestTemplateFactory {
 		octetSupportJsonConverter.setSupportedMediaTypes(mediaTypeList);
 
 		return restTemplateBuilder
-				.additionalMessageConverters(octetSupportJsonConverter)
-				.requestFactory(() -> customRequestFactory)
-				.build();
+	.additionalMessageConverters(octetSupportJsonConverter)
+	.requestFactory(() -> customRequestFactory)
+	.build();
 	}
 }

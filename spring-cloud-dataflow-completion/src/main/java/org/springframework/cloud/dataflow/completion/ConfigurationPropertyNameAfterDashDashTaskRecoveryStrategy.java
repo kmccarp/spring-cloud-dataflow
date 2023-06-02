@@ -36,20 +36,19 @@ import org.springframework.cloud.dataflow.registry.service.AppRegistryService;
  * @author Andy Clement
  * @author Oleg Zhurakousky
  */
-class ConfigurationPropertyNameAfterDashDashTaskRecoveryStrategy
-		extends StacktraceFingerprintingTaskRecoveryStrategy<CheckPointedParseException> {
+class ConfigurationPropertyNameAfterDashDashTaskRecoveryStrategyextends StacktraceFingerprintingTaskRecoveryStrategy<CheckPointedParseException> {
 
 	private final ProposalsCollectorSupportUtils collectorSupport;
 
 	ConfigurationPropertyNameAfterDashDashTaskRecoveryStrategy(AppRegistryService appRegistry,
-			ApplicationConfigurationMetadataResolver metadataResolver) {
+ApplicationConfigurationMetadataResolver metadataResolver) {
 		super(CheckPointedParseException.class, "file --");
 		this.collectorSupport = new ProposalsCollectorSupportUtils(appRegistry, metadataResolver);
 	}
 
 	@Override
 	public void addProposals(String dsl, CheckPointedParseException exception, int detailLevel,
-			List<CompletionProposal> collector) {
+List<CompletionProposal> collector) {
 
 		String safe = exception.getExpressionStringUntilCheckpoint();
 		TaskDefinition taskDefinition = new TaskDefinition("__dummy", safe);

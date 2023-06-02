@@ -59,8 +59,8 @@ public class AppRegistrationRepositoryImpl implements AppRegistrationRepositoryC
 
 	@Override
 	public Page<AppRegistration> findAllByTypeAndNameIsLikeAndVersionAndDefaultVersion(
-			ApplicationType type,
-			String name, String version, boolean defaultVersion, Pageable pageable) {
+ApplicationType type,
+String name, String version, boolean defaultVersion, Pageable pageable) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<AppRegistration> cq = cb.createQuery(AppRegistration.class);
 		Root<AppRegistration> appRegistrationRoot = cq.from(AppRegistration.class);
@@ -86,8 +86,8 @@ public class AppRegistrationRepositoryImpl implements AppRegistrationRepositoryC
 		if (defaultVersion) {
 			resultList.forEach(appRegistration -> {
 				HashSet<String> versions = appRegistrationRepository.getIfAvailable().findAllByName(appRegistration.getName()).stream()
-						.filter(ar -> ar.getType() == appRegistration.getType())
-						.map(AppRegistration::getVersion).collect(Collectors.toCollection(HashSet::new));
+			.filter(ar -> ar.getType() == appRegistration.getType())
+			.map(AppRegistration::getVersion).collect(Collectors.toCollection(HashSet::new));
 				appRegistration.setVersions(versions);
 			});
 		}

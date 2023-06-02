@@ -298,20 +298,20 @@ public class PackageMetadata extends AbstractEntity {
 	@Override
 	public String toString() {
 		return "PackageMetadata{" +
-				"id='" + getId() + '\'' +
-				", apiVersion='" + apiVersion + '\'' +
-				", origin='" + origin + '\'' +
-				", repositoryName='" + repositoryName + '\'' +
-				", kind='" + kind + '\'' +
-				", name='" + name + '\'' +
-				", version='" + version + '\'' +
-				", packageSourceUrl='" + packageSourceUrl + '\'' +
-				", packageHomeUrl='" + packageHomeUrl + '\'' +
-				", tags='" + tags + '\'' +
-				", maintainer='" + maintainer + '\'' +
-				", description='" + description + '\'' +
-				", sha256='" + sha256 + '\'' +
-				", iconUrl='" + iconUrl + '\'' +
-				'}';
+	"id='" + getId() + '\'' +
+	", apiVersion='" + apiVersion + '\'' +
+	", origin='" + origin + '\'' +
+	", repositoryName='" + repositoryName + '\'' +
+	", kind='" + kind + '\'' +
+	", name='" + name + '\'' +
+	", version='" + version + '\'' +
+	", packageSourceUrl='" + packageSourceUrl + '\'' +
+	", packageHomeUrl='" + packageHomeUrl + '\'' +
+	", tags='" + tags + '\'' +
+	", maintainer='" + maintainer + '\'' +
+	", description='" + description + '\'' +
+	", sha256='" + sha256 + '\'' +
+	", iconUrl='" + iconUrl + '\'' +
+	'}';
 	}
 }

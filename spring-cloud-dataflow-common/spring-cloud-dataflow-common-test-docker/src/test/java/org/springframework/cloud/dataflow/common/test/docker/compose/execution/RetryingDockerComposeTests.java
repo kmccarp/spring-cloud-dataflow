@@ -37,67 +37,67 @@ import static org.springframework.cloud.dataflow.common.test.docker.compose.exec
 import static org.springframework.cloud.dataflow.common.test.docker.compose.execution.DockerComposeExecOption.options;
 
 public class RetryingDockerComposeTests {
-    private final DockerCompose dockerCompose = mock(DockerCompose.class);
-    private final Retryer retryer = mock(Retryer.class);
-    private final RetryingDockerCompose retryingDockerCompose = new RetryingDockerCompose(retryer, dockerCompose);
-    private final List<ContainerName> someContainerNames = TestContainerNames.of("hey");
-    private static final String CONTAINER_NAME = "container";
+	private final DockerCompose dockerCompose = mock(DockerCompose.class);
+	private final Retryer retryer = mock(Retryer.class);
+	private final RetryingDockerCompose retryingDockerCompose = new RetryingDockerCompose(retryer, dockerCompose);
+	private final List<ContainerName> someContainerNames = TestContainerNames.of("hey");
+	private static final String CONTAINER_NAME = "container";
 
-    @Before
-    public void before() throws IOException, InterruptedException {
-        retryerJustCallsOperation();
-    }
+	@Before
+	public void before() throws IOException, InterruptedException {
+		retryerJustCallsOperation();
+	}
 
-    private void retryerJustCallsOperation() throws IOException, InterruptedException {
-        when(retryer.runWithRetries(anyOperation())).thenAnswer(invocation -> {
-            Retryer.RetryableDockerOperation<?> operation = (Retryer.RetryableDockerOperation<?>) invocation.getArguments()[0];
-            return operation.call();
-        });
-    }
+	private void retryerJustCallsOperation() throws IOException, InterruptedException {
+		when(retryer.runWithRetries(anyOperation())).thenAnswer(invocation -> {
+			Retryer.RetryableDockerOperation<?> operation = (Retryer.RetryableDockerOperation<?>) invocation.getArguments()[0];
+			return operation.call();
+		});
+	}
 
-    private static RetryableDockerOperation<?> anyOperation() {
-        return any(Retryer.RetryableDockerOperation.class);
-    }
+	private static RetryableDockerOperation<?> anyOperation() {
+		return any(Retryer.RetryableDockerOperation.class);
+	}
 
-    @Test
-    public void calls_up_on_the_underlying_docker_compose() throws IOException, InterruptedException {
-        retryingDockerCompose.up();
+	@Test
+	public void calls_up_on_the_underlying_docker_compose() throws IOException, InterruptedException {
+		retryingDockerCompose.up();
 
-        verifyRetryerWasUsed();
-        verify(dockerCompose).up();
-        verifyNoMoreInteractions(dockerCompose);
-    }
+		verifyRetryerWasUsed();
+		verify(dockerCompose).up();
+		verifyNoMoreInteractions(dockerCompose);
+	}
 
-    @Test
-    public void call_ps_on_the_underlying_docker_compose_and_returns_the_same_value() throws IOException, InterruptedException {
-        when(dockerCompose.ps()).thenReturn(someContainerNames);
+	@Test
+	public void call_ps_on_the_underlying_docker_compose_and_returns_the_same_value() throws IOException, InterruptedException {
+		when(dockerCompose.ps()).thenReturn(someContainerNames);
 
-        assertThat(retryingDockerCompose.ps(), is(someContainerNames));
+		assertThat(retryingDockerCompose.ps(), is(someContainerNames));
 
-        verifyRetryerWasUsed();
-        verify(dockerCompose).ps();
-        verifyNoMoreInteractions(dockerCompose);
-    }
+		verifyRetryerWasUsed();
+		verify(dockerCompose).ps();
+		verifyNoMoreInteractions(dockerCompose);
+	}
 
-    private void verifyRetryerWasUsed() throws IOException, InterruptedException {
-        verify(retryer).runWithRetries(anyOperation());
-    }
+	private void verifyRetryerWasUsed() throws IOException, InterruptedException {
+		verify(retryer).runWithRetries(anyOperation());
+	}
 
-    private void verifyRetryerWasNotUsed() throws IOException, InterruptedException {
-        verify(retryer, times(0)).runWithRetries(anyOperation());
-    }
+	private void verifyRetryerWasNotUsed() throws IOException, InterruptedException {
+		verify(retryer, times(0)).runWithRetries(anyOperation());
+	}
 
-    @Test
-    public void calls_exec_on_the_underlying_docker_compose_and_not_invoke_retryer() throws IOException, InterruptedException {
-        retryingDockerCompose.exec(options("-d"), CONTAINER_NAME, arguments("ls"));
-        verifyRetryerWasNotUsed();
-        verify(dockerCompose).exec(options("-d"), CONTAINER_NAME, arguments("ls"));
-    }
+	@Test
+	public void calls_exec_on_the_underlying_docker_compose_and_not_invoke_retryer() throws IOException, InterruptedException {
+		retryingDockerCompose.exec(options("-d"), CONTAINER_NAME, arguments("ls"));
+		verifyRetryerWasNotUsed();
+		verify(dockerCompose).exec(options("-d"), CONTAINER_NAME, arguments("ls"));
+	}
 
-    @Test
-    public void calls_run_on_the_underlying_docker_compose_and_not_invoke_retryer() throws IOException, InterruptedException {
-        retryingDockerCompose.run(DockerComposeRunOption.options("-d"), CONTAINER_NAME, DockerComposeRunArgument.arguments("ls"));
-        verifyRetryerWasNotUsed();
-        verify(dockerCompose).run(DockerComposeRunOption.options("-d"), CONTAINER_NAME, DockerComposeRunArgument.arguments("ls"));
-    }
+	@Test
+	public void calls_run_on_the_underlying_docker_compose_and_not_invoke_retryer() throws IOException, InterruptedException {
+		retryingDockerCompose.run(DockerComposeRunOption.options("-d"), CONTAINER_NAME, DockerComposeRunArgument.arguments("ls"));
+		verifyRetryerWasNotUsed();
+		verify(dockerCompose).run(DockerComposeRunOption.options("-d"), CONTAINER_NAME, DockerComposeRunArgument.arguments("ls"));
+	}
 }

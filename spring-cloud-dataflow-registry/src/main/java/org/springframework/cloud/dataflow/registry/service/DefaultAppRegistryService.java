@@ -81,7 +81,7 @@ public class DefaultAppRegistryService implements AppRegistryService {
 	protected static final Logger logger = LoggerFactory.getLogger(DefaultAppRegistryService.class);
 
 	private final AppRegistrationRepository appRegistrationRepository;
-	
+
 	private AppResourceCommon appResourceCommon;
 
 	protected final AuditRecordService auditRecordService;
@@ -89,7 +89,7 @@ public class DefaultAppRegistryService implements AppRegistryService {
 	protected final AuditServiceUtils auditServiceUtils;
 
 	public DefaultAppRegistryService(AppRegistrationRepository appRegistrationRepository,
-			AppResourceCommon appResourceCommon, AuditRecordService auditRecordService) {
+AppResourceCommon appResourceCommon, AuditRecordService auditRecordService) {
 		Assert.notNull(appResourceCommon, "'appResourceCommon' must not be null");
 		Assert.notNull(appRegistrationRepository, "'appRegistrationRepository' must not be null");
 		Assert.notNull(auditRecordService, "'auditRecordService' must not be null");
@@ -122,7 +122,7 @@ public class DefaultAppRegistryService implements AppRegistryService {
 			String newAppUriNoVersion = removeLastMatch(uri, version);
 			if (!ObjectUtils.nullSafeEquals(defaultAppUriNoVersion, newAppUriNoVersion)) {
 				throw new IllegalArgumentException("Existing default application [" + defaultAppUri
-						+ "] can only differ by a version but is [" + uri + "]");
+			+ "] can only differ by a version but is [" + uri + "]");
 			}
 		}
 	}
@@ -138,14 +138,14 @@ public class DefaultAppRegistryService implements AppRegistryService {
 	@Override
 	public void setDefaultApp(String name, ApplicationType type, String version) {
 		AppRegistration oldDefault = this.appRegistrationRepository
-				.findAppRegistrationByNameAndTypeAndDefaultVersionIsTrue(name, type);
+	.findAppRegistrationByNameAndTypeAndDefaultVersionIsTrue(name, type);
 		if (oldDefault != null) {
 			oldDefault.setDefaultVersion(false);
 			this.appRegistrationRepository.save(oldDefault);
 		}
 
 		AppRegistration newDefault = this.appRegistrationRepository
-				.findAppRegistrationByNameAndTypeAndVersion(name, type, version);
+	.findAppRegistrationByNameAndTypeAndVersion(name, type, version);
 
 		if (newDefault == null) {
 			throw new NoSuchAppRegistrationException(name, type, version);
@@ -156,8 +156,8 @@ public class DefaultAppRegistryService implements AppRegistryService {
 		this.appRegistrationRepository.save(newDefault);
 
 		this.auditRecordService.populateAndSaveAuditRecordUsingMapData(AuditOperationType.APP_REGISTRATION,
-				AuditActionType.UPDATE, newDefault.getName(),
-				this.auditServiceUtils.convertAppRegistrationToAuditData(newDefault), null);
+	AuditActionType.UPDATE, newDefault.getName(),
+	this.auditServiceUtils.convertAppRegistrationToAuditData(newDefault), null);
 	}
 
 	@Override
@@ -185,18 +185,18 @@ public class DefaultAppRegistryService implements AppRegistryService {
 
 	@Override
 	public Page<AppRegistration> findAllByTypeAndNameIsLikeAndDefaultVersionIsTrue(ApplicationType type, String name,
-			Pageable pageable) {
+Pageable pageable) {
 		Page<AppRegistration> result = null;
 		if (!StringUtils.hasText(name) && type == null) {
 			result = this.appRegistrationRepository.findAllByDefaultVersionIsTrue(pageable);
 		}
 		else if (StringUtils.hasText(name) && type == null) {
 			result = this.appRegistrationRepository.findAllByNameContainingIgnoreCaseAndDefaultVersionIsTrue(name,
-					pageable);
+		pageable);
 		}
 		else if (StringUtils.hasText(name)) {
 			result = this.appRegistrationRepository
-					.findAllByTypeAndNameContainingIgnoreCaseAndDefaultVersionIsTrue(type, name, pageable);
+		.findAllByTypeAndNameContainingIgnoreCaseAndDefaultVersionIsTrue(type, name, pageable);
 		}
 		else {
 			result = this.appRegistrationRepository.findAllByTypeAndDefaultVersionIsTrue(type, pageable);
@@ -204,7 +204,7 @@ public class DefaultAppRegistryService implements AppRegistryService {
 		for (AppRegistration pagedAppRegistration : result.getContent()) {
 			for (AppRegistration appRegistration : this.findAll()) {
 				if (pagedAppRegistration.getName().equals(appRegistration.getName()) &&
-						pagedAppRegistration.getType().equals(appRegistration.getType())) {
+			pagedAppRegistration.getType().equals(appRegistration.getType())) {
 					if (pagedAppRegistration.getVersions() == null) {
 						HashSet<String> versions = new HashSet<>();
 						versions.add(appRegistration.getVersion());
@@ -234,7 +234,7 @@ public class DefaultAppRegistryService implements AppRegistryService {
 		AppRegistration createdApp;
 
 		AppRegistration appRegistration = this.appRegistrationRepository.findAppRegistrationByNameAndTypeAndVersion(
-				app.getName(), app.getType(), app.getVersion());
+	app.getName(), app.getType(), app.getVersion());
 		if (appRegistration != null) {
 			appRegistration.setUri(app.getUri());
 			appRegistration.setMetadataUri(app.getMetadataUri());
@@ -260,8 +260,8 @@ public class DefaultAppRegistryService implements AppRegistryService {
 		}
 		else {
 			this.auditRecordService.populateAndSaveAuditRecordUsingMapData(AuditOperationType.APP_REGISTRATION,
-					auditActionType, appRegistration.getName(),
-					this.auditServiceUtils.convertAppRegistrationToAuditData(appRegistration), null);
+		auditActionType, appRegistration.getName(),
+		this.auditServiceUtils.convertAppRegistrationToAuditData(appRegistration), null);
 		}
 	}
 
@@ -277,7 +277,7 @@ public class DefaultAppRegistryService implements AppRegistryService {
 		this.appRegistrationRepository.deleteAppRegistrationByNameAndTypeAndVersion(name, type, version);
 
 		populateAuditData(AuditActionType.DELETE,
-				new AppRegistration(name, type, version, URI.create(""), URI.create("")));
+	new AppRegistration(name, type, version, URI.create(""), URI.create("")));
 	}
 
 	@Override
@@ -287,7 +287,7 @@ public class DefaultAppRegistryService implements AppRegistryService {
 
 	protected boolean isOverwrite(AppRegistration app, boolean overwrite) {
 		return overwrite || this.appRegistrationRepository.findAppRegistrationByNameAndTypeAndVersion(app.getName(),
-				app.getType(), app.getVersion()) == null;
+	app.getType(), app.getVersion()) == null;
 	}
 
 	@Override
@@ -333,9 +333,9 @@ public class DefaultAppRegistryService implements AppRegistryService {
 
 	@Override
 	public Page<AppRegistration> findAllByTypeAndNameIsLikeAndVersionAndDefaultVersion(ApplicationType type,
-			String name, String version, boolean defaultVersion, Pageable pageable) {
+String name, String version, boolean defaultVersion, Pageable pageable) {
 		return appRegistrationRepository.findAllByTypeAndNameIsLikeAndVersionAndDefaultVersion(type, name, version,
-				defaultVersion, pageable);
+	defaultVersion, pageable);
 	}
 
 	protected Properties loadProperties(Resource resource) {
@@ -353,11 +353,11 @@ public class DefaultAppRegistryService implements AppRegistryService {
 		}
 		else if (!StringUtils.hasText(uri.getScheme())) {
 			logger.warn(
-					String.format("Error when registering '%s' with URI %s: URI scheme must be specified", key, uri));
+		String.format("Error when registering '%s' with URI %s: URI scheme must be specified", key, uri));
 		}
 		else if (!StringUtils.hasText(uri.getSchemeSpecificPart())) {
 			logger.warn(String.format("Error when registering '%s' with URI %s: URI scheme-specific part must be " +
-					"specified", key, uri));
+		"specified", key, uri));
 		}
 		return uri;
 	}
@@ -365,25 +365,25 @@ public class DefaultAppRegistryService implements AppRegistryService {
 	@Override
 	public List<AppRegistration> importAll(boolean overwrite, Resource... resources) {
 		List<String[]> lines = Stream.of(resources)
-				// take lines
-				.flatMap(this::resourceAsLines)
-				// take valid splitted lines
-				.flatMap(this::splitValidLines).collect(Collectors.toList());
+	// take lines
+	.flatMap(this::resourceAsLines)
+	// take valid splitted lines
+	.flatMap(this::splitValidLines).collect(Collectors.toList());
 		Map<String, AppRegistration> registrations = new HashMap<>();
 		AppRegistration previous = null;
-		for(String [] line : lines) {
+		for (String [] line : lines) {
 			previous = createAppRegistrations(registrations, line, previous);
 		}
 		List<AppRegistration> result = registrations.values()
-				.stream()
-				// drop registration if it doesn't have main uri as user only had metadata
-				.filter(ar -> ar.getUri() != null)
-				// filter by overriding, save to repo and collect updated registrations
-				.filter(ar -> isOverwrite(ar, overwrite))
-				.map(ar -> {
-					save(ar);
-					return ar;
-				}).collect(Collectors.toList());
+	.stream()
+	// drop registration if it doesn't have main uri as user only had metadata
+	.filter(ar -> ar.getUri() != null)
+	// filter by overriding, save to repo and collect updated registrations
+	.filter(ar -> isOverwrite(ar, overwrite))
+	.map(ar -> {
+		save(ar);
+		return ar;
+	}).collect(Collectors.toList());
 		return result;
 	}
 
@@ -391,7 +391,7 @@ public class DefaultAppRegistryService implements AppRegistryService {
 		String[] typeName = lineSplit[0].split("\\.");
 		if (typeName.length < 2 || typeName.length > 3) {
 			throw new IllegalArgumentException("Invalid format for app key '" + lineSplit[0]
-					+ "'in file. Must be <type>.<name> or <type>.<name>.metadata or <type>.<name>.bootVersion");
+		+ "'in file. Must be <type>.<name> or <type>.<name>.metadata or <type>.<name>.bootVersion");
 		}
 		String type = typeName[0].trim();
 		String name = typeName[1].trim();
@@ -402,7 +402,7 @@ public class DefaultAppRegistryService implements AppRegistryService {
 		if (!registrations.containsKey(key) && registrations.containsKey(type + name + "latest")) {
 			key = type + name + "latest";
 		}
-		if("bootVersion".equals(extra)) {
+		if ("bootVersion".equals(extra)) {
 			if (previous == null) {
 				throw new IllegalArgumentException("Expected uri for bootVersion:" + lineSplit[0]);
 			}
@@ -423,7 +423,8 @@ public class DefaultAppRegistryService implements AppRegistryService {
 			} catch (Exception e) {
 				throw new IllegalArgumentException(e);
 			}
-		} else if (typeName.length == 3) {
+		}
+		else if (typeName.length == 3) {
 			if (extra.equals("metadata")) {
 				// metadata app uri
 				try {
@@ -432,7 +433,8 @@ public class DefaultAppRegistryService implements AppRegistryService {
 				} catch (Exception e) {
 					throw new IllegalArgumentException(e);
 				}
-			} else if (!"bootVersion".equals(extra)) {
+			}
+			else if (!"bootVersion".equals(extra)) {
 				throw new IllegalArgumentException("Invalid property: " + lineSplit[0]);
 			}
 		}
@@ -453,16 +455,16 @@ public class DefaultAppRegistryService implements AppRegistryService {
 	private Stream<String[]> splitValidLines(String line) {
 		// split to key/value, filter out non valid lines and trim key and value.
 		return Stream.of(line)
-				.filter(skipCommentLines())
-				.map(l -> l.split("="))
-				.filter(split -> split.length == 2)
-				.map(split -> new String[] { split[0].trim(), split[1].trim() });
+	.filter(skipCommentLines())
+	.map(l -> l.split("="))
+	.filter(split -> split.length == 2)
+	.map(split -> new String[]{split[0].trim(), split[1].trim()});
 	}
 
 	private Predicate<String> skipCommentLines() {
 		// skipping obvious lines which we don't even try to parse
 		return line -> line != null &&
-				StringUtils.hasText(line) &&
-				(!line.startsWith("#") || !line.startsWith("/"));
+	StringUtils.hasText(line) &&
+	(!line.startsWith("#") || !line.startsWith("/"));
 	}
 }

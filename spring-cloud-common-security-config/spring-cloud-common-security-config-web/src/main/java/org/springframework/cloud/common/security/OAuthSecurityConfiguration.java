@@ -109,18 +109,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.ANY)
 @EnableWebSecurity
 @Conditional(OnOAuth2SecurityEnabled.class)
-@Import({
-		OAuthSecurityConfiguration.OAuth2AccessTokenResponseClientConfig.class,
-		OAuthSecurityConfiguration.OAuth2AuthenticationFailureEventConfig.class,
-		OAuthSecurityConfiguration.OpaqueTokenIntrospectorConfig.class,
-		OAuthSecurityConfiguration.OidcUserServiceConfig.class,
-		OAuthSecurityConfiguration.PlainOauth2UserServiceConfig.class,
-		OAuthSecurityConfiguration.WebClientConfig.class,
-		OAuthSecurityConfiguration.AuthoritiesMapperConfig.class,
-		OAuthSecurityConfiguration.OAuth2TokenUtilsServiceConfig.class,
-		OAuthSecurityConfiguration.LogoutSuccessHandlerConfig.class,
-		OAuthSecurityConfiguration.ProviderManagerConfig.class,
-		OAuthSecurityConfiguration.AuthenticationProviderConfig.class
+@Import({OAuthSecurityConfiguration.OAuth2AccessTokenResponseClientConfig.class,OAuthSecurityConfiguration.OAuth2AuthenticationFailureEventConfig.class,OAuthSecurityConfiguration.OpaqueTokenIntrospectorConfig.class,OAuthSecurityConfiguration.OidcUserServiceConfig.class,OAuthSecurityConfiguration.PlainOauth2UserServiceConfig.class,OAuthSecurityConfiguration.WebClientConfig.class,OAuthSecurityConfiguration.AuthoritiesMapperConfig.class,OAuthSecurityConfiguration.OAuth2TokenUtilsServiceConfig.class,OAuthSecurityConfiguration.LogoutSuccessHandlerConfig.class,OAuthSecurityConfiguration.ProviderManagerConfig.class,OAuthSecurityConfiguration.AuthenticationProviderConfig.class
 })
 public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -203,8 +192,8 @@ public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		final RequestMatcher textHtmlMatcher = new MediaTypeRequestMatcher(
-				new BrowserDetectingContentNegotiationStrategy(),
-				MediaType.TEXT_HTML);
+	new BrowserDetectingContentNegotiationStrategy(),
+	MediaType.TEXT_HTML);
 
 		final BasicAuthenticationEntryPoint basicAuthenticationEntryPoint = new BasicAuthenticationEntryPoint();
 		basicAuthenticationEntryPoint.setRealmName(SecurityConfigUtils.BASIC_AUTH_REALM_NAME);
@@ -212,59 +201,57 @@ public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		if (opaqueTokenIntrospector != null) {
 			BasicAuthenticationFilter basicAuthenticationFilter = new BasicAuthenticationFilter(
-					providerManager, basicAuthenticationEntryPoint);
+		providerManager, basicAuthenticationEntryPoint);
 			http.addFilter(basicAuthenticationFilter);
 		}
 
 		this.authorizationProperties.getAuthenticatedPaths().add("/");
 		this.authorizationProperties.getAuthenticatedPaths()
-				.add(dashboard(authorizationProperties, "/**"));
+	.add(dashboard(authorizationProperties, "/**"));
 		this.authorizationProperties.getAuthenticatedPaths()
-				.add(this.authorizationProperties.getDashboardUrl());
+	.add(this.authorizationProperties.getDashboardUrl());
 		this.authorizationProperties.getPermitAllPaths()
-				.add(this.authorizationProperties.getDashboardUrl());
+	.add(this.authorizationProperties.getDashboardUrl());
 		this.authorizationProperties.getPermitAllPaths()
-				.add(dashboard(authorizationProperties, "/**"));
+	.add(dashboard(authorizationProperties, "/**"));
 		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry security =
 
-				http.authorizeRequests()
-						.antMatchers(this.authorizationProperties.getPermitAllPaths()
-								.toArray(new String[0]))
-						.permitAll()
-						.antMatchers(this.authorizationProperties.getAuthenticatedPaths()
-								.toArray(new String[0]))
-						.authenticated();
+	http.authorizeRequests()
+.antMatchers(this.authorizationProperties.getPermitAllPaths().toArray(new String[0]))
+.permitAll()
+.antMatchers(this.authorizationProperties.getAuthenticatedPaths().toArray(new String[0]))
+.authenticated();
 		security = SecurityConfigUtils.configureSimpleSecurity(security, this.authorizationProperties);
 		security.anyRequest().denyAll();
 
 
 		http.httpBasic().and()
-				.logout()
-				.logoutSuccessHandler(logoutSuccessHandler)
-				.and().csrf().disable()
-				.exceptionHandling()
-				// for UI not to send basic auth header
-				.defaultAuthenticationEntryPointFor(
-						new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
-						new RequestHeaderRequestMatcher("X-Requested-With", "XMLHttpRequest"))
-				.defaultAuthenticationEntryPointFor(
-						new LoginUrlAuthenticationEntryPoint(this.authorizationProperties.getLoginProcessingUrl()),
-						textHtmlMatcher)
-				.defaultAuthenticationEntryPointFor(basicAuthenticationEntryPoint, AnyRequestMatcher.INSTANCE);
+	.logout()
+	.logoutSuccessHandler(logoutSuccessHandler)
+	.and().csrf().disable()
+	.exceptionHandling()
+	// for UI not to send basic auth header
+	.defaultAuthenticationEntryPointFor(
+new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
+new RequestHeaderRequestMatcher("X-Requested-With", "XMLHttpRequest"))
+	.defaultAuthenticationEntryPointFor(
+new LoginUrlAuthenticationEntryPoint(this.authorizationProperties.getLoginProcessingUrl()),
+textHtmlMatcher)
+	.defaultAuthenticationEntryPointFor(basicAuthenticationEntryPoint, AnyRequestMatcher.INSTANCE);
 
 		http.oauth2Login().userInfoEndpoint()
-				.userService(this.plainOauth2UserService)
-				.oidcUserService(this.oidcUserService);
+	.userService(this.plainOauth2UserService)
+	.oidcUserService(this.oidcUserService);
 
 		if (opaqueTokenIntrospector != null) {
 			http.oauth2ResourceServer()
-					.opaqueToken()
-					.introspector(opaqueTokenIntrospector);
+		.opaqueToken()
+		.introspector(opaqueTokenIntrospector);
 		}
 		else if (oAuth2ResourceServerProperties.getJwt().getJwkSetUri() != null) {
 			http.oauth2ResourceServer()
-					.jwt()
-					.jwtAuthenticationConverter(grantedAuthoritiesExtractor());
+		.jwt()
+		.jwtAuthenticationConverter(grantedAuthoritiesExtractor());
 		}
 
 		this.securityStateBean.setAuthenticationEnabled(true);
@@ -277,10 +264,10 @@ public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected Converter<Jwt, AbstractAuthenticationToken> grantedAuthoritiesExtractor() {
 		String providerId = calculateDefaultProviderId(authorizationProperties, oauth2ClientProperties);
 		ProviderRoleMapping providerRoleMapping = authorizationProperties.getProviderRoleMappings()
-				.get(providerId);
+	.get(providerId);
 
 		JwtAuthenticationConverter jwtAuthenticationConverter =
-				new JwtAuthenticationConverter();
+	new JwtAuthenticationConverter();
 
 		MappingJwtGrantedAuthoritiesConverter converter = new MappingJwtGrantedAuthoritiesConverter();
 		converter.setAuthorityPrefix("");
@@ -301,10 +288,10 @@ public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		}
 		else if (oauth2ClientProperties.getRegistration().size() == 1) {
 			return oauth2ClientProperties.getRegistration().entrySet().iterator().next()
-					.getKey();
+		.getKey();
 		}
 		else if (oauth2ClientProperties.getRegistration().size() > 1
-				&& !StringUtils.hasText(authorizationProperties.getDefaultProviderId())) {
+	&& !StringUtils.hasText(authorizationProperties.getDefaultProviderId())) {
 			throw new IllegalStateException("defaultProviderId must be set if more than 1 Registration is provided.");
 		}
 		else {
@@ -317,12 +304,12 @@ public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected static class OpaqueTokenIntrospectorConfig {
 		@Bean
 		protected OpaqueTokenIntrospector opaqueTokenIntrospector(OAuth2ResourceServerProperties oAuth2ResourceServerProperties,
-				AuthoritiesMapper authoritiesMapper) {
+	AuthoritiesMapper authoritiesMapper) {
 			return new CustomAuthoritiesOpaqueTokenIntrospector(
-					oAuth2ResourceServerProperties.getOpaquetoken().getIntrospectionUri(),
-					oAuth2ResourceServerProperties.getOpaquetoken().getClientId(),
-					oAuth2ResourceServerProperties.getOpaquetoken().getClientSecret(),
-					authoritiesMapper);
+		oAuth2ResourceServerProperties.getOpaquetoken().getIntrospectionUri(),
+		oAuth2ResourceServerProperties.getOpaquetoken().getClientId(),
+		oAuth2ResourceServerProperties.getOpaquetoken().getClientSecret(),
+		authoritiesMapper);
 		}
 	}
 
@@ -346,17 +333,17 @@ public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected static class OAuth2AuthorizedClientManagerConfig {
 		@Bean
 		protected OAuth2AuthorizedClientManager authorizedClientManager(
-				ClientRegistrationRepository clientRegistrationRepository,
-				OAuth2AuthorizedClientRepository authorizedClientRepository) {
+	ClientRegistrationRepository clientRegistrationRepository,
+	OAuth2AuthorizedClientRepository authorizedClientRepository) {
 			OAuth2AuthorizedClientProvider authorizedClientProvider =
-					OAuth2AuthorizedClientProviderBuilder.builder()
-							.authorizationCode()
-							.refreshToken()
-							.clientCredentials()
-							.password()
-							.build();
+		OAuth2AuthorizedClientProviderBuilder.builder()
+	.authorizationCode()
+	.refreshToken()
+	.clientCredentials()
+	.password()
+	.build();
 			DefaultOAuth2AuthorizedClientManager authorizedClientManager = new DefaultOAuth2AuthorizedClientManager(
-					clientRegistrationRepository, authorizedClientRepository);
+		clientRegistrationRepository, authorizedClientRepository);
 			authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
 			return authorizedClientManager;
 		}
@@ -367,11 +354,11 @@ public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		@Bean
 		protected WebClient webClient(OAuth2AuthorizedClientManager authorizedClientManager) {
 			ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2Client =
-					new ServletOAuth2AuthorizedClientExchangeFilterFunction(authorizedClientManager);
+		new ServletOAuth2AuthorizedClientExchangeFilterFunction(authorizedClientManager);
 			oauth2Client.setDefaultOAuth2AuthorizedClient(true);
 			return WebClient.builder()
-					.apply(oauth2Client.oauth2Configuration())
-					.build();
+		.apply(oauth2Client.oauth2Configuration())
+		.build();
 		}
 	}
 
@@ -379,16 +366,16 @@ public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected static class AuthoritiesMapperConfig {
 		@Bean
 		protected AuthoritiesMapper authorityMapper(AuthorizationProperties authorizationProperties,
-				OAuth2ClientProperties oAuth2ClientProperties) {
+	OAuth2ClientProperties oAuth2ClientProperties) {
 			AuthoritiesMapper authorityMapper;
 			if (!StringUtils.hasText(authorizationProperties.getExternalAuthoritiesUrl())) {
 				authorityMapper = new DefaultAuthoritiesMapper(
-						authorizationProperties.getProviderRoleMappings(),
-						calculateDefaultProviderId(authorizationProperties, oAuth2ClientProperties));
+			authorizationProperties.getProviderRoleMappings(),
+			calculateDefaultProviderId(authorizationProperties, oAuth2ClientProperties));
 			}
 			else {
 				authorityMapper = new ExternalOauth2ResourceAuthoritiesMapper(
-						URI.create(authorizationProperties.getExternalAuthoritiesUrl()));
+			URI.create(authorizationProperties.getExternalAuthoritiesUrl()));
 			}
 			return authorityMapper;
 		}
@@ -398,9 +385,9 @@ public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected static class LogoutSuccessHandlerConfig {
 		@Bean
 		protected LogoutSuccessHandler logoutSuccessHandler(AuthorizationProperties authorizationProperties,
-				OAuth2TokenUtilsService oauth2TokenUtilsService) {
+	OAuth2TokenUtilsService oauth2TokenUtilsService) {
 			AccessTokenClearingLogoutSuccessHandler logoutSuccessHandler =
-					new AccessTokenClearingLogoutSuccessHandler(oauth2TokenUtilsService);
+		new AccessTokenClearingLogoutSuccessHandler(oauth2TokenUtilsService);
 			logoutSuccessHandler.setDefaultTargetUrl(dashboard(authorizationProperties, "/logout-success-oauth.html"));
 			return logoutSuccessHandler;
 		}
@@ -419,15 +406,15 @@ public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		@Bean
 		protected AuthenticationProvider authenticationProvider(
-				OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> oAuth2PasswordTokenResponseClient,
-				ClientRegistrationRepository clientRegistrationRepository,
-				AuthorizationProperties authorizationProperties,
-				OAuth2ClientProperties oauth2ClientProperties) {
+	OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> oAuth2PasswordTokenResponseClient,
+	ClientRegistrationRepository clientRegistrationRepository,
+	AuthorizationProperties authorizationProperties,
+	OAuth2ClientProperties oauth2ClientProperties) {
 			return new ManualOAuthAuthenticationProvider(
-					oAuth2PasswordTokenResponseClient,
-					clientRegistrationRepository,
-					this.opaqueTokenIntrospector,
-					calculateDefaultProviderId(authorizationProperties, oauth2ClientProperties));
+		oAuth2PasswordTokenResponseClient,
+		clientRegistrationRepository,
+		this.opaqueTokenIntrospector,
+		calculateDefaultProviderId(authorizationProperties, oauth2ClientProperties));
 
 		}
 	}
@@ -466,9 +453,9 @@ public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected static class OAuth2AuthenticationFailureEventConfig {
 		@EventListener
 		public void handleOAuth2AuthenticationFailureEvent(
-				AbstractAuthenticationFailureEvent authenticationFailureEvent) {
+	AbstractAuthenticationFailureEvent authenticationFailureEvent) {
 			logger.warn("An authentication failure event occurred while accessing a REST resource that requires authentication.",
-					authenticationFailureEvent.getException());
+		authenticationFailureEvent.getException());
 		}
 	}
 
@@ -486,7 +473,7 @@ public class OAuthSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			final List<MediaType> supportedMediaTypes = super.resolveMediaTypes(request);
 			final String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
 			if (userAgent != null && userAgent.contains("Mozilla/5.0")
-					&& !supportedMediaTypes.contains(MediaType.APPLICATION_JSON)) {
+		&& !supportedMediaTypes.contains(MediaType.APPLICATION_JSON)) {
 				return Collections.singletonList(MediaType.TEXT_HTML);
 			}
 			return Collections.singletonList(MediaType.APPLICATION_JSON);

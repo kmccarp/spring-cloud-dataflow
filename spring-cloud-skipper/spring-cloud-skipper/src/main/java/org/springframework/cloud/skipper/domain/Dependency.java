@@ -46,7 +46,7 @@ public class Dependency {
 	}
 
 	public Dependency(String name, String version, String checksumsha1,
-			String checksumsha256, String url) {
+String checksumsha256, String url) {
 		super();
 		this.name = name;
 		this.version = version;

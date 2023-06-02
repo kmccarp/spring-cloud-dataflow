@@ -72,60 +72,42 @@ public class FlywayVendorReplacingApplicationContextInitializerTests {
 
 	private static Stream<Arguments> vendorReplacedProperlyProvider() {
 		return Stream.of(
-				arguments(Named.of("singleLocationWithVendor",true), true,
-						Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}"),
-						Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/mysql")
-				),
-				arguments(Named.of("singleLocationWithoutVendor",true), true,
-						Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/foo"),
-						Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/foo")
-				),
-				arguments(Named.of("noLocations",true), true,
-						Collections.emptyList(),
-						Collections.emptyList()
-				),
-				arguments(Named.of("multiLocationsAllWithVendor",true), true,
-						Arrays.asList(
-								"spring.flyway.locations[0]=classpath:org/skipper/db0/{vendor}",
-								"spring.flyway.locations[1]=classpath:org/skipper/db1/{vendor}",
-								"spring.flyway.locations[2]=classpath:org/skipper/db2/{vendor}"),
-						Arrays.asList(
-								"spring.flyway.locations[0]=classpath:org/skipper/db0/mysql",
-								"spring.flyway.locations[1]=classpath:org/skipper/db1/mysql",
-								"spring.flyway.locations[2]=classpath:org/skipper/db2/mysql")
-				),
-				arguments(Named.of("multiLocationsSomeWithVendor",true), true,
-						Arrays.asList(
-								"spring.flyway.locations[0]=classpath:org/skipper/db0/{vendor}",
-								"spring.flyway.locations[1]=classpath:org/skipper/db1/foo",
-								"spring.flyway.locations[2]=classpath:org/skipper/db2/{vendor}"),
-						Arrays.asList(
-								"spring.flyway.locations[0]=classpath:org/skipper/db0/mysql",
-								"spring.flyway.locations[1]=classpath:org/skipper/db1/foo",
-								"spring.flyway.locations[2]=classpath:org/skipper/db2/mysql")
-				),
-				arguments(Named.of("multiLocationsNoneWithVendor",true), true,
-						Arrays.asList(
-								"spring.flyway.locations[0]=classpath:org/skipper/db0/foo",
-								"spring.flyway.locations[1]=classpath:org/skipper/db1/bar",
-								"spring.flyway.locations[2]=classpath:org/skipper/db2/zaa"),
-						Arrays.asList(
-								"spring.flyway.locations[0]=classpath:org/skipper/db0/foo",
-								"spring.flyway.locations[1]=classpath:org/skipper/db1/bar",
-								"spring.flyway.locations[2]=classpath:org/skipper/db2/zaa")
-				),
-				arguments(Named.of("mariaUrlWithMariaDriverDoesNotReplace",false), true,
-						Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}"),
-						Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}")
-				),
-				arguments(Named.of("mysqlUrlWithMysqlDriverDoesNotReplace",true), false,
-						Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}"),
-						Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}")
-				),
-				arguments(Named.of("mariaUrlMysqlDriverDoesNotReplace",false), false,
-						Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}"),
-						Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}")
-				)
+	arguments(Named.of("singleLocationWithVendor", true), true,
+Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}"),
+Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/mysql")
+	),
+	arguments(Named.of("singleLocationWithoutVendor", true), true,
+Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/foo"),
+Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/foo")
+	),
+	arguments(Named.of("noLocations", true), true,
+Collections.emptyList(),
+Collections.emptyList()
+	),
+	arguments(Named.of("multiLocationsAllWithVendor", true), true,
+Arrays.asList("spring.flyway.locations[0]=classpath:org/skipper/db0/{vendor}","spring.flyway.locations[1]=classpath:org/skipper/db1/{vendor}","spring.flyway.locations[2]=classpath:org/skipper/db2/{vendor}"),
+Arrays.asList("spring.flyway.locations[0]=classpath:org/skipper/db0/mysql","spring.flyway.locations[1]=classpath:org/skipper/db1/mysql","spring.flyway.locations[2]=classpath:org/skipper/db2/mysql")
+	),
+	arguments(Named.of("multiLocationsSomeWithVendor", true), true,
+Arrays.asList("spring.flyway.locations[0]=classpath:org/skipper/db0/{vendor}","spring.flyway.locations[1]=classpath:org/skipper/db1/foo","spring.flyway.locations[2]=classpath:org/skipper/db2/{vendor}"),
+Arrays.asList("spring.flyway.locations[0]=classpath:org/skipper/db0/mysql","spring.flyway.locations[1]=classpath:org/skipper/db1/foo","spring.flyway.locations[2]=classpath:org/skipper/db2/mysql")
+	),
+	arguments(Named.of("multiLocationsNoneWithVendor", true), true,
+Arrays.asList("spring.flyway.locations[0]=classpath:org/skipper/db0/foo","spring.flyway.locations[1]=classpath:org/skipper/db1/bar","spring.flyway.locations[2]=classpath:org/skipper/db2/zaa"),
+Arrays.asList("spring.flyway.locations[0]=classpath:org/skipper/db0/foo","spring.flyway.locations[1]=classpath:org/skipper/db1/bar","spring.flyway.locations[2]=classpath:org/skipper/db2/zaa")
+	),
+	arguments(Named.of("mariaUrlWithMariaDriverDoesNotReplace", false), true,
+Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}"),
+Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}")
+	),
+	arguments(Named.of("mysqlUrlWithMysqlDriverDoesNotReplace", true), false,
+Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}"),
+Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}")
+	),
+	arguments(Named.of("mariaUrlMysqlDriverDoesNotReplace", false), false,
+Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}"),
+Collections.singletonList("spring.flyway.locations[0]=classpath:org/skipper/db/{vendor}")
+	)
 		);
 	}
 }

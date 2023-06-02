@@ -28,7 +28,7 @@ import org.springframework.batch.core.JobExecution;
  * @author Gunnar Hillert
  * @since 1.0
  */
-@JsonIgnoreProperties({ "running", "jobId", "stopping" })
+@JsonIgnoreProperties({"running", "jobId", "stopping"})
 public abstract class JobExecutionJacksonMixIn {
 
 	JobExecutionJacksonMixIn(@JsonProperty("id") Long id) {

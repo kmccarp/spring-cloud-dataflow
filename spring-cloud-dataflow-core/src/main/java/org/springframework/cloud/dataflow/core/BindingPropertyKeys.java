@@ -67,12 +67,12 @@ public class BindingPropertyKeys {
 	 * Partition Key Expression property key for output binding.
 	 */
 	public static final String OUTPUT_PARTITION_KEY_EXPRESSION = OUTPUT_BINDING_KEY_PREFIX
-			+ "producer.partitionKeyExpression";
++ "producer.partitionKeyExpression";
 	/**
 	 * Partition Key Extractor Class property key for output binding.
 	 */
 	public static final String OUTPUT_PARTITION_KEY_EXTRACTOR_CLASS = OUTPUT_BINDING_KEY_PREFIX
-			+ "producer.partitionKeyExtractorClass";
++ "producer.partitionKeyExtractorClass";
 
 
 	private static final String CONTENT_TYPE = "contentType";
